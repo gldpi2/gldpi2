@@ -17,6 +17,10 @@ import utils.DatabaseInterface;
  */
 public class DatabaseInterfaceTest {
     DatabaseInterface dbInterface = new DatabaseInterface();
+    String host = "gld.zapto.org";
+    String database = "banco_teste";
+    String user = "admin";
+    String pass = "admin";
     
     public DatabaseInterfaceTest() {
         
@@ -35,14 +39,14 @@ public class DatabaseInterfaceTest {
     
     @Test
     public void configureTest(){
-        this.dbInterface.configureConnection("localhost", "banco_teste", "root", "root");
+        this.dbInterface.configureConnection(host, database, user, pass);
         
         assertTrue(true);
     }
     
     @Test
     public void connectionTest() {
-        this.dbInterface.configureConnection("localhost", "banco_teste", "root", "root");
+        this.dbInterface.configureConnection(host, database, user, pass);
         this.dbInterface.connect();
         
         assertTrue(dbInterface.isConnected());
@@ -50,7 +54,7 @@ public class DatabaseInterfaceTest {
     
     @Test
     public void disconnectTest(){
-        this.dbInterface.configureConnection("localhost", "banco_teste", "root", "root");
+        this.dbInterface.configureConnection(host, database, user, pass);
         this.dbInterface.connect();
         this.dbInterface.disconnect();
         

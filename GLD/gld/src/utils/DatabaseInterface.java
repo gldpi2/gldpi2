@@ -99,7 +99,7 @@ public class DatabaseInterface {
                 this.conn.close();
                 this.status = false;
             }else{
-                System.out.println("Não é possível desconectar. Nnão conectado.");
+                System.out.println("Não é possível desconectar. Não conectado.");
             }
             
             System.out.println("Fechando a conexão");
