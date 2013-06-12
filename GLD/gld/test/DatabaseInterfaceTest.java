@@ -4,9 +4,7 @@
  */
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import utils.DatabaseInterface;
@@ -18,7 +16,7 @@ import utils.DatabaseInterface;
 public class DatabaseInterfaceTest {
     DatabaseInterface dbInterface = new DatabaseInterface();
     String host = "gld.zapto.org";
-    String database = "banco_teste";
+    String database = "gld_database";
     String user = "admin";
     String pass = "admin";
     
@@ -41,7 +39,7 @@ public class DatabaseInterfaceTest {
     public void configureTest(){
         this.dbInterface.configureConnection(host, database, user, pass);
         
-        assertTrue(true);
+        assertTrue(this.dbInterface.isConfigured());
     }
     
     @Test
@@ -52,7 +50,7 @@ public class DatabaseInterfaceTest {
         assertTrue(dbInterface.isConnected());
     }
     
-    @Test
+    //@Test
     public void disconnectTest(){
         this.dbInterface.configureConnection(host, database, user, pass);
         this.dbInterface.connect();
