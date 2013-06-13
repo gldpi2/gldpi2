@@ -1,0 +1,67 @@
+DIREITOS AUTORAIS : RAFAEL FERREIRA DOS SANTOS! HAHAHAHA
+
+Copiar o arquivo "go-pear.phar' para a pasta c:/xampp/php
+
+Abra o terminal (de preferencia como administrador) e digite os seguintes comandos (aguardando sempre o comando digitado finalizar).
+CASO OCORRA ERROS, NÃO PARE, CONTINUA COLOCANDO OS COMANDOS!!
+
+cd C:\xampp\php
+
+php go-pear.phar
+
+C:\xampp\php> pear update-channels
+
+C:\xampp\php> pear upgrade-all
+
+C:\xampp\php> pear channel-discover components.ez.no
+
+C:\xampp\php> pear channel-discover pear.symfony-project.com
+
+C:\xampp\php> pear channel-discover pear.phpunit.de
+
+C:\xampp\php> pear install --alldeps phpunit/PHPUnit
+
+C:\xampp\php> pear clear-cache
+
+C:\xampp\php> pear channel-discover pear.phpunit.de
+
+C:\xampp\php> pear install --onlyreqdeps phpunit/PHPUnit
+
+C:\xampp\php> pear clear-cache
+
+C:\xampp\php> pear channel-discover pear.phpunit.de
+
+C:\xampp\php> pear channel-discover pear.symfony-project.com
+
+C:\xampp\php> pear install --alldeps phpunit/PHPUnit
+
+C:\xampp\php> phpunit --version
+
+CASO APAREÇA -> Fatal error: Call to undefined method PHP_CodeCoverage_Filter::getInstance() in C:\xampp\php\phpunit on line 39
+CONTINUE COM OS COMANDOS
+SE DER CERTO, PARE AQUI ;)
+
+C:\xampp\php> pear install pear
+
+C:\xampp\php> phpunit --version
+
+C:\xampp\php> pear channel-discover pear.symfony.com pear install pear.symfony.com/Yaml
+
+C:\xampp\php> pear install --alldeps pear.phpunit.de/PHPUnit
+
+C:\xampp\php> pear config-set auto_discover 1
+
+C:\xampp\php> pear install pear.phpunit.de/PHPUnit
+
+C:\xampp\php> pear clear-cache
+
+C:\xampp\php> pear update-channels
+
+C:\xampp\php> pear install pear.phpunit.de/PHPUnit
+
+E FINALMENTE
+
+C:\xampp\php> phpunit --version
+PHPUnit 3.7.10 by Sebastian Bergmann.
+
+PRONTO!!!!
