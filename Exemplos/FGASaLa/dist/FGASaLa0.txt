@@ -1,0 +1,8 @@
+Jun 12, 2013 8:50:12 PM projetofinaltecnicas.Main main
+INFO: Programa iniciado!
+Jun 12, 2013 8:50:12 PM projetofinaltecnicas.Main main
+INFO: Conectado com o banco de dados, aplica??o iniciada com sucesso!
+Jun 12, 2013 8:50:23 PM janelas.MenuPrincipal jEntrarjEntrarActionPerformed
+INFO: Sess?o iniciada com sucesso!
+Jun 12, 2013 8:52:31 PM janelas.SalasDisponiveis jVerificarActionPerformed
+INFO: A Sala: 13 teve sua disponibilidade verificada pelo usu?rio: admin
