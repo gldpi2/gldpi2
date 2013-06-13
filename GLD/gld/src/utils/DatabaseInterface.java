@@ -7,6 +7,7 @@ import java.sql.*;
  * @author wagner
  */
 public class DatabaseInterface {
+
     private String host;
     private String database;
     private String user;
