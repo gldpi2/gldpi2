@@ -1,0 +1,64 @@
+<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="1174" measuredH="736" mockupW="1024" mockupH="726">
+  <controls>
+    <control controlID="0" controlTypeID="__group__" x="150" y="10" w="1024" h="726" measuredW="1024" measuredH="726" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <controlName>Tela%20Base</controlName>
+      </controlProperties>
+      <groupChildrenDescriptors>
+        <control controlID="30" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="1024" h="726" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="0">
+          <controlProperties>
+            <bottomheight>0</bottomheight>
+            <close>true</close>
+            <maximizeRestore>true</maximizeRestore>
+            <minimize>true</minimize>
+            <text/>
+            <topheight>77</topheight>
+          </controlProperties>
+        </control>
+        <control controlID="32" controlTypeID="com.balsamiq.mockups::Label" x="472" y="15" w="-1" h="-1" measuredW="107" measuredH="48" zOrder="1" locked="false" isInGroup="0">
+          <controlProperties>
+            <size>40</size>
+            <text>GLD+</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="2" controlTypeID="__group__" x="437" y="279" w="450" h="189" measuredW="450" measuredH="189" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <controlName>Login</controlName>
+      </controlProperties>
+      <groupChildrenDescriptors>
+        <control controlID="0" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="450" h="189" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="2">
+          <controlProperties>
+            <bottomheight>34</bottomheight>
+            <text>Informe%20o%20usu%E1rio%20e%20senha</text>
+          </controlProperties>
+        </control>
+        <control controlID="1" controlTypeID="com.balsamiq.mockups::Label" x="54" y="62" w="-1" h="-1" measuredW="47" measuredH="21" zOrder="1" locked="false" isInGroup="2">
+          <controlProperties>
+            <text>Usu%E1rio%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="2" controlTypeID="com.balsamiq.mockups::TextInput" x="122" y="60" w="220" h="-1" measuredW="79" measuredH="23" zOrder="2" locked="false" isInGroup="2"/>
+        <control controlID="3" controlTypeID="com.balsamiq.mockups::Label" x="60" y="99" w="-1" h="-1" measuredW="40" measuredH="21" zOrder="3" locked="false" isInGroup="2">
+          <controlProperties>
+            <text>Senha%3A</text>
+          </controlProperties>
+        </control>
+        <control controlID="4" controlTypeID="com.balsamiq.mockups::TextInput" x="122" y="97" w="220" h="-1" measuredW="79" measuredH="23" zOrder="4" locked="false" isInGroup="2"/>
+        <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="375" y="160" w="-1" h="-1" measuredW="58" measuredH="24" zOrder="5" locked="false" isInGroup="2">
+          <controlProperties>
+            <href>tela_Padrao%26bm%3Btela_Padrao.bmml%26bm%3Btela_Padrao.bmml%26bm%3Btela_Padrao.bmml</href>
+            <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22662%2C429%2C720%2C453%22%20href%3D%22tela_Padrao.bmml%22%20alt%3D%22tela_Padrao%22%20id%3D%226%22/%3E</map>
+            <text>Entrar</text>
+          </controlProperties>
+        </control>
+        <control controlID="9" controlTypeID="com.balsamiq.mockups::Image" x="8" y="163" w="-1" h="-1" measuredW="138" measuredH="19" zOrder="6" locked="false" isInGroup="2">
+          <controlProperties>
+            <src>%24ACCOUNT/assets/esqueceu_senha.png</src>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+  </controls>
+</mockup>
