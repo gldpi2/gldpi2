@@ -1,6 +1,8 @@
 package utils;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -129,5 +131,15 @@ public class DatabaseInterface {
      */
     public boolean isConfigured(){
         return this.configured;
+    }
+    
+    public Statement getStatement(){
+        try {
+            return this.conn.createStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return null;           
     }
 }

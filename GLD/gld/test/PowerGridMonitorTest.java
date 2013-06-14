@@ -23,13 +23,13 @@ public class PowerGridMonitorTest {
     }
     
     @Test
-    public void hello() {
+    public void test() {
         try {
             PowerGridMonitor powerGridMonitor = new PowerGridMonitor();
             Thread threadMonitor = new Thread(powerGridMonitor);
 
             threadMonitor.start();
-
+            
             threadMonitor.join();
 
         } catch (InterruptedException ex) {

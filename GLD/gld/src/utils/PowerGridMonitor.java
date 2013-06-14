@@ -1,5 +1,6 @@
 package utils;
 
+import com.mysql.jdbc.Statement;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -48,5 +49,11 @@ public class PowerGridMonitor implements Runnable {
         
         double potency;
         double powerFactor;
+        
+        Statement statement
+        
+        dbInterface.connect();
+        
+        dbInterface.disconnect();
     }
 }
