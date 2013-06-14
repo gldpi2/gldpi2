@@ -50,9 +50,10 @@ public class PowerGridMonitor implements Runnable {
         double potency;
         double powerFactor;
         
-        Statement statement
-        
         dbInterface.connect();
+        Statement statement = dbInterface.cre
+        
+        
         
         dbInterface.disconnect();
     }
