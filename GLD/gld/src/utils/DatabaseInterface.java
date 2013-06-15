@@ -1,8 +1,14 @@
 package utils;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  *
@@ -21,36 +27,26 @@ public class DatabaseInterface {
     public Connection conn = null;
     
     /**
-     * Construtor padrão da classe
+     * Construtor da classe DatabaseInterface.
      */
-    public DatabaseInterface(){
-        this.connected = false;
-        this.configured = false;
-    }
-
-    /**
-     * Construtor da classe
-     *
-     * @param host Host em que se deseja conectar
-     * @param database Nome do database em que se deseja conectar
-     * @param user Nome do usuário
-     * @param pass Senha do usuário
-     */
-    public DatabaseInterface(String host, String database, String user, String pass) {
-        this.host = host;
-        this.database = database;
-        this.user = user;
-        this.pass = pass;
+    public DatabaseInterface() {
+        this.host = "gld.zapto.org";
+        this.database = "gld_database";
+        this.user = "admin";
+        this.pass = "admin";
         
         this.connected = false;
         this.configured = true;
     }
     
     /**
-     * Método que altera os parametros do banco de dados
-     *
-     * @return True se conseguir conectar, falso em caso contrário.
-     */
+     * Método que altera os parametros do banco de dados.
+     * 
+     * @param host
+     * @param database
+     * @param user
+     * @param pass 
+     */ 
     public void configureConnection(String host, String database, String user, String pass){
         if(!isConnected()){
             this.host = host;
@@ -60,14 +56,12 @@ public class DatabaseInterface {
             
             this.configured = true;
         }else{
-            System.out.println("Feche a conexão antes de alterar os dados do banco de dados.");
+            Logger.getLogger(DatabaseInterface.class.getName()).log(Level.WARNING, "A conexão está estabelecida. Impossível configurar no momento.");
         }
     }
 
     /**
-     * Método que estabelece a conexão com o banco de dados
-     *
-     * @return True se conseguir conectar, falso em caso contrário.
+     * Método que estabelece a conexão com o banco de dados.
      */
     public void connect() {
         try {
@@ -84,37 +78,73 @@ public class DatabaseInterface {
                 this.conn = DriverManager.getConnection(url);
                 this.connected = true;
 
-                System.out.println("A conexão foi um sucesso.");
+                Logger.getLogger(DatabaseInterface.class.getName()).log(Level.INFO, "Conexão estabalecida.");
             }else{
-                System.out.println("Conexão já estabelecida.");
+                Logger.getLogger(DatabaseInterface.class.getName()).log(Level.INFO, "Conexão não configurada ou já estabelecida.");
             }
-        } catch (ClassNotFoundException e) {
-            System.out.println("Exceção classe não encontrada");
-        } catch (SQLException e) {
-            System.out.println("SQL Exception. Não conectado.");
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, "connect() não realizado.", ex);
         }
     }
 
     /**
      * Método que fecha conexão com o banco de dados
-     *
-     * 
      */
     public void disconnect() {
         try {
             if(this.isConnected()){
                 this.conn.close();
                 this.connected = false;
+                
+                Logger.getLogger(DatabaseInterface.class.getName()).log(Level.INFO, "Conexão com o banco de dados fechada.");
             }else{
-                System.out.println("Não é possível desconectar. Não conectado.");
+                Logger.getLogger(DatabaseInterface.class.getName()).log(Level.INFO, "Não conectado.");
             }
-            
-            System.out.println("Fechando a conexão");
-        } catch (SQLException erro) {
-            System.out.println("Erro no fechamento");
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, "disconnect() não realizado.", ex);
         }
     }
 
+    /** 
+     * @param sql - Recebe a String sql para fazer o insert na Base de Dados
+     * @param params -  Parametros da sql em um array de string (this.getParamString())
+     * @return result - Retorna o resultado da execução
+     * */
+    public synchronized boolean insert(String sql, String[] params){
+        PreparedStatement st;
+        boolean result = false;
+        
+        try {
+            if(this.isConnected()){
+                st = this.conn.prepareStatement(sql);
+                
+                for (int i = 1; i <= params.length; i++){
+                    st.setString(i, params[i-1]);
+                }
+                
+                result = st.execute();
+                st.close();
+                
+                Logger.getLogger(DatabaseInterface.class.getName()).log(Level.INFO, "Medição inserida no banco de dados.");
+            }else{
+                Logger.getLogger(DatabaseInterface.class.getName()).log(Level.WARNING, "Não conectado.");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, "insert() não realizado.", ex);
+        }
+
+        return result;
+    }
+    
+    /**
+     * @param args[] - Parametros a serem adicionados ao vetor de string
+     * @return args[] - Vetor de strings dos parametros
+     */
+    
+    public String[] getParamsString(String... args){
+        return args;
+    }
+    
     /**
      * Método que verifica status da conexão do banco de dados.
      *
@@ -131,15 +161,5 @@ public class DatabaseInterface {
      */
     public boolean isConfigured(){
         return this.configured;
-    }
-    
-    public Statement getStatement(){
-        try {
-            return this.conn.createStatement();
-        } catch (SQLException ex) {
-            Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        return null;           
     }
 }

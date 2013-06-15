@@ -10,15 +10,10 @@ import utils.DatabaseInterface;
  */
 public class DatabaseInterfaceTest {
     DatabaseInterface dbInterface = new DatabaseInterface();
-    String host = "gld.zapto.org";
-    String database = "gld_database";
-    String user = "admin";
-    String pass = "admin";
-    
+
     public DatabaseInterfaceTest() {
         
     }
-    
       
     @Before
     public void setUp() {
@@ -27,30 +22,21 @@ public class DatabaseInterfaceTest {
     
     @After
     public void tearDown() {
-        
-    }
-    
-    @Test
-    public void configureTest(){
-        this.dbInterface.configureConnection(host, database, user, pass);
-        
-        assertTrue(this.dbInterface.isConfigured());
+            
     }
     
     @Test
     public void connectionTest() {
-        this.dbInterface.configureConnection(host, database, user, pass);
         this.dbInterface.connect();
         
-        assertTrue(dbInterface.isConnected());
+        assertTrue("O status do banco de dados deveria ser True (conectado)", dbInterface.isConnected());
     }
     
-    //@Test
+    @Test
     public void disconnectTest(){
-        this.dbInterface.configureConnection(host, database, user, pass);
         this.dbInterface.connect();
         this.dbInterface.disconnect();
         
-        assertFalse(dbInterface.isConnected());
+        assertFalse("O status do banco de dados deveria ser Falso (desconectado)", dbInterface.isConnected());
     }
 }

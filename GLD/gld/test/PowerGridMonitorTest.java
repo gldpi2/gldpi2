@@ -23,15 +23,11 @@ public class PowerGridMonitorTest {
     }
     
     @Test
-    public void test() {
+    public void test(){
         try {
-            PowerGridMonitor powerGridMonitor = new PowerGridMonitor();
-            Thread threadMonitor = new Thread(powerGridMonitor);
-
+            Thread threadMonitor = new Thread(new PowerGridMonitor());
             threadMonitor.start();
-            
             threadMonitor.join();
-
         } catch (InterruptedException ex) {
             Logger.getLogger(PowerGridMonitorTest.class.getName()).log(Level.SEVERE, null, ex);
         }
