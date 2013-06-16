@@ -1,14 +1,13 @@
 package utils;
 
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 /**
  *
@@ -20,42 +19,40 @@ public class DatabaseInterface {
     private String database;
     private String user;
     private String pass;
-    
     private boolean connected;
     private boolean configured;
-    
     public Connection conn = null;
-    
+
     /**
      * Construtor da classe DatabaseInterface.
      */
     public DatabaseInterface() {
-        this.host = "gld.zapto.org";
+        this.host = "localhost";
         this.database = "gld_database";
         this.user = "admin";
         this.pass = "admin";
-        
+
         this.connected = false;
         this.configured = true;
     }
-    
+
     /**
      * Método que altera os parametros do banco de dados.
-     * 
+     *
      * @param host
      * @param database
      * @param user
-     * @param pass 
-     */ 
-    public void configureConnection(String host, String database, String user, String pass){
-        if(!isConnected()){
+     * @param pass
+     */
+    public void configureConnection(String host, String database, String user, String pass) {
+        if (!isConnected()) {
             this.host = host;
             this.database = database;
             this.user = user;
             this.pass = pass;
-            
+
             this.configured = true;
-        }else{
+        } else {
             Logger.getLogger(DatabaseInterface.class.getName()).log(Level.WARNING, "A conexão está estabelecida. Impossível configurar no momento.");
         }
     }
@@ -79,7 +76,7 @@ public class DatabaseInterface {
                 this.connected = true;
 
                 Logger.getLogger(DatabaseInterface.class.getName()).log(Level.INFO, "Conexão estabalecida.");
-            }else{
+            } else {
                 Logger.getLogger(DatabaseInterface.class.getName()).log(Level.INFO, "Conexão não configurada ou já estabelecida.");
             }
         } catch (ClassNotFoundException | SQLException ex) {
@@ -92,12 +89,12 @@ public class DatabaseInterface {
      */
     public void disconnect() {
         try {
-            if(this.isConnected()){
+            if (this.isConnected()) {
                 this.conn.close();
                 this.connected = false;
-                
+
                 Logger.getLogger(DatabaseInterface.class.getName()).log(Level.INFO, "Conexão com o banco de dados fechada.");
-            }else{
+            } else {
                 Logger.getLogger(DatabaseInterface.class.getName()).log(Level.INFO, "Não conectado.");
             }
         } catch (SQLException ex) {
@@ -105,46 +102,73 @@ public class DatabaseInterface {
         }
     }
 
-    /** 
+    /**
      * @param sql - Recebe a String sql para fazer o insert na Base de Dados
-     * @param params -  Parametros da sql em um array de string (this.getParamString())
+     * @param params - Parametros da sql em um array de string
+     * (this.getParamString())
      * @return result - Retorna o resultado da execução
-     * */
-    public synchronized boolean insert(String sql, String[] params){
+     *
+     */
+    public synchronized int insert(String sql, String[] params) {
         PreparedStatement st;
-        boolean result = false;
-        
+        int key = 0;
+        int result = 0;
+
         try {
-            if(this.isConnected()){
-                st = this.conn.prepareStatement(sql);
-                
-                for (int i = 1; i <= params.length; i++){
-                    st.setString(i, params[i-1]);
+            if (this.isConnected()) {
+                st = this.conn.prepareStatement(sql, key);
+
+                for (int i = 1; i <= params.length; i++) {
+                    st.setString(i, params[i - 1]);
                 }
-                
-                result = st.execute();
+
+                result = st.executeUpdate();
                 st.close();
-                
-                Logger.getLogger(DatabaseInterface.class.getName()).log(Level.INFO, "Medição inserida no banco de dados.");
-            }else{
+
+                Logger.getLogger(DatabaseInterface.class.getName()).log(Level.INFO, "Inserção bem efetuada com sucesso.");
+            } else {
                 Logger.getLogger(DatabaseInterface.class.getName()).log(Level.WARNING, "Não conectado.");
             }
+        } catch (MySQLIntegrityConstraintViolationException ex) {
+            Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, "insert() não realizado. Erro na constraint do insert. "
+                    + "(provavel: referencia PK não existe.)", ex.getErrorCode());
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, "insert() não realizado.", ex);
         }
 
         return result;
     }
-    
+
+    public int getLastId(String table) {
+        PreparedStatement st;
+        ResultSet rs;
+        String sql;
+        int lastId = -1;
+
+        try {
+            sql = "select MAX(id_" + table +  ") as last_id from " + table;
+            st = this.conn.prepareStatement(sql);
+            
+            rs = st.executeQuery();
+            
+            if(rs != null && rs.next()){  
+                lastId = rs.getInt("last_id");  
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return lastId;
+    }
+
     /**
      * @param args[] - Parametros a serem adicionados ao vetor de string
      * @return args[] - Vetor de strings dos parametros
      */
-    
-    public String[] getParamsString(String... args){
+    public String[] getParamsString(String... args) {
         return args;
     }
-    
+
     /**
      * Método que verifica status da conexão do banco de dados.
      *
@@ -153,13 +177,14 @@ public class DatabaseInterface {
     public boolean isConnected() {
         return this.connected;
     }
-    
+
     /**
-     * Método que verifica se a interface de conexão com o banco está configurada.
+     * Método que verifica se a interface de conexão com o banco está
+     * configurada.
      *
      * @return True se conseguir estiver configurado, falso caso contrário.
      */
-    public boolean isConfigured(){
+    public boolean isConfigured() {
         return this.configured;
     }
 }

@@ -20,10 +20,15 @@ public class StoreMeasurement implements Runnable {
      */
     @Override
     public void run(){
+        storeMeasurementInDatabase();
+    }
+
+    public int storeMeasurementInDatabase() {
         DatabaseInterface dbInterface = new DatabaseInterface();
         String idMeter, flow, tension, frequency;
         String sql;
         String params[];
+        int result;
 
         StringTokenizer st = new StringTokenizer(data, "," );
         
@@ -32,14 +37,14 @@ public class StoreMeasurement implements Runnable {
         tension = st.nextToken();
         frequency = st.nextToken();
         
-        System.err.println(frequency);
-        
         sql = "INSERT INTO mensuration (id_meter, flow, tension, frequency) VALUES (?, ?, ?, ?)";
         
         params = dbInterface.getParamsString(idMeter, flow, tension, frequency);
         
         dbInterface.connect();
-        dbInterface.insert(sql, params);
+        result = dbInterface.insert(sql, params);
         dbInterface.disconnect();
+        
+        return result;
     }
 }

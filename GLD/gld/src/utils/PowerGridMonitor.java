@@ -30,7 +30,8 @@ public class PowerGridMonitor implements Runnable {
                 serverSocket.receive(receivePacket);
             
                 String data = new String(receivePacket.getData());
-                System.out.println("RECEIVED: " + data);
+                
+                Logger.getLogger(PowerGridMonitor.class.getName()).log(Level.INFO, null, "RECEIVED: " + data);
                 
                 Thread storeMeasurementThread = new Thread(new StoreMeasurement(data));
                 storeMeasurementThread.start();
