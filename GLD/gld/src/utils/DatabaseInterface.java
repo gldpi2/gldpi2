@@ -27,7 +27,7 @@ public class DatabaseInterface {
      * Construtor da classe DatabaseInterface.
      */
     public DatabaseInterface() {
-        this.host = "localhost";
+        this.host = "gld.zapto.org";
         this.database = "gld_database";
         this.user = "admin";
         this.pass = "admin";

@@ -4,8 +4,15 @@
  */
 package view;
 
+import model.Login;
+import dao.LoginDAO;
+import java.awt.Color;
+
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import java.awt.*;
+import java.awt.event.KeyEvent;
 
 /**
  *
@@ -19,10 +26,14 @@ public class LoginWindow extends javax.swing.JFrame {
     public LoginWindow() {
         initComponents();
         setLocationRelativeTo(null);
-    }
-    
-    public boolean verifyMatricula(){
-        return true;
+        getRootPane().setDefaultButton(buttonEntrar);
+        
+        boolean capsOn = Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK);
+        
+        if (capsOn == true) {
+//            passwordSenha.setBackground(Color.red);
+//            passwordSenha.setToolTipText("CAPS LOCK ON!");    
+        }        
     }
     
     /**
@@ -123,9 +134,27 @@ public class LoginWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEntrarActionPerformed
-        MainWindow main = new MainWindow();
-        this.setVisible(false);
-        main.setVisible(true);
+        Login user = new Login();
+        int ok;
+        
+        user.setMatricula(textMatricula.getText());
+        user.setSenha(passwordSenha.getText());
+        
+        try{
+            LoginDAO login = new LoginDAO();
+            ok = login.verificarLogin(user);
+            
+            if(ok==1){
+                JOptionPane.showMessageDialog(null, "Sessão iniciada com sucesso!", "Sessão iniciada!", JOptionPane.INFORMATION_MESSAGE);
+                MainWindow main = new MainWindow();
+                this.setVisible(false);
+                main.setVisible(true);
+            }else{
+                 JOptionPane.showMessageDialog(null, "Problema ao efetuar login!\nSenha e/ou Matrícula incorretos!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_buttonEntrarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
