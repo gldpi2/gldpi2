@@ -5,6 +5,7 @@
 package gld;
 
 import utils.UserManagement;
+import view.LoginWindow;
 
 /**
  *
@@ -14,5 +15,7 @@ public class Main {
     public static void main(String[] args) {
 //        UserManagement user = new UserManagement();
 //        user.InsertUser();
+        LoginWindow login = new LoginWindow();
+        login.setVisible(true);
     }
 }
