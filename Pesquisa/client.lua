@@ -1,5 +1,5 @@
 -- change here to the host an port you want to contact
-local host, port = "localhost", 9876
+local host, port = "gld.zapto.org", 9876
 -- load namespace
 local socket = require("socket")
 -- convert host name to ip address

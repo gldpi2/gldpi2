@@ -42,10 +42,8 @@ public class PowerGridMonitor implements Runnable {
                 
                 Logger.getLogger(PowerGridMonitor.class.getName()).log(Level.INFO, "THREAD "+ idThread % maxThread + " RECEIVED: {0}",data);
                 
-                if(storeMeasurementThread.get(idThread % maxThread) == null || !storeMeasurementThread.get(idThread % maxThread).isAlive()){
-                    storeMeasurementThread.add(idThread % maxThread, new Thread(new StoreMeasurement(data)));
-                    storeMeasurementThread.get(idThread % maxThread).start();
-                }
+                storeMeasurementThread.add(idThread % maxThread, new Thread(new StoreMeasurement(data)));
+                storeMeasurementThread.get(idThread % maxThread).start();
                 
                 System.out.println("Quantidade de threads: " + storeMeasurementThread.size());
                 
