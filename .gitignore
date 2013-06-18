@@ -2,6 +2,8 @@
 /GLD/gld/build/
 /GLD/gld/dist/
 
+*.properties
+
 # Compiled source #
 ###################
 *.com

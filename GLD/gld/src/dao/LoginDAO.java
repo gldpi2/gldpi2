@@ -24,9 +24,10 @@ public class LoginDAO {
         int i=0;
         
         String sql = "SELECT * FROM user WHERE matricula = '"+user.getMatricula()+"' AND senha = '"+user.getSenha()+"'";
+        
         dbInterface.connect();
-        PreparedStatement stmt = dbInterface.conn.prepareStatement(sql);
-        ResultSet rs = stmt.executeQuery();
+        
+        ResultSet rs = dbInterface.executeQuery(sql);
 
         while(rs.next()){
             i++;

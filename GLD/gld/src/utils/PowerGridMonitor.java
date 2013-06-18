@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,6 +14,14 @@ import java.util.logging.Logger;
  */
 
 public class PowerGridMonitor implements Runnable {
+    
+    private ArrayList<Thread> storeMeasurementThread = new ArrayList<Thread>();
+    private int idThread = 0;
+    private int maxThread = 100;
+
+    public PowerGridMonitor() {
+        
+    }
     
     /**
      *  Rotina que monitora os dados recebidos da rede elétrica.
@@ -31,10 +40,20 @@ public class PowerGridMonitor implements Runnable {
             
                 String data = new String(receivePacket.getData());
                 
-                Logger.getLogger(PowerGridMonitor.class.getName()).log(Level.INFO, null, "RECEIVED: " + data);
+                Logger.getLogger(PowerGridMonitor.class.getName()).log(Level.INFO, "THREAD "+ idThread % maxThread + " RECEIVED: {0}",data);
                 
-                Thread storeMeasurementThread = new Thread(new StoreMeasurement(data));
-                storeMeasurementThread.start();
+                if(storeMeasurementThread.get(idThread % maxThread) == null || !storeMeasurementThread.get(idThread % maxThread).isAlive()){
+                    storeMeasurementThread.add(idThread % maxThread, new Thread(new StoreMeasurement(data)));
+                    storeMeasurementThread.get(idThread % maxThread).start();
+                }
+                
+                System.out.println("Quantidade de threads: " + storeMeasurementThread.size());
+                
+                for (Thread th : storeMeasurementThread){
+                    System.out.println(th.isAlive());
+                }
+                
+                idThread = (idThread + 1) % maxThread;
             }
         } catch (SocketException ex) {
             Logger.getLogger(PowerGridMonitor.class.getName()).log(Level.SEVERE, null, ex);

@@ -138,6 +138,21 @@ public class DatabaseInterface {
 
         return result;
     }
+    
+    public ResultSet executeQuery(String sql){
+        ResultSet rs = null;
+        
+        PreparedStatement st;
+        
+        try {
+            st = this.conn.prepareStatement(sql);
+            rs = st.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return rs;
+    }
 
     public int getLastId(String table) {
         PreparedStatement st;
