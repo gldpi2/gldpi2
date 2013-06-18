@@ -21,7 +21,7 @@ public class DatabaseInterface {
     private String pass;
     private boolean connected;
     private boolean configured;
-    public Connection conn = null;
+    private Connection conn = null;
 
     /**
      * Construtor da classe DatabaseInterface.
@@ -85,7 +85,7 @@ public class DatabaseInterface {
     }
 
     /**
-     * Método que fecha conexão com o banco de dados
+     * Método que fecha conexão com o banco de dados.
      */
     public void disconnect() {
         try {
@@ -103,10 +103,12 @@ public class DatabaseInterface {
     }
 
     /**
-     * @param sql - Recebe a String sql para fazer o insert na Base de Dados
-     * @param params - Parametros da sql em um array de string
+     * Método que faz inserção no banco de dados.
+     *
+     * @param sql String Comando SQL para fazer o insert na Base de Dados
+     * @param params String[] Parametros da sql em um array de string
      * (this.getParamString())
-     * @return result - Retorna o resultado da execução
+     * @return result int Retorna o resultado da execução
      *
      */
     public synchronized int insert(String sql, String[] params) {
@@ -138,12 +140,19 @@ public class DatabaseInterface {
 
         return result;
     }
-    
-    public ResultSet executeQuery(String sql){
+
+    /**
+     * Método que realiza a consulta no banco de dados.
+     *
+     * @param sql String Comando SQL para fazer a consulta na Base de Dados
+     * @return rs ResultSet Valor do conjunto de resultados obtidos do banco de
+     * dados.
+     */
+    public ResultSet executeQuery(String sql) {
         ResultSet rs = null;
-        
+
         PreparedStatement st;
-        
+
         try {
             st = this.conn.prepareStatement(sql);
             rs = st.executeQuery();
@@ -154,6 +163,10 @@ public class DatabaseInterface {
         return rs;
     }
 
+    /**
+     * @param table Nome da tabela que se deseja receber o último id inserido
+     * @return lastId int Valor do último id inserido
+     */
     public int getLastId(String table) {
         PreparedStatement st;
         ResultSet rs;
@@ -161,13 +174,13 @@ public class DatabaseInterface {
         int lastId = -1;
 
         try {
-            sql = "select MAX(id_" + table +  ") as last_id from " + table;
+            sql = "select MAX(id_" + table + ") as last_id from " + table;
             st = this.conn.prepareStatement(sql);
-            
+
             rs = st.executeQuery();
-            
-            if(rs != null && rs.next()){  
-                lastId = rs.getInt("last_id");  
+
+            if (rs != null && rs.next()) {
+                lastId = rs.getInt("last_id");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, null, ex);
@@ -177,7 +190,7 @@ public class DatabaseInterface {
     }
 
     /**
-     * @param args[] - Parametros a serem adicionados ao vetor de string
+     * @param args - Parametros a serem adicionados ao vetor de string
      * @return args[] - Vetor de strings dos parametros
      */
     public String[] getParamsString(String... args) {
