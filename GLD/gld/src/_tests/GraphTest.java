@@ -1,4 +1,4 @@
-package view;
+package _tests;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -75,7 +75,6 @@ public class GraphTest extends JFrame {
         th.start();
 
         graph.setVisible(true);
-
     }
 
     private class UpdaterThread implements Runnable {
@@ -96,7 +95,7 @@ public class GraphTest extends JFrame {
                 }
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                 }
             }
