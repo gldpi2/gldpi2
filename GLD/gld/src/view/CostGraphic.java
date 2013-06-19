@@ -1,7 +1,9 @@
 package view;
 
+import dao.CostDAO;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -17,19 +19,20 @@ import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYDataset;
 
 
-public class Cost extends JFrame {
+public class CostGraphic extends JFrame {
 
     
     //Parameter param = new Parameter();
     private TimeSeries series;
     final Millisecond now = new Millisecond();
+    final CostDAO dao = new CostDAO();
 
     /**
      * Constructs a new demonstration application.
      *
      * @param title  the frame title.
      */
-    public Cost(final String title) {
+    public CostGraphic(final String title) {
 
         super(title);
         this.series = new TimeSeries("Custo Energético em R$ por hora", Millisecond.class);
@@ -43,7 +46,11 @@ public class Cost extends JFrame {
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(content);
 }
+  public double getParameters(){
+        double i = dao.getParameter();
     
+        return i;
+}
     
 private JFreeChart createChart(final XYDataset dataset) {
        final JFreeChart costGraphic = ChartFactory.createXYLineChart("Custo","Dia/Hora","Valor em Real (R$)",dataset,PlotOrientation.VERTICAL,true,true,false);
@@ -68,18 +75,14 @@ private JFreeChart createChart(final XYDataset dataset) {
        xAxis.setFixedAutoRange(60000.0);  // 60 seconds
        yAxis.setRange(0.0, 200.0); 
        
-       this.series.add(now, 1);
+       
+       this.series.add(now,1);
         
          return costGraphic;
 }
-/*
-    public double getIndexRandom(){
-        double i = param.getI();
-    
-        return i;
-}
+ /*
     public static void main(final String[] args) {
-       final Cost cost = new Cost("Custo Energético");
+       final CostGraphic cost = new CostGraphic("Custo Energético");
           cost.pack();
         cost.setVisible(true);
         
