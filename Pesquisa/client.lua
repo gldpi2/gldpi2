@@ -7,4 +7,4 @@ local ip = assert(socket.dns.toip(host))
 -- create a new UDP object
 local udp = assert(socket.udp())
 -- contact daytime host
-assert(udp:sendto("3,5.0,7.0,", ip, port))
+assert(udp:sendto("3,3.0,4.0,9.1,", ip, port))

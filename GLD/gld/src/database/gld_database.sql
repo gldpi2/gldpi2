@@ -14,6 +14,7 @@ CREATE TABLE mensuration (
     id_meter INT UNSIGNED ZEROFILL NOT NULL, 
     flow FLOAT NOT NULL,
     tension FLOAT NOT NULL,
+    frequency FLOAT NOT NULL,
     `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id_mensuration),
     FOREIGN KEY (id_meter) REFERENCES meter(id_meter)

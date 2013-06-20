@@ -9,7 +9,6 @@ package model;
  * @author Matheus
  */
 public class Cost {
-
     double flow;
     double tension;
 
@@ -28,4 +27,8 @@ public class Cost {
     public void setTension(double tension) {
         this.tension = tension;
     }
+     
+    
+    
+    
 }

@@ -1,4 +1,0 @@
-#Tempo de atualização da thread que recebe dados da rede
-
-
-REFRESH_TIME=1000

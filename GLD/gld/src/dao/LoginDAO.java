@@ -17,20 +17,19 @@ import utils.DatabaseInterface;
  * @author itallorossi
  */
 public class LoginDAO {
-
     private Connection conex;
     DatabaseInterface dbInterface = new DatabaseInterface();
-
-    public int verificarLogin(Login user) throws SQLException {
-        int i = 0;
-
-        String sql = "SELECT * FROM user WHERE matricula = '" + user.getMatricula() + "' AND senha = '" + user.getSenha() + "'";
-
+    
+    public int verificarLogin(Login user) throws SQLException{
+        int i=0;
+        
+        String sql = "SELECT * FROM user WHERE matricula = '"+user.getMatricula()+"' AND senha = '"+user.getSenha()+"'";
+        
         dbInterface.connect();
-
+        
         ResultSet rs = dbInterface.executeQuery(sql);
 
-        while (rs.next()) {
+        while(rs.next()){
             i++;
             user.setTipo(rs.getString("tipo"));
         }

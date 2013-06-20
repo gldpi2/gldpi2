@@ -15,7 +15,7 @@ public class Test extends javax.swing.JFrame {
      */
     public Test() {
         initComponents();
-
+        
         setBounds(0, 0, 640, 480);
         setLocationRelativeTo(null);
     }
@@ -92,17 +92,17 @@ public class Test extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        setSize(1024, 768);
+        setSize(1024,768);
         setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        setSize(640, 480);
+        setSize(640,480);
         setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        setSize(800, 600);
+        setSize(800,600);
         setLocationRelativeTo(null);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 

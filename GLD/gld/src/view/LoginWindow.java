@@ -27,15 +27,15 @@ public class LoginWindow extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         getRootPane().setDefaultButton(buttonEntrar);
-
+        
         boolean capsOn = Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK);
-
+        
         if (capsOn == true) {
 //            passwordSenha.setBackground(Color.red);
 //            passwordSenha.setToolTipText("CAPS LOCK ON!");    
-        }
+        }        
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -136,23 +136,23 @@ public class LoginWindow extends javax.swing.JFrame {
     private void buttonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEntrarActionPerformed
         Login user = new Login();
         int ok;
-
+        
         user.setMatricula(textMatricula.getText());
         user.setSenha(passwordSenha.getText());
-
-        try {
+        
+        try{
             LoginDAO login = new LoginDAO();
             ok = login.verificarLogin(user);
-
-            if (ok == 1) {
+            
+            if(ok==1){
                 JOptionPane.showMessageDialog(null, "Sessão iniciada com sucesso!", "Sessão iniciada!", JOptionPane.INFORMATION_MESSAGE);
                 MainWindow main = new MainWindow();
                 this.setVisible(false);
                 main.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Problema ao efetuar login!\nSenha e/ou Matrícula incorretos!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }else{
+                 JOptionPane.showMessageDialog(null, "Problema ao efetuar login!\nSenha e/ou Matrícula incorretos!", "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException e) {
+        }catch (SQLException e){
             e.printStackTrace();
         }
     }//GEN-LAST:event_buttonEntrarActionPerformed
@@ -172,10 +172,11 @@ public class LoginWindow extends javax.swing.JFrame {
                 options,
                 options[1]);
 
-        if (i == JOptionPane.YES_OPTION) {
-        } else {
-            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        if (i==JOptionPane.YES_OPTION){
         }
+        else{
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        } 
     }//GEN-LAST:event_formWindowClosing
 
     /**
