@@ -35,6 +35,7 @@ public class PowerGridMonitorTest {
         Thread monitorThread = new Thread(monitor);
         
         monitorThread.start();
+        
         try {
             monitorThread.join();
         } catch (InterruptedException ex) {

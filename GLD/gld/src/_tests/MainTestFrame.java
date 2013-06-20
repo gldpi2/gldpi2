@@ -18,10 +18,14 @@ public class MainTestFrame extends javax.swing.JFrame {
     public MainTestFrame() {
         initComponents();
 
+        jPanel1.removeAll();
+        
         GraphTestPanel graph = new GraphTestPanel();
 
-        ChartPanel chartPanel = new ChartPanel(graph.createChart());
-        setContentPane(chartPanel);
+        graph.createChart();
+        //setContentPane(graph);
+        jPanel1.add(graph);
+        
     }
 
     /**

@@ -8,21 +8,26 @@ package _tests;
  *
  * @author itallorossi
  */
-public class JanelaPrincipal extends javax.swing.JFrame {
-    private PainelGrafico pg;
+public class GraphPanelFrame extends javax.swing.JFrame {
+    private GraphPanel pg;
     int state=0;
     /**
-     * Creates new form JanelaPrincipal
+     * Creates new form GraphPanelFrame
      */
-    public JanelaPrincipal() {
+    public GraphPanelFrame() {
         initComponents();
         this.init();
     }
 
     public void init(){
         desktop.removeAll();
-        pg = new PainelGrafico(desktop.getWidth(),desktop.getHeight());
+        pg = new GraphPanel(desktop.getWidth(),desktop.getHeight());
         pg.criaGrafico();
+        
+        Thread th = new Thread(pg.new UpdaterThread());
+        th.setDaemon(true);
+        th.start();
+
         desktop.add(pg);
         state=1;
     }
@@ -116,20 +121,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GraphPanelFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GraphPanelFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GraphPanelFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GraphPanelFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JanelaPrincipal().setVisible(true);
+                new GraphPanelFrame().setVisible(true);
             }
         });
     }

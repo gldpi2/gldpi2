@@ -1,6 +1,6 @@
 package _tests;
 
-import _tests.JanelaPrincipal;
+import _tests.GraphPanelFrame;
 
 public class ChartTest {
 
@@ -11,7 +11,7 @@ public class ChartTest {
 //        LineChart lchart =  new LineChart();
 //        lchart.criaGrafico();
 //        lchart.setVisible(true);
-        JanelaPrincipal main = new JanelaPrincipal();
+        GraphPanelFrame main = new GraphPanelFrame();
         main.setVisible(true);
     }
 }

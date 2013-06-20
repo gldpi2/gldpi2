@@ -7,6 +7,7 @@ package _tests;
 import java.awt.Color;
 import java.awt.Font;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYPointerAnnotation;
 import org.jfree.chart.axis.ValueAxis;
@@ -34,7 +35,7 @@ public class GraphTestPanel extends javax.swing.JPanel {
         th.start();
     }
     
-    public JFreeChart createChart() {
+    public void createChart() {
         series = new XYSeries("XYGraph");
 
         XYSeriesCollection dataset = new XYSeriesCollection();
@@ -64,7 +65,14 @@ public class GraphTestPanel extends javax.swing.JPanel {
         xypointerannotation.setTextAnchor(TextAnchor.HALF_ASCENT_RIGHT);
         xyplot.addAnnotation(xypointerannotation);
 
-        return chart;
+        ChartPanel myChartPanel = new ChartPanel(chart, true);
+        
+        myChartPanel.setSize(440 , 300);
+        myChartPanel.setVisible(true);
+        this.removeAll();
+        this.add(myChartPanel);
+        this.revalidate();
+        this.repaint();
     }
     
     public class UpdaterThread implements Runnable {

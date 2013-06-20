@@ -25,7 +25,7 @@ public class StoreMeasurement implements Runnable {
 
     public int storeMeasurementInDatabase() {
         DatabaseInterface dbInterface = new DatabaseInterface();
-        String idMeter, flow, tension, frequency;
+        String idMeter, flow, tension;
         String sql;
         String params[];
         int result;
@@ -35,11 +35,10 @@ public class StoreMeasurement implements Runnable {
         idMeter = st.nextToken();
         flow = st.nextToken();
         tension = st.nextToken();
-        frequency = st.nextToken();
         
-        sql = "INSERT INTO mensuration (id_meter, flow, tension, frequency) VALUES (?, ?, ?, ?)";
+        sql = "INSERT INTO mensuration (id_meter, flow, tension) VALUES (?, ?, ?)";
         
-        params = dbInterface.getParamsString(idMeter, flow, tension, frequency);
+        params = dbInterface.getParamsString(idMeter, flow, tension);
         
         dbInterface.connect();
         result = dbInterface.insert(sql, params);
