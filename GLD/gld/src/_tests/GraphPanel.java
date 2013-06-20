@@ -91,54 +91,6 @@ public class GraphPanel extends javax.swing.JPanel {
         }
     }
 
-    public class UpdaterThread implements Runnable {
-
-        private GraphPanelDAO graphPanelDao = new GraphPanelDAO();
-
-        @Override
-        public void run() {
-
-            int i = 0;
-            int lastId = 0;
-
-            try {
-                List<Mensuration> mensuration = this.graphPanelDao.getMensuration();
-
-                for (Mensuration m : mensuration) {
-                    int time = new Integer(m.getTimestamp().substring(8, 14));
-
-                    System.out.println(time + " " + m.getFlow() + " " + m.getTension());
-                    series.addOrUpdate(time, m.getFlow() * m.getTension());
-                    lastId = m.getIdMensuration();
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(GraphPanel.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            while (true) {
-                try {
-                    Mensuration m = this.graphPanelDao.getLastMensuration();
-                    if (!(lastId == m.getIdMensuration())) {
-                        int time = new Integer(m.getTimestamp().substring(8, 14));
-
-                        System.out.println(time + " " + m.getFlow() + " " + m.getTension());
-                        
-                        series.addOrUpdate(time, m.getFlow() * m.getTension());
-                        lastId = m.getIdMensuration();
-                    }
-
-                } catch (SQLException ex) {
-                    Logger.getLogger(GraphPanel.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException e) {
-                }
-            }
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -2,15 +2,14 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 /**
  *
  * @author wagner
  */
-
 public class Mensuration {
+
     private int idMensuration;
     private double flow;
     private double tension;
@@ -23,7 +22,7 @@ public class Mensuration {
     public int getIdMensuration() {
         return idMensuration;
     }
-    
+
     public double getFlow() {
         return flow;
     }
@@ -52,6 +51,4 @@ public class Mensuration {
 
         this.timestamp = timestamp;
     }
-
-    
 }
