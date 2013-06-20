@@ -18,6 +18,7 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.RefineryUtilities;
 
 
+
 public class CostGraphic extends JFrame {
 
     
@@ -30,19 +31,16 @@ public class CostGraphic extends JFrame {
         final JFreeChart chart = createChart(dataset);
 
         final ChartPanel chartPanel = new ChartPanel(chart);
-
+        
 
         final JPanel content = new JPanel(new BorderLayout());
         content.add(chartPanel);
        chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(content);
-    }
-
-  public double getParameters(){
-    
         
-}
-    
+        
+  }
+   
    
     private JFreeChart createChart(XYDataset dataset) {
         final JFreeChart result = ChartFactory.createTimeSeriesChart("Gráfico de Custo","Hora", "Valor em Real (R$)",dataset,true,true,false);
@@ -59,7 +57,7 @@ public class CostGraphic extends JFrame {
         CostGraphic graphic = new CostGraphic("Gráfico de Custo");
         graphic.pack();
         RefineryUtilities.centerFrameOnScreen(graphic);
-
+        
         Thread th = new Thread(graphic.new UpdaterThread());
         th.setDaemon(true);
         th.start();       
