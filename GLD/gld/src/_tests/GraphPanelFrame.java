@@ -1,31 +1,37 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package _tests;
+
+import utils.UpdaterGraphThread;
 
 /**
  *
  * @author itallorossi
  */
-public class JanelaPrincipal extends javax.swing.JFrame {
-    private PainelGrafico pg;
-    int state=0;
+public class GraphPanelFrame extends javax.swing.JFrame {
+
+    private GraphPanel pg;
+    int state = 0;
+
     /**
-     * Creates new form JanelaPrincipal
+     * Creates new form GraphPanelFrame
      */
-    public JanelaPrincipal() {
+    public GraphPanelFrame() {
         initComponents();
         this.init();
     }
 
-    public void init(){
+    public void init() {
         desktop.removeAll();
-        pg = new PainelGrafico(desktop.getWidth(),desktop.getHeight());
+        pg = new GraphPanel(desktop.getWidth(), desktop.getHeight());
         pg.criaGrafico();
+
+        Thread th = new Thread(new UpdaterGraphThread(pg.series));
+        th.setDaemon(true);
+        th.start();
+
         desktop.add(pg);
-        state=1;
+        state = 1;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,8 +100,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        if(state==1){
-            pg.changeSize(desktop.getWidth(),desktop.getHeight());    
+        if (state == 1) {
+            pg.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_formComponentResized
 
@@ -116,20 +122,20 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GraphPanelFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GraphPanelFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GraphPanelFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JanelaPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GraphPanelFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JanelaPrincipal().setVisible(true);
+                new GraphPanelFrame().setVisible(true);
             }
         });
     }

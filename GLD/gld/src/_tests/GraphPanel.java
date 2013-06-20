@@ -6,7 +6,13 @@ package _tests;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Mensuration;
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYPointerAnnotation;
 import org.jfree.chart.axis.ValueAxis;
@@ -18,29 +24,32 @@ import org.jfree.ui.TextAnchor;
 
 /**
  *
- * @author wagner
+ * @author itallorossi
  */
-public class GraphTestPanel extends javax.swing.JPanel {
-    
-    XYSeries series = new XYSeries("Carga kW");
+public class GraphPanel extends javax.swing.JPanel {
+
+    JFreeChart chart;
+    ChartPanel myChartPanel;
+    int state = 0;
+    XYSeries series;
+    ValueAxis xAxis;
 
     /**
-     * Creates new form GraphTestPanel
+     * Creates new form GraphPanel
      */
-    public GraphTestPanel() {
+    public GraphPanel(int x, int y) {
         initComponents();
-        Thread th = new Thread(this.new UpdaterThread());
-        th.setDaemon(true);
-        th.start();
+        setSize(x, y);
+
     }
-    
-    public JFreeChart createChart() {
-        series = new XYSeries("XYGraph");
+
+    public void criaGrafico() {
+        this.series = new XYSeries("XYGraph");
 
         XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(series);
+        dataset.addSeries(this.series);
 
-        JFreeChart chart = ChartFactory.createXYAreaChart("Curva de Carga", "Hora", "Potência Ativa", dataset, PlotOrientation.VERTICAL, true, true, false);
+        chart = ChartFactory.createXYLineChart("Curva de Carga", "Hora", "Potência Ativa", dataset, PlotOrientation.VERTICAL, true, true, false);
 
         XYPlot xyplot = (XYPlot) chart.getPlot();
         xyplot.setBackgroundPaint(Color.lightGray);
@@ -48,13 +57,14 @@ public class GraphTestPanel extends javax.swing.JPanel {
         xyplot.setDomainGridlinePaint(Color.white);
         xyplot.setRangeGridlinePaint(Color.white);
 
-        ValueAxis xAxis = xyplot.getDomainAxis();
+        xAxis = xyplot.getDomainAxis();
 
         xAxis.setTickMarkPaint(Color.black);
-        xAxis.setRange(0, 100);
+        xAxis.setRange(0, 1000);
+        xAxis.setAutoRange(true);
 
         ValueAxis yAxis = xyplot.getRangeAxis();
-        yAxis.setRange(0, 100);
+        yAxis.setRange(0, 6);
 
         XYPointerAnnotation xypointerannotation = new XYPointerAnnotation("Test", 5D, -500D, 2.3561944901923448D);
         xypointerannotation.setTipRadius(0.0D);
@@ -64,31 +74,20 @@ public class GraphTestPanel extends javax.swing.JPanel {
         xypointerannotation.setTextAnchor(TextAnchor.HALF_ASCENT_RIGHT);
         xyplot.addAnnotation(xypointerannotation);
 
-        return chart;
+        myChartPanel = new ChartPanel(chart, true);
+        myChartPanel.setSize(this.getWidth(), this.getHeight());
+        myChartPanel.setVisible(true);
+        this.removeAll();
+        this.add(myChartPanel);
+        this.revalidate();
+        this.repaint();
+        state = 1;
     }
-    
-    public class UpdaterThread implements Runnable {
 
-        private double SIZE = 100;
-
-        @Override
-        public void run() {
-
-            int i = 1;
-            while (true) {
-                i++;
-
-                final int j = (int) (Math.random() * SIZE);
-
-                if (i % 2 == 0) {
-                    series.addOrUpdate(i, j);
-                }
-
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                }
-            }
+    public void changeSize(int x, int y) {
+        if (state != 0) {
+            myChartPanel.setSize(x, y);
+            this.setSize(x, y);
         }
     }
 
@@ -101,18 +100,17 @@ public class GraphTestPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-    
 }
