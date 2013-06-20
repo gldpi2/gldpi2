@@ -93,7 +93,6 @@ public class GraphPanel extends javax.swing.JPanel {
 
     public class UpdaterThread implements Runnable {
 
-        private double SIZE = 100;
         private GraphPanelDAO graphPanelDao = new GraphPanelDAO();
 
         @Override
@@ -101,7 +100,6 @@ public class GraphPanel extends javax.swing.JPanel {
 
             int i = 0;
             int lastId = 0;
-            int minTime = 0;
 
             try {
                 List<Mensuration> mensuration = this.graphPanelDao.getMensuration();

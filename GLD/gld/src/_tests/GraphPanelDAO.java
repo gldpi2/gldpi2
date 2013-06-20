@@ -20,9 +20,9 @@ public class GraphPanelDAO {
 
     public List<Mensuration> getMensuration() throws SQLException {
         List<Mensuration> measurementList;
-        
+
         measurementList = new ArrayList<>();
-        
+
         String sql = "SELECT * FROM mensuration";
 
         dbInterface.connect();
@@ -30,7 +30,7 @@ public class GraphPanelDAO {
 
         while (rs.next()) {
             Mensuration mensuration;
-            
+
             mensuration = new Mensuration();
             mensuration.setIdMensuration(rs.getInt("id_mensuration"));
             mensuration.setFlow(rs.getDouble("flow"));
@@ -44,15 +44,15 @@ public class GraphPanelDAO {
 
         return measurementList;
     }
-    
-    public Mensuration getLastMensuration() throws SQLException{
+
+    public Mensuration getLastMensuration() throws SQLException {
         Mensuration mensuration = new Mensuration();
-        
+
         dbInterface.connect();
         int lastId = dbInterface.getLastId("mensuration");
-        
-        String sql = "SELECT * FROM mensuration WHERE id_mensuration ="+ lastId;
-        
+
+        String sql = "SELECT * FROM mensuration WHERE id_mensuration =" + lastId;
+
         ResultSet rs = dbInterface.executeQuery(sql);
 
         while (rs.next()) {
@@ -63,20 +63,19 @@ public class GraphPanelDAO {
         }
 
         dbInterface.disconnect();
-        
+
         return mensuration;
     }
-
-    public static void main(final String[] args) throws SQLException {
-        GraphPanelDAO g = new GraphPanelDAO();
-
-        List<Mensuration> array = g.getMensuration();
-
-        for (Mensuration m : array) {
-            System.out.println(m.getIdMensuration());
-            System.out.println(m.getFlow());
-            System.out.println(m.getTension());
-            System.out.println(m.getTimestamp());
-        }
-    }
+//    public static void main(final String[] args) throws SQLException {
+//        GraphPanelDAO g = new GraphPanelDAO();
+//
+//        List<Mensuration> array = g.getMensuration();
+//
+//        for (Mensuration m : array) {
+//            System.out.println(m.getIdMensuration());
+//            System.out.println(m.getFlow());
+//            System.out.println(m.getTension());
+//            System.out.println(m.getTimestamp());
+//        }
+//    }
 }
