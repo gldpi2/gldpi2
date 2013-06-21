@@ -10,22 +10,29 @@ package model;
  */
 public class Cost {
 
-    double flow;
-    double tension;
+    double valueEnergy = 0.0;
+    double costValue;
 
-    public double getFlow() {
-        return flow;
+    public double getValueEnergy() {
+        return valueEnergy;
     }
 
-    public void setFlow(double flow) {
-        this.flow = flow;
+    public void setValueEnergy(double valueEnergy) {
+        this.valueEnergy = valueEnergy;
     }
-
-    public double getTension() {
-        return tension;
-    }
-
-    public void setTension(double tension) {
-        this.tension = tension;
+    
+    /*
+     * Método para cálculo da hora/kWh
+     */
+    public double energyValue(double flow, double tension){
+        /*
+         * Verificar como eu diferencio a hora para alterar o valor da energia
+         * Criar if ou while para setar o valor da energia
+         */
+        setValueEnergy(valueEnergy);
+        costValue = flow*tension*getValueEnergy();
+        
+        
+        return costValue;
     }
 }

@@ -7,7 +7,9 @@ package dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import model.Cost;
+import model.Mensuration;
 import utils.DatabaseInterface;
 
 /**
@@ -18,34 +20,60 @@ public class CostDAO {
 
     private Connection conex;
     DatabaseInterface dbInterface = new DatabaseInterface();
-    double tension;
-    double flow;
-    double parameters;
+    Mensuration mensuration = new Mensuration();
     Cost cost = new Cost();
-    /*
-     * Fonte retirada do site da aneel
-     * Disponível em: http://www.aneel.gov.br/area.cfm?idarea=493
-     * Acessado em 19/06 as 13:00
-     */
-    double cebValue = 0.24253;
+     
 
-    public double getParameter() {
-        String sqlFlow = "SELECT flow, id_meter FROM mensuration INNER JOIN meter ON id_meter mensuration.id_meter = meter.id_meter";
-        String sqlTension = "SELECT tension, id_meter flow FROM mensuration INNER JOIN meterid_meter ON mensuration.id_meter = meter.id_meter ";
-
+    public ArrayList<Mensuration> getParameter() throws SQLException{
+        ArrayList<Mensuration> mensurationList = new ArrayList<>();
+                
+        
+        String sql = "SELECT * FROM mensuration";
+        
         dbInterface.connect();
 
-        ResultSet rsFlow = dbInterface.executeQuery(sqlFlow);
-        ResultSet rsTension = dbInterface.executeQuery(sqlTension);
-
-        flow = Double.parseDouble(sqlFlow);
-        cost.setFlow(flow);
-        tension = Double.parseDouble(sqlTension);
-        cost.setTension(tension);
-        parameters = cost.getFlow() * cost.getTension() * cebValue;
+        ResultSet rsMensuration = dbInterface.executeQuery(sql);
+        try{
+            while(rsMensuration.next()){
+                mensuration.setIdMensuration(rsMensuration.getInt(1));
+                mensuration.setFlow(rsMensuration.getDouble(2));
+                mensuration.setTension(rsMensuration.getDouble(3));
+                mensuration.setTimestamp(rsMensuration.getString(4));
+                cost.energyValue(mensuration.getFlow(), mensuration.getTension());
+                mensurationList.add(mensuration);
+            }
+            
+        } catch (Exception e){
+            e.printStackTrace();
+        }          
+       
 
         dbInterface.disconnect();
 
-        return parameters;
+        return mensurationList;
+    }
+    /*
+     * Método para pegar uma medição, não necessariamente a última
+     */
+    public Mensuration getMensuration() throws SQLException{
+        
+        dbInterface.connect();
+        int lastId = dbInterface.getLastId("mensuration");
+        String sql = "SELECT * FROM mensuration WHERE id_mensuration="+lastId;
+        
+        ResultSet rsMensuration = dbInterface.executeQuery(sql);
+        try{
+            if(lastId!=0){
+                mensuration.setIdMensuration(rsMensuration.getInt(1));
+                mensuration.setFlow(rsMensuration.getDouble(2));
+                mensuration.setTension(rsMensuration.getDouble(3));
+                mensuration.setTimestamp(rsMensuration.getString(4));
+                cost.energyValue(mensuration.getFlow(), mensuration.getTension());
+            }
+            
+        } catch (Exception e){      
+            e.printStackTrace();
+        }
+        return mensuration;
     }
 }
