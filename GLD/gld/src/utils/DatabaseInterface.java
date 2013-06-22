@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @author wagner
  */
 public class DatabaseInterface {
-
+    
     private String host;
     private String database;
     private String user;
@@ -27,10 +27,19 @@ public class DatabaseInterface {
      * Construtor da classe DatabaseInterface.
      */
     public DatabaseInterface() {
-        this.host = "localhost";
-        this.database = "gld_database";
-        this.user = "admin";
-        this.pass = "admin";
+        this.host = SystemProperties.properties.getProperty("HOST");
+        this.database = SystemProperties.properties.getProperty("DATABASE");
+        this.user = SystemProperties.properties.getProperty("USER");
+        this.pass = SystemProperties.properties.getProperty("PASS");
+        
+        //jdbc:mysql://gld.zapto.org/gld_database?user=admin&password=admin
+        
+//        this.host = "gld.zapto.org";
+//        this.database = "gld_database";
+//        this.user = "admin";
+//        this.pass = "admin";
+        
+        //jdbc:mysql://gld.zapto.org/gld_database?user=admin&password=admin
 
         this.connected = false;
         this.configured = true;
@@ -72,6 +81,7 @@ public class DatabaseInterface {
                 url += "&password=" + this.pass;
 
                 Class.forName("com.mysql.jdbc.Driver");
+                System.out.println(url);
                 this.conn = DriverManager.getConnection(url);
                 this.connected = true;
 

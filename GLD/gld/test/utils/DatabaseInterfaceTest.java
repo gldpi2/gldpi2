@@ -1,10 +1,11 @@
 package utils;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import utils.DatabaseInterface;
 
 /**
  *
@@ -12,13 +13,14 @@ import utils.DatabaseInterface;
  */
 public class DatabaseInterfaceTest {
 
-    DatabaseInterface dbInterface = new DatabaseInterface();
+    DatabaseInterface dbInterface;
 
     public DatabaseInterfaceTest() {
     }
 
     @Before
     public void setUp() {
+        SystemProperties p = new SystemProperties();
     }
 
     @After
@@ -27,6 +29,7 @@ public class DatabaseInterfaceTest {
 
     @Test
     public void connectionTest() {
+        this.dbInterface = new DatabaseInterface();
         this.dbInterface.connect();
 
         assertTrue("O status do banco de dados deveria ser True (conectado)", dbInterface.isConnected());
@@ -34,6 +37,7 @@ public class DatabaseInterfaceTest {
 
     @Test
     public void disconnectTest() {
+        this.dbInterface = new DatabaseInterface();
         this.dbInterface.connect();
         this.dbInterface.disconnect();
 

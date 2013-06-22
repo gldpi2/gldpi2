@@ -63,7 +63,7 @@ public class UpdaterGraphThread implements Runnable {
             }
 
             try {
-                Thread.sleep(Properties.refreshTimeMilis);
+                Thread.sleep(Integer.parseInt(SystemProperties.properties.getProperty("REFRESH_TIME")));
             } catch (InterruptedException e) {
             }
         }
