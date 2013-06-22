@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  * @author wagner
  */
 public class DatabaseInterface {
-    
+
     private String host;
     private String database;
     private String user;
@@ -31,15 +31,6 @@ public class DatabaseInterface {
         this.database = SystemProperties.properties.getProperty("DATABASE");
         this.user = SystemProperties.properties.getProperty("USER");
         this.pass = SystemProperties.properties.getProperty("PASS");
-        
-        //jdbc:mysql://gld.zapto.org/gld_database?user=admin&password=admin
-        
-//        this.host = "gld.zapto.org";
-//        this.database = "gld_database";
-//        this.user = "admin";
-//        this.pass = "admin";
-        
-        //jdbc:mysql://gld.zapto.org/gld_database?user=admin&password=admin
 
         this.connected = false;
         this.configured = true;

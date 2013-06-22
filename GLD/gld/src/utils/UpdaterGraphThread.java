@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package utils;
 
 import _tests.GraphPanel;
@@ -22,10 +18,18 @@ public class UpdaterGraphThread implements Runnable {
     private GraphPanelDAO graphPanelDao = new GraphPanelDAO();
     private XYSeries series;
 
+    /**
+     * Método construtor da classe UpdaterGraphThread.
+     *
+     * @param series XYSeries Referência da série apresentada no gráfico.
+     */
     public UpdaterGraphThread(XYSeries series) {
         this.series = series;
     }
 
+    /**
+     * Método que executa as funcionalidades da thread UpdaterGraphThread.
+     */
     @Override
     public void run() {
 

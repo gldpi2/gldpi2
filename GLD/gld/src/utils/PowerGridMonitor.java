@@ -18,6 +18,9 @@ public class PowerGridMonitor implements Runnable {
     private int idThread = 0;
     private int maxThread = 100;
 
+    /**
+     * Método construtor da classe PowerGridMonitor.
+     */
     public PowerGridMonitor() {
     }
 

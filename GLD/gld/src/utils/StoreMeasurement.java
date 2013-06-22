@@ -10,6 +10,11 @@ public class StoreMeasurement implements Runnable {
 
     String data;
 
+    /**
+     * Método construtor da classe StoreMeasurement
+     *
+     * @param data String Dados recebidos da rede em forma de string.
+     */
     public StoreMeasurement(String data) {
         this.data = data;
     }
@@ -22,6 +27,11 @@ public class StoreMeasurement implements Runnable {
         storeMeasurementInDatabase();
     }
 
+    /**
+     * Método que armazena a medição realizada no banco de dados.
+     *
+     * @return int Retorna a quantidade de linhas inseridas no banco de dados.
+     */
     public int storeMeasurementInDatabase() {
         DatabaseInterface dbInterface = new DatabaseInterface();
         String idMeter, flow, tension;
