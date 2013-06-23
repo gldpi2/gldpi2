@@ -4,10 +4,8 @@
  */
 package dao;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 import model.Cost;
 import model.Mensuration;
 import utils.DatabaseInterface;
@@ -18,62 +16,26 @@ import utils.DatabaseInterface;
  */
 public class CostDAO {
 
-    private Connection conex;
     DatabaseInterface dbInterface = new DatabaseInterface();
     Mensuration mensuration = new Mensuration();
     Cost cost = new Cost();
+    //MensurationDAO menDao = new Mensuration();
+    MensuratioDAO menDao = new MensurationDAO();
+    
      
-
-    public ArrayList<Mensuration> getParameter() throws SQLException{
-        ArrayList<Mensuration> mensurationList = new ArrayList<>();
-                
-        
-        String sql = "SELECT * FROM mensuration";
-        
-        dbInterface.connect();
-
-        ResultSet rsMensuration = dbInterface.executeQuery(sql);
-        try{
-            while(rsMensuration.next()){
-                mensuration.setIdMensuration(rsMensuration.getInt(1));
-                mensuration.setFlow(rsMensuration.getDouble(2));
-                mensuration.setTension(rsMensuration.getDouble(3));
-                mensuration.setTimestamp(rsMensuration.getString(4));
-                cost.energyValue(mensuration.getFlow(), mensuration.getTension());
-                mensurationList.add(mensuration);
-            }
-            
-        } catch (Exception e){
-            e.printStackTrace();
-        }          
-       
-
-        dbInterface.disconnect();
-
-        return mensurationList;
-    }
-    /*
-     * Método para pegar uma medição, não necessariamente a última
+    /**
+     * Método que irá pegar as mediçõe através da DAO
+     * e aqui irá fazer o cálculo do custo
      */
-    public Mensuration getMensuration() throws SQLException{
-        
-        dbInterface.connect();
-        int lastId = dbInterface.getLastId("mensuration");
-        String sql = "SELECT * FROM mensuration WHERE id_mensuration="+lastId;
-        
-        ResultSet rsMensuration = dbInterface.executeQuery(sql);
-        try{
-            if(lastId!=0){
-                mensuration.setIdMensuration(rsMensuration.getInt(1));
-                mensuration.setFlow(rsMensuration.getDouble(2));
-                mensuration.setTension(rsMensuration.getDouble(3));
-                mensuration.setTimestamp(rsMensuration.getString(4));
-                cost.energyValue(mensuration.getFlow(), mensuration.getTension());
-            }
-            
-        } catch (Exception e){      
-            e.printStackTrace();
+    public double[] getCost() throws SQLException{
+        List<Mensuration> listDAO;
+        listDAO = menDAO.getMensuration();
+        double[] costMens = new double[listDAO.size()];
+        for(int i = 0; i<listDAO.size(); i++){
+            mensuration = listDAO.get(i);
+            costMens[i] = cost.energyValue(mensuration.getFlow(), mensuration.getTension());
         }
-        return mensuration;
+        
+        return costMens;
     }
 }
