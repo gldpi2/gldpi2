@@ -19,13 +19,15 @@ public class CostDAO {
     DatabaseInterface dbInterface = new DatabaseInterface();
     Mensuration mensuration = new Mensuration();
     Cost cost = new Cost();
-    //MensurationDAO menDao = new Mensuration();
     MensuratioDAO menDao = new MensurationDAO();
     
      
     /**
      * Método que irá pegar as mediçõe através da DAO
      * e aqui irá fazer o cálculo do custo
+     * @return vetor de custo já calculados
+     * @throws Exceção de SQL, pois se não houver conexão ou
+     * dados, irá falhar.
      */
     public double[] getCost() throws SQLException{
         List<Mensuration> listDAO;

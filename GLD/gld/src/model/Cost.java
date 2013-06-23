@@ -21,8 +21,11 @@ public class Cost {
         this.valueEnergy = valueEnergy;
     }
     
-    /*
+    /**
      * Método para cálculo da hora/kWh
+     * @param tension tensão no momento atual
+     * @param flow corrente no momento atual
+     * @return custo atual.
      */
     public double energyValue(double flow, double tension){
         /*

@@ -20,10 +20,13 @@ import org.jfree.ui.RefineryUtilities;
 
 
 public class CostGraphic extends JFrame {
-
     
     public TimeSeries series;
 
+    /**
+     * Método construtor do gráfico de custo
+     * @param title do Gráfico
+     */
     private CostGraphic(String title) {
        super(title);
         series = new TimeSeries("R$/kWh", Millisecond.class);
@@ -40,8 +43,11 @@ public class CostGraphic extends JFrame {
         
         
   }
-   
-   
+   /**
+    * Método para criação do gráfico de tempo
+    * @param dataset de uma série de tempo
+    * @return gráfico de tempo
+    */
     private JFreeChart createChart(XYDataset dataset) {
         final JFreeChart result = ChartFactory.createTimeSeriesChart("Gráfico de Custo","Hora", "Valor em Real (R$)",dataset,true,true,false);
         final XYPlot plot = result.getXYPlot();
