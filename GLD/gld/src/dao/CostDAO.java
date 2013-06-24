@@ -16,10 +16,9 @@ import utils.DatabaseInterface;
  */
 public class CostDAO {
 
-    DatabaseInterface dbInterface = new DatabaseInterface();
     Mensuration mensuration = new Mensuration();
     Cost cost = new Cost();
-    MensuratioDAO menDao = new MensurationDAO();
+    MensurationDAO menDao = new MensurationDAO();
     
      
     /**
@@ -31,7 +30,7 @@ public class CostDAO {
      */
     public double[] getCost() throws SQLException{
         List<Mensuration> listDAO;
-        listDAO = menDAO.getMensuration();
+        listDAO = menDao.getMensuration();
         double[] costMens = new double[listDAO.size()];
         for(int i = 0; i<listDAO.size(); i++){
             mensuration = listDAO.get(i);
