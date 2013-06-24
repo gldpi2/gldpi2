@@ -48,8 +48,8 @@
         <control controlID="4" controlTypeID="com.balsamiq.mockups::TextInput" x="122" y="97" w="220" h="-1" measuredW="79" measuredH="23" zOrder="4" locked="false" isInGroup="2"/>
         <control controlID="6" controlTypeID="com.balsamiq.mockups::Button" x="375" y="160" w="-1" h="-1" measuredW="58" measuredH="24" zOrder="5" locked="false" isInGroup="2">
           <controlProperties>
-            <href>tela_Padrao%26bm%3Btela_Padrao.bmml%26bm%3Btela_Padrao.bmml%26bm%3Btela_Padrao.bmml</href>
-            <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22662%2C429%2C720%2C453%22%20href%3D%22tela_Padrao.bmml%22%20alt%3D%22tela_Padrao%22%20id%3D%226%22/%3E</map>
+            <href>tela_inicial%26bm%3Btela_inicial.bmml%26bm%3Btela_inicial.bmml%26bm%3Btela_inicial.bmml</href>
+            <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22662%2C429%2C720%2C453%22%20href%3D%22tela_inicial.bmml%22%20alt%3D%22tela_inicial%22%20id%3D%226%22/%3E</map>
             <text>Entrar</text>
           </controlProperties>
         </control>

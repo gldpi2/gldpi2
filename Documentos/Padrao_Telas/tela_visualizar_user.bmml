@@ -1,0 +1,81 @@
+<mockup version="1.0" skin="wireframe" fontFace="Balsamiq Sans" measuredW="1174" measuredH="736" mockupW="1024" mockupH="726">
+  <controls>
+    <control controlID="0" controlTypeID="__group__" x="150" y="10" w="1024" h="726" measuredW="1024" measuredH="726" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <controlName>Tela%20Base</controlName>
+      </controlProperties>
+      <groupChildrenDescriptors>
+        <control controlID="30" controlTypeID="com.balsamiq.mockups::TitleWindow" x="0" y="0" w="1024" h="726" measuredW="450" measuredH="400" zOrder="0" locked="false" isInGroup="0">
+          <controlProperties>
+            <bottomheight>0</bottomheight>
+            <close>true</close>
+            <maximizeRestore>true</maximizeRestore>
+            <minimize>true</minimize>
+            <text/>
+            <topheight>77</topheight>
+          </controlProperties>
+        </control>
+        <control controlID="32" controlTypeID="com.balsamiq.mockups::Label" x="472" y="15" w="-1" h="-1" measuredW="107" measuredH="48" zOrder="1" locked="false" isInGroup="0">
+          <controlProperties>
+            <size>40</size>
+            <text>GLD+</text>
+          </controlProperties>
+        </control>
+      </groupChildrenDescriptors>
+    </control>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::MenuBar" x="150" y="85" w="187" h="21" measuredW="189" measuredH="21" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>File%2C%20Edit%2C%20View%2C%20Help</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::MenuBar" x="354" y="85" w="820" h="21" measuredW="467" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Fator%20de%20Pot%EAncia%3A%09%09Corrente%3A%20%09%09Voltagem%3A%20%20%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::FieldSet" x="438" y="261" w="370" h="225" measuredW="200" measuredH="170" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Usu%E1rio</text>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="com.balsamiq.mockups::Button" x="533" y="462" w="-1" h="-1" measuredW="61" measuredH="24" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>disabled</state>
+        <text>Excluir</text>
+      </controlProperties>
+    </control>
+    <control controlID="23" controlTypeID="com.balsamiq.mockups::Button" x="660" y="462" w="-1" h="-1" measuredW="56" measuredH="24" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>tela_inicial%26bm%3Btela_inicial.bmml%26bm%3Btela_inicial.bmml%26bm%3Btela_inicial.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22510%2C452%2C566%2C476%22%20href%3D%22tela_inicial.bmml%22%20alt%3D%22tela_inicial%22%20id%3D%2223%22/%3E</map>
+        <text>Voltar</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="com.balsamiq.mockups::DataGrid" x="463" y="308" w="330" h="145" measuredW="227" measuredH="108" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Nome%2C%20RA%2C%20Email%0A-Juvenal-%2C-00111100-%2C-juvenal@unb.br-%0A%20%0A%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="26" controlTypeID="com.balsamiq.mockups::Arrow" x="808" y="323" w="-1" h="-1" measuredW="150" measuredH="100" zOrder="7" locked="false" isInGroup="-1"/>
+    <control controlID="27" controlTypeID="com.balsamiq.mockups::StickyNote" x="973" y="378" w="170" h="102" measuredW="109" measuredH="123" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Ap%F3s%20visualizar%20os%20usu%E1rios%2C%20poder%E1%20clicar%20sobre%20um%20e%20ai%20o%20bot%E3o%20de%20Excluir%20ficar%E1%20dispon%EDvel</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="com.balsamiq.mockups::TextInput" x="463" y="285" w="330" h="-1" measuredW="79" measuredH="23" zOrder="9" locked="false" isInGroup="-1"/>
+    <control controlID="29" controlTypeID="com.balsamiq.mockups::TextInput" x="543" y="285" w="93" h="-1" measuredW="79" measuredH="23" zOrder="10" locked="false" isInGroup="-1"/>
+    <control controlID="30" controlTypeID="com.balsamiq.mockups::Arrow" x="469" y="185" w="-1" h="-1" measuredW="150" measuredH="100" zOrder="11" locked="false" isInGroup="-1"/>
+    <control controlID="31" controlTypeID="com.balsamiq.mockups::StickyNote" x="337" y="138" w="-1" h="-1" measuredW="109" measuredH="123" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Podendo%20pesquisa%20atrav%E9s%20dos%203%20campos</text>
+      </controlProperties>
+    </control>
+    <control controlID="32" controlTypeID="com.balsamiq.mockups::Canvas" x="463" y="323" w="330" h="31" measuredW="100" measuredH="70" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>0</backgroundAlpha>
+        <href>tela_visualizar_user_I%26bm%3Btela_visualizar_user_I.bmml%26bm%3Btela_visualizar_user_I.bmml%26bm%3Btela_visualizar_user_I.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22313%2C313%2C643%2C344%22%20href%3D%22tela_visualizar_user_I.bmml%22%20alt%3D%22tela_visualizar_user_I%22%20id%3D%2232%22/%3E</map>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
