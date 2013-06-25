@@ -4,6 +4,7 @@
  */
 package dao;
 
+import controller.CostCtrl;
 import java.sql.SQLException;
 import java.util.List;
 import model.Cost;
@@ -17,7 +18,7 @@ import utils.DatabaseInterface;
 public class CostDAO {
 
     Mensuration mensuration = new Mensuration();
-    Cost cost = new Cost();
+    CostCtrl ctrl = new CostCtrl();
     MensurationDAO menDao = new MensurationDAO();
     
      
@@ -34,7 +35,7 @@ public class CostDAO {
         double[] costMens = new double[listDAO.size()];
         for(int i = 0; i<listDAO.size(); i++){
             mensuration = listDAO.get(i);
-            costMens[i] = cost.energyValue(mensuration.getFlow(), mensuration.getTension());
+            costMens[i] = ctrl.energyValue(mensuration.getFlow(), mensuration.getTension());
         }
         
         return costMens;

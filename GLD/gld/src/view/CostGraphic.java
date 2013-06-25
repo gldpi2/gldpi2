@@ -1,10 +1,12 @@
 package view;
 
 
+import controller.CostCtrl;
 import java.awt.BorderLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import model.Cost;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -20,7 +22,7 @@ import org.jfree.ui.RefineryUtilities;
 
 
 public class CostGraphic extends JFrame {
-    
+  
     public TimeSeries series;
 
     /**
@@ -55,7 +57,7 @@ public class CostGraphic extends JFrame {
         axis.setAutoRange(true);
         axis.setFixedAutoRange(60000.0);  // 60 seconds
         axis = plot.getRangeAxis();
-        axis.setRange(0.0, 200.0); 
+        axis.setRange(0.0, 100.0); 
         return result;
 }
  
@@ -71,8 +73,9 @@ public class CostGraphic extends JFrame {
    }
     
     class UpdaterThread implements Runnable {
-
+        CostGraphic cg;
         private double SIZE = 100;
+        CostCtrl ctrl = new CostCtrl();
 
         @Override
         public void run() {
@@ -80,11 +83,14 @@ public class CostGraphic extends JFrame {
             int i = 1;
             while (true) {
                 i++;
-
+                double flow_random = (Math.random() *SIZE);
+                double tension_random = (Math.random() * SIZE);
                 final int j = (int) (Math.random() * SIZE);
-
+                Cost cost = new Cost();
+                
+                double method = ctrl.energyValue(flow_random, tension_random);
                 if (i % 2 == 0) {
-                    series.add(new Millisecond(), j);
+                    series.add(new Millisecond(), method);
                 }
 
                 try {
