@@ -12,8 +12,9 @@ import java.util.GregorianCalendar;
  * @author Matheus
  */
 public class Cost {
-    public final static double PEAK = 19.65;
-    public final static double VALUE_OFFPEAK = 5.22;
+    public final static double HOUR = 3600;
+    public final static double PEAK = 19.65/HOUR;
+    public final static double VALUE_OFFPEAK = 5.22/HOUR;
     double valueEnergy = 0.0;
     double costValue;
 
@@ -41,8 +42,10 @@ public class Cost {
          */
         if(gc.get(Calendar.HOUR_OF_DAY)>=18 && gc.get(Calendar.HOUR_OF_DAY)<21){
             setValueEnergy(PEAK);
+            System.out.println("Uso em ponta");
         } else {
             setValueEnergy(VALUE_OFFPEAK);
+            System.out.println("Fora de ponta");
         }
         costValue = flow*tension*getValueEnergy();
         
