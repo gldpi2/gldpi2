@@ -7,10 +7,11 @@ import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYPointerAnnotation;
 import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.time.Millisecond;
+import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYSeries;
-import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.TextAnchor;
 
 /**
@@ -21,8 +22,8 @@ public class PatternChart extends javax.swing.JPanel {
 
     JFreeChart chart;
     ChartPanel myChartPanel;
-    XYSeries series;
     ValueAxis xAxis;
+    public TimeSeries series;
     int state = 0;
 
     /**
@@ -34,12 +35,10 @@ public class PatternChart extends javax.swing.JPanel {
     }
 
     public void criaGrafico() {
-        this.series = new XYSeries("XYGraph");
+        this.series = new TimeSeries("kWh", Millisecond.class);
+        TimeSeriesCollection dataset = new TimeSeriesCollection(this.series);
 
-        XYSeriesCollection dataset = new XYSeriesCollection();
-        dataset.addSeries(this.series);
-
-        chart = ChartFactory.createXYLineChart("Curva de Carga", "Hora", "Potência Ativa", dataset, PlotOrientation.VERTICAL, true, true, false);
+        chart = ChartFactory.createTimeSeriesChart("Curva de Carga", "Hora", "Potência Ativa (kWh)", dataset, true, true, false);
 
         XYPlot xyplot = (XYPlot) chart.getPlot();
         xyplot.setBackgroundPaint(Color.lightGray);
@@ -50,11 +49,13 @@ public class PatternChart extends javax.swing.JPanel {
         xAxis = xyplot.getDomainAxis();
 
         xAxis.setTickMarkPaint(Color.black);
-        xAxis.setRange(0, 1000);
+        xAxis.setRange(0, 86400000); // 24 horas = 86400000 mili
         xAxis.setAutoRange(true);
+        xAxis.setFixedAutoRange(60000.0);
 
         ValueAxis yAxis = xyplot.getRangeAxis();
         yAxis.setRange(0, 6);
+        yAxis.setAutoRange(true);
 
         XYPointerAnnotation xypointerannotation = new XYPointerAnnotation("Test", 5D, -500D, 2.3561944901923448D);
         xypointerannotation.setTipRadius(0.0D);
