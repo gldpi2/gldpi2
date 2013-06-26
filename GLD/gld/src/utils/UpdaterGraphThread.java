@@ -8,9 +8,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Mensuration;
-import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.TimeSeries;
-import org.jfree.data.xy.XYSeries;
 
 /**
  *
