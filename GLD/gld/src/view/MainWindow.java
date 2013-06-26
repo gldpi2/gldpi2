@@ -24,6 +24,9 @@ public class MainWindow extends javax.swing.JFrame {
         setSize(1024,700);
         setLocationRelativeTo(null);
         this.user = usuario;
+        this.menuRelatorios.setVisible(false);
+        this.menuMainHibrido.setVisible(false);
+        
         if(Integer.parseInt(user.getTipo())==2){
             menuCadastros.setVisible(false);
         }
@@ -44,12 +47,15 @@ public class MainWindow extends javax.swing.JFrame {
         desktop = new javax.swing.JPanel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenu6 = new javax.swing.JMenu();
+        menuRelatorios = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         menuCadastros = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
+        jMenuItem13 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -59,11 +65,12 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
+        menuMainHibrido = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem8 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         org.jdesktop.layout.GroupLayout desktopLayout = new org.jdesktop.layout.GroupLayout(desktop);
         desktop.setLayout(desktopLayout);
@@ -73,32 +80,49 @@ public class MainWindow extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 586, Short.MAX_VALUE)
+            .add(0, 590, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");
 
-        jMenu6.setText("Relatórios");
+        menuRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/reports.png"))); // NOI18N
+        menuRelatorios.setText("Relatórios");
 
         jMenuItem9.setText("Custo");
-        jMenu6.add(jMenuItem9);
+        menuRelatorios.add(jMenuItem9);
 
         jMenuItem10.setText("Consumo");
-        jMenu6.add(jMenuItem10);
+        menuRelatorios.add(jMenuItem10);
 
         jMenuItem11.setText("Estimativas");
-        jMenu6.add(jMenuItem11);
+        menuRelatorios.add(jMenuItem11);
 
-        jMenu1.add(jMenu6);
+        jMenu1.add(menuRelatorios);
 
+        menuCadastros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/application_form.png"))); // NOI18N
         menuCadastros.setText("Cadastros");
 
-        jMenuItem6.setText("Usário");
-        menuCadastros.add(jMenuItem6);
+        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
+        jMenu7.setText("Usuário");
+
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_add.png"))); // NOI18N
+        jMenuItem5.setText("Inserir");
+        jMenu7.add(jMenuItem5);
+
+        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_edit.png"))); // NOI18N
+        jMenuItem12.setText("Alterar");
+        jMenu7.add(jMenuItem12);
+
+        jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_delete.png"))); // NOI18N
+        jMenuItem13.setText("Desativar");
+        jMenu7.add(jMenuItem13);
+
+        menuCadastros.add(jMenu7);
 
         jMenu1.add(menuCadastros);
         jMenu1.add(jSeparator1);
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cross.png"))); // NOI18N
         jMenuItem1.setText("Sair");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,22 +157,26 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenu4.setText("Estimativas");
 
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/money-coin.png"))); // NOI18N
         jMenuItem2.setText("Custo");
         jMenu4.add(jMenuItem2);
 
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lightning.png"))); // NOI18N
         jMenuItem3.setText("Consumo");
         jMenu4.add(jMenuItem3);
 
+        jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report_magnify.png"))); // NOI18N
         jMenuItem7.setText("Estudo Contratual");
         jMenu4.add(jMenuItem7);
 
         jMenuBar1.add(jMenu4);
 
-        jMenu3.setText("Sistema Hibrído");
-        jMenuBar1.add(jMenu3);
+        menuMainHibrido.setText("Sistema Hibrído");
+        jMenuBar1.add(menuMainHibrido);
 
         jMenu5.setText("Ajuda");
 
+        jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/information.png"))); // NOI18N
         jMenuItem8.setText("Sobre...");
         jMenu5.add(jMenuItem8);
 
@@ -244,23 +272,26 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel desktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
+    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenuItem menuCustos;
+    private javax.swing.JMenu menuMainHibrido;
+    private javax.swing.JMenu menuRelatorios;
     // End of variables declaration//GEN-END:variables
 }
