@@ -9,6 +9,42 @@
             <Property name="text" type="java.lang.String" value="Arquivo"/>
           </Properties>
           <SubComponents>
+            <Menu class="javax.swing.JMenu" name="jMenu6">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Custo"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem10">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Consumo"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem11">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Estimativas"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <Menu class="javax.swing.JMenu" name="menuCadastros">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cadastros"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Us&#xe1;rio"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sair"/>
@@ -16,18 +52,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
               </Events>
-            </MenuItem>
-          </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="menuCadastros">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Cadastros"/>
-          </Properties>
-          <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Us&#xe1;rio"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -54,10 +78,30 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Consumo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem4ActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Estimativas"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Estimativas"/>
+                <Property name="text" type="java.lang.String" value="Custo"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem3">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Consumo"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem7">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Estudo Contratual"/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -66,6 +110,18 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Sistema Hibr&#xed;do"/>
           </Properties>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="jMenu5">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ajuda"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem8">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sobre..."/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
@@ -98,7 +154,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="desktop" alignment="0" max="32767" attributes="0"/>
+          <Component id="desktop" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -113,7 +169,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="578" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="586" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
