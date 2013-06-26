@@ -20,7 +20,7 @@ public class MainWindow extends javax.swing.JFrame {
      */
     public MainWindow(Login usuario) {
         initComponents();
-        setSize(1280,800);
+        setSize(1024,768);
         setLocationRelativeTo(null);
         this.user = usuario;
         if(Integer.parseInt(user.getTipo())==2){
