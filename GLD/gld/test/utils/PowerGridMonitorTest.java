@@ -17,6 +17,8 @@ import utils.PowerGridMonitor;
  */
 public class PowerGridMonitorTest {
 
+    DatabaseInterface dbInterface = new DatabaseInterface();
+    
     public PowerGridMonitorTest() {
     }
 
@@ -30,6 +32,12 @@ public class PowerGridMonitorTest {
 
     @Test
     public void test() {
+        
+        dbInterface.connect();
+        String sql = "TRUNCATE mensuration";
+        dbInterface.executeQuery(sql);
+        dbInterface.disconnect();
+        
         PowerGridMonitor monitor = new PowerGridMonitor();
 
         Thread monitorThread = new Thread(monitor);
