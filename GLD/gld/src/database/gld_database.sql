@@ -19,3 +19,17 @@ CREATE TABLE mensuration (
     FOREIGN KEY (id_meter) REFERENCES meter(id_meter)
 );
 
+CREATE TABLE IF NOT EXISTS user (
+    id_user INT UNSIGNED ZEROFILL AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    register VARCHAR(12) NOT NULL,
+    password VARCHAR(10) NOT NULL,
+    email VARCHAR(50),
+    cell_oi VARCHAR(13),
+    cell_vivo VARCHAR(13),
+    cell_tim VARCHAR(13),
+    cell_claro VARCHAR(13),
+    profile INT(1) UNSIGNED NOT NULL,
+    PRIMARY KEY (id_user)
+);
+
