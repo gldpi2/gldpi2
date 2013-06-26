@@ -18,7 +18,7 @@ public class DatabaseInterfaceTest {
 
     @Before
     public void setUp() {
-        SystemProperties p = new SystemProperties();
+        
     }
 
     @After

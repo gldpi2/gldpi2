@@ -65,6 +65,7 @@ public class GraphPanel extends javax.swing.JPanel {
 
         ValueAxis yAxis = xyplot.getRangeAxis();
         yAxis.setRange(0, 6);
+        yAxis.setAutoRange(true);
 
         XYPointerAnnotation xypointerannotation = new XYPointerAnnotation("Test", 5D, -500D, 2.3561944901923448D);
         xypointerannotation.setTipRadius(0.0D);

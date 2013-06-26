@@ -29,12 +29,12 @@ public class DatabaseInterface {
      */
     public DatabaseInterface() {
         ResourceBundle properties = ResourceBundle.getBundle("utils.PropertiesFile");
-        
+
         this.host = properties.getString("HOST");
         this.database = properties.getString("DATABASE");
         this.user = properties.getString("USER");
         this.pass = properties.getString("PASS");
-        
+
         this.connected = false;
         this.configured = true;
     }
@@ -75,7 +75,7 @@ public class DatabaseInterface {
                 url += "&password=" + this.pass;
 
                 Class.forName("com.mysql.jdbc.Driver");
-                System.out.println(url);
+
                 this.conn = DriverManager.getConnection(url);
                 this.connected = true;
 
@@ -159,7 +159,12 @@ public class DatabaseInterface {
 
         try {
             st = this.conn.prepareStatement(sql);
-            rs = st.executeQuery();
+            
+            if (sql.contains("TRUNCATE")) {
+                st.execute();
+            } else {
+                rs = st.executeQuery();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, null, ex);
         }
