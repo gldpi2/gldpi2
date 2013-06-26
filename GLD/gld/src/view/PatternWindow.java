@@ -4,6 +4,7 @@
  */
 package view;
 
+import _tests.GraphPanel;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -20,59 +21,69 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.general.PieDataset;
 import org.jfree.util.Rotation;
+import utils.UpdaterGraphThread;
 
 /**
  *
  * @author itallorossi
  */
 public class PatternWindow extends javax.swing.JPanel {
-//    private PatternChart pg;
-    int i=0;
-    private static final String title = "Which operating system are you using?";
-    ChartPanel pg;
+//    private static final String title = "Which operating system are you using?";
+//    ChartPanel pg;
+    
+    int i=0, state=0;
+    private PatternChart pg;
     /**
      * Creates new form PatternWindow
      */
     public PatternWindow(int y, Login user) {
         initComponents();
-        setSize(1280,y);
+        setSize(1024,y);
         
         matricula.setText(user.getMatricula());
+        this.init();
+    }
+    
+    public void init() {
+        desktop.removeAll();
+        pg = new PatternChart(desktop.getWidth(), desktop.getHeight());
+        pg.criaGrafico();
         
-        painel.removeAll();
-        painel.setLayout(new GridBagLayout());
-        pg = createPieChart(title);
-        painel.add(pg);
-    }
-    
-   private ChartPanel createPieChart(String chartTitle) {
-        PieDataset dataset = createDataset();
-        JFreeChart chart = createChart(dataset, chartTitle);
-        ChartPanel chartPanel = new ChartPanel(chart,true);
-        return chartPanel;
+        Thread th = new Thread(new UpdaterGraphThread(pg.series));
+        th.setDaemon(true);
+        th.start();
+        
+        desktop.add(pg);
+        state = 1;
     }
 
-    private PieDataset createDataset() {
-        DefaultPieDataset result = new DefaultPieDataset();
-        result.setValue("Linux", 29);
-        result.setValue("Mac", 20);
-        result.setValue("Windows", 51);
-        return result;
-
-    }
-
-    private JFreeChart createChart(PieDataset dataset, String title) {
-        JFreeChart chart = ChartFactory.createPieChart3D(
-            title, dataset, true, true, false);
-        PiePlot3D plot = (PiePlot3D) chart.getPlot();
-        plot.setStartAngle(290);
-        plot.setDirection(Rotation.CLOCKWISE);
-        plot.setForegroundAlpha(0.5f);
-        plot.setCircular(true);
-        return chart;
-
-    }
-    
+//    private ChartPanel createPieChart(String chartTitle) {
+//        PieDataset dataset = createDataset();
+//        JFreeChart chart = createChart(dataset, chartTitle);
+//        ChartPanel chartPanel = new ChartPanel(chart,true);
+//        return chartPanel;
+//    }
+//
+//    private PieDataset createDataset() {
+//        DefaultPieDataset result = new DefaultPieDataset();
+//        result.setValue("Linux", 29);
+//        result.setValue("Mac", 20);
+//        result.setValue("Windows", 51);
+//        return result;
+//
+//    }
+//
+//    private JFreeChart createChart(PieDataset dataset, String title) {
+//        JFreeChart chart = ChartFactory.createPieChart3D(
+//            title, dataset, true, true, false);
+//        PiePlot3D plot = (PiePlot3D) chart.getPlot();
+//        plot.setStartAngle(290);
+//        plot.setDirection(Rotation.CLOCKWISE);
+//        plot.setForegroundAlpha(0.5f);
+//        plot.setCircular(true);
+//        return chart;
+//
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,12 +102,17 @@ public class PatternWindow extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
-        painel = new javax.swing.JPanel();
+        desktop = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
 
         jButton4.setText("jButton4");
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PatternWindow", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 24))); // NOI18N
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
 
         jButton1.setText("Voltar");
 
@@ -152,16 +168,16 @@ public class PatternWindow extends javax.swing.JPanel {
                 .addContainerGap(625, Short.MAX_VALUE))
         );
 
-        painel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Título Gráfico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
+        desktop.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Título Gráfico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
 
-        org.jdesktop.layout.GroupLayout painelLayout = new org.jdesktop.layout.GroupLayout(painel);
-        painel.setLayout(painelLayout);
-        painelLayout.setHorizontalGroup(
-            painelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 407, Short.MAX_VALUE)
+        org.jdesktop.layout.GroupLayout desktopLayout = new org.jdesktop.layout.GroupLayout(desktop);
+        desktop.setLayout(desktopLayout);
+        desktopLayout.setHorizontalGroup(
+            desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 409, Short.MAX_VALUE)
         );
-        painelLayout.setVerticalGroup(
-            painelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+        desktopLayout.setVerticalGroup(
+            desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 0, Short.MAX_VALUE)
         );
 
@@ -171,7 +187,7 @@ public class PatternWindow extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 189, Short.MAX_VALUE)
+            .add(0, 187, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -192,12 +208,12 @@ public class PatternWindow extends javax.swing.JPanel {
                         .add(jButton2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton1))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                    .add(layout.createSequentialGroup()
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(painel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -208,7 +224,7 @@ public class PatternWindow extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(painel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -220,7 +236,14 @@ public class PatternWindow extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        if(state==1){
+            pg.changeSize(desktop.getWidth(),desktop.getHeight());    
+        }
+    }//GEN-LAST:event_formComponentResized
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel desktop;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -231,6 +254,5 @@ public class PatternWindow extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel matricula;
-    private javax.swing.JPanel painel;
     // End of variables declaration//GEN-END:variables
 }
