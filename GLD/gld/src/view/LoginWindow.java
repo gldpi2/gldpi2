@@ -27,13 +27,6 @@ public class LoginWindow extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         getRootPane().setDefaultButton(buttonEntrar);
-
-        boolean capsOn = Toolkit.getDefaultToolkit().getLockingKeyState(KeyEvent.VK_CAPS_LOCK);
-
-        if (capsOn == true) {
-//            passwordSenha.setBackground(Color.red);
-//            passwordSenha.setToolTipText("CAPS LOCK ON!");    
-        }
     }
 
     /**
@@ -79,6 +72,10 @@ public class LoginWindow extends javax.swing.JFrame {
                 buttonEntrarActionPerformed(evt);
             }
         });
+
+        textMatricula.setText("090038070");
+
+        passwordSenha.setText("senha1234");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,7 +143,7 @@ public class LoginWindow extends javax.swing.JFrame {
 
             if (ok == 1) {
                 JOptionPane.showMessageDialog(null, "Sessão iniciada com sucesso!", "Sessão iniciada!", JOptionPane.INFORMATION_MESSAGE);
-                MainWindow main = new MainWindow();
+                MainWindow main = new MainWindow(user);
                 this.setVisible(false);
                 main.setVisible(true);
             } else {

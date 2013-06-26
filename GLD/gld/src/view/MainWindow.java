@@ -4,19 +4,33 @@
  */
 package view;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import model.Login;
+
 /**
  *
  * @author itallorossi
  */
 public class MainWindow extends javax.swing.JFrame {
-
+    Login user;
+    PatternWindow pattern;
     /**
      * Creates new form JanelaPrincipal
      */
+    public MainWindow(Login usuario) {
+        initComponents();
+        setSize(1280,800);
+        setLocationRelativeTo(null);
+        this.user = usuario;
+        if(Integer.parseInt(user.getTipo())==2){
+            menuCadastros.setVisible(false);
+        }
+    }
+    
     public MainWindow() {
         initComponents();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,21 +40,116 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        desktop = new javax.swing.JPanel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        menuCadastros = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        menuCustos = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        org.jdesktop.layout.GroupLayout desktopLayout = new org.jdesktop.layout.GroupLayout(desktop);
+        desktop.setLayout(desktopLayout);
+        desktopLayout.setHorizontalGroup(
+            desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 800, Short.MAX_VALUE)
+        );
+        desktopLayout.setVerticalGroup(
+            desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 578, Short.MAX_VALUE)
+        );
+
+        jMenu1.setText("Arquivo");
+
+        jMenuItem1.setText("Sair");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu1);
+
+        menuCadastros.setText("Cadastros");
+
+        jMenuItem6.setText("Usário");
+        menuCadastros.add(jMenuItem6);
+
+        jMenuBar1.add(menuCadastros);
+
+        jMenu2.setText("Monitoramento");
+
+        menuCustos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/chart_curve.png"))); // NOI18N
+        menuCustos.setText("Custo");
+        menuCustos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCustosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(menuCustos);
+
+        jMenuItem4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/chart_line.png"))); // NOI18N
+        jMenuItem4.setText("Consumo");
+        jMenu2.add(jMenuItem4);
+
+        jMenuItem5.setText("Estimativas");
+        jMenu2.add(jMenuItem5);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Sistema Hibrído");
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 400, Short.MAX_VALUE)
+            .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 300, Short.MAX_VALUE)
+            .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int i;
+
+        Object[] options = {"Sim", "Não"};
+        i = JOptionPane.showOptionDialog(null,
+                "Deseja realmente finalizar a aplicação?",
+                "Sair do Sistema",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[1]);
+
+        if (i == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        } else {
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void menuCustosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCustosActionPerformed
+        desktop.removeAll();
+        pattern = new PatternWindow(desktop.getHeight(),user);
+        desktop.add(pattern);
+        desktop.revalidate();
+        desktop.repaint();
+    }//GEN-LAST:event_menuCustosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -77,5 +186,16 @@ public class MainWindow extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel desktop;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenu menuCadastros;
+    private javax.swing.JMenuItem menuCustos;
     // End of variables declaration//GEN-END:variables
 }

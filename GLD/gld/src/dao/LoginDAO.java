@@ -6,8 +6,6 @@ package dao;
 
 import model.Login;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import utils.DatabaseInterface;
@@ -18,7 +16,6 @@ import utils.DatabaseInterface;
  */
 public class LoginDAO {
 
-    private Connection conex;
     DatabaseInterface dbInterface = new DatabaseInterface();
 
     public int verificarLogin(Login user) throws SQLException {
