@@ -72,7 +72,7 @@ public class CostGraphic extends JFrame {
         graphic.setVisible(true);
    }
     
-    class UpdaterThread implements Runnable {
+class UpdaterThread implements Runnable {
         CostGraphic cg;
         private double SIZE = 100;
         CostCtrl ctrl = new CostCtrl();
