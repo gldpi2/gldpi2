@@ -75,7 +75,7 @@ public class DatabaseInterface {
                 url += "&password=" + this.pass;
 
                 Class.forName("com.mysql.jdbc.Driver");
-                System.out.println(url);
+                
                 this.conn = DriverManager.getConnection(url);
                 this.connected = true;
 
