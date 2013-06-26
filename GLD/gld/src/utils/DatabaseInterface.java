@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,11 +28,13 @@ public class DatabaseInterface {
      * Construtor da classe DatabaseInterface.
      */
     public DatabaseInterface() {
-        this.host = SystemProperties.properties.getProperty("HOST");
-        this.database = SystemProperties.properties.getProperty("DATABASE");
-        this.user = SystemProperties.properties.getProperty("USER");
-        this.pass = SystemProperties.properties.getProperty("PASS");
-
+        ResourceBundle properties = ResourceBundle.getBundle("utils.PropertiesFile");
+        
+        this.host = properties.getString("HOST");
+        this.database = properties.getString("DATABASE");
+        this.user = properties.getString("USER");
+        this.pass = properties.getString("PASS");
+        
         this.connected = false;
         this.configured = true;
     }
