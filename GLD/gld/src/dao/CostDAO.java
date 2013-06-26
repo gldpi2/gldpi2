@@ -5,7 +5,9 @@
 package dao;
 
 import controller.CostCtrl;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import model.Cost;
 import model.Mensuration;
@@ -19,8 +21,8 @@ public class CostDAO {
 
     Mensuration mensuration = new Mensuration();
     CostCtrl ctrl = new CostCtrl();
-    MensurationDAO menDao = new MensurationDAO();
-    
+    DatabaseInterface dbInterface;
+        
      
     /**
      * Método que irá pegar as mediçõe através da DAO
@@ -29,15 +31,33 @@ public class CostDAO {
      * @throws Exceção de SQL, pois se não houver conexão ou
      * dados, irá falhar.
      */
-    public double[] getCost() throws SQLException{
-        List<Mensuration> listDAO;
-        listDAO = menDao.getMensuration();
-        double[] costMens = new double[listDAO.size()];
-        for(int i = 0; i<listDAO.size(); i++){
-            mensuration = listDAO.get(i);
-            costMens[i] = ctrl.energyValue(mensuration.getFlow(), mensuration.getTension());
-        }
+    
+    public ArrayList<Mensuration> parameters() throws SQLException{
+        ArrayList<Mensuration> mensurationList = new ArrayList<>();
+                
         
-        return costMens;
+        String sql = "SELECT * FROM mensuration";
+        
+        dbInterface.connect();
+
+        ResultSet rsMensuration = dbInterface.executeQuery(sql);
+        try{
+            while(rsMensuration.next()){
+                mensuration.setFlow(rsMensuration.getDouble(2));
+                mensuration.setTension(rsMensuration.getDouble(3));
+                mensuration.setTimestamp(rsMensuration.getString(4));
+                ctrl.energyValue(mensuration.getFlow(), mensuration.getTension());
+                ctrl.setTime(mensuration.getTimestamp());
+                mensurationList.add(mensuration);
+            }
+            
+        } catch (Exception e){
+            e.printStackTrace();
+        }          
+       
+
+        dbInterface.disconnect();
+
+        return mensurationList;
     }
 }
