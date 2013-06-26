@@ -8,6 +8,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Mensuration;
+import org.jfree.data.time.Millisecond;
+import org.jfree.data.time.TimeSeries;
 import org.jfree.data.xy.XYSeries;
 
 /**
@@ -18,14 +20,14 @@ public class UpdaterGraphThread implements Runnable {
 
     ResourceBundle properties = ResourceBundle.getBundle("utils.PropertiesFile");
     private GraphPanelDAO graphPanelDao = new GraphPanelDAO();
-    private XYSeries series;
+    private TimeSeries series;
 
     /**
      * Método construtor da classe UpdaterGraphThread.
      *
      * @param series XYSeries Referência da série apresentada no gráfico.
      */
-    public UpdaterGraphThread(XYSeries series) {
+    public UpdaterGraphThread(TimeSeries series) {
         this.series = series;
     }
 
@@ -44,8 +46,8 @@ public class UpdaterGraphThread implements Runnable {
             for (Mensuration m : mensuration) {
                 int time = new Integer(m.getTimestamp().substring(8, 14));
 
-                System.out.println(time + " " + m.getFlow() + " " + m.getTension());
-                series.addOrUpdate(time, m.getFlow() * m.getTension());
+                //System.out.println(time + " " + m.getFlow() + " " + m.getTension());
+                series.addOrUpdate(m.getMillisecond(), m.getFlow() * m.getTension());
                 lastId = m.getIdMensuration();
             }
         } catch (SQLException ex) {
@@ -56,11 +58,7 @@ public class UpdaterGraphThread implements Runnable {
             try {
                 Mensuration m = this.graphPanelDao.getLastMensuration();
                 if (!(lastId == m.getIdMensuration())) {
-                    int time = new Integer(m.getTimestamp().substring(8, 14));
-
-                    System.out.println(time + " " + m.getFlow() + " " + m.getTension());
-
-                    series.addOrUpdate(time, m.getFlow() * m.getTension());
+                    series.addOrUpdate(m.getMillisecond(), m.getFlow() * m.getTension());
                     lastId = m.getIdMensuration();
                 }
 
