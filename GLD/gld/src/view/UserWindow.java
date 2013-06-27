@@ -7,6 +7,7 @@ package view;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -71,6 +72,7 @@ public class UserWindow extends javax.swing.JPanel {
 
         passwrod2Label.setText("*Confirme Senha:");
 
+        cancelButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cancel.png")));
         cancelButton.setText("Cancelar");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,6 +80,7 @@ public class UserWindow extends javax.swing.JPanel {
             }
         });
 
+        createButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_add.png"))); // NOI18N
         createButton.setText("Cadastrar");
         createButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,6 +136,7 @@ public class UserWindow extends javax.swing.JPanel {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        registerField.setDragEnabled(true);
         registerField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 registerFieldActionPerformed(evt);
@@ -172,8 +176,7 @@ public class UserWindow extends javax.swing.JPanel {
         }
         cell_claroField.setEnabled(false);
 
-        warningLabel.setForeground(new java.awt.Color(255, 0, 0));
-        warningLabel.setText("<html>Os campos assinalados com asterisco (*) <br> são de preencimento obrigatório</html>");
+        warningLabel.setText("Os campos assinalados com asterisco (*) são de preencimento obrigatório");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -182,55 +185,57 @@ public class UserWindow extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addComponent(warningLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nameLabel)
-                                    .addComponent(registerLabel)
-                                    .addComponent(emailLabel)
-                                    .addComponent(passwordLabel)
-                                    .addComponent(passwrod2Label))
-                                .addGap(37, 37, 37))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(cell_claroLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cell_claroBox))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(cell_timLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cell_timBox))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(cell_vivoLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cell_vivoBox))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(cell_oiLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cell_oiBox))
-                                    .addComponent(profileLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(registerField)
-                                .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(password2Field, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cell_oiField, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cell_vivoField, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cell_timField, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cell_claroField, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(profileCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                            .addComponent(emailField)))
-                    .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(nameLabel)
+                                            .addComponent(registerLabel)
+                                            .addComponent(emailLabel)
+                                            .addComponent(passwordLabel)
+                                            .addComponent(passwrod2Label))
+                                        .addGap(37, 37, 37))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(cell_claroLabel)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(cell_claroBox))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(cell_timLabel)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(cell_timBox))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(cell_vivoLabel)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(cell_vivoBox))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(cell_oiLabel)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(cell_oiBox))
+                                            .addComponent(profileLabel))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(registerField, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(passwordField)
+                                    .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
+                                    .addComponent(emailField)
+                                    .addComponent(password2Field)
+                                    .addComponent(cell_oiField)
+                                    .addComponent(cell_vivoField)
+                                    .addComponent(cell_timField)
+                                    .addComponent(cell_claroField)
+                                    .addComponent(profileCombo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(createButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancelButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cancelButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(createButton)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,11 +294,11 @@ public class UserWindow extends javax.swing.JPanel {
                     .addComponent(profileLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(createButton)
                     .addComponent(cancelButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -310,40 +315,36 @@ public class UserWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_profileComboActionPerformed
 
     private void cell_oiBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_oiBoxActionPerformed
-        if(cell_oiBox.isSelected()){
+        if (cell_oiBox.isSelected()) {
             cell_oiField.setEnabled(true);
-        }
-        else{
+        } else {
             cell_oiField.setEnabled(false);
             cell_oiField.setText("");
-        } 
+        }
     }//GEN-LAST:event_cell_oiBoxActionPerformed
 
     private void cell_vivoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_vivoBoxActionPerformed
-        if(cell_vivoBox.isSelected()){
+        if (cell_vivoBox.isSelected()) {
             cell_vivoField.setEnabled(true);
-        }
-        else{
+        } else {
             cell_vivoField.setEnabled(false);
             cell_vivoField.setText("");
-        } 
+        }
     }//GEN-LAST:event_cell_vivoBoxActionPerformed
 
     private void cell_timBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_timBoxActionPerformed
-        if(cell_timBox.isSelected()){
+        if (cell_timBox.isSelected()) {
             cell_timField.setEnabled(true);
-        }
-        else{
+        } else {
             cell_timField.setEnabled(false);
             cell_timField.setText("");
         }
     }//GEN-LAST:event_cell_timBoxActionPerformed
 
     private void cell_claroBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_claroBoxActionPerformed
-        if(cell_claroBox.isSelected()){
+        if (cell_claroBox.isSelected()) {
             cell_claroField.setEnabled(true);
-        }
-        else{
+        } else {
             cell_claroField.setEnabled(false);
             cell_claroField.setText("");
         }
@@ -354,9 +355,8 @@ public class UserWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_registerFieldActionPerformed
 
     private void cell_timFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_timFieldActionPerformed
-       // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_cell_timFieldActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;
     private javax.swing.JCheckBox cell_claroBox;
@@ -387,40 +387,38 @@ public class UserWindow extends javax.swing.JPanel {
     private javax.swing.JLabel registerLabel;
     private javax.swing.JLabel warningLabel;
     // End of variables declaration//GEN-END:variables
-    
-    public int checkPassword(){
+
+    public int checkPassword() {
         String sen = passwordField.getText();
         String senC = password2Field.getText();
 
-        if(sen.length()<6){
+        if (sen.length() < 6) {
             return 1;
         }
 
-        if((sen.equals(senC) && senC.equals(sen)) && (!sen.equals("") || !senC.equals(""))){
+        if ((sen.equals(senC) && senC.equals(sen)) && (!sen.equals("") || !senC.equals(""))) {
             return 0;
-        }else{
+        } else {
             return 1;
         }
     }
-    
-    public int checkEmail(String email){
 
-          Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+    public int checkEmail(String email) {
 
-          Matcher m = p.matcher(email);
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
 
-          boolean matchFound = m.matches();
+        Matcher m = p.matcher(email);
 
-          if (matchFound){
-              return 0;
-          }else{
-              return 1;
-          } 
+        boolean matchFound = m.matches();
+
+        if (matchFound) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
-    
-    
-    
-    public static void main(String args[]){
+
+    public static void main(String args[]) {
         final JFrame frame = new JFrame();
         frame.add(new UserWindow());
         frame.setLocation(300, 200);
@@ -432,5 +430,4 @@ public class UserWindow extends javax.swing.JPanel {
             }
         });
     }
-
 }
