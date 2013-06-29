@@ -5,6 +5,7 @@
 package view;
 
 import model.Login;
+import utils.UpdaterCostThread;
 import utils.UpdaterGraphThread;
 
 /**
@@ -33,7 +34,8 @@ public class CostWindow extends javax.swing.JPanel {
         pg = new CostChart(desktop.getWidth(), desktop.getHeight());
         pg.criaGrafico();
         
-        Thread th = new Thread(new UpdaterGraphThread(pg.series));
+        pg.criaGrafico();
+        Thread th = new Thread(new UpdaterCostThread(pg.series));
         th.setDaemon(true);
         th.start();
         

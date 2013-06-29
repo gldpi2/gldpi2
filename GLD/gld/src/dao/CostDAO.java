@@ -15,7 +15,16 @@ public class CostDAO {
 
     Mensuration mensuration = new Mensuration();
     CostCtrl ctrl = new CostCtrl();
-    DatabaseInterface dbInterface;
+    DatabaseInterface dbInterface = new DatabaseInterface();
+    double costValue;
+
+    public double getCostValue() {
+        return costValue;
+    }
+
+    public void setCostValue(double costValue) {
+        this.costValue = costValue;
+    }
 
     /**
      * Método que irá pegar as mediçõe através da DAO e aqui irá fazer o cálculo
@@ -29,7 +38,6 @@ public class CostDAO {
 
 
         String sql = "SELECT * FROM mensuration";
-
         dbInterface.connect();
 
         ResultSet rsMensuration = dbInterface.executeQuery(sql);
@@ -38,7 +46,7 @@ public class CostDAO {
                 mensuration.setFlow(rsMensuration.getDouble(2));
                 mensuration.setTension(rsMensuration.getDouble(3));
                 mensuration.setTimestamp(rsMensuration.getString(4));
-                ctrl.energyValue(mensuration.getFlow(), mensuration.getTension());
+                setCostValue(ctrl.energyValue(mensuration.getFlow(), mensuration.getTension()));
                 ctrl.setTime(mensuration.getTimestamp());
                 mensurationList.add(mensuration);
             }
