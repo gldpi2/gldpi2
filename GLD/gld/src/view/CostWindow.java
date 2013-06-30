@@ -15,12 +15,9 @@ public class CostWindow extends javax.swing.JPanel {
 
     int i = 0, state = 0;
     private CostChart pg;
-<<<<<<< HEAD
-    
 
-=======
     MainMenu mainm;
->>>>>>> 864555d02588d8592a50760ad970e3fe558a225a
+
     /**
      * Método construtor do Objeto de Window
      * @param y altura da tela
@@ -215,14 +212,13 @@ public class CostWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_formComponentResized
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-<<<<<<< HEAD
-=======
+
         MainWindow.desktop.removeAll();
         mainm = new MainMenu(desktop.getWidth(), desktop.getHeight());
         MainWindow.desktop.add(mainm);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
->>>>>>> 864555d02588d8592a50760ad970e3fe558a225a
+
     }//GEN-LAST:event_jButton2ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel desktop;

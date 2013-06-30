@@ -41,14 +41,14 @@ public class CostCtrl {
          * acordo com o documento da CEB (Companhia Energética de Brasília) Hora
          * de ponta é entre 18 e 21 e o restante tem valor menor
          */
-        hour = Integer.parseInt(getTime());
+        hour = Double.parseDouble(getTime());
         if (hour >= 18 && hour < 21) {
             cost.setValueEnergy(PEAK);
         } else {
             cost.setValueEnergy(VALUE_OFFPEAK);
         }
         double costValue = flow * tension * cost.getValueEnergy();
-
+        
 
         return costValue;
     }
