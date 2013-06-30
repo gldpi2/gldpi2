@@ -199,13 +199,11 @@ public class PatternWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_formComponentResized
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
         MainWindow.desktop.removeAll();
         mainm = new MainMenu();
         MainWindow.desktop.add(mainm);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
-
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
