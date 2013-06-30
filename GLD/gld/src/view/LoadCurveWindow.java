@@ -16,6 +16,8 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     int i = 0, state = 0;
     private LoadCurveChart loadCurveChart;
 
+    MainMenu mainm;
+    Login user;
     /**
      * Creates new form PatternWindow
      */
@@ -50,7 +52,6 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -79,10 +80,13 @@ public class LoadCurveWindow extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setText("Voltar");
-
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/house_go.png"))); // NOI18N
         jButton2.setText("Voltar ao Menu Principal");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
 
@@ -232,22 +236,20 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+            .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jSeparator1)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(jButton2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton1))
-                    .add(layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1)
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(infoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(infoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(jButton2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -263,9 +265,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton2)
-                    .add(jButton1))
+                .add(jButton2)
                 .add(6, 6, 6))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -275,6 +275,15 @@ public class LoadCurveWindow extends javax.swing.JPanel {
             loadCurveChart.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_formComponentResized
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        MainWindow.desktop.removeAll();
+        mainm = new MainMenu(user);
+        MainWindow.desktop.add(mainm);
+        MainWindow.desktop.revalidate();
+        MainWindow.desktop.repaint();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FlowLabel;
     private javax.swing.JLabel FlowValue;
@@ -284,7 +293,6 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     private javax.swing.JLabel TensionValue;
     private javax.swing.JPanel desktop;
     private javax.swing.JPanel infoPanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;

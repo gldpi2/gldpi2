@@ -17,10 +17,10 @@ import utils.PowerGridMonitor;
  */
 public class MainWindow extends javax.swing.JFrame {
 
-    Login user;
-    LoadCurveWindow loadWindow;
-    CostWindow costWindow;
-    UserWindow userWindow;
+    public static Login user;
+    public static LoadCurveWindow loadWindow;
+    public static CostWindow costWindow;
+    public static UserWindow userWindow;
     PowerGridMonitor powerGridMonitor;
     Thread monitorThread;
     int state = 0;
@@ -52,7 +52,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void init() {
         desktop.removeAll();
-        pg = new MainMenu();
+        pg = new MainMenu(user);
         desktop.add(pg);
         desktop.revalidate();
         desktop.repaint();

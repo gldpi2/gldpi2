@@ -17,7 +17,7 @@ public class CostWindow extends javax.swing.JPanel {
     private CostChart pg;
 
     MainMenu mainm;
-
+    Login user;
     /**
      * Método construtor do Objeto de Window
      * @param y altura da tela
@@ -58,7 +58,6 @@ public class CostWindow extends javax.swing.JPanel {
     private void initComponents() {
 
         jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -77,8 +76,6 @@ public class CostWindow extends javax.swing.JPanel {
                 formComponentResized(evt);
             }
         });
-
-        jButton1.setText("Voltar");
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/house_go.png"))); // NOI18N
         jButton2.setText("Voltar ao Menu Principal");
@@ -167,22 +164,20 @@ public class CostWindow extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+            .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jSeparator1)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(jButton2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton1))
-                    .add(layout.createSequentialGroup()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1)
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(jButton2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -198,9 +193,7 @@ public class CostWindow extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton2)
-                    .add(jButton1))
+                .add(jButton2)
                 .add(6, 6, 6))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -212,17 +205,14 @@ public class CostWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_formComponentResized
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-
         MainWindow.desktop.removeAll();
-        mainm = new MainMenu();
+        mainm = new MainMenu(user);
         MainWindow.desktop.add(mainm);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
-
     }//GEN-LAST:event_jButton2ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel desktop;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
