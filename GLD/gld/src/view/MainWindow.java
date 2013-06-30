@@ -52,7 +52,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void init() {
         desktop.removeAll();
-        pg = new MainMenu(desktop.getWidth(), desktop.getHeight());
+        pg = new MainMenu();
         desktop.add(pg);
         desktop.revalidate();
         desktop.repaint();
@@ -120,7 +120,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 602, Short.MAX_VALUE)
+            .add(0, 606, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");
@@ -331,7 +331,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel desktop;
+    public static javax.swing.JPanel desktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;

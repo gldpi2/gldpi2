@@ -28,10 +28,10 @@ public class UserTableModel extends AbstractTableModel {
     public UserTableModel(List<User> usersList) {
         linhas = new ArrayList<>(usersList);
     }
-    private String[] colunas = new String[]{"Nome", "Matrícula", "Senha", "Perfil", "Ativo"};
+    private String[] colunas = new String[]{"Nome", "Email", "Matrícula", "Perfil", "Ativo"};
     private static final int NAME = 0;
-    private static final int REGISTER = 1;
-    private static final int PASSWORD = 2;
+    private static final int EMAIL = 1;
+    private static final int REGISTER = 2;
     private static final int PROFILE = 3;
     private static final int ENABLE = 4;
 
@@ -60,8 +60,8 @@ public class UserTableModel extends AbstractTableModel {
                 return user.getName();
             case REGISTER:
                 return user.getRegister();
-            case PASSWORD:
-                return user.getPassword();
+            case EMAIL:
+                return user.getEmail();
             case PROFILE:
                 if (user.getProfile().equals(1)) {
                     return "Administrador";
@@ -93,8 +93,8 @@ public class UserTableModel extends AbstractTableModel {
             case REGISTER:
                 user.setRegister((String) aValue);
                 break;
-            case PASSWORD:
-                user.setPassword((String) aValue);
+            case EMAIL:
+                user.setEmail((String) aValue);
                 break;
             case PROFILE:
                 if (aValue.equals("Administrador")) {

@@ -6,71 +6,48 @@ package view;
 
 import model.Login;
 import utils.UpdaterCostThread;
-import utils.UpdaterLoadCurveThread;
 
 /**
  *
  * @author itallorossi
  */
 public class CostWindow extends javax.swing.JPanel {
-//    private static final String title = "Which operating system are you using?";
-//    ChartPanel pg;
-    
-    int i=0, state=0;
+
+    int i = 0, state = 0;
     private CostChart pg;
-    //MainWindow mainw;
+
+    MainMenu mainm;
+
     /**
-     * Creates new form PatternWindow
+     * Método construtor do Objeto de Window
+     * @param y altura da tela
      */
     public CostWindow(int y, Login user) {
         initComponents();
-        setSize(1024,y);
-        
+        setSize(1024, y);
+
         matricula.setText(user.getMatricula());
         this.init();
     }
-    
+
+    /**
+     * Método de iniciação do componente.
+     * Ajusta o tamanho do painel do gráfico dentro do tela
+     */
     public void init() {
         desktop.removeAll();
         pg = new CostChart(desktop.getWidth(), desktop.getHeight());
         pg.criaGrafico();
-        
+
         pg.criaGrafico();
         Thread th = new Thread(new UpdaterCostThread(pg.series));
         th.setDaemon(true);
         th.start();
-        
+
         desktop.add(pg);
         state = 1;
-    }
-
-//    private ChartPanel createPieChart(String chartTitle) {
-//        PieDataset dataset = createDataset();
-//        JFreeChart chart = createChart(dataset, chartTitle);
-//        ChartPanel chartPanel = new ChartPanel(chart,true);
-//        return chartPanel;
-//    }
-//
-//    private PieDataset createDataset() {
-//        DefaultPieDataset result = new DefaultPieDataset();
-//        result.setValue("Linux", 29);
-//        result.setValue("Mac", 20);
-//        result.setValue("Windows", 51);
-//        return result;
-//
-//    }
-//
-//    private JFreeChart createChart(PieDataset dataset, String title) {
-//        JFreeChart chart = ChartFactory.createPieChart3D(
-//            title, dataset, true, true, false);
-//        PiePlot3D plot = (PiePlot3D) chart.getPlot();
-//        plot.setStartAngle(290);
-//        plot.setDirection(Rotation.CLOCKWISE);
-//        plot.setForegroundAlpha(0.5f);
-//        plot.setCircular(true);
-//        return chart;
-//
-//    }
+ }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -229,15 +206,20 @@ public class CostWindow extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        if(state==1){
-            pg.changeSize(desktop.getWidth(),desktop.getHeight());    
+        if (state == 1) {
+            pg.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_formComponentResized
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+        MainWindow.desktop.removeAll();
+        mainm = new MainMenu();
+        MainWindow.desktop.add(mainm);
+        MainWindow.desktop.revalidate();
+        MainWindow.desktop.repaint();
 
+    }//GEN-LAST:event_jButton2ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel desktop;
     private javax.swing.JButton jButton1;
