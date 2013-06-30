@@ -4,6 +4,7 @@
  */
 package view;
 
+import com.mysql.jdbc.jdbc2.optional.SuspendableXAConnection;
 import dao.UserDAO;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,9 +14,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import model.Login;
 import model.User;
 import model.UserTableModel;
+import utils.SQLFindUserException;
 import utils.SQLRegisterException;
 
 /**
@@ -28,15 +29,10 @@ public class UserWindow extends javax.swing.JPanel {
     List<User> usuarios;
     UserTableModel table = new UserTableModel();
 
-    
-    public UserWindow(int y){
-        initComponents();
-        setSize(1024, y);
-    }
     /**
      * Creates new form Usuário
      */
-    public UserWindow() {
+    public UserWindow(int y) {
         try {
             usuarios = dao.readUsers();
             table.addUserList(usuarios);
@@ -44,7 +40,7 @@ public class UserWindow extends javax.swing.JPanel {
             Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, e);
         }
         initComponents();
-
+        setSize(1024, y);
     }
 
     /**
@@ -62,6 +58,7 @@ public class UserWindow extends javax.swing.JPanel {
         usersTable = new javax.swing.JTable();
         titleTabel = new javax.swing.JLabel();
         deleteUser = new javax.swing.JButton();
+        enableButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         titleForm = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
@@ -92,6 +89,7 @@ public class UserWindow extends javax.swing.JPanel {
         hint2 = new javax.swing.JToggleButton();
         warningLabel = new javax.swing.JLabel();
         createButton = new javax.swing.JButton();
+        updateButton = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -110,7 +108,13 @@ public class UserWindow extends javax.swing.JPanel {
 
         usersTable.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         usersTable.setModel(table);
-        usersTable.setColumnSelectionAllowed(true);
+        usersTable.setCellSelectionEnabled(false);
+        usersTable.setRowSelectionAllowed(true);
+        usersTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                usersTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(usersTable);
         usersTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -118,7 +122,15 @@ public class UserWindow extends javax.swing.JPanel {
         titleTabel.setText("Relatório de Usuários");
 
         deleteUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_delete.png"))); // NOI18N
-        deleteUser.setText("Deletar");
+        deleteUser.setText("Desativar");
+        deleteUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteUserActionPerformed(evt);
+            }
+        });
+
+        enableButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
+        enableButton.setText("Reativar");
 
         javax.swing.GroupLayout panelTabelLayout = new javax.swing.GroupLayout(panelTabel);
         panelTabel.setLayout(panelTabelLayout);
@@ -126,12 +138,19 @@ public class UserWindow extends javax.swing.JPanel {
             panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTabelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(deleteUser)
-                    .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(titleTabel, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTabelLayout.createSequentialGroup()
+                        .addComponent(titleTabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTabelLayout.createSequentialGroup()
+                        .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTabelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(enableButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteUser)))
+                        .addContainerGap())))
         );
         panelTabelLayout.setVerticalGroup(
             panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -141,7 +160,9 @@ public class UserWindow extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteUser)
+                .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteUser)
+                    .addComponent(enableButton))
                 .addContainerGap())
         );
 
@@ -241,14 +262,14 @@ public class UserWindow extends javax.swing.JPanel {
 
         profileLabel.setText("Perfil:");
 
-        hint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/information.png"))); // NOI18N
+        hint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/help.png"))); // NOI18N
         hint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hintActionPerformed(evt);
             }
         });
 
-        hint2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/information.png"))); // NOI18N
+        hint2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/help.png"))); // NOI18N
         hint2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 hint2ActionPerformed(evt);
@@ -265,6 +286,10 @@ public class UserWindow extends javax.swing.JPanel {
             }
         });
 
+        updateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_edit.png"))); // NOI18N
+        updateButton.setText("Alterar");
+        updateButton.setEnabled(false);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -272,59 +297,66 @@ public class UserWindow extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cell_oiLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cell_oiBox))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cell_vivoLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cell_vivoBox))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cell_timLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cell_timBox))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(cell_claroLabel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(cell_claroBox))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nameLabel)
-                                    .addComponent(registerLabel)
-                                    .addComponent(passwordLabel)
-                                    .addComponent(passwrod2Label)
-                                    .addComponent(emailLabel)
-                                    .addComponent(profileLabel))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(cell_claroField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cell_timField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cell_vivoField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cell_oiField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(emailField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(password2Field, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(registerField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameField, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(profileCombo, 0, 206, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(cell_claroLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cell_claroBox))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(cell_timLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cell_timBox))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(cell_vivoLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cell_vivoBox))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(cell_oiLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cell_oiBox))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(nameLabel)
+                                            .addComponent(registerLabel)
+                                            .addComponent(passwordLabel)
+                                            .addComponent(passwrod2Label)
+                                            .addComponent(emailLabel))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(6, 6, 6))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(profileLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(hint2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(hint, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(registerField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(hint, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(hint2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(password2Field, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cell_oiField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cell_vivoField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cell_timField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cell_claroField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(profileCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(606, 606, 606))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(titleForm)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(warningLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(createButton)
-                .addContainerGap())
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(updateButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(createButton))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(titleForm)
+                                .addComponent(warningLabel)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -332,67 +364,65 @@ public class UserWindow extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(titleForm, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(registerField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(registerLabel))
+                    .addComponent(hint, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(nameLabel)
-                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(passwordLabel))
+                    .addComponent(hint2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(password2Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwrod2Label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(registerField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(registerLabel))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cell_oiField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cell_oiLabel))
+                            .addComponent(cell_oiBox))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(passwordLabel))
-                            .addComponent(hint2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(cell_vivoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cell_vivoLabel))
+                            .addComponent(cell_vivoBox))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                            .addComponent(password2Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(passwrod2Label))
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                            .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(emailLabel))
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                            .addComponent(cell_oiField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(cell_oiLabel)))
-                                                    .addComponent(cell_oiBox))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                                    .addComponent(cell_vivoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(cell_vivoLabel)))
-                                            .addComponent(cell_vivoBox))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(cell_timField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cell_timLabel)))
-                                    .addComponent(cell_timBox))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cell_claroField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cell_claroLabel)))
-                            .addComponent(cell_claroBox))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cell_timField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cell_timLabel))
+                            .addComponent(cell_timBox))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(profileCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(profileLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(hint, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(createButton)
-                .addContainerGap())
+                            .addComponent(cell_claroField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cell_claroLabel)))
+                    .addComponent(cell_claroBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(profileCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(profileLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateButton)
+                    .addComponent(createButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -400,7 +430,8 @@ public class UserWindow extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -408,12 +439,79 @@ public class UserWindow extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelTabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void deleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserActionPerformed
+        if (usersTable.getSelectedRow() != -1) {
+            User user = usuarios.get(usersTable.getSelectedRow());
+            try {
+                dao.deleteUser(user);
+            } catch (SQLFindUserException e) {
+                JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro: Desativar Usuário",
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecione primeiro algum usuário", "Erro: Desativar Usuário",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        limpar();
+        usersTable.repaint();
+    }//GEN-LAST:event_deleteUserActionPerformed
+
+    private void usersTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersTableMouseClicked
+        if (usersTable.getSelectedRow() != -1) {
+            limpar();
+            User user = usuarios.get(usersTable.getSelectedRow());
+            nameField.setText(user.getName());
+            registerField.setText(user.getRegister());
+            passwordField.setText(user.getPassword());
+            password2Field.setText(user.getPassword());
+            emailField.setText(user.getEmail());
+            if(user.getCell_oi()!= null){
+                cell_oiField.setText(user.getCell_oi());
+                cell_oiBox.setSelected(true);
+                cell_oiField.setEnabled(true);
+            }else{
+                cell_oiBox.setSelected(false);
+                cell_oiField.setEnabled(false);
+            }
+            if(user.getCell_vivo()!= null){
+                cell_vivoField.setText(user.getCell_vivo());
+                cell_vivoBox.setSelected(true);
+                cell_vivoField.setEnabled(true);
+            }else{
+                cell_vivoBox.setSelected(false);
+                cell_vivoField.setEnabled(false);
+            }
+            if(user.getCell_tim()!= null){
+                cell_timField.setText(user.getCell_tim());
+                cell_timBox.setSelected(true);
+                cell_timField.setEnabled(true);
+            }else{
+                cell_timBox.setSelected(false);
+                cell_timField.setEnabled(false);
+            }
+            if(user.getCell_claro()!= null){
+                cell_claroField.setText(user.getCell_claro());
+                cell_claroBox.setSelected(true);
+                cell_claroField.setEnabled(true);
+            }else{
+                cell_claroBox.setSelected(false);
+                cell_claroField.setEnabled(false);
+            }
+            profileCombo.setSelectedIndex(user.getProfile()-1);
+            updateButton.setEnabled(true);
+            createButton.setEnabled(false);
+        }
+    }//GEN-LAST:event_usersTableMouseClicked
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         // TODO add your handling code here:
@@ -431,16 +529,16 @@ public class UserWindow extends javax.swing.JPanel {
             String cell_claro = (cell_claroField.getText().equals("(  )    -    ")) ? null : cell_claroField.getText();
             String email = (emailField.getText().equals("")) ? null : emailField.getText();
             User user = new User(nameField.getText(), registerField.getText(),
-                    passwordField.getText().toString(), email,
-                    cell_oi, cell_vivo, cell_tim, cell_claro, profile);
+                passwordField.getText().toString(), email,
+                cell_oi, cell_vivo, cell_tim, cell_claro, profile, 1);
 
             try {
                 dao.createUser(user);
             } catch (SQLRegisterException e) {
                 limpar();
                 JOptionPane.showMessageDialog(null, "Matrícula é um campo "
-                        + "identificador!\nVerifique a matrícula digitada!", "Erro: Matrícula",
-                        JOptionPane.ERROR_MESSAGE);
+                    + "identificador!\nVerifique a matrícula digitada!", "Erro: Matrícula",
+                    JOptionPane.ERROR_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -453,49 +551,35 @@ public class UserWindow extends javax.swing.JPanel {
                 Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, e);
             }
 
-//        System.out.println("User = " + user);
-//        System.out.println("User.name = " + user.getName());
-//        System.out.println("User.register = " + user.getRegister());
-//        System.out.println("User.password = " + user.getPassword());
-//        System.out.println("User.email = " + user.getEmail());
-//        System.out.println("User.cell_oi = " + user.getCell_oi());
-//        System.out.println("User.cell_vivo =" + user.getCell_vivo());
-//        System.out.println("User.cell_tim = " + user.getCell_tim());
-//        System.out.println("User.cell_claro = " + user.getCell_claro());
-//        System.out.println("User.profile = " + user.getProfile());
+            //        System.out.println("User = " + user);
+            //        System.out.println("User.name = " + user.getName());
+            //        System.out.println("User.register = " + user.getRegister());
+            //        System.out.println("User.password = " + user.getPassword());
+            //        System.out.println("User.email = " + user.getEmail());
+            //        System.out.println("User.cell_oi = " + user.getCell_oi());
+            //        System.out.println("User.cell_vivo =" + user.getCell_vivo());
+            //        System.out.println("User.cell_tim = " + user.getCell_tim());
+            //        System.out.println("User.cell_claro = " + user.getCell_claro());
+            //        System.out.println("User.profile = " + user.getProfile());
         }
     }//GEN-LAST:event_createButtonActionPerformed
 
-    private void profileComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileComboActionPerformed
+    private void hint2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hint2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_profileComboActionPerformed
+        JOptionPane.showMessageDialog(null, "O campo senha deve conter de "
+            + "6 a 10 caracteres alfanuméricos", "Dica de "
+            + "Preenchimento!", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_hint2ActionPerformed
 
-    private void cell_oiBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_oiBoxActionPerformed
-        if (cell_oiBox.isSelected()) {
-            cell_oiField.setEnabled(true);
-        } else {
-            cell_oiField.setEnabled(false);
-            cell_oiField.setText("");
-        }
-    }//GEN-LAST:event_cell_oiBoxActionPerformed
-
-    private void cell_vivoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_vivoBoxActionPerformed
-        if (cell_vivoBox.isSelected()) {
-            cell_vivoField.setEnabled(true);
-        } else {
-            cell_vivoField.setEnabled(false);
-            cell_vivoField.setText("");
-        }
-    }//GEN-LAST:event_cell_vivoBoxActionPerformed
-
-    private void cell_timBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_timBoxActionPerformed
-        if (cell_timBox.isSelected()) {
-            cell_timField.setEnabled(true);
-        } else {
-            cell_timField.setEnabled(false);
-            cell_timField.setText("");
-        }
-    }//GEN-LAST:event_cell_timBoxActionPerformed
+    private void hintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hintActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "O campo matrícula deve ser preenchido "
+            + "no formato 99/99999999!\nCaso sua matrícula não possua os 9 digítos "
+            + "complete os espaços \nrestantes com zeros(\"0\")./n"
+            + "A matrícula é um campo único! Certifique-se que/n"
+            + "não há usuário já cadastrado com esta matrícula!", "Dica de "
+            + "Preenchimento!", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_hintActionPerformed
 
     private void cell_claroBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_claroBoxActionPerformed
         if (cell_claroBox.isSelected()) {
@@ -506,26 +590,41 @@ public class UserWindow extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cell_claroBoxActionPerformed
 
+    private void cell_timBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_timBoxActionPerformed
+        if (cell_timBox.isSelected()) {
+            cell_timField.setEnabled(true);
+        } else {
+            cell_timField.setEnabled(false);
+            cell_timField.setText("");
+        }
+    }//GEN-LAST:event_cell_timBoxActionPerformed
+
+    private void cell_vivoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_vivoBoxActionPerformed
+        if (cell_vivoBox.isSelected()) {
+            cell_vivoField.setEnabled(true);
+        } else {
+            cell_vivoField.setEnabled(false);
+            cell_vivoField.setText("");
+        }
+    }//GEN-LAST:event_cell_vivoBoxActionPerformed
+
+    private void cell_oiBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_oiBoxActionPerformed
+        if (cell_oiBox.isSelected()) {
+            cell_oiField.setEnabled(true);
+        } else {
+            cell_oiField.setEnabled(false);
+            cell_oiField.setText("");
+        }
+    }//GEN-LAST:event_cell_oiBoxActionPerformed
+
+    private void profileComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileComboActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_profileComboActionPerformed
+
     private void cell_timFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_timFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cell_timFieldActionPerformed
 
-    private void hintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hintActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "O campo matrícula deve ser preenchido "
-                + "no formato 99/99999999!\nCaso sua matrícula não possua os 9 digítos "
-                + "complete os espaços \nrestantes com zeros(\"0\")./n"
-                + "A matrícula é um campo único! Certifique-se que/n"
-                + "não há usuário já cadastrado com esta matrícula!", "Dica de "
-                + "Preenchimento!", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_hintActionPerformed
-
-    private void hint2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hint2ActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "O campo senha deve conter de "
-                + "6 a 10 caracteres alfanuméricos", "Dica de "
-                + "Preenchimento!", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_hint2ActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox cell_claroBox;
     private javax.swing.JFormattedTextField cell_claroField;
@@ -543,6 +642,7 @@ public class UserWindow extends javax.swing.JPanel {
     private javax.swing.JButton deleteUser;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLabel;
+    private javax.swing.JButton enableButton;
     private javax.swing.JToggleButton hint;
     private javax.swing.JToggleButton hint2;
     private javax.swing.JPanel jPanel1;
@@ -561,12 +661,10 @@ public class UserWindow extends javax.swing.JPanel {
     private javax.swing.JLabel registerLabel;
     private javax.swing.JLabel titleForm;
     private javax.swing.JLabel titleTabel;
+    private javax.swing.JButton updateButton;
     private javax.swing.JTable usersTable;
     private javax.swing.JLabel warningLabel;
     // End of variables declaration//GEN-END:variables
-
-    public void fillTable() {
-    }
 
     public boolean checkPassword() {
         String sen = passwordField.getText();
@@ -673,10 +771,10 @@ public class UserWindow extends javax.swing.JPanel {
 
     public static void main(String args[]) {
         final JFrame frame = new JFrame();
-        frame.add(new UserWindow());
         frame.setLocation(100, 100);
         frame.setSize(1000, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(new UserWindow(frame.getHeight()));
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 frame.setVisible(true);

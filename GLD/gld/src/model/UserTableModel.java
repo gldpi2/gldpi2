@@ -8,6 +8,8 @@ import dao.UserDAO;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -26,11 +28,12 @@ public class UserTableModel extends AbstractTableModel {
     public UserTableModel(List<User> usersList) {
         linhas = new ArrayList<>(usersList);
     }
-    private String[] colunas = new String[]{"Nome", "Matrícula", "Senha", "Perfil"};
+    private String[] colunas = new String[]{"Nome", "Matrícula", "Senha", "Perfil", "Ativo"};
     private static final int NAME = 0;
     private static final int REGISTER = 1;
     private static final int PASSWORD = 2;
     private static final int PROFILE = 3;
+    private static final int ENABLE = 4;
 
     @Override
     public int getRowCount() {
@@ -66,6 +69,13 @@ public class UserTableModel extends AbstractTableModel {
                 if (user.getProfile().equals(2)) {
                     return "Técnico";
                 }
+           case ENABLE:
+                if (user.getEnable().equals(1)) {
+                    return "Ativo";
+                }
+                if (user.getEnable().equals(0)) {
+                    return "Inativo";
+                }
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds!");
         }
@@ -95,10 +105,22 @@ public class UserTableModel extends AbstractTableModel {
                     user.setProfile(2);
                     break;
                 }
+            case ENABLE:
+                if (aValue.equals("Ativo")) {
+                    user.setEnable(1);
+                    break;
+                }
+                if (aValue.equals("Inativo")) {
+                    user.setEnable(0);
+                    break;
+                }
                 throw new IllegalArgumentException("Perfil de usuário desconhecido!");
         }
-
-        dao.updateUser(user);
+        try {
+            dao.updateUser(user);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserTableModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         fireTableCellUpdated(rowIndex, columnIndex); // Notifica a atualização da célula
     }
 
@@ -113,6 +135,14 @@ public class UserTableModel extends AbstractTableModel {
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return false;
+    }
+    
+    public boolean cellSelectionEnabled(int rowIndex, int columnIndex) {
+        return false;
+    }
+    
+    public boolean rowSelectionAllowed() {
+        return true;
     }
 
     public User getUser(int indiceLinha) {
@@ -133,7 +163,7 @@ public class UserTableModel extends AbstractTableModel {
         fireTableRowsInserted(ultimoIndice, ultimoIndice);
     }
 
-    public void removeUser(int indiceLinha) {
+    public void removeUser(int indiceLinha) throws SQLException {
         // Remove o registro.
         User user = linhas.get(indiceLinha);
         linhas.remove(indiceLinha);

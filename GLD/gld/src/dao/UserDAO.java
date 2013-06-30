@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.User;
 import utils.DatabaseInterface;
+import utils.SQLFindUserException;
 import utils.SQLRegisterException;
 
 /**
@@ -26,33 +27,21 @@ public class UserDAO {
     public void createUser(User user) throws SQLException {
 
         String sql = "SELECT register FROM user";
-        String[] registers;
-        int i = 0;
-        int rowcount = 0;
 
         dbint.connect();
         ResultSet rs = dbint.executeQuery(sql);
-        if (rs.last()) {
-            rowcount = rs.getRow();
-            rs.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
-        }
-        registers = new String[rowcount];
-        System.out.println(rowcount);
+
         while (rs.next()) {
-            registers[i] = rs.getString("register");
-            i++;
-        }
-        dbint.disconnect();
-        for (i = 0; i < registers.length; i++) {
-            if (user.getRegister().equals(registers[i])) {
+            if(user.getRegister().equals(rs.getString("register"))){
                 throw new SQLRegisterException();
             }
         }
+        dbint.disconnect();
 
 
         sql = "INSERT INTO user (name, register, password, email, "
-                + "cell_oi, cell_vivo, cell_tim, cell_claro, profile) VALUES "
-                + "(?,?,?,?,?,?,?,?,?)";
+                + "cell_oi, cell_vivo, cell_tim, cell_claro, profile, enable) VALUES "
+                + "(?,?,?,?,?,?,?,?,?,?)";
 
         String[] params = new String[9];
         params[0] = user.getName();
@@ -64,6 +53,7 @@ public class UserDAO {
         params[6] = user.getCell_tim();
         params[7] = user.getCell_claro();
         params[8] = user.getProfile().toString();
+        params[9] = user.getEnable().toString();
 
         dbint.connect();
 
@@ -88,7 +78,7 @@ public class UserDAO {
 
             user = new User(rs.getString("name"), rs.getString("register"), rs.getString("password"),
                     rs.getString("email"), rs.getString("cell_oi"), rs.getString("cell_vivo"), rs.getString("cell_tim"),
-                    rs.getString("cell_claro"), rs.getInt("profile"));
+                    rs.getString("cell_claro"), rs.getInt("profile"), rs.getInt("enable"));
 
             usersList.add(user);
         }
@@ -98,10 +88,53 @@ public class UserDAO {
         return usersList;
     }
 
-    public void updateUser(User user) {
+    public void updateUser(User user) throws SQLException{
+        
+        String sql = "SELECT register FROM user";
+        int i = 0;
+        int rowcount = 0;
+        boolean UserFound = false;
+
+        dbint.connect();
+        ResultSet rs = dbint.executeQuery(sql);
+        while (rs.next()) {
+            if(rs.getString("register").equals(user.getRegister()))
+                UserFound = true;
+        }
+        dbint.disconnect();
+
+        if(!UserFound){
+            throw new SQLFindUserException();
+        }
+        
+
+        sql = "UPDATE user set name = ?, password = ?, email = ?, "
+                + "cell_oi = ?, cell_vivo = ?, cell_tim = ?, cell_claro = ?, "
+                + "profile = ?, enable = ? where register = ?";
+
+        String[] params = new String[10];
+        params[0] = user.getName();
+        params[1] = user.getPassword();
+        params[2] = user.getEmail();
+        params[3] = user.getCell_oi();
+        params[4] = user.getCell_vivo();
+        params[5] = user.getCell_tim();
+        params[6] = user.getCell_claro();
+        params[7] = user.getProfile().toString();
+        params[8] = user.getEnable().toString();
+        params[9] = user.getRegister();
+
+        dbint.connect();
+
+        dbint.insert(sql, params);
+
+        dbint.disconnect();
+
     }
 
-    public void deleteUser(User user) {
+    public void deleteUser(User user) throws SQLException {
+        user.setEnable(0);
+        updateUser(user);
     }
 
     public void createUsers(List<User> users) {

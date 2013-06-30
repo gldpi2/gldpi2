@@ -19,8 +19,9 @@ public class User {
     private String cell_tim = null;
     private String cell_claro = null;
     private Integer profile = null;
+    private Integer enable = null;
 
-    public User(String name, String register, String password, String email, String cell_oi, String cell_vivo, String cell_tim, String cell_claro, int profile) {
+    public User(String name, String register, String password, String email, String cell_oi, String cell_vivo, String cell_tim, String cell_claro, int profile, int enable) {
         this.name = name;
         this.register = register;
         this.password = password;
@@ -30,6 +31,7 @@ public class User {
         this.cell_tim = cell_tim;
         this.cell_claro = cell_claro;
         this.profile = (Integer) profile;
+        this.enable = (Integer) enable;
     }
 
     public String getName() {
@@ -102,5 +104,12 @@ public class User {
 
     public void setProfile(Integer profile) {
         this.profile = profile;
+    }
+    public Integer getEnable() {
+        return enable;
+    }
+
+    public void setEnable(Integer enable) {
+        this.enable = enable;
     }
 }
