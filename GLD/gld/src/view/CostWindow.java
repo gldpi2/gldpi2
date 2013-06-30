@@ -236,7 +236,7 @@ public class CostWindow extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         MainWindow.desktop.removeAll();
-        mainm = new MainMenu(desktop.getWidth(), desktop.getHeight());
+        mainm = new MainMenu();
         MainWindow.desktop.add(mainm);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();

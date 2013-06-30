@@ -52,7 +52,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void init() {
         desktop.removeAll();
-        pg = new MainMenu(desktop.getWidth(), desktop.getHeight());
+        pg = new MainMenu();
         desktop.add(pg);
         desktop.revalidate();
         desktop.repaint();
