@@ -16,6 +16,7 @@ public class MainWindow extends javax.swing.JFrame {
     Login user;
     PatternWindow pattern;
     CostWindow costw;
+    UserWindow userw;
     /**
      * Creates new form JanelaPrincipal
      */
@@ -80,7 +81,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 590, Short.MAX_VALUE)
+            .add(0, 594, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");
@@ -107,6 +108,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_add.png"))); // NOI18N
         jMenuItem5.setText("Inserir");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
         jMenu7.add(jMenuItem5);
 
         jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_edit.png"))); // NOI18N
@@ -233,6 +239,14 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        desktop.removeAll();
+        userw = new UserWindow(desktop.getHeight());
+        desktop.add(userw);
+        desktop.revalidate();
+        desktop.repaint();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
      * @param args the command line arguments

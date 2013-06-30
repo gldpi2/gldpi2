@@ -13,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import model.Login;
 import model.User;
 import model.UserTableModel;
 import utils.SQLRegisterException;
@@ -27,6 +28,11 @@ public class UserWindow extends javax.swing.JPanel {
     List<User> usuarios;
     UserTableModel table = new UserTableModel();
 
+    
+    public UserWindow(int y){
+        initComponents();
+        setSize(1024, y);
+    }
     /**
      * Creates new form Usuário
      */
@@ -97,6 +103,8 @@ public class UserWindow extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        setPreferredSize(new java.awt.Dimension(1000, 490));
 
         panelTabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
