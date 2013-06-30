@@ -15,6 +15,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
 
     int i = 0, state = 0;
     private LoadCurveChart loadCurveChart;
+    private Thread updaterThread;
 
     MainMenu mainm;
     Login user;
@@ -34,9 +35,9 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         loadCurveChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
         loadCurveChart.startGraph();
 
-        Thread th = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries(), this.FlowValue, this.TensionValue, this.PotencyValue, this.maxPotencyValue, this.maxPotencyTime));
-        th.setDaemon(true);
-        th.start();
+        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries(), this.FlowValue, this.TensionValue, this.PotencyValue, this.maxPotencyValue, this.maxPotencyTime));
+        updaterThread.setDaemon(true);
+        updaterThread.start();
 
         desktop.add(loadCurveChart);
         state = 1;
@@ -282,6 +283,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         MainWindow.desktop.add(mainm);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
+        updaterThread.stop();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

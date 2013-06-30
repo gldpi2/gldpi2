@@ -110,10 +110,8 @@
                   <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="maxPotencyTime" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="maxPotencyValue" max="32767" attributes="0"/>
-                          <Component id="maxPotencyLabel" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="maxPotencyValue" max="32767" attributes="0"/>
+                      <Component id="maxPotencyLabel" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
