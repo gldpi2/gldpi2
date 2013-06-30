@@ -27,6 +27,7 @@ public class LoadCurve {
     public int state = 0;
     
     public Mensuration maxMensuration = new Mensuration();
+    public Mensuration minMensuration = new Mensuration();
 
     public ChartPanel createLoadCurveGraphPanel() {
         this.series = new TimeSeries("kWh", Millisecond.class);

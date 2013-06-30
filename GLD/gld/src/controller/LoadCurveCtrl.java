@@ -34,14 +34,6 @@ public class LoadCurveCtrl {
         return loadCurve.createLoadCurveGraphPanel();
     }
 
-    public void setState(int state) {
-        this.loadCurve.state = state;
-    }
-
-    public void setSize(int x, int y) {
-        this.loadCurve.chartPanel.setSize(x, y);
-    }
-    
     public Mensuration getMaxMensuration(){
         return this.loadCurve.maxMensuration;
     }
@@ -54,8 +46,24 @@ public class LoadCurveCtrl {
         return this.loadCurve.state;
     }
     
+    public Mensuration getMinMensuration() {
+        return this.loadCurve.minMensuration;
+    }
+    
     public void setMaxMensuration(Mensuration maxMensuration){
         this.loadCurve.maxMensuration = maxMensuration;
+    }
+    
+    public void setMinMensuration(Mensuration minMensuration){
+        this.loadCurve.minMensuration = minMensuration;
+    }
+
+    public void setState(int state) {
+        this.loadCurve.state = state;
+    }
+
+    public void setSize(int x, int y) {
+        this.loadCurve.chartPanel.setSize(x, y);
     }
     
 }
