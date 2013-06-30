@@ -4,20 +4,43 @@
  */
 package view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.Login;
+import utils.PowerGridMonitor;
+import static view.MainWindow.desktop;
+import static view.MainWindow.loadWindow;
+import static view.MainWindow.user;
+
 /**
  *
- * @author gld-pi2
+ * @author greg
  */
 public class MainMenu extends javax.swing.JPanel {
 
     /**
      * Creates new form MainMenu
      */
+
+    int state = 0;
+    private MainMenu pg;
+
     
-    public MainMenu() {
+    public MainMenu(Login user) {
         initComponents();
         setSize(1024, 678);
-    }
+
+      
+        //this.panelHibrido.setVisible(false);
+
+        //if (Integer.parseInt(user.getTipo()) == 2) {
+            //panelCadastros.setVisible(false);
+        //}
+
+        //matricula.setText(user.getMatricula());
+     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,11 +53,11 @@ public class MainMenu extends javax.swing.JPanel {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        matricula = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         panelCost = new javax.swing.JPanel();
         panelConsumption = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
+        panelCadastros = new javax.swing.JPanel();
         buttonUser = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         buttonCostm = new javax.swing.JButton();
@@ -43,14 +66,14 @@ public class MainMenu extends javax.swing.JPanel {
         buttonCoste = new javax.swing.JButton();
         buttonConsumptione = new javax.swing.JButton();
         buttonStudy = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
+        panelHibrido = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Menu Principal", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 1, 24))); // NOI18N
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 0, 14))); // NOI18N
 
-        jLabel1.setText("user");
+        matricula.setText("user");
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
         jLabel2.setText("Usuário:");
@@ -63,7 +86,7 @@ public class MainMenu extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addComponent(matricula)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -71,9 +94,9 @@ public class MainMenu extends javax.swing.JPanel {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(matricula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addGap(45, 45, 45))
         );
 
         panelCost.setBorder(javax.swing.BorderFactory.createTitledBorder("Gráfico de Custo"));
@@ -82,7 +105,7 @@ public class MainMenu extends javax.swing.JPanel {
         panelCost.setLayout(panelCostLayout);
         panelCostLayout.setHorizontalGroup(
             panelCostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelCostLayout.setVerticalGroup(
             panelCostLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,9 +125,9 @@ public class MainMenu extends javax.swing.JPanel {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastros"));
-        jPanel3.setToolTipText("");
-        jPanel3.setLayout(new java.awt.GridBagLayout());
+        panelCadastros.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastros"));
+        panelCadastros.setToolTipText("");
+        panelCadastros.setLayout(new java.awt.GridBagLayout());
 
         buttonUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
         buttonUser.setText("Usuário");
@@ -113,17 +136,27 @@ public class MainMenu extends javax.swing.JPanel {
                 buttonUserActionPerformed(evt);
             }
         });
-        jPanel3.add(buttonUser, new java.awt.GridBagConstraints());
+        panelCadastros.add(buttonUser, new java.awt.GridBagConstraints());
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Monitoramento"));
         jPanel4.setLayout(new java.awt.GridBagLayout());
 
         buttonCostm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/chart_curve.png"))); // NOI18N
         buttonCostm.setText("Custo");
+        buttonCostm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCostmActionPerformed(evt);
+            }
+        });
         jPanel4.add(buttonCostm, new java.awt.GridBagConstraints());
 
         buttonConsumptionm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/chart_line.png"))); // NOI18N
         buttonConsumptionm.setText("Consumo");
+        buttonConsumptionm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConsumptionmActionPerformed(evt);
+            }
+        });
         jPanel4.add(buttonConsumptionm, new java.awt.GridBagConstraints());
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Estimativas"));
@@ -141,25 +174,25 @@ public class MainMenu extends javax.swing.JPanel {
         buttonStudy.setText("Estudo Contratual");
         jPanel5.add(buttonStudy, new java.awt.GridBagConstraints());
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Sistema Híbrido"));
+        panelHibrido.setBorder(javax.swing.BorderFactory.createTitledBorder("Sistema Híbrido"));
 
         jLabel3.setText("Em desenvolvimento...");
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
+        javax.swing.GroupLayout panelHibridoLayout = new javax.swing.GroupLayout(panelHibrido);
+        panelHibrido.setLayout(panelHibridoLayout);
+        panelHibridoLayout.setHorizontalGroup(
+            panelHibridoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHibridoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(321, Short.MAX_VALUE))
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+        panelHibridoLayout.setVerticalGroup(
+            panelHibridoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelHibridoLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel3)
-                .addContainerGap(75, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -172,14 +205,14 @@ public class MainMenu extends javax.swing.JPanel {
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelCadastros, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(panelHibrido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelConsumption, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panelCost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(panelConsumption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelCost, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -188,18 +221,20 @@ public class MainMenu extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addComponent(panelCadastros, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
-                    .addComponent(panelCost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(panelCost, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelHibrido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(panelConsumption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -217,8 +252,28 @@ public class MainMenu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUserActionPerformed
-        // TODO add your handling code here:
+        MainWindow.desktop.removeAll();
+        MainWindow.userWindow = new UserWindow(desktop.getHeight());
+        MainWindow.desktop.add(MainWindow.userWindow);
+        MainWindow.desktop.revalidate();
+        MainWindow.desktop.repaint();
     }//GEN-LAST:event_buttonUserActionPerformed
+
+    private void buttonCostmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCostmActionPerformed
+        MainWindow.desktop.removeAll();
+        MainWindow.costWindow = new CostWindow(desktop.getHeight(), MainWindow.user);
+        MainWindow.desktop.add(MainWindow.costWindow);
+        MainWindow.desktop.revalidate();
+        MainWindow.desktop.repaint();
+    }//GEN-LAST:event_buttonCostmActionPerformed
+
+    private void buttonConsumptionmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConsumptionmActionPerformed
+        MainWindow.desktop.removeAll();
+        MainWindow.loadWindow = new LoadCurveWindow(desktop.getHeight(), MainWindow.user);
+        MainWindow.desktop.add(MainWindow.loadWindow);
+        MainWindow.desktop.revalidate();
+        MainWindow.desktop.repaint();
+    }//GEN-LAST:event_buttonConsumptionmActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonConsumptione;
@@ -227,16 +282,16 @@ public class MainMenu extends javax.swing.JPanel {
     private javax.swing.JButton buttonCostm;
     private javax.swing.JButton buttonStudy;
     private javax.swing.JButton buttonUser;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
+    private javax.swing.JLabel matricula;
+    private javax.swing.JPanel panelCadastros;
     private javax.swing.JPanel panelConsumption;
     private javax.swing.JPanel panelCost;
+    private javax.swing.JPanel panelHibrido;
     // End of variables declaration//GEN-END:variables
 }

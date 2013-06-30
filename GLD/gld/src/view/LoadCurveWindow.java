@@ -19,6 +19,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     private LoadCurveChart loadCurveChart;
 
     MainMenu mainm;
+    Login user;
     /**
      * Creates new form PatternWindow
      */
@@ -256,7 +257,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         MainWindow.desktop.removeAll();
-        mainm = new MainMenu();
+        mainm = new MainMenu(user);
         MainWindow.desktop.add(mainm);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
