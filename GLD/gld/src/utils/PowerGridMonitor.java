@@ -14,7 +14,7 @@ import java.util.logging.Logger;
  */
 public class PowerGridMonitor implements Runnable {
 
-    private ArrayList<Thread> storeMeasurementThread = new ArrayList<Thread>();
+    private ArrayList<Thread> storeMeasurementThread = new ArrayList<>();
     private int idThread = 0;
     private int maxThread = 100;
 
@@ -46,11 +46,7 @@ public class PowerGridMonitor implements Runnable {
                 storeMeasurementThread.add(idThread % maxThread, new Thread(new StoreMeasurement(data)));
                 storeMeasurementThread.get(idThread % maxThread).start();
 
-                System.out.println("Quantidade de threads: " + storeMeasurementThread.size());
-
-                for (Thread th : storeMeasurementThread) {
-                    System.out.println(th.isAlive());
-                }
+                Logger.getLogger(PowerGridMonitor.class.getName()).log(Level.INFO, "Quantidade de threads: {0}", storeMeasurementThread.size());
 
                 idThread = (idThread + 1) % maxThread;
             }

@@ -19,8 +19,6 @@ public class Mensuration {
     private String timestamp;
     private Millisecond millisecond;
 
-    
-
     /**
      * Método para configurar o identificador da medição.
      *
@@ -58,22 +56,19 @@ public class Mensuration {
         timestamp = timestamp.replace("-", "");
         timestamp = timestamp.replace(".", "");
         timestamp = timestamp.replace(" ", "");
-        
+
         int year, mounth, day, hours, minutes, seconds;
-        
+
         year = Integer.parseInt(timestamp.substring(0, 4));
         mounth = Integer.parseInt(timestamp.substring(4, 6));
         day = Integer.parseInt(timestamp.substring(6, 8));
         hours = Integer.parseInt(timestamp.substring(8, 10));
         minutes = Integer.parseInt(timestamp.substring(10, 12));
         seconds = Integer.parseInt(timestamp.substring(12, 14));
-        
-        Date time = new Date(year, mounth, day, hours, minutes, seconds);
-        
-        this.millisecond = new Millisecond (time);
-        
-        System.out.println(timestamp.substring(10, 14));
 
+        Date time = new Date(year, mounth, day, hours, minutes, seconds);
+
+        this.millisecond = new Millisecond(time);
         this.timestamp = timestamp;
     }
 
@@ -112,7 +107,7 @@ public class Mensuration {
     public String getTimestamp() {
         return timestamp;
     }
-    
+
     public Millisecond getMillisecond() {
         return millisecond;
     }

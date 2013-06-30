@@ -5,24 +5,22 @@
 package view;
 
 import model.Login;
-import utils.UpdaterCostThread;
 import utils.UpdaterGraphThread;
 
 /**
  *
  * @author itallorossi
  */
-public class CostWindow extends javax.swing.JPanel {
+public class LoadCurveWindow extends javax.swing.JPanel {
 //    private static final String title = "Which operating system are you using?";
 //    ChartPanel pg;
     
     int i=0, state=0;
-    private CostChart pg;
-    MainMenu mainm;
+    private PatternChart pg;
     /**
      * Creates new form PatternWindow
      */
-    public CostWindow(int y, Login user) {
+    public LoadCurveWindow(int y, Login user) {
         initComponents();
         setSize(1024,y);
         
@@ -32,11 +30,10 @@ public class CostWindow extends javax.swing.JPanel {
     
     public void init() {
         desktop.removeAll();
-        pg = new CostChart(desktop.getWidth(), desktop.getHeight());
+        pg = new PatternChart(desktop.getWidth(), desktop.getHeight());
         pg.criaGrafico();
         
-        pg.criaGrafico();
-        Thread th = new Thread(new UpdaterCostThread(pg.series));
+        Thread th = new Thread(new UpdaterGraphThread(pg.series));
         th.setDaemon(true);
         th.start();
         
@@ -44,33 +41,6 @@ public class CostWindow extends javax.swing.JPanel {
         state = 1;
     }
 
-//    private ChartPanel createPieChart(String chartTitle) {
-//        PieDataset dataset = createDataset();
-//        JFreeChart chart = createChart(dataset, chartTitle);
-//        ChartPanel chartPanel = new ChartPanel(chart,true);
-//        return chartPanel;
-//    }
-//
-//    private PieDataset createDataset() {
-//        DefaultPieDataset result = new DefaultPieDataset();
-//        result.setValue("Linux", 29);
-//        result.setValue("Mac", 20);
-//        result.setValue("Windows", 51);
-//        return result;
-//
-//    }
-//
-//    private JFreeChart createChart(PieDataset dataset, String title) {
-//        JFreeChart chart = ChartFactory.createPieChart3D(
-//            title, dataset, true, true, false);
-//        PiePlot3D plot = (PiePlot3D) chart.getPlot();
-//        plot.setStartAngle(290);
-//        plot.setDirection(Rotation.CLOCKWISE);
-//        plot.setForegroundAlpha(0.5f);
-//        plot.setCircular(true);
-//        return chart;
-//
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -94,7 +64,7 @@ public class CostWindow extends javax.swing.JPanel {
 
         jButton4.setText("jButton4");
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Monitoramento de Custos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 24))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PatternWindow", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 24))); // NOI18N
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -105,11 +75,6 @@ public class CostWindow extends javax.swing.JPanel {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/house_go.png"))); // NOI18N
         jButton2.setText("Voltar ao Menu Principal");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
 
@@ -233,14 +198,6 @@ public class CostWindow extends javax.swing.JPanel {
             pg.changeSize(desktop.getWidth(),desktop.getHeight());    
         }
     }//GEN-LAST:event_formComponentResized
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        MainWindow.desktop.removeAll();
-        mainm = new MainMenu(desktop.getWidth(), desktop.getHeight());
-        MainWindow.desktop.add(mainm);
-        MainWindow.desktop.revalidate();
-        MainWindow.desktop.repaint();
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel desktop;
