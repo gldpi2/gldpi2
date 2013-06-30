@@ -13,11 +13,13 @@ import utils.DatabaseInterface;
  */
 public class CostDAO {
 
-    Mensuration mensuration = new Mensuration();
+    
     CostCtrl ctrl = new CostCtrl();
     DatabaseInterface dbInterface = new DatabaseInterface();
+    
     double costValue;
 
+    
     public double getCostValue() {
         return costValue;
     }
@@ -40,14 +42,21 @@ public class CostDAO {
         String sql = "SELECT * FROM mensuration";
         dbInterface.connect();
 
-        ResultSet rsMensuration = dbInterface.executeQuery(sql);
+        ResultSet rs = dbInterface.executeQuery(sql);
         try {
-            while (rsMensuration.next()) {
-                mensuration.setFlow(rsMensuration.getDouble(2));
-                mensuration.setTension(rsMensuration.getDouble(3));
-                mensuration.setTimestamp(rsMensuration.getString(4));
-                setCostValue(ctrl.energyValue(mensuration.getFlow(), mensuration.getTension()));
+            while (rs.next()) {
+                Mensuration mensuration;
+                mensuration = new Mensuration();
+                mensuration.setIdMensuration(rs.getInt("id_mensuration"));
+                mensuration.setFlow(rs.getDouble("flow"));
+                mensuration.setTension(rs.getDouble("tension"));
+                mensuration.setTimestamp(rs.getString("timestamp"));
+                
                 ctrl.setTime(mensuration.getTimestamp());
+                setCostValue(ctrl.energyValue(mensuration.getFlow(), mensuration.getTension()));
+                
+                
+             
                 mensurationList.add(mensuration);
             }
 
