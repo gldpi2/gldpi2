@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS user (
     cell_vivo VARCHAR(13),
     cell_tim VARCHAR(13),
     cell_claro VARCHAR(13),
+    enable INT(1) UNSIGNED,
     PRIMARY KEY (id_user),
     UNIQUE (register)
 );
