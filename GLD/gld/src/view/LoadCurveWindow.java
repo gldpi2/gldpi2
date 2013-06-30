@@ -99,6 +99,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         matricula.setText("user");
 
         maxPotencyLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        maxPotencyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         maxPotencyLabel.setText("Demanda Máxima");
 
         maxPotencyValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -108,7 +109,8 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         maxPotencyTime.setText("Atualizando...");
 
         minPotencyLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        minPotencyLabel.setText("Demanda Máxima");
+        minPotencyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minPotencyLabel.setText("Demanda Mínima");
 
         minPotencyValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         minPotencyValue.setText("Atualizando...");

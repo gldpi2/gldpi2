@@ -171,6 +171,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Ubuntu" size="15" style="1"/>
             </Property>
+            <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Demanda M&#xe1;xima"/>
           </Properties>
         </Component>
@@ -191,7 +192,8 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Ubuntu" size="15" style="1"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Demanda M&#xe1;xima"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
+            <Property name="text" type="java.lang.String" value="Demanda M&#xed;nima"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="minPotencyValue">
