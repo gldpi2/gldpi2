@@ -4,54 +4,72 @@
  */
 package view;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Login;
+import utils.PowerGridMonitor;
 
 /**
  *
  * @author itallorossi
  */
 public class MainWindow extends javax.swing.JFrame {
+
     Login user;
     PatternWindow pattern;
     CostWindow costw;
     UserWindow userw;
-    
+    PowerGridMonitor powerGridMonitor;
+    Thread monitorThread;
     int state = 0;
     private MainMenu pg;
+
     /**
      * Creates new form JanelaPrincipal
      */
     public MainWindow(Login usuario) {
         initComponents();
-        setSize(1024,700);
+        initPowerGridMonitor();
+        setSize(1024, 700);
         setLocationRelativeTo(null);
         this.user = usuario;
         this.menuRelatorios.setVisible(false);
         this.menuMainHibrido.setVisible(false);
-        
-        if(Integer.parseInt(user.getTipo())==2){
+
+        if (Integer.parseInt(user.getTipo()) == 2) {
             menuCadastros.setVisible(false);
         }
-        
+
         this.init();
-        
+
     }
-    
+
     public MainWindow() {
         initComponents();
     }
-    
-    private void init(){
+
+    private void init() {
         desktop.removeAll();
         pg = new MainMenu(desktop.getWidth(), desktop.getHeight());
         desktop.add(pg);
         desktop.revalidate();
         desktop.repaint();
-        
+
         state = 1;
     }
+
+    private void initPowerGridMonitor() {
+        Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "Inicializando PowerGridMonitorThread");
+        
+        powerGridMonitor = new PowerGridMonitor();
+
+        monitorThread = new Thread(powerGridMonitor);
+
+        monitorThread.start();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,6 +106,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout desktopLayout = new org.jdesktop.layout.GroupLayout(desktop);
         desktop.setLayout(desktopLayout);
@@ -97,7 +120,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 598, Short.MAX_VALUE)
+            .add(0, 602, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");
@@ -219,7 +242,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-                                 
+
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         int i;
 
@@ -242,7 +265,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuCustosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCustosActionPerformed
         desktop.removeAll();
-        costw = new CostWindow(desktop.getHeight(),user);
+        costw = new CostWindow(desktop.getHeight(), user);
         desktop.add(costw);
         desktop.revalidate();
         desktop.repaint();
@@ -250,7 +273,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         desktop.removeAll();
-        pattern = new PatternWindow(desktop.getHeight(),user);
+        pattern = new PatternWindow(desktop.getHeight(), user);
         desktop.add(pattern);
         desktop.revalidate();
         desktop.repaint();
@@ -263,6 +286,15 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_menuInserirUserActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        closePowerGridMonitorThread();
+    }//GEN-LAST:event_formWindowClosing
+
+    private void closePowerGridMonitorThread() {
+        monitorThread.stop();
+        Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "PowerGridMonitorThread parada.");
+    }
 
     /**
      * @param args the command line arguments

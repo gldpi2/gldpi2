@@ -48,10 +48,6 @@ public class PowerGridMonitor implements Runnable {
 
                 System.out.println("Quantidade de threads: " + storeMeasurementThread.size());
 
-                for (Thread th : storeMeasurementThread) {
-                    System.out.println(th.isAlive());
-                }
-
                 idThread = (idThread + 1) % maxThread;
             }
         } catch (SocketException ex) {

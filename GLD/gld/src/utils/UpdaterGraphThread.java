@@ -42,9 +42,6 @@ public class UpdaterGraphThread implements Runnable {
             List<Mensuration> mensuration = this.graphPanelDao.getMensuration();
 
             for (Mensuration m : mensuration) {
-                int time = new Integer(m.getTimestamp().substring(8, 14));
-
-                //System.out.println(time + " " + m.getFlow() + " " + m.getTension());
                 series.addOrUpdate(m.getMillisecond(), m.getFlow() * m.getTension());
                 lastId = m.getIdMensuration();
             }
