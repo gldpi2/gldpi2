@@ -1,6 +1,5 @@
 package dao;
 
-
 import controller.CostCtrl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,7 +52,9 @@ public class CostDAO {
                 mensuration.setTension(rs.getDouble("tension"));
                 mensuration.setTimestamp(rs.getString("timestamp"));
                 
-               setCostValue(ctrl.energyValue(mensuration.getPotency()));
+                ctrl.setTime(mensuration.getTimestamp());
+                setCostValue(ctrl.energyValue(mensuration.getFlow(), mensuration.getTension()));
+                
                 
              
                 mensurationList.add(mensuration);

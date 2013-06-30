@@ -4,9 +4,7 @@
  */
 package controller;
 
-import dao.CostDAO;
 import model.Cost;
-import model.Mensuration;
 
 /**
  *
@@ -17,12 +15,17 @@ public class CostCtrl {
     public final static double HOUR = 3600;
     public final static double PEAK = 19.65 / HOUR;
     public final static double VALUE_OFFPEAK = 5.22 / HOUR;
-    Mensuration mens = new Mensuration();
     Cost cost = new Cost();
+    String time;
     double hour;
-    double costValue;
 
-    
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     /**
      * Método para cálculo da hora/kWh
@@ -31,24 +34,20 @@ public class CostCtrl {
      * @param flow corrente no momento atual
      * @return custo atual.
      */
-    public double energyValue(double potency) {
+    public double energyValue(double flow, double tension) {
 
         /**
          * Método que verifica a hora do banco de dados e coloca o valor do kWh de
          * acordo com o documento da CEB (Companhia Energética de Brasília) Hora
          * de ponta é entre 18 e 21 e o restante tem valor menor
          */
-        hour = Double.parseDouble(mens.getTimestamp().substring(8, 10));
-        if (hour >= 18.0 && hour < 21.0) {
+        hour = Double.parseDouble(getTime());
+        if (hour >= 18 && hour < 21) {
             cost.setValueEnergy(PEAK);
-            
         } else {
             cost.setValueEnergy(VALUE_OFFPEAK);
-           
         }
-        costValue = potency * cost.getValueEnergy() *100;
-        System.out.println(cost.getValueEnergy());
-        System.out.println(potency);
+        double costValue = flow * tension * cost.getValueEnergy();
         
 
         return costValue;
