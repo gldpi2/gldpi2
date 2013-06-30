@@ -46,7 +46,7 @@ public class CostChart extends javax.swing.JPanel {
         axis.setAutoRange(true);
         axis.setFixedAutoRange(60000.0);
         axis = plot.getRangeAxis();
-        axis.setRange(0.0, 100.0);
+        axis.setRange(0.0, 10.0);
         
         myChartPanel = new ChartPanel(result, true);
         myChartPanel.setSize(this.getWidth(), this.getHeight());

@@ -38,9 +38,9 @@ public class UpdaterCostThread implements Runnable {
             List<Mensuration> mensuration = this.costDao.parameters();
 
             for (Mensuration m : mensuration) {
-                series.addOrUpdate(m.getMillisecond(), costDao.getCostValue());
-                System.out.println(m.getMillisecond() + " Custo:" +costDao.getCostValue());
-
+             double cost = ctrl.energyValue(m.getPotency());
+                
+                series.addOrUpdate(m.getMillisecond(), cost);
             }
 
         } catch (SQLException ex) {
