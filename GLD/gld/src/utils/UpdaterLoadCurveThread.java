@@ -25,19 +25,27 @@ public class UpdaterLoadCurveThread implements Runnable {
     private JLabel potencyvalue;
     private JLabel maxPotencyValue;
     private JLabel maxPotencyTime;
+    private JLabel minPotencyValue;
+    private JLabel minPotencyTime;
 
     /**
      * Método construtor da classe UpdaterLoadCurveThread.
      *
      * @param series XYSeries Referência da série apresentada no gráfico.
      */
-    public UpdaterLoadCurveThread(TimeSeries series, JLabel flowValue, JLabel tensionValue, JLabel potencyValue, JLabel maxPotencyValue, JLabel maxPotencyTime) {
+    public UpdaterLoadCurveThread(TimeSeries series, 
+            JLabel flowValue, JLabel tensionValue, JLabel potencyValue, 
+            JLabel maxPotencyValue, JLabel maxPotencyTime,
+            JLabel minPotencyValue, JLabel minPotencyTime) {
         this.series = series;
         this.flowValue = flowValue;
         this.tensionValue = tensionValue;
         this.potencyvalue = potencyValue;
         this.maxPotencyValue = maxPotencyValue;
         this.maxPotencyTime = maxPotencyTime;
+        this.minPotencyValue = minPotencyValue;
+        this.minPotencyTime = minPotencyTime;
+        
     }
 
     /**
@@ -59,11 +67,16 @@ public class UpdaterLoadCurveThread implements Runnable {
                 if (currentPotency > loadCurveCtrl.getMaxMensuration().getPotency()) {
                     loadCurveCtrl.setMaxMensuration(m);
                 }
+                
+                if (currentPotency < loadCurveCtrl.getMinMensuration().getPotency() || loadCurveCtrl.getMinMensuration().getPotency() == 0 ) {
+                    loadCurveCtrl.setMinMensuration(m);
+                }
 
                 lastMensuration = m;
             }
 
             updateMaxPotency(loadCurveCtrl.getMaxMensuration());
+            updateMinPotency(loadCurveCtrl.getMinMensuration());
         }
 
 
@@ -85,6 +98,11 @@ public class UpdaterLoadCurveThread implements Runnable {
                 if (currentPotency > loadCurveCtrl.getMaxMensuration().getPotency()) {
                     updateMaxPotency(m);
                 }
+                
+                if (currentPotency < loadCurveCtrl.getMinMensuration().getPotency()  || loadCurveCtrl.getMinMensuration().getPotency() == 0) {
+                    updateMinPotency(m);
+                }
+                
 
                 updateJLabel(flowValue, m.getFlow(), lastMensuration.getFlow());
                 updateJLabel(tensionValue, m.getTension(), lastMensuration.getTension());
@@ -121,5 +139,16 @@ public class UpdaterLoadCurveThread implements Runnable {
         this.maxPotencyTime.setText(m.getTime());
         this.maxPotencyTime.revalidate();
         this.maxPotencyTime.repaint();
+    }
+    
+     private void updateMinPotency(Mensuration m) {
+        loadCurveCtrl.setMinMensuration(m);
+        this.minPotencyValue.setText(String.format("%.3f", loadCurveCtrl.getMinMensuration().getPotency()));
+        this.minPotencyValue.revalidate();
+        this.minPotencyValue.repaint();
+
+        this.minPotencyTime.setText(m.getTime());
+        this.minPotencyTime.revalidate();
+        this.minPotencyTime.repaint();
     }
 }

@@ -31,7 +31,10 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         loadCurveChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
         loadCurveChart.startGraph();
 
-        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries(), this.FlowValue, this.TensionValue, this.PotencyValue, this.maxPotencyValue, this.maxPotencyTime));
+        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries(),
+                                                                this.FlowValue, this.TensionValue, this.PotencyValue, 
+                                                                this.maxPotencyValue, this.maxPotencyTime,
+                                                                this.minPotencyValue, this.minPotencyTime));
         updaterThread.setDaemon(true);
         updaterThread.start();
 
@@ -56,6 +59,9 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         maxPotencyLabel = new javax.swing.JLabel();
         maxPotencyValue = new javax.swing.JLabel();
         maxPotencyTime = new javax.swing.JLabel();
+        minPotencyLabel = new javax.swing.JLabel();
+        minPotencyValue = new javax.swing.JLabel();
+        minPotencyTime = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
@@ -93,6 +99,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         matricula.setText("user");
 
         maxPotencyLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        maxPotencyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         maxPotencyLabel.setText("Demanda Máxima");
 
         maxPotencyValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -100,6 +107,16 @@ public class LoadCurveWindow extends javax.swing.JPanel {
 
         maxPotencyTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         maxPotencyTime.setText("Atualizando...");
+
+        minPotencyLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        minPotencyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minPotencyLabel.setText("Demanda Mínima");
+
+        minPotencyValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minPotencyValue.setText("Atualizando...");
+
+        minPotencyTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minPotencyTime.setText("Atualizando...");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -115,20 +132,33 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                     .add(maxPotencyTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(maxPotencyValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(maxPotencyLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(18, 18, 18)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(minPotencyTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(minPotencyValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(minPotencyLabel))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel2)
-                    .add(matricula)
-                    .add(maxPotencyLabel))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(maxPotencyValue)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(maxPotencyTime)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(minPotencyLabel)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(minPotencyValue)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(minPotencyTime))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel2)
+                            .add(matricula)
+                            .add(maxPotencyLabel))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(maxPotencyValue)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(maxPotencyTime)))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
@@ -166,7 +196,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
             .add(0, 0, Short.MAX_VALUE)
         );
 
-        infoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
+        infoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tempo Real", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
 
         FlowLabel.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
         FlowLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -301,5 +331,8 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     private javax.swing.JLabel maxPotencyLabel;
     private javax.swing.JLabel maxPotencyTime;
     private javax.swing.JLabel maxPotencyValue;
+    private javax.swing.JLabel minPotencyLabel;
+    private javax.swing.JLabel minPotencyTime;
+    private javax.swing.JLabel minPotencyValue;
     // End of variables declaration//GEN-END:variables
 }
