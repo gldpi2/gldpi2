@@ -4,7 +4,6 @@
  */
 package view;
 
-import com.mysql.jdbc.jdbc2.optional.SuspendableXAConnection;
 import dao.UserDAO;
 import java.sql.SQLException;
 import java.util.List;
@@ -14,6 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.TableColumn;
 import model.User;
 import model.UserTableModel;
 import utils.SQLFindUserException;
@@ -41,6 +41,13 @@ public class UserWindow extends javax.swing.JPanel {
             Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, e);
         }
         initComponents();
+        TableColumn column;
+        for (int i = 0; i < table.getColumnCount(); i++) {
+            column = usersTable.getColumnModel().getColumn(i);
+            if (i < 2) {
+                column.setPreferredWidth(200); //third column is bigger
+            }
+        }
         setSize(1024, y);
     }
 
@@ -89,7 +96,6 @@ public class UserWindow extends javax.swing.JPanel {
         hint = new javax.swing.JToggleButton();
         hint2 = new javax.swing.JToggleButton();
         warningLabel = new javax.swing.JLabel();
-        createButton = new javax.swing.JButton();
         updateButton = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -117,7 +123,7 @@ public class UserWindow extends javax.swing.JPanel {
         jScrollPane1.setViewportView(usersTable);
         usersTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        titleTabel.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        titleTabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         titleTabel.setText("Relatório de Usuários");
 
         deleteUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_delete.png"))); // NOI18N
@@ -174,14 +180,14 @@ public class UserWindow extends javax.swing.JPanel {
 
         jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
-        titleForm.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        titleForm.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         titleForm.setText("Cadastrar/Atualizar Usuários");
 
         nameLabel.setText("*Nome:");
         nameLabel.setName(""); // NOI18N
 
         try {
-            registerField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/#######")));
+            registerField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#########")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -208,11 +214,6 @@ public class UserWindow extends javax.swing.JPanel {
             ex.printStackTrace();
         }
         cell_timField.setEnabled(false);
-        cell_timField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cell_timFieldActionPerformed(evt);
-            }
-        });
 
         try {
             cell_claroField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
@@ -222,17 +223,12 @@ public class UserWindow extends javax.swing.JPanel {
         cell_claroField.setEnabled(false);
 
         profileCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Técnico" }));
-        profileCombo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                profileComboActionPerformed(evt);
-            }
-        });
 
         passwordLabel.setText("*Senha:");
 
         passwrod2Label.setText("*Confirme Senha:");
 
-        emailLabel.setText("Endereço Eletrônico:");
+        emailLabel.setText("*Endereço Eletrônico:");
 
         cell_oiLabel.setText("Telefone (OI):");
 
@@ -284,17 +280,8 @@ public class UserWindow extends javax.swing.JPanel {
 
         warningLabel.setText("<html>Os campos assinalados com asterisco (*) <br>são de preencimento obrigatório</html>");
 
-        createButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_add.png"))); // NOI18N
-        createButton.setText("Cadastrar");
-        createButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createButtonActionPerformed(evt);
-            }
-        });
-
         updateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_edit.png"))); // NOI18N
-        updateButton.setText("Alterar");
-        updateButton.setEnabled(false);
+        updateButton.setText("Cadastrar");
         updateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateButtonActionPerformed(evt);
@@ -363,10 +350,7 @@ public class UserWindow extends javax.swing.JPanel {
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(titleForm)
                                 .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(updateButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(createButton)))
+                            .addComponent(updateButton, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -430,9 +414,7 @@ public class UserWindow extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(updateButton)
-                    .addComponent(createButton))
+                .addComponent(updateButton)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -454,7 +436,7 @@ public class UserWindow extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelTabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(79, Short.MAX_VALUE))
+                .addContainerGap(78, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -529,8 +511,7 @@ public class UserWindow extends javax.swing.JPanel {
                     cell_claroField.setEnabled(false);
                 }
                 profileCombo.setSelectedIndex(user.getProfile() - 1);
-                updateButton.setEnabled(true);
-                createButton.setEnabled(false);
+                updateButton.setText("Atualizar");
             } else {
                 deleteUser.setEnabled(false);
                 enableUser.setEnabled(false);
@@ -538,46 +519,6 @@ public class UserWindow extends javax.swing.JPanel {
             selectedRow = usersTable.getSelectedRow();
         }
     }//GEN-LAST:event_usersTableMouseClicked
-
-    private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
-        // TODO add your handling code here:
-        int profile = 0;
-        if (profileCombo.getSelectedItem().equals("Administrador")) {
-            profile = 1;
-        }
-        if (profileCombo.getSelectedItem().equals("Técnico")) {
-            profile = 2;
-        }
-        if (Verifications()) {
-            String cell_oi = (cell_oiField.getText().equals("(  )    -    ")) ? null : cell_oiField.getText();
-            String cell_vivo = (cell_vivoField.getText().equals("(  )    -    ")) ? null : cell_vivoField.getText();
-            String cell_tim = (cell_timField.getText().equals("(  )    -    ")) ? null : cell_timField.getText();
-            String cell_claro = (cell_claroField.getText().equals("(  )    -    ")) ? null : cell_claroField.getText();
-            String email = (emailField.getText().equals("")) ? null : emailField.getText();
-            User user = new User(nameField.getText(), registerField.getText(),
-                    passwordField.getText().toString(), email,
-                    cell_oi, cell_vivo, cell_tim, cell_claro, profile, 1);
-
-            try {
-                dao.createUser(user);
-            } catch (SQLRegisterException e) {
-                JOptionPane.showMessageDialog(null, "Matrícula é um campo "
-                        + "identificador!\nVerifique a matrícula digitada!", "Erro: Matrícula",
-                        JOptionPane.ERROR_MESSAGE);
-            } catch (SQLException ex) {
-                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-            table.limpar();
-            try {
-                usuarios = dao.readUsers();
-                table.addUserList(usuarios);
-            } catch (SQLException e) {
-                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, e);
-            }
-            limpar();
-        }
-    }//GEN-LAST:event_createButtonActionPerformed
 
     private void hint2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hint2ActionPerformed
         // TODO add your handling code here:
@@ -589,7 +530,7 @@ public class UserWindow extends javax.swing.JPanel {
     private void hintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hintActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "O campo matrícula deve ser preenchido "
-                + "no formato 99/99999999!\n"
+                + "no formato 123456789 (desconsidere a barra)!\n"
                 + "Caso sua matrícula não possua os 9 digítos, "
                 + "complete os espaços restantes com zeros(\"0\").\n"
                 + "A matrícula é um campo único!\n"
@@ -633,14 +574,6 @@ public class UserWindow extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cell_oiBoxActionPerformed
 
-    private void profileComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileComboActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_profileComboActionPerformed
-
-    private void cell_timFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_timFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cell_timFieldActionPerformed
-
     private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
         int profile = 0;
         if (profileCombo.getSelectedItem().equals("Administrador")) {
@@ -658,16 +591,27 @@ public class UserWindow extends javax.swing.JPanel {
             User user = new User(nameField.getText(), registerField.getText(),
                     passwordField.getText().toString(), email,
                     cell_oi, cell_vivo, cell_tim, cell_claro, profile, 1);
-
-            try {
-                dao.updateUser(user);
-            } catch (SQLFindUserException e) {
-                JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro: Atualizar Usuário",
-                        JOptionPane.ERROR_MESSAGE);
-            } catch (SQLException ex) {
-                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
+            if (updateButton.getText().equals("Atualizar")) {
+                try {
+                    dao.updateUser(user);
+                } catch (SQLFindUserException e) {
+                    JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro: Atualizar Usuário",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-
+            if (updateButton.getText().equals("Cadastrar")) {
+                try {
+                    dao.createUser(user);
+                } catch (SQLRegisterException e) {
+                    JOptionPane.showMessageDialog(null, "Matrícula é um campo "
+                            + "identificador!\nVerifique a matrícula digitada!", "Erro: Matrícula",
+                            JOptionPane.ERROR_MESSAGE);
+                } catch (SQLException ex) {
+                    Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
             table.limpar();
             try {
                 usuarios = dao.readUsers();
@@ -709,7 +653,6 @@ public class UserWindow extends javax.swing.JPanel {
     private javax.swing.JCheckBox cell_vivoBox;
     private javax.swing.JFormattedTextField cell_vivoField;
     private javax.swing.JLabel cell_vivoLabel;
-    private javax.swing.JButton createButton;
     private javax.swing.JButton deleteUser;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLabel;
@@ -751,7 +694,7 @@ public class UserWindow extends javax.swing.JPanel {
     public boolean checkEmail(String email) {
 
         if (email.equals("")) {
-            return true;
+            return false;
         }
         Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
 
@@ -823,7 +766,7 @@ public class UserWindow extends javax.swing.JPanel {
         }
         if (!checkEmail(emailField.getText())) {
             JOptionPane.showMessageDialog(null, "Email inválido!\n"
-                    + "O email deve estar no formato:\n"
+                    + "O email é obrigatório e deve estar no formato:\n"
                     + "email@dominio.[com, org, net...]", "Erro: Email",
                     JOptionPane.ERROR_MESSAGE);
             return false;
@@ -857,8 +800,7 @@ public class UserWindow extends javax.swing.JPanel {
         cell_claroBox.setSelected(false);
         cell_claroField.setEnabled(false);
         profileCombo.setSelectedIndex(0);
-        updateButton.setEnabled(false);
-        createButton.setEnabled(true);
+        updateButton.setText("Cadastrar");
     }
 
     public static void main(String args[]) {

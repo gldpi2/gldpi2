@@ -55,7 +55,7 @@
                   <Component id="jPanel2" max="32767" attributes="0"/>
                   <Component id="panelTabel" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="79" max="32767" attributes="0"/>
+              <EmptySpace pref="78" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -145,7 +145,7 @@
         <Component class="javax.swing.JLabel" name="titleTabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Lucida Console" size="18" style="0"/>
+              <Font name="Tahoma" size="18" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Usu&#xe1;rios"/>
           </Properties>
@@ -261,11 +261,7 @@
                                   <Component id="titleForm" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="warningLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="updateButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="createButton" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="updateButton" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -351,10 +347,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="warningLabel" min="-2" pref="34" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="updateButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="createButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="updateButton" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -364,7 +357,7 @@
         <Component class="javax.swing.JLabel" name="titleForm">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Lucida Console" size="18" style="0"/>
+              <Font name="Tahoma" size="18" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Cadastrar/Atualizar Usu&#xe1;rios"/>
           </Properties>
@@ -380,7 +373,7 @@
         <Component class="javax.swing.JFormattedTextField" name="registerField">
           <Properties>
             <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-              <Format format="##/#######" subtype="-1" type="5"/>
+              <Format format="#########" subtype="-1" type="5"/>
             </Property>
           </Properties>
         </Component>
@@ -418,9 +411,6 @@
             </Property>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cell_timFieldActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="cell_claroField">
           <Properties>
@@ -439,9 +429,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="profileComboActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="passwordLabel">
           <Properties>
@@ -455,7 +442,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="emailLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Endere&#xe7;o Eletr&#xf4;nico:"/>
+            <Property name="text" type="java.lang.String" value="*Endere&#xe7;o Eletr&#xf4;nico:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="cell_oiLabel">
@@ -528,24 +515,12 @@
             <Property name="text" type="java.lang.String" value="&lt;html&gt;Os campos assinalados com asterisco (*) &lt;br&gt;s&#xe3;o de preencimento obrigat&#xf3;rio&lt;/html&gt;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="createButton">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/icons/user_add.png"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Cadastrar"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createButtonActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="updateButton">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icons/user_edit.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Alterar"/>
-            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="text" type="java.lang.String" value="Cadastrar"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateButtonActionPerformed"/>
