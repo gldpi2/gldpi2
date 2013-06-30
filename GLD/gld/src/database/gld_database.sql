@@ -24,12 +24,14 @@ CREATE TABLE IF NOT EXISTS user (
     name VARCHAR(50) NOT NULL,
     register VARCHAR(12) NOT NULL,
     password VARCHAR(10) NOT NULL,
+    profile INT(1) UNSIGNED NOT NULL,
     email VARCHAR(50),
     cell_oi VARCHAR(13),
     cell_vivo VARCHAR(13),
     cell_tim VARCHAR(13),
     cell_claro VARCHAR(13),
-    profile INT(1) UNSIGNED NOT NULL,
-    PRIMARY KEY (id_user)
+    enable INT(1) UNSIGNED,
+    PRIMARY KEY (id_user),
+    UNIQUE (register)
 );
 

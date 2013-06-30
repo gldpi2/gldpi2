@@ -4,9 +4,20 @@
  */
 package view;
 
+import com.mysql.jdbc.jdbc2.optional.SuspendableXAConnection;
+import dao.UserDAO;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import model.User;
+import model.UserTableModel;
+import utils.SQLFindUserException;
+import utils.SQLRegisterException;
 
 /**
  *
@@ -14,11 +25,23 @@ import javax.swing.JFrame;
  */
 public class UserWindow extends javax.swing.JPanel {
 
+    UserDAO dao = new UserDAO();
+    List<User> usuarios;
+    UserTableModel table = new UserTableModel();
+    int selectedRow = 0;
+
     /**
      * Creates new form Usuário
      */
-    public UserWindow() {
+    public UserWindow(int y) {
+        try {
+            usuarios = dao.readUsers();
+            table.addUserList(usuarios);
+        } catch (SQLException e) {
+            Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, e);
+        }
         initComponents();
+        setSize(1024, y);
     }
 
     /**
@@ -30,114 +53,140 @@ public class UserWindow extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        panelTabel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        usersTable = new javax.swing.JTable();
+        titleTabel = new javax.swing.JLabel();
+        deleteUser = new javax.swing.JButton();
+        enableUser = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        titleForm = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
-        registerLabel = new javax.swing.JLabel();
-        passwordLabel = new javax.swing.JLabel();
-        passwrod2Label = new javax.swing.JLabel();
         nameField = new javax.swing.JTextField();
-        cancelButton = new javax.swing.JButton();
-        createButton = new javax.swing.JButton();
-        emailLabel = new javax.swing.JLabel();
-        cell_oiLabel = new javax.swing.JLabel();
-        cell_vivoLabel = new javax.swing.JLabel();
-        cell_timLabel = new javax.swing.JLabel();
-        cell_claroLabel = new javax.swing.JLabel();
-        cell_oiBox = new javax.swing.JCheckBox();
-        cell_vivoBox = new javax.swing.JCheckBox();
-        cell_timBox = new javax.swing.JCheckBox();
-        cell_claroBox = new javax.swing.JCheckBox();
-        profileCombo = new javax.swing.JComboBox();
-        profileLabel = new javax.swing.JLabel();
         registerField = new javax.swing.JFormattedTextField();
-        emailField = new javax.swing.JTextField();
+        registerLabel = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
         password2Field = new javax.swing.JPasswordField();
+        emailField = new javax.swing.JTextField();
         cell_oiField = new javax.swing.JFormattedTextField();
         cell_vivoField = new javax.swing.JFormattedTextField();
         cell_timField = new javax.swing.JFormattedTextField();
         cell_claroField = new javax.swing.JFormattedTextField();
+        profileCombo = new javax.swing.JComboBox();
+        passwordLabel = new javax.swing.JLabel();
+        passwrod2Label = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
+        cell_oiLabel = new javax.swing.JLabel();
+        cell_oiBox = new javax.swing.JCheckBox();
+        cell_vivoLabel = new javax.swing.JLabel();
+        cell_vivoBox = new javax.swing.JCheckBox();
+        cell_timLabel = new javax.swing.JLabel();
+        cell_timBox = new javax.swing.JCheckBox();
+        cell_claroLabel = new javax.swing.JLabel();
+        cell_claroBox = new javax.swing.JCheckBox();
+        profileLabel = new javax.swing.JLabel();
+        hint = new javax.swing.JToggleButton();
+        hint2 = new javax.swing.JToggleButton();
         warningLabel = new javax.swing.JLabel();
+        createButton = new javax.swing.JButton();
+        updateButton = new javax.swing.JButton();
 
-        jLabel1.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
-        jLabel1.setText("Cadastrar Usuário");
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
+        setPreferredSize(new java.awt.Dimension(1000, 490));
+
+        panelTabel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        usersTable.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        usersTable.setModel(table);
+        usersTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                usersTableMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(usersTable);
+        usersTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        titleTabel.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        titleTabel.setText("Relatório de Usuários");
+
+        deleteUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_delete.png"))); // NOI18N
+        deleteUser.setText("Desativar");
+        deleteUser.setEnabled(false);
+        deleteUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteUserActionPerformed(evt);
+            }
+        });
+
+        enableUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
+        enableUser.setText("Reativar");
+        enableUser.setEnabled(false);
+        enableUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enableUserActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelTabelLayout = new javax.swing.GroupLayout(panelTabel);
+        panelTabel.setLayout(panelTabelLayout);
+        panelTabelLayout.setHorizontalGroup(
+            panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTabelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTabelLayout.createSequentialGroup()
+                        .addComponent(titleTabel)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTabelLayout.createSequentialGroup()
+                        .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTabelLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(enableUser)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(deleteUser)))
+                        .addContainerGap())))
+        );
+        panelTabelLayout.setVerticalGroup(
+            panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTabelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(titleTabel)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteUser)
+                    .addComponent(enableUser))
+                .addContainerGap())
+        );
+
+        jPanel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+
+        titleForm.setFont(new java.awt.Font("Lucida Console", 0, 18)); // NOI18N
+        titleForm.setText("Cadastrar/Atualizar Usuários");
 
         nameLabel.setText("*Nome:");
         nameLabel.setName(""); // NOI18N
-
-        registerLabel.setText("*Matrícula:");
-
-        passwordLabel.setText("*Senha:");
-
-        passwrod2Label.setText("*Confirme Senha:");
-
-        cancelButton.setText("Cancelar");
-        cancelButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelButtonActionPerformed(evt);
-            }
-        });
-
-        createButton.setText("Cadastrar");
-        createButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                createButtonActionPerformed(evt);
-            }
-        });
-
-        emailLabel.setText("Endereço Eletrônico:");
-
-        cell_oiLabel.setText("Telefone (OI):");
-
-        cell_vivoLabel.setText("Telefone (VIVO):");
-
-        cell_timLabel.setText("Telefone (TIM):");
-
-        cell_claroLabel.setText("Telefone (CLARO):");
-
-        cell_oiBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cell_oiBoxActionPerformed(evt);
-            }
-        });
-
-        cell_vivoBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cell_vivoBoxActionPerformed(evt);
-            }
-        });
-
-        cell_timBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cell_timBoxActionPerformed(evt);
-            }
-        });
-
-        cell_claroBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cell_claroBoxActionPerformed(evt);
-            }
-        });
-
-        profileCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Técnico" }));
-        profileCombo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                profileComboActionPerformed(evt);
-            }
-        });
-
-        profileLabel.setText("Perfil:");
 
         try {
             registerField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/#######")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        registerField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registerFieldActionPerformed(evt);
-            }
-        });
+
+        registerLabel.setText("*Matrícula:");
 
         try {
             cell_oiField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)####-####")));
@@ -172,8 +221,220 @@ public class UserWindow extends javax.swing.JPanel {
         }
         cell_claroField.setEnabled(false);
 
-        warningLabel.setForeground(new java.awt.Color(255, 0, 0));
-        warningLabel.setText("<html>Os campos assinalados com asterisco (*) <br> são de preencimento obrigatório</html>");
+        profileCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Administrador", "Técnico" }));
+        profileCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                profileComboActionPerformed(evt);
+            }
+        });
+
+        passwordLabel.setText("*Senha:");
+
+        passwrod2Label.setText("*Confirme Senha:");
+
+        emailLabel.setText("Endereço Eletrônico:");
+
+        cell_oiLabel.setText("Telefone (OI):");
+
+        cell_oiBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cell_oiBoxActionPerformed(evt);
+            }
+        });
+
+        cell_vivoLabel.setText("Telefone (VIVO):");
+
+        cell_vivoBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cell_vivoBoxActionPerformed(evt);
+            }
+        });
+
+        cell_timLabel.setText("Telefone (TIM):");
+
+        cell_timBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cell_timBoxActionPerformed(evt);
+            }
+        });
+
+        cell_claroLabel.setText("Telefone (CLARO):");
+
+        cell_claroBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cell_claroBoxActionPerformed(evt);
+            }
+        });
+
+        profileLabel.setText("Perfil:");
+
+        hint.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/help.png"))); // NOI18N
+        hint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hintActionPerformed(evt);
+            }
+        });
+
+        hint2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/help.png"))); // NOI18N
+        hint2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hint2ActionPerformed(evt);
+            }
+        });
+
+        warningLabel.setText("<html>Os campos assinalados com asterisco (*) <br>são de preencimento obrigatório</html>");
+
+        createButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_add.png"))); // NOI18N
+        createButton.setText("Cadastrar");
+        createButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createButtonActionPerformed(evt);
+            }
+        });
+
+        updateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_edit.png"))); // NOI18N
+        updateButton.setText("Alterar");
+        updateButton.setEnabled(false);
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(cell_claroLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cell_claroBox))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(cell_timLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cell_timBox))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(cell_vivoLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cell_vivoBox))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(cell_oiLabel)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cell_oiBox))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(nameLabel)
+                                            .addComponent(registerLabel)
+                                            .addComponent(passwordLabel)
+                                            .addComponent(passwrod2Label)
+                                            .addComponent(emailLabel))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(6, 6, 6))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(profileLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(registerField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(hint, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(hint2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(password2Field, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cell_oiField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cell_vivoField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cell_timField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cell_claroField, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(profileCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(606, 606, 606))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(titleForm)
+                                .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(updateButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(createButton)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(titleForm, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nameLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(registerField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(registerLabel))
+                    .addComponent(hint, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(passwordLabel))
+                    .addComponent(hint2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(password2Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwrod2Label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(emailLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cell_oiField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cell_oiLabel))
+                            .addComponent(cell_oiBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cell_vivoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cell_vivoLabel))
+                            .addComponent(cell_vivoBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cell_timField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cell_timLabel))
+                            .addComponent(cell_timBox))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cell_claroField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cell_claroLabel)))
+                    .addComponent(cell_claroBox))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(profileCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(profileLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(updateButton)
+                    .addComponent(createButton))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -181,184 +442,261 @@ public class UserWindow extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nameLabel)
-                                    .addComponent(registerLabel)
-                                    .addComponent(emailLabel)
-                                    .addComponent(passwordLabel)
-                                    .addComponent(passwrod2Label))
-                                .addGap(37, 37, 37))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(cell_claroLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cell_claroBox))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(cell_timLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cell_timBox))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(cell_vivoLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cell_vivoBox))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(cell_oiLabel)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(cell_oiBox))
-                                    .addComponent(profileLabel))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(registerField)
-                                .addComponent(passwordField, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(password2Field, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(cell_oiField, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cell_vivoField, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cell_timField, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cell_claroField, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(profileCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(nameField, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE)
-                            .addComponent(emailField)))
-                    .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(createButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancelButton)))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(panelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nameLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(registerField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(registerLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwordLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(password2Field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(passwrod2Label))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(emailField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emailLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(cell_oiField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cell_oiLabel))
-                                    .addComponent(cell_oiBox))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(cell_vivoField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cell_vivoLabel))
-                                    .addComponent(cell_vivoBox))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cell_timField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(cell_timLabel)))
-                            .addComponent(cell_timBox))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cell_claroField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cell_claroLabel)))
-                    .addComponent(cell_claroBox))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(profileCombo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(profileLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(createButton)
-                    .addComponent(cancelButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelTabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cancelButtonActionPerformed
+    private void deleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserActionPerformed
+        User user = usuarios.get(usersTable.getSelectedRow());
+        try {
+            dao.deleteUser(user);
+        } catch (SQLFindUserException e) {
+            JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro: Desativar Usuário",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        limpar();
+        usersTable.repaint();
+        enableUser.setEnabled(true);
+        deleteUser.setEnabled(false);
+    }//GEN-LAST:event_deleteUserActionPerformed
+
+    private void usersTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersTableMouseClicked
+        if (selectedRow == usersTable.getSelectedRow()) {
+            limpar();
+            selectedRow = -1;
+        } else {
+            if (usersTable.getSelectedRow() != -1) {
+                limpar();
+                User user = usuarios.get(usersTable.getSelectedRow());
+                if (user.getEnable().equals(0)) {
+                    deleteUser.setEnabled(false);
+                    enableUser.setEnabled(true);
+                }
+                if (user.getEnable().equals(1)) {
+                    deleteUser.setEnabled(true);
+                    enableUser.setEnabled(false);
+                }
+                nameField.setText(user.getName());
+                registerField.setText(user.getRegister());
+                registerField.setEnabled(false);
+                passwordField.setText(user.getPassword());
+                password2Field.setText(user.getPassword());
+                emailField.setText(user.getEmail());
+                if (user.getCell_oi() != null) {
+                    cell_oiField.setText(user.getCell_oi());
+                    cell_oiBox.setSelected(true);
+                    cell_oiField.setEnabled(true);
+                } else {
+                    cell_oiBox.setSelected(false);
+                    cell_oiField.setEnabled(false);
+                }
+                if (user.getCell_vivo() != null) {
+                    cell_vivoField.setText(user.getCell_vivo());
+                    cell_vivoBox.setSelected(true);
+                    cell_vivoField.setEnabled(true);
+                } else {
+                    cell_vivoBox.setSelected(false);
+                    cell_vivoField.setEnabled(false);
+                }
+                if (user.getCell_tim() != null) {
+                    cell_timField.setText(user.getCell_tim());
+                    cell_timBox.setSelected(true);
+                    cell_timField.setEnabled(true);
+                } else {
+                    cell_timBox.setSelected(false);
+                    cell_timField.setEnabled(false);
+                }
+                if (user.getCell_claro() != null) {
+                    cell_claroField.setText(user.getCell_claro());
+                    cell_claroBox.setSelected(true);
+                    cell_claroField.setEnabled(true);
+                } else {
+                    cell_claroBox.setSelected(false);
+                    cell_claroField.setEnabled(false);
+                }
+                profileCombo.setSelectedIndex(user.getProfile() - 1);
+                updateButton.setEnabled(true);
+                createButton.setEnabled(false);
+            } else {
+                deleteUser.setEnabled(false);
+                enableUser.setEnabled(false);
+            }
+            selectedRow = usersTable.getSelectedRow();
+        }
+    }//GEN-LAST:event_usersTableMouseClicked
 
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
         // TODO add your handling code here:
+        int profile = 0;
+        if (profileCombo.getSelectedItem().equals("Administrador")) {
+            profile = 1;
+        }
+        if (profileCombo.getSelectedItem().equals("Técnico")) {
+            profile = 2;
+        }
+        if (Verifications()) {
+            String cell_oi = (cell_oiField.getText().equals("(  )    -    ")) ? null : cell_oiField.getText();
+            String cell_vivo = (cell_vivoField.getText().equals("(  )    -    ")) ? null : cell_vivoField.getText();
+            String cell_tim = (cell_timField.getText().equals("(  )    -    ")) ? null : cell_timField.getText();
+            String cell_claro = (cell_claroField.getText().equals("(  )    -    ")) ? null : cell_claroField.getText();
+            String email = (emailField.getText().equals("")) ? null : emailField.getText();
+            User user = new User(nameField.getText(), registerField.getText(),
+                    passwordField.getText().toString(), email,
+                    cell_oi, cell_vivo, cell_tim, cell_claro, profile, 1);
+
+            try {
+                dao.createUser(user);
+            } catch (SQLRegisterException e) {
+                JOptionPane.showMessageDialog(null, "Matrícula é um campo "
+                        + "identificador!\nVerifique a matrícula digitada!", "Erro: Matrícula",
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            table.limpar();
+            try {
+                usuarios = dao.readUsers();
+                table.addUserList(usuarios);
+            } catch (SQLException e) {
+                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, e);
+            }
+            limpar();
+        }
     }//GEN-LAST:event_createButtonActionPerformed
 
-    private void profileComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileComboActionPerformed
+    private void hint2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hint2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_profileComboActionPerformed
+        JOptionPane.showMessageDialog(null, "O campo senha deve conter de "
+                + "6 a 10 caracteres alfa-numéricos", "Dica de "
+                + "Preenchimento!", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_hint2ActionPerformed
 
-    private void cell_oiBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_oiBoxActionPerformed
-        if(cell_oiBox.isSelected()){
-            cell_oiField.setEnabled(true);
-        }
-        else{
-            cell_oiField.setEnabled(false);
-            cell_oiField.setText("");
-        } 
-    }//GEN-LAST:event_cell_oiBoxActionPerformed
-
-    private void cell_vivoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_vivoBoxActionPerformed
-        if(cell_vivoBox.isSelected()){
-            cell_vivoField.setEnabled(true);
-        }
-        else{
-            cell_vivoField.setEnabled(false);
-            cell_vivoField.setText("");
-        } 
-    }//GEN-LAST:event_cell_vivoBoxActionPerformed
-
-    private void cell_timBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_timBoxActionPerformed
-        if(cell_timBox.isSelected()){
-            cell_timField.setEnabled(true);
-        }
-        else{
-            cell_timField.setEnabled(false);
-            cell_timField.setText("");
-        }
-    }//GEN-LAST:event_cell_timBoxActionPerformed
+    private void hintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hintActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "O campo matrícula deve ser preenchido "
+                + "no formato 99/99999999!\n"
+                + "Caso sua matrícula não possua os 9 digítos, "
+                + "complete os espaços restantes com zeros(\"0\").\n"
+                + "A matrícula é um campo único!\n"
+                + "Certifique-se de que não haja usuário cadastrado com esta matrícula!", "Dica de "
+                + "Preenchimento!", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_hintActionPerformed
 
     private void cell_claroBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_claroBoxActionPerformed
-        if(cell_claroBox.isSelected()){
+        if (cell_claroBox.isSelected()) {
             cell_claroField.setEnabled(true);
-        }
-        else{
+        } else {
             cell_claroField.setEnabled(false);
             cell_claroField.setText("");
         }
     }//GEN-LAST:event_cell_claroBoxActionPerformed
 
-    private void registerFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerFieldActionPerformed
+    private void cell_timBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_timBoxActionPerformed
+        if (cell_timBox.isSelected()) {
+            cell_timField.setEnabled(true);
+        } else {
+            cell_timField.setEnabled(false);
+            cell_timField.setText("");
+        }
+    }//GEN-LAST:event_cell_timBoxActionPerformed
+
+    private void cell_vivoBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_vivoBoxActionPerformed
+        if (cell_vivoBox.isSelected()) {
+            cell_vivoField.setEnabled(true);
+        } else {
+            cell_vivoField.setEnabled(false);
+            cell_vivoField.setText("");
+        }
+    }//GEN-LAST:event_cell_vivoBoxActionPerformed
+
+    private void cell_oiBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_oiBoxActionPerformed
+        if (cell_oiBox.isSelected()) {
+            cell_oiField.setEnabled(true);
+        } else {
+            cell_oiField.setEnabled(false);
+            cell_oiField.setText("");
+        }
+    }//GEN-LAST:event_cell_oiBoxActionPerformed
+
+    private void profileComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_profileComboActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_registerFieldActionPerformed
+    }//GEN-LAST:event_profileComboActionPerformed
 
     private void cell_timFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_timFieldActionPerformed
-       // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_cell_timFieldActionPerformed
 
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        int profile = 0;
+        if (profileCombo.getSelectedItem().equals("Administrador")) {
+            profile = 1;
+        }
+        if (profileCombo.getSelectedItem().equals("Técnico")) {
+            profile = 2;
+        }
+        if (Verifications()) {
+            String cell_oi = (cell_oiField.getText().equals("(  )    -    ")) ? null : cell_oiField.getText();
+            String cell_vivo = (cell_vivoField.getText().equals("(  )    -    ")) ? null : cell_vivoField.getText();
+            String cell_tim = (cell_timField.getText().equals("(  )    -    ")) ? null : cell_timField.getText();
+            String cell_claro = (cell_claroField.getText().equals("(  )    -    ")) ? null : cell_claroField.getText();
+            String email = (emailField.getText().equals("")) ? null : emailField.getText();
+            User user = new User(nameField.getText(), registerField.getText(),
+                    passwordField.getText().toString(), email,
+                    cell_oi, cell_vivo, cell_tim, cell_claro, profile, 1);
+
+            try {
+                dao.updateUser(user);
+            } catch (SQLFindUserException e) {
+                JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro: Atualizar Usuário",
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            table.limpar();
+            try {
+                usuarios = dao.readUsers();
+                table.addUserList(usuarios);
+            } catch (SQLException e) {
+                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, e);
+            }
+            limpar();
+            usersTable.repaint();
+        }
+    }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void enableUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableUserActionPerformed
+        User user = usuarios.get(usersTable.getSelectedRow());
+        user.setEnable(1);
+        try {
+            dao.updateUser(user);
+        } catch (SQLFindUserException e) {
+            JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro: Reativar Usuário",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        limpar();
+        usersTable.repaint();
+        enableUser.setEnabled(false);
+        deleteUser.setEnabled(true);
+    }//GEN-LAST:event_enableUserActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton cancelButton;
     private javax.swing.JCheckBox cell_claroBox;
     private javax.swing.JFormattedTextField cell_claroField;
     private javax.swing.JLabel cell_claroLabel;
@@ -372,11 +710,18 @@ public class UserWindow extends javax.swing.JPanel {
     private javax.swing.JFormattedTextField cell_vivoField;
     private javax.swing.JLabel cell_vivoLabel;
     private javax.swing.JButton createButton;
+    private javax.swing.JButton deleteUser;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton enableUser;
+    private javax.swing.JToggleButton hint;
+    private javax.swing.JToggleButton hint2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLabel;
+    private javax.swing.JPanel panelTabel;
     private javax.swing.JPasswordField password2Field;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JLabel passwordLabel;
@@ -385,52 +730,147 @@ public class UserWindow extends javax.swing.JPanel {
     private javax.swing.JLabel profileLabel;
     private javax.swing.JFormattedTextField registerField;
     private javax.swing.JLabel registerLabel;
+    private javax.swing.JLabel titleForm;
+    private javax.swing.JLabel titleTabel;
+    private javax.swing.JButton updateButton;
+    private javax.swing.JTable usersTable;
     private javax.swing.JLabel warningLabel;
     // End of variables declaration//GEN-END:variables
-    
-    public int checkPassword(){
+
+    public boolean checkPassword() {
         String sen = passwordField.getText();
         String senC = password2Field.getText();
 
-        if(sen.length()<6){
-            return 1;
-        }
-
-        if((sen.equals(senC) && senC.equals(sen)) && (!sen.equals("") || !senC.equals(""))){
-            return 0;
-        }else{
-            return 1;
+        if ((sen.equals(senC) && senC.equals(sen)) && (!sen.equals("") || !senC.equals(""))) {
+            return true;
+        } else {
+            return false;
         }
     }
-    
-    public int checkEmail(String email){
 
-          Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+    public boolean checkEmail(String email) {
 
-          Matcher m = p.matcher(email);
+        if (email.equals("")) {
+            return true;
+        }
+        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
 
-          boolean matchFound = m.matches();
+        Matcher m = p.matcher(email);
 
-          if (matchFound){
-              return 0;
-          }else{
-              return 1;
-          } 
+        boolean matchFound = m.matches();
+
+        if (matchFound) {
+            return true;
+        } else {
+            return false;
+        }
     }
-    
-    
-    
-    public static void main(String args[]){
+
+    public boolean checkCellNumbers() {
+        if (cell_oiBox.isSelected() && cell_oiField.getText().equals("(  )    -    ")) {
+            return false;
+        }
+        if (cell_vivoBox.isSelected() && cell_vivoField.getText().equals("(  )    -    ")) {
+            return false;
+        }
+        if (cell_timBox.isSelected() && cell_timField.getText().equals("(  )    -    ")) {
+            return false;
+        }
+        if (cell_claroBox.isSelected() && cell_claroField.getText().equals("(  )    -    ")) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean Verifications() {
+        if (nameField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo nome é obrigatório!",
+                    "Erro: Nome",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (registerField.getText().equals("  /       ")) {
+            JOptionPane.showMessageDialog(null, "O campo matrícula é obrigatório!",
+                    "Erro: Matrícula",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (passwordField.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "O campo senha é obrigatório!",
+                    "Erro: Senha",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (password2Field.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "Confirme a senha digitada!",
+                    "Erro: Senha2",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (!checkPassword()) {
+            JOptionPane.showMessageDialog(null, "A senhas digitadas "
+                    + "não conferem!", "Erro: Senha", JOptionPane.ERROR_MESSAGE);
+            passwordField.setText("");
+            password2Field.setText("");
+            return false;
+        }
+        if (passwordField.getText().length() < 6 || passwordField.getText().length() > 10) {
+            JOptionPane.showMessageDialog(null, "O campo senha deve conter "
+                    + "de 6 a 10 caracteres", "Erro: Senha", JOptionPane.ERROR_MESSAGE);
+            passwordField.setText("");
+            password2Field.setText("");
+            return false;
+        }
+        if (!checkEmail(emailField.getText())) {
+            JOptionPane.showMessageDialog(null, "Email inválido!\n"
+                    + "O email deve estar no formato:\n"
+                    + "email@dominio.[com, org, net...]", "Erro: Email",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if (!checkCellNumbers()) {
+            JOptionPane.showMessageDialog(null, "Número telefônico inválido!",
+                    "Erro: Telefone",
+                    JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+
+    public void limpar() {
+        nameField.setText("");
+        registerField.setText("");
+        registerField.setEnabled(true);
+        passwordField.setText("");
+        password2Field.setText("");
+        emailField.setText("");
+        cell_oiField.setText("");
+        cell_vivoField.setText("");
+        cell_timField.setText("");
+        cell_claroField.setText("");
+        cell_oiBox.setSelected(false);
+        cell_oiField.setEnabled(false);
+        cell_vivoBox.setSelected(false);
+        cell_vivoField.setEnabled(false);
+        cell_timBox.setSelected(false);
+        cell_timField.setEnabled(false);
+        cell_claroBox.setSelected(false);
+        cell_claroField.setEnabled(false);
+        profileCombo.setSelectedIndex(0);
+        updateButton.setEnabled(false);
+        createButton.setEnabled(true);
+    }
+
+    public static void main(String args[]) {
         final JFrame frame = new JFrame();
-        frame.add(new UserWindow());
-        frame.setLocation(300, 200);
-        frame.setSize(500, 500);
+        frame.setLocation(100, 100);
+        frame.setSize(1000, 500);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.add(new UserWindow(frame.getHeight()));
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 frame.setVisible(true);
             }
         });
     }
-
 }

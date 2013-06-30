@@ -41,33 +41,6 @@ public class PatternWindow extends javax.swing.JPanel {
         state = 1;
     }
 
-//    private ChartPanel createPieChart(String chartTitle) {
-//        PieDataset dataset = createDataset();
-//        JFreeChart chart = createChart(dataset, chartTitle);
-//        ChartPanel chartPanel = new ChartPanel(chart,true);
-//        return chartPanel;
-//    }
-//
-//    private PieDataset createDataset() {
-//        DefaultPieDataset result = new DefaultPieDataset();
-//        result.setValue("Linux", 29);
-//        result.setValue("Mac", 20);
-//        result.setValue("Windows", 51);
-//        return result;
-//
-//    }
-//
-//    private JFreeChart createChart(PieDataset dataset, String title) {
-//        JFreeChart chart = ChartFactory.createPieChart3D(
-//            title, dataset, true, true, false);
-//        PiePlot3D plot = (PiePlot3D) chart.getPlot();
-//        plot.setStartAngle(290);
-//        plot.setDirection(Rotation.CLOCKWISE);
-//        plot.setForegroundAlpha(0.5f);
-//        plot.setCircular(true);
-//        return chart;
-//
-//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

@@ -5,6 +5,7 @@
 package view;
 
 import model.Login;
+import utils.UpdaterCostThread;
 import utils.UpdaterGraphThread;
 
 /**
@@ -17,6 +18,7 @@ public class CostWindow extends javax.swing.JPanel {
     
     int i=0, state=0;
     private CostChart pg;
+    //MainWindow mainw;
     /**
      * Creates new form PatternWindow
      */
@@ -33,7 +35,8 @@ public class CostWindow extends javax.swing.JPanel {
         pg = new CostChart(desktop.getWidth(), desktop.getHeight());
         pg.criaGrafico();
         
-        Thread th = new Thread(new UpdaterGraphThread(pg.series));
+        pg.criaGrafico();
+        Thread th = new Thread(new UpdaterCostThread(pg.series));
         th.setDaemon(true);
         th.start();
         
@@ -102,6 +105,11 @@ public class CostWindow extends javax.swing.JPanel {
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/house_go.png"))); // NOI18N
         jButton2.setText("Voltar ao Menu Principal");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
 
@@ -225,6 +233,10 @@ public class CostWindow extends javax.swing.JPanel {
             pg.changeSize(desktop.getWidth(),desktop.getHeight());    
         }
     }//GEN-LAST:event_formComponentResized
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel desktop;

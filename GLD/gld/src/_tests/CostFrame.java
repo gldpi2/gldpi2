@@ -1,8 +1,9 @@
 package _tests;
 
-import controller.CostCtrl;
 import javax.swing.JOptionPane;
-import org.jfree.data.time.Millisecond;
+import utils.UpdaterCostThread;
+import utils.UpdaterGraphThread;
+
 
 /**
  *
@@ -19,12 +20,16 @@ public class CostFrame extends javax.swing.JFrame {
         this.init();
     }
     
-    public void init(){
+    private void init(){
         desktop.removeAll();
         pg = new CostPanel(desktop.getWidth(), desktop.getHeight());
         
         pg.criarGrafico();
-       
+        Thread th = new Thread(new UpdaterCostThread(pg.series));
+        th.setDaemon(true);
+        th.start();
+        
+
         desktop.add(pg);
         state = 1;
     }
@@ -90,7 +95,7 @@ public class CostFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SairActionPerformed
-        JOptionPane.showMessageDialog(null, "Obrigado por usar a aplicacao");
+        //JOptionPane.showMessageDialog(null, "Obrigado por usar a aplicacao");
         System.exit(0);
     }//GEN-LAST:event_SairActionPerformed
 
