@@ -235,11 +235,7 @@ public class CostWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_formComponentResized
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //desktop.removeAll();
-        //mainw = new MainWindow();
-        //desktop.add(mainw);
-        //desktop.revalidate();
-        //desktop.repaint(); 
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

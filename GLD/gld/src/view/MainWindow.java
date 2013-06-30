@@ -17,6 +17,9 @@ public class MainWindow extends javax.swing.JFrame {
     PatternWindow pattern;
     CostWindow costw;
     UserWindow userw;
+    
+    int state = 0;
+    private MainMenu pg;
     /**
      * Creates new form JanelaPrincipal
      */
@@ -36,6 +39,17 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         initComponents();
     }
+    
+    public void init(){
+        desktop.removeAll();
+        pg = new MainMenu(desktop.getWidth(), desktop.getHeight());
+        //pg.CriaMenu();
+        
+        desktop.add(pg);
+        
+        
+        state =1;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,7 +68,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem11 = new javax.swing.JMenuItem();
         menuCadastros = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        menuInserirUser = new javax.swing.JMenuItem();
         jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem13 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -81,7 +95,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 594, Short.MAX_VALUE)
+            .add(0, 598, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");
@@ -106,14 +120,14 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
         jMenu7.setText("Usuário");
 
-        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_add.png"))); // NOI18N
-        jMenuItem5.setText("Inserir");
-        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+        menuInserirUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_add.png"))); // NOI18N
+        menuInserirUser.setText("Inserir");
+        menuInserirUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem5ActionPerformed(evt);
+                menuInserirUserActionPerformed(evt);
             }
         });
-        jMenu7.add(jMenuItem5);
+        jMenu7.add(menuInserirUser);
 
         jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_edit.png"))); // NOI18N
         jMenuItem12.setText("Alterar");
@@ -203,7 +217,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+                                 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         int i;
 
@@ -240,13 +254,13 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.repaint();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
-    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+    private void menuInserirUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInserirUserActionPerformed
         desktop.removeAll();
         userw = new UserWindow(desktop.getHeight());
         desktop.add(userw);
         desktop.revalidate();
         desktop.repaint();
-    }//GEN-LAST:event_jMenuItem5ActionPerformed
+    }//GEN-LAST:event_menuInserirUserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -298,13 +312,13 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenuItem menuCustos;
+    private javax.swing.JMenuItem menuInserirUser;
     private javax.swing.JMenu menuMainHibrido;
     private javax.swing.JMenu menuRelatorios;
     // End of variables declaration//GEN-END:variables
