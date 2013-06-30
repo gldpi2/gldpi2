@@ -53,7 +53,7 @@ public class CostDAO {
                 mensuration.setTimestamp(rs.getString("timestamp"));
                 
                 ctrl.setTime(mensuration.getTimestamp());
-                setCostValue(ctrl.energyValue(mensuration.getFlow(), mensuration.getTension()));
+                setCostValue(ctrl.energyValue(mensuration.getPotency()));
                 
                 
              
