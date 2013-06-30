@@ -7,7 +7,7 @@ package view;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Login;
-import utils.PowerGridMonitor;
+import utils.UpdaterCostThread;
 import static view.MainWindow.desktop;
 import static view.MainWindow.loadWindow;
 import static view.MainWindow.user;
@@ -18,18 +18,21 @@ import static view.MainWindow.user;
  */
 public class MainMenu extends javax.swing.JPanel {
 
+    
+    int i = 0, state = 0;
+    private CostChart pg1;
+    
+    
+    private MainMenu pg;
+
     /**
      * Creates new form MainMenu
      */
-
-    int state = 0;
-    private MainMenu pg;
-
-    
     public MainMenu(Login user) {
         initComponents();
         setSize(1024, 678);
 
+        this.init();
       
         //this.panelHibrido.setVisible(false);
 
@@ -41,6 +44,22 @@ public class MainMenu extends javax.swing.JPanel {
      }
     
 
+     public void init() {
+        //teoricamente era pra rodar gráfico de custo.
+        panelCost.removeAll();
+        pg1 = new CostChart(panelCost.getWidth(), panelCost.getHeight());
+        pg1.criaGrafico();
+
+        pg1.criaGrafico();
+        Thread th = new Thread(new UpdaterCostThread(pg1.series));
+        th.setDaemon(true);
+        th.start();
+
+        panelCost.add(pg1);
+        panelCost.revalidate();
+        panelCost.repaint();
+        state = 1;
+ }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -251,6 +270,11 @@ public class MainMenu extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+     private void formComponentResized(java.awt.event.ComponentEvent evt) {                                      
+        if (state == 1) {
+            pg1.changeSize(panelCost.getWidth(), panelCost.getHeight());
+        }
+    }   
     private void buttonUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUserActionPerformed
         MainWindow.desktop.removeAll();
         MainWindow.userWindow = new UserWindow(desktop.getHeight());
