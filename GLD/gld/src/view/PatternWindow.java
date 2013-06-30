@@ -5,7 +5,7 @@
 package view;
 
 import model.Login;
-import utils.UpdaterGraphThread;
+import utils.UpdaterLoadCurveThread;
 
 /**
  *
@@ -33,9 +33,9 @@ public class PatternWindow extends javax.swing.JPanel {
         pg = new PatternChart(desktop.getWidth(), desktop.getHeight());
         pg.criaGrafico();
         
-        Thread th = new Thread(new UpdaterGraphThread(pg.series));
-        th.setDaemon(true);
-        th.start();
+//        Thread th = new Thread(new UpdaterLoadCurveThread(pg.series));
+//        th.setDaemon(true);
+//        th.start();
         
         desktop.add(pg);
         state = 1;

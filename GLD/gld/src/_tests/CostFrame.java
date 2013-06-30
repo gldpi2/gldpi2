@@ -2,7 +2,7 @@ package _tests;
 
 import javax.swing.JOptionPane;
 import utils.UpdaterCostThread;
-import utils.UpdaterGraphThread;
+import utils.UpdaterLoadCurveThread;
 
 
 /**

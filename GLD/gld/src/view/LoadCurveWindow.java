@@ -5,7 +5,7 @@
 package view;
 
 import model.Login;
-import utils.UpdaterGraphThread;
+import utils.UpdaterLoadCurveThread;
 
 /**
  *
@@ -14,30 +14,31 @@ import utils.UpdaterGraphThread;
 public class LoadCurveWindow extends javax.swing.JPanel {
 //    private static final String title = "Which operating system are you using?";
 //    ChartPanel pg;
-    
-    int i=0, state=0;
-    private PatternChart pg;
+
+    int i = 0, state = 0;
+    private LoadCurveChart loadCurveChart;
+
     /**
      * Creates new form PatternWindow
      */
     public LoadCurveWindow(int y, Login user) {
         initComponents();
-        setSize(1024,y);
-        
+        setSize(1024, y);
+
         matricula.setText(user.getMatricula());
         this.init();
     }
-    
+
     public void init() {
         desktop.removeAll();
-        pg = new PatternChart(desktop.getWidth(), desktop.getHeight());
-        pg.criaGrafico();
-        
-        Thread th = new Thread(new UpdaterGraphThread(pg.series));
+        loadCurveChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
+        loadCurveChart.criaGrafico();
+
+        Thread th = new Thread(new UpdaterLoadCurveThread(loadCurveChart.series, this.FlowValue, this.TensionValue, this.PotencyValue));
         th.setDaemon(true);
         th.start();
-        
-        desktop.add(pg);
+
+        desktop.add(loadCurveChart);
         state = 1;
     }
 
@@ -60,7 +61,13 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
         desktop = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        infoPanel = new javax.swing.JPanel();
+        FlowLabel = new javax.swing.JLabel();
+        FlowValue = new javax.swing.JLabel();
+        PotencyLabel = new javax.swing.JLabel();
+        PotencyValue = new javax.swing.JLabel();
+        TensioLabel = new javax.swing.JLabel();
+        TensionValue = new javax.swing.JLabel();
 
         jButton4.setText("jButton4");
 
@@ -131,24 +138,73 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         desktop.setLayout(desktopLayout);
         desktopLayout.setHorizontalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 409, Short.MAX_VALUE)
+            .add(0, 394, Short.MAX_VALUE)
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
+        infoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
 
-        org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 187, Short.MAX_VALUE)
+        FlowLabel.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        FlowLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FlowLabel.setText("Corrente");
+
+        FlowValue.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        FlowValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FlowValue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow_up.png"))); // NOI18N
+        FlowValue.setText("0");
+
+        PotencyLabel.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        PotencyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PotencyLabel.setText("Potência");
+
+        PotencyValue.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        PotencyValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PotencyValue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow_up.png"))); // NOI18N
+        PotencyValue.setText("0");
+
+        TensioLabel.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        TensioLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TensioLabel.setText("Tensão");
+
+        TensionValue.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        TensionValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TensionValue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow_up.png"))); // NOI18N
+        TensionValue.setText("0");
+
+        org.jdesktop.layout.GroupLayout infoPanelLayout = new org.jdesktop.layout.GroupLayout(infoPanel);
+        infoPanel.setLayout(infoPanelLayout);
+        infoPanelLayout.setHorizontalGroup(
+            infoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(FlowValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(PotencyLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, PotencyValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(infoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(infoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(TensioLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(TensionValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .add(FlowLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 0, Short.MAX_VALUE)
+        infoPanelLayout.setVerticalGroup(
+            infoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, infoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(PotencyLabel)
+                .add(18, 18, 18)
+                .add(PotencyValue)
+                .add(18, 18, 18)
+                .add(TensioLabel)
+                .add(18, 18, 18)
+                .add(TensionValue)
+                .add(18, 18, 18)
+                .add(FlowLabel)
+                .add(18, 18, 18)
+                .add(FlowValue)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -170,7 +226,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(infoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -182,7 +238,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(infoPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -194,13 +250,19 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        if(state==1){
-            pg.changeSize(desktop.getWidth(),desktop.getHeight());    
+        if (state == 1) {
+            loadCurveChart.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_formComponentResized
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel FlowLabel;
+    private javax.swing.JLabel FlowValue;
+    private javax.swing.JLabel PotencyLabel;
+    private javax.swing.JLabel PotencyValue;
+    private javax.swing.JLabel TensioLabel;
+    private javax.swing.JLabel TensionValue;
     private javax.swing.JPanel desktop;
+    private javax.swing.JPanel infoPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
@@ -208,7 +270,6 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel matricula;
     // End of variables declaration//GEN-END:variables

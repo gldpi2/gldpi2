@@ -1,6 +1,6 @@
 package _tests;
 
-import utils.UpdaterGraphThread;
+import utils.UpdaterLoadCurveThread;
 
 /**
  *
@@ -24,9 +24,9 @@ public class GraphPanelFrame extends javax.swing.JFrame {
         pg = new GraphPanel(desktop.getWidth(), desktop.getHeight());
         pg.criaGrafico();
 
-        Thread th = new Thread(new UpdaterGraphThread(pg.series));
-        th.setDaemon(true);
-        th.start();
+//        Thread th = new Thread(new UpdaterLoadCurveThread(pg.series));
+//        th.setDaemon(true);
+//        th.start();
 
         desktop.add(pg);
         state = 1;

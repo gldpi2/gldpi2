@@ -111,4 +111,8 @@ public class Mensuration {
     public Millisecond getMillisecond() {
         return millisecond;
     }
+    
+    public double getPotency(){
+        return tension * flow;
+    }
 }

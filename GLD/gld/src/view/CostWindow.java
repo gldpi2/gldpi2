@@ -6,7 +6,7 @@ package view;
 
 import model.Login;
 import utils.UpdaterCostThread;
-import utils.UpdaterGraphThread;
+import utils.UpdaterLoadCurveThread;
 
 /**
  *
