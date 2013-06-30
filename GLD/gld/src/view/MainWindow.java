@@ -34,21 +34,23 @@ public class MainWindow extends javax.swing.JFrame {
         if(Integer.parseInt(user.getTipo())==2){
             menuCadastros.setVisible(false);
         }
+        
+        this.init();
+        
     }
     
     public MainWindow() {
         initComponents();
     }
     
-    public void init(){
+    private void init(){
         desktop.removeAll();
         pg = new MainMenu(desktop.getWidth(), desktop.getHeight());
-        //pg.CriaMenu();
-        
         desktop.add(pg);
+        desktop.revalidate();
+        desktop.repaint();
         
-        
-        state =1;
+        state = 1;
     }
     /**
      * This method is called from within the constructor to initialize the form.
