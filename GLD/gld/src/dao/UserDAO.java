@@ -43,7 +43,7 @@ public class UserDAO {
                 + "cell_oi, cell_vivo, cell_tim, cell_claro, profile, enable) VALUES "
                 + "(?,?,?,?,?,?,?,?,?,?)";
 
-        String[] params = new String[9];
+        String[] params = new String[10];
         params[0] = user.getName();
         params[1] = user.getRegister();
         params[2] = user.getPassword();

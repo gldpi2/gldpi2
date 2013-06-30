@@ -28,6 +28,7 @@ public class UserWindow extends javax.swing.JPanel {
     UserDAO dao = new UserDAO();
     List<User> usuarios;
     UserTableModel table = new UserTableModel();
+    int selectedRow = 0;
 
     /**
      * Creates new form Usuário
@@ -58,7 +59,7 @@ public class UserWindow extends javax.swing.JPanel {
         usersTable = new javax.swing.JTable();
         titleTabel = new javax.swing.JLabel();
         deleteUser = new javax.swing.JButton();
-        enableButton = new javax.swing.JButton();
+        enableUser = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         titleForm = new javax.swing.JLabel();
         nameLabel = new javax.swing.JLabel();
@@ -108,8 +109,6 @@ public class UserWindow extends javax.swing.JPanel {
 
         usersTable.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         usersTable.setModel(table);
-        usersTable.setCellSelectionEnabled(false);
-        usersTable.setRowSelectionAllowed(true);
         usersTable.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 usersTableMouseClicked(evt);
@@ -123,14 +122,21 @@ public class UserWindow extends javax.swing.JPanel {
 
         deleteUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_delete.png"))); // NOI18N
         deleteUser.setText("Desativar");
+        deleteUser.setEnabled(false);
         deleteUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteUserActionPerformed(evt);
             }
         });
 
-        enableButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
-        enableButton.setText("Reativar");
+        enableUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
+        enableUser.setText("Reativar");
+        enableUser.setEnabled(false);
+        enableUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enableUserActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTabelLayout = new javax.swing.GroupLayout(panelTabel);
         panelTabel.setLayout(panelTabelLayout);
@@ -144,10 +150,10 @@ public class UserWindow extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTabelLayout.createSequentialGroup()
                         .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 669, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTabelLayout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(enableButton)
+                                .addComponent(enableUser)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(deleteUser)))
                         .addContainerGap())))
@@ -162,7 +168,7 @@ public class UserWindow extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelTabelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(deleteUser)
-                    .addComponent(enableButton))
+                    .addComponent(enableUser))
                 .addContainerGap())
         );
 
@@ -276,7 +282,7 @@ public class UserWindow extends javax.swing.JPanel {
             }
         });
 
-        warningLabel.setText("Os campos assinalados com asterisco (*) são de preencimento obrigatório");
+        warningLabel.setText("<html>Os campos assinalados com asterisco (*) <br>são de preencimento obrigatório</html>");
 
         createButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_add.png"))); // NOI18N
         createButton.setText("Cadastrar");
@@ -289,6 +295,11 @@ public class UserWindow extends javax.swing.JPanel {
         updateButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_edit.png"))); // NOI18N
         updateButton.setText("Alterar");
         updateButton.setEnabled(false);
+        updateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -349,13 +360,13 @@ public class UserWindow extends javax.swing.JPanel {
                         .addGap(606, 606, 606))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(updateButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(createButton))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(titleForm)
-                                .addComponent(warningLabel)))
+                                .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(updateButton)
+                                .addGap(18, 18, 18)
+                                .addComponent(createButton)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -431,7 +442,7 @@ public class UserWindow extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 396, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panelTabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -443,73 +454,88 @@ public class UserWindow extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelTabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void deleteUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteUserActionPerformed
-        if (usersTable.getSelectedRow() != -1) {
-            User user = usuarios.get(usersTable.getSelectedRow());
-            try {
-                dao.deleteUser(user);
-            } catch (SQLFindUserException e) {
-                JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro: Desativar Usuário",
-                        JOptionPane.ERROR_MESSAGE);
-            } catch (SQLException ex) {
-                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Selecione primeiro algum usuário", "Erro: Desativar Usuário",
+        User user = usuarios.get(usersTable.getSelectedRow());
+        try {
+            dao.deleteUser(user);
+        } catch (SQLFindUserException e) {
+            JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro: Desativar Usuário",
                     JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
         limpar();
         usersTable.repaint();
+        enableUser.setEnabled(true);
+        deleteUser.setEnabled(false);
     }//GEN-LAST:event_deleteUserActionPerformed
 
     private void usersTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersTableMouseClicked
-        if (usersTable.getSelectedRow() != -1) {
+        if (selectedRow == usersTable.getSelectedRow()) {
             limpar();
-            User user = usuarios.get(usersTable.getSelectedRow());
-            nameField.setText(user.getName());
-            registerField.setText(user.getRegister());
-            passwordField.setText(user.getPassword());
-            password2Field.setText(user.getPassword());
-            emailField.setText(user.getEmail());
-            if(user.getCell_oi()!= null){
-                cell_oiField.setText(user.getCell_oi());
-                cell_oiBox.setSelected(true);
-                cell_oiField.setEnabled(true);
-            }else{
-                cell_oiBox.setSelected(false);
-                cell_oiField.setEnabled(false);
+            selectedRow = -1;
+        } else {
+            if (usersTable.getSelectedRow() != -1) {
+                limpar();
+                User user = usuarios.get(usersTable.getSelectedRow());
+                if (user.getEnable().equals(0)) {
+                    deleteUser.setEnabled(false);
+                    enableUser.setEnabled(true);
+                }
+                if (user.getEnable().equals(1)) {
+                    deleteUser.setEnabled(true);
+                    enableUser.setEnabled(false);
+                }
+                nameField.setText(user.getName());
+                registerField.setText(user.getRegister());
+                registerField.setEnabled(false);
+                passwordField.setText(user.getPassword());
+                password2Field.setText(user.getPassword());
+                emailField.setText(user.getEmail());
+                if (user.getCell_oi() != null) {
+                    cell_oiField.setText(user.getCell_oi());
+                    cell_oiBox.setSelected(true);
+                    cell_oiField.setEnabled(true);
+                } else {
+                    cell_oiBox.setSelected(false);
+                    cell_oiField.setEnabled(false);
+                }
+                if (user.getCell_vivo() != null) {
+                    cell_vivoField.setText(user.getCell_vivo());
+                    cell_vivoBox.setSelected(true);
+                    cell_vivoField.setEnabled(true);
+                } else {
+                    cell_vivoBox.setSelected(false);
+                    cell_vivoField.setEnabled(false);
+                }
+                if (user.getCell_tim() != null) {
+                    cell_timField.setText(user.getCell_tim());
+                    cell_timBox.setSelected(true);
+                    cell_timField.setEnabled(true);
+                } else {
+                    cell_timBox.setSelected(false);
+                    cell_timField.setEnabled(false);
+                }
+                if (user.getCell_claro() != null) {
+                    cell_claroField.setText(user.getCell_claro());
+                    cell_claroBox.setSelected(true);
+                    cell_claroField.setEnabled(true);
+                } else {
+                    cell_claroBox.setSelected(false);
+                    cell_claroField.setEnabled(false);
+                }
+                profileCombo.setSelectedIndex(user.getProfile() - 1);
+                updateButton.setEnabled(true);
+                createButton.setEnabled(false);
+            } else {
+                deleteUser.setEnabled(false);
+                enableUser.setEnabled(false);
             }
-            if(user.getCell_vivo()!= null){
-                cell_vivoField.setText(user.getCell_vivo());
-                cell_vivoBox.setSelected(true);
-                cell_vivoField.setEnabled(true);
-            }else{
-                cell_vivoBox.setSelected(false);
-                cell_vivoField.setEnabled(false);
-            }
-            if(user.getCell_tim()!= null){
-                cell_timField.setText(user.getCell_tim());
-                cell_timBox.setSelected(true);
-                cell_timField.setEnabled(true);
-            }else{
-                cell_timBox.setSelected(false);
-                cell_timField.setEnabled(false);
-            }
-            if(user.getCell_claro()!= null){
-                cell_claroField.setText(user.getCell_claro());
-                cell_claroBox.setSelected(true);
-                cell_claroField.setEnabled(true);
-            }else{
-                cell_claroBox.setSelected(false);
-                cell_claroField.setEnabled(false);
-            }
-            profileCombo.setSelectedIndex(user.getProfile()-1);
-            updateButton.setEnabled(true);
-            createButton.setEnabled(false);
+            selectedRow = usersTable.getSelectedRow();
         }
     }//GEN-LAST:event_usersTableMouseClicked
 
@@ -529,16 +555,15 @@ public class UserWindow extends javax.swing.JPanel {
             String cell_claro = (cell_claroField.getText().equals("(  )    -    ")) ? null : cell_claroField.getText();
             String email = (emailField.getText().equals("")) ? null : emailField.getText();
             User user = new User(nameField.getText(), registerField.getText(),
-                passwordField.getText().toString(), email,
-                cell_oi, cell_vivo, cell_tim, cell_claro, profile, 1);
+                    passwordField.getText().toString(), email,
+                    cell_oi, cell_vivo, cell_tim, cell_claro, profile, 1);
 
             try {
                 dao.createUser(user);
             } catch (SQLRegisterException e) {
-                limpar();
                 JOptionPane.showMessageDialog(null, "Matrícula é um campo "
-                    + "identificador!\nVerifique a matrícula digitada!", "Erro: Matrícula",
-                    JOptionPane.ERROR_MESSAGE);
+                        + "identificador!\nVerifique a matrícula digitada!", "Erro: Matrícula",
+                        JOptionPane.ERROR_MESSAGE);
             } catch (SQLException ex) {
                 Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -550,35 +575,26 @@ public class UserWindow extends javax.swing.JPanel {
             } catch (SQLException e) {
                 Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, e);
             }
-
-            //        System.out.println("User = " + user);
-            //        System.out.println("User.name = " + user.getName());
-            //        System.out.println("User.register = " + user.getRegister());
-            //        System.out.println("User.password = " + user.getPassword());
-            //        System.out.println("User.email = " + user.getEmail());
-            //        System.out.println("User.cell_oi = " + user.getCell_oi());
-            //        System.out.println("User.cell_vivo =" + user.getCell_vivo());
-            //        System.out.println("User.cell_tim = " + user.getCell_tim());
-            //        System.out.println("User.cell_claro = " + user.getCell_claro());
-            //        System.out.println("User.profile = " + user.getProfile());
+            limpar();
         }
     }//GEN-LAST:event_createButtonActionPerformed
 
     private void hint2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hint2ActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "O campo senha deve conter de "
-            + "6 a 10 caracteres alfanuméricos", "Dica de "
-            + "Preenchimento!", JOptionPane.INFORMATION_MESSAGE);
+                + "6 a 10 caracteres alfa-numéricos", "Dica de "
+                + "Preenchimento!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_hint2ActionPerformed
 
     private void hintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hintActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "O campo matrícula deve ser preenchido "
-            + "no formato 99/99999999!\nCaso sua matrícula não possua os 9 digítos "
-            + "complete os espaços \nrestantes com zeros(\"0\")./n"
-            + "A matrícula é um campo único! Certifique-se que/n"
-            + "não há usuário já cadastrado com esta matrícula!", "Dica de "
-            + "Preenchimento!", JOptionPane.INFORMATION_MESSAGE);
+                + "no formato 99/99999999!\n"
+                + "Caso sua matrícula não possua os 9 digítos, "
+                + "complete os espaços restantes com zeros(\"0\").\n"
+                + "A matrícula é um campo único!\n"
+                + "Certifique-se de que não haja usuário cadastrado com esta matrícula!", "Dica de "
+                + "Preenchimento!", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_hintActionPerformed
 
     private void cell_claroBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cell_claroBoxActionPerformed
@@ -625,6 +641,61 @@ public class UserWindow extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cell_timFieldActionPerformed
 
+    private void updateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateButtonActionPerformed
+        int profile = 0;
+        if (profileCombo.getSelectedItem().equals("Administrador")) {
+            profile = 1;
+        }
+        if (profileCombo.getSelectedItem().equals("Técnico")) {
+            profile = 2;
+        }
+        if (Verifications()) {
+            String cell_oi = (cell_oiField.getText().equals("(  )    -    ")) ? null : cell_oiField.getText();
+            String cell_vivo = (cell_vivoField.getText().equals("(  )    -    ")) ? null : cell_vivoField.getText();
+            String cell_tim = (cell_timField.getText().equals("(  )    -    ")) ? null : cell_timField.getText();
+            String cell_claro = (cell_claroField.getText().equals("(  )    -    ")) ? null : cell_claroField.getText();
+            String email = (emailField.getText().equals("")) ? null : emailField.getText();
+            User user = new User(nameField.getText(), registerField.getText(),
+                    passwordField.getText().toString(), email,
+                    cell_oi, cell_vivo, cell_tim, cell_claro, profile, 1);
+
+            try {
+                dao.updateUser(user);
+            } catch (SQLFindUserException e) {
+                JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro: Atualizar Usuário",
+                        JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            table.limpar();
+            try {
+                usuarios = dao.readUsers();
+                table.addUserList(usuarios);
+            } catch (SQLException e) {
+                Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, e);
+            }
+            limpar();
+            usersTable.repaint();
+        }
+    }//GEN-LAST:event_updateButtonActionPerformed
+
+    private void enableUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enableUserActionPerformed
+        User user = usuarios.get(usersTable.getSelectedRow());
+        user.setEnable(1);
+        try {
+            dao.updateUser(user);
+        } catch (SQLFindUserException e) {
+            JOptionPane.showMessageDialog(null, "Usuário não encontrado!", "Erro: Reativar Usuário",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        limpar();
+        usersTable.repaint();
+        enableUser.setEnabled(false);
+        deleteUser.setEnabled(true);
+    }//GEN-LAST:event_enableUserActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox cell_claroBox;
     private javax.swing.JFormattedTextField cell_claroField;
@@ -642,7 +713,7 @@ public class UserWindow extends javax.swing.JPanel {
     private javax.swing.JButton deleteUser;
     private javax.swing.JTextField emailField;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JButton enableButton;
+    private javax.swing.JButton enableUser;
     private javax.swing.JToggleButton hint;
     private javax.swing.JToggleButton hint2;
     private javax.swing.JPanel jPanel1;
@@ -767,6 +838,27 @@ public class UserWindow extends javax.swing.JPanel {
     }
 
     public void limpar() {
+        nameField.setText("");
+        registerField.setText("");
+        registerField.setEnabled(true);
+        passwordField.setText("");
+        password2Field.setText("");
+        emailField.setText("");
+        cell_oiField.setText("");
+        cell_vivoField.setText("");
+        cell_timField.setText("");
+        cell_claroField.setText("");
+        cell_oiBox.setSelected(false);
+        cell_oiField.setEnabled(false);
+        cell_vivoBox.setSelected(false);
+        cell_vivoField.setEnabled(false);
+        cell_timBox.setSelected(false);
+        cell_timField.setEnabled(false);
+        cell_claroBox.setSelected(false);
+        cell_claroField.setEnabled(false);
+        profileCombo.setSelectedIndex(0);
+        updateButton.setEnabled(false);
+        createButton.setEnabled(true);
     }
 
     public static void main(String args[]) {

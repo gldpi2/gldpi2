@@ -40,7 +40,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel2" min="-2" pref="385" max="-2" attributes="0"/>
+              <Component id="jPanel2" min="-2" pref="396" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="panelTabel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -55,7 +55,7 @@
                   <Component id="jPanel2" max="32767" attributes="0"/>
                   <Component id="panelTabel" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="79" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -82,10 +82,10 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane1" alignment="1" pref="669" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="1" pref="548" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="enableButton" min="-2" max="-2" attributes="0"/>
+                                  <Component id="enableUser" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="deleteUser" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -106,7 +106,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="deleteUser" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="enableButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="enableUser" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -129,11 +129,9 @@
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="table" type="code"/>
                 </Property>
-                <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="1"/>
                 </Property>
-                <Property name="rowSelectionAllowed" type="boolean" value="true"/>
                 <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
@@ -158,18 +156,23 @@
               <Image iconType="3" name="/icons/user_delete.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Desativar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteUserActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="enableButton">
+        <Component class="javax.swing.JButton" name="enableUser">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icons/user.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Reativar"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="enableUserActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -254,14 +257,14 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="updateButton" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="createButton" min="-2" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="titleForm" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="warningLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="updateButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="createButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -522,7 +525,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="warningLabel">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Os campos assinalados com asterisco (*) s&#xe3;o de preencimento obrigat&#xf3;rio"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;Os campos assinalados com asterisco (*) &lt;br&gt;s&#xe3;o de preencimento obrigat&#xf3;rio&lt;/html&gt;"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="createButton">
@@ -544,6 +547,9 @@
             <Property name="text" type="java.lang.String" value="Alterar"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
