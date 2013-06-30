@@ -18,9 +18,9 @@ import utils.PowerGridMonitor;
 public class MainWindow extends javax.swing.JFrame {
 
     Login user;
-    PatternWindow pattern;
-    CostWindow costw;
-    UserWindow userw;
+    LoadCurveWindow loadWindow;
+    CostWindow costWindow;
+    UserWindow userWindow;
     PowerGridMonitor powerGridMonitor;
     Thread monitorThread;
     int state = 0;
@@ -265,24 +265,24 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuCustosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCustosActionPerformed
         desktop.removeAll();
-        costw = new CostWindow(desktop.getHeight(), user);
-        desktop.add(costw);
+        costWindow = new CostWindow(desktop.getHeight(), user);
+        desktop.add(costWindow);
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_menuCustosActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         desktop.removeAll();
-        pattern = new PatternWindow(desktop.getHeight(), user);
-        desktop.add(pattern);
+        loadWindow = new LoadCurveWindow(desktop.getHeight(), user);
+        desktop.add(loadWindow);
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void menuInserirUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuInserirUserActionPerformed
         desktop.removeAll();
-        userw = new UserWindow(desktop.getHeight());
-        desktop.add(userw);
+        userWindow = new UserWindow(desktop.getHeight());
+        desktop.add(userWindow);
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_menuInserirUserActionPerformed
