@@ -79,10 +79,7 @@ public class MainMenu extends javax.swing.JPanel {
         loadCurveChart = new LoadCurveChart(panelConsumption.getWidth(), panelConsumption.getHeight());
         loadCurveChart.startGraph();
         
-        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries(),
-                                                                this.FlowValue, this.TensionValue, this.PotencyValue, 
-                                                                this.maxPotencyValue, this.maxPotencyTime,
-                                                                this.minPotencyValue, this.minPotencyTime));
+        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries()));
         updaterThread.setDaemon(true);
         updaterThread.start();
 
