@@ -40,7 +40,7 @@ public class CostWindow extends javax.swing.JPanel {
         pg.criaGrafico();
 
         pg.criaGrafico();
-        Thread th = new Thread(new UpdaterCostThread(pg.series));
+        Thread th = new Thread(new UpdaterCostThread(pg.series,this.FlowValue, this.TensionValue, this.PotencyValue));
         th.setDaemon(true);
         th.start();
 
@@ -66,7 +66,13 @@ public class CostWindow extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
         desktop = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
+        infoPanel = new javax.swing.JPanel();
+        FlowLabel = new javax.swing.JLabel();
+        FlowValue = new javax.swing.JLabel();
+        PotencyLabel = new javax.swing.JLabel();
+        PotencyValue = new javax.swing.JLabel();
+        TensioLabel = new javax.swing.JLabel();
+        TensionValue = new javax.swing.JLabel();
 
         jButton4.setText("jButton4");
 
@@ -152,17 +158,66 @@ public class CostWindow extends javax.swing.JPanel {
             .add(0, 0, Short.MAX_VALUE)
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
+        infoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tempo Real", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
 
-        org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 187, Short.MAX_VALUE)
+        FlowLabel.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        FlowLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FlowLabel.setText("Corrente");
+
+        FlowValue.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        FlowValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        FlowValue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow_up.png"))); // NOI18N
+        FlowValue.setText("-");
+
+        PotencyLabel.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        PotencyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PotencyLabel.setText("Potência");
+
+        PotencyValue.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        PotencyValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PotencyValue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow_up.png"))); // NOI18N
+        PotencyValue.setText("-");
+
+        TensioLabel.setFont(new java.awt.Font("Ubuntu", 1, 36)); // NOI18N
+        TensioLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TensioLabel.setText("Tensão");
+
+        TensionValue.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
+        TensionValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TensionValue.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow_up.png"))); // NOI18N
+        TensionValue.setText("-");
+
+        org.jdesktop.layout.GroupLayout infoPanelLayout = new org.jdesktop.layout.GroupLayout(infoPanel);
+        infoPanel.setLayout(infoPanelLayout);
+        infoPanelLayout.setHorizontalGroup(
+            infoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(FlowValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(PotencyLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, PotencyValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(infoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(infoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(TensioLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(TensionValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .add(FlowLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 0, Short.MAX_VALUE)
+        infoPanelLayout.setVerticalGroup(
+            infoPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, infoPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(PotencyLabel)
+                .add(18, 18, 18)
+                .add(PotencyValue)
+                .add(18, 18, 18)
+                .add(TensioLabel)
+                .add(18, 18, 18)
+                .add(TensionValue)
+                .add(18, 18, 18)
+                .add(FlowLabel)
+                .add(18, 18, 18)
+                .add(FlowValue)
+                .addContainerGap(326, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -178,8 +233,9 @@ public class CostWindow extends javax.swing.JPanel {
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(infoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(13, 13, 13))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
                         .add(jButton2)))
@@ -192,10 +248,14 @@ public class CostWindow extends javax.swing.JPanel {
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(infoPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(3, 3, 3)))
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jButton2)
@@ -224,14 +284,20 @@ public class CostWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_desktopComponentResized
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel FlowLabel;
+    private javax.swing.JLabel FlowValue;
+    private javax.swing.JLabel PotencyLabel;
+    private javax.swing.JLabel PotencyValue;
+    private javax.swing.JLabel TensioLabel;
+    private javax.swing.JLabel TensionValue;
     private javax.swing.JPanel desktop;
+    private javax.swing.JPanel infoPanel;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel matricula;
     // End of variables declaration//GEN-END:variables

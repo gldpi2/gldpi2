@@ -66,7 +66,7 @@ public class MainMenu extends javax.swing.JPanel {
         pg1.criaGrafico();
 
         pg1.criaGrafico();
-        Thread th = new Thread(new UpdaterCostThread(pg1.series));
+        Thread th = new Thread(new UpdaterCostThread(pg1.series,this.FlowValue, this.TensionValue, this.PotencyValue));
         th.setDaemon(true);
         th.start();
 
