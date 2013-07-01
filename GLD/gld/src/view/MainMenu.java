@@ -6,6 +6,7 @@ package view;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.Login;
 import utils.UpdaterCostThread;
 import utils.UpdaterLoadCurveThread;
@@ -230,14 +231,29 @@ public class MainMenu extends javax.swing.JPanel {
 
         buttonCoste.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/money-coin.png"))); // NOI18N
         buttonCoste.setText("Custo");
+        buttonCoste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCosteActionPerformed(evt);
+            }
+        });
         jPanel5.add(buttonCoste, new java.awt.GridBagConstraints());
 
         buttonConsumptione.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lightning.png"))); // NOI18N
         buttonConsumptione.setText("Consumo");
+        buttonConsumptione.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConsumptioneActionPerformed(evt);
+            }
+        });
         jPanel5.add(buttonConsumptione, new java.awt.GridBagConstraints());
 
         buttonStudy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report_magnify.png"))); // NOI18N
         buttonStudy.setText("Estudo Contratual");
+        buttonStudy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonStudyActionPerformed(evt);
+            }
+        });
         jPanel5.add(buttonStudy, new java.awt.GridBagConstraints());
 
         panelHibrido.setBorder(javax.swing.BorderFactory.createTitledBorder("Sistema Híbrido"));
@@ -352,6 +368,18 @@ public class MainMenu extends javax.swing.JPanel {
             loadCurveChart.changeSize(panelCost.getWidth(), panelCost.getHeight());
         }
     }//GEN-LAST:event_panelConsumptionComponentResized
+
+    private void buttonCosteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCosteActionPerformed
+        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!");
+    }//GEN-LAST:event_buttonCosteActionPerformed
+
+    private void buttonConsumptioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConsumptioneActionPerformed
+        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!");
+    }//GEN-LAST:event_buttonConsumptioneActionPerformed
+
+    private void buttonStudyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStudyActionPerformed
+        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!");
+    }//GEN-LAST:event_buttonStudyActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonConsumptione;
