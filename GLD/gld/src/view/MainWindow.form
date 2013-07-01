@@ -42,43 +42,17 @@
                 <Property name="text" type="java.lang.String" value="Cadastros"/>
               </Properties>
               <SubComponents>
-                <Menu class="javax.swing.JMenu" name="jMenu7">
+                <MenuItem class="javax.swing.JMenuItem" name="menuInserirUser">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                       <Image iconType="3" name="/icons/user.png"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
+                    <Property name="text" type="java.lang.String" value="Usu&#xe1;rios"/>
                   </Properties>
-                  <SubComponents>
-                    <MenuItem class="javax.swing.JMenuItem" name="menuInserirUser">
-                      <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/icons/user_add.png"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Inserir"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuInserirUserActionPerformed"/>
-                      </Events>
-                    </MenuItem>
-                    <MenuItem class="javax.swing.JMenuItem" name="jMenuItem12">
-                      <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/icons/user_edit.png"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Alterar"/>
-                      </Properties>
-                    </MenuItem>
-                    <MenuItem class="javax.swing.JMenuItem" name="jMenuItem13">
-                      <Properties>
-                        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                          <Image iconType="3" name="/icons/user_delete.png"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Desativar"/>
-                      </Properties>
-                    </MenuItem>
-                  </SubComponents>
-                </Menu>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuInserirUserActionPerformed"/>
+                  </Events>
+                </MenuItem>
               </SubComponents>
             </Menu>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="jSeparator1">
@@ -173,6 +147,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Sobre..."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem8ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -181,6 +158,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Gerenciamento da Energia El&#xe9;trica pelo Lado da Demanda Associado a um Sistema H&#xed;brido de Abastecimento"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>

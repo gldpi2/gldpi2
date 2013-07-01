@@ -60,7 +60,9 @@
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
+              <Component id="loading" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="buttonEntrar" min="-2" pref="100" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
@@ -86,7 +88,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="buttonEntrar" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="buttonEntrar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="loading" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -134,6 +139,14 @@
     <Component class="javax.swing.JPasswordField" name="passwordSenha">
       <Properties>
         <Property name="text" type="java.lang.String" value="senha1234"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="loading">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/icons/loading_bar.gif"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value=" "/>
       </Properties>
     </Component>
   </SubComponents>

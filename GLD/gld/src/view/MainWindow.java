@@ -87,10 +87,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem10 = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         menuCadastros = new javax.swing.JMenu();
-        jMenu7 = new javax.swing.JMenu();
         menuInserirUser = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
@@ -105,6 +102,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gerenciamento da Energia Elétrica pelo Lado da Demanda Associado a um Sistema Híbrido de Abastecimento");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -120,7 +118,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 606, Short.MAX_VALUE)
+            .add(0, 614, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");
@@ -142,27 +140,14 @@ public class MainWindow extends javax.swing.JFrame {
         menuCadastros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/application_form.png"))); // NOI18N
         menuCadastros.setText("Cadastros");
 
-        jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
-        jMenu7.setText("Usuário");
-
-        menuInserirUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_add.png"))); // NOI18N
-        menuInserirUser.setText("Inserir");
+        menuInserirUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
+        menuInserirUser.setText("Usuários");
         menuInserirUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuInserirUserActionPerformed(evt);
             }
         });
-        jMenu7.add(menuInserirUser);
-
-        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_edit.png"))); // NOI18N
-        jMenuItem12.setText("Alterar");
-        jMenu7.add(jMenuItem12);
-
-        jMenuItem13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user_delete.png"))); // NOI18N
-        jMenuItem13.setText("Desativar");
-        jMenu7.add(jMenuItem13);
-
-        menuCadastros.add(jMenu7);
+        menuCadastros.add(menuInserirUser);
 
         jMenu1.add(menuCadastros);
         jMenu1.add(jSeparator1);
@@ -223,6 +208,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/information.png"))); // NOI18N
         jMenuItem8.setText("Sobre...");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem8);
 
         jMenuBar1.add(jMenu5);
@@ -309,6 +299,11 @@ public class MainWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        AboutWindow about = new AboutWindow();
+        about.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
+
     private void closePowerGridMonitorThread() {
         monitorThread.stop();
         Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "PowerGridMonitorThread parada.");
@@ -354,13 +349,10 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
-    private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
