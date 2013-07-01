@@ -62,7 +62,10 @@ public class CostWindow extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         matricula = new javax.swing.JLabel();
+        jLabelCostMax = new javax.swing.JLabel();
         maxCost = new javax.swing.JLabel();
+        jLabelCostMin = new javax.swing.JLabel();
+        minCost = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
@@ -99,7 +102,15 @@ public class CostWindow extends javax.swing.JPanel {
 
         matricula.setText("user");
 
+        jLabelCostMax.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/currency_dollar_red (1).png"))); // NOI18N
+        jLabelCostMax.setText("Custo Máximo: ");
+
         maxCost.setText("jLabel1");
+
+        jLabelCostMin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/currency_dollar_green (1).png"))); // NOI18N
+        jLabelCostMin.setText("Custo Mínimo:");
+
+        minCost.setText("jLabel3");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,10 +122,16 @@ public class CostWindow extends javax.swing.JPanel {
                         .addContainerGap()
                         .add(jLabel2)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(matricula))
+                        .add(matricula)
+                        .add(68, 68, 68)
+                        .add(jLabelCostMax)
+                        .add(90, 90, 90)
+                        .add(jLabelCostMin))
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(244, 244, 244)
-                        .add(maxCost)))
+                        .add(254, 254, 254)
+                        .add(maxCost)
+                        .add(190, 190, 190)
+                        .add(minCost)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -123,10 +140,14 @@ public class CostWindow extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
-                    .add(matricula))
-                .add(18, 18, 18)
-                .add(maxCost)
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .add(matricula)
+                    .add(jLabelCostMax)
+                    .add(jLabelCostMin))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(maxCost)
+                    .add(minCost))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Comandos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
@@ -147,7 +168,7 @@ public class CostWindow extends javax.swing.JPanel {
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(625, Short.MAX_VALUE))
+                .addContainerGap(563, Short.MAX_VALUE))
         );
 
         desktop.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Título Gráfico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
@@ -227,7 +248,7 @@ public class CostWindow extends javax.swing.JPanel {
                 .add(FlowLabel)
                 .add(18, 18, 18)
                 .add(FlowValue)
-                .addContainerGap(326, Short.MAX_VALUE))
+                .addContainerGap(284, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -255,7 +276,7 @@ public class CostWindow extends javax.swing.JPanel {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
@@ -307,10 +328,13 @@ public class CostWindow extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelCostMax;
+    private javax.swing.JLabel jLabelCostMin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel matricula;
     private javax.swing.JLabel maxCost;
+    private javax.swing.JLabel minCost;
     // End of variables declaration//GEN-END:variables
 }
