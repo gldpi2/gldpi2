@@ -34,7 +34,7 @@ public class CostCtrl {
      * @param flow corrente no momento atual
      * @return custo atual.
      */
-    public double energyValue(double potency) {
+    public double energyValue() {
 
         /**
          * Método que verifica a hora do banco de dados e coloca o valor do kWh de
@@ -47,7 +47,7 @@ public class CostCtrl {
         } else {
             cost.setValueEnergy(VALUE_OFFPEAK);
         }
-        double costValue = potency *  cost.getValueEnergy();
+        double costValue = cost.getValueEnergy()*100;
         
 
         return costValue;

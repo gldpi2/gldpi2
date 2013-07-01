@@ -22,7 +22,7 @@ public class MainMenu extends javax.swing.JPanel {
 
     
     int i = 0, state = 0;
-    private CostChart pg1;
+    private CostChart costChart;
     private LoadCurveChart loadCurveChart;
     private Thread updaterThread;
     
@@ -62,15 +62,16 @@ public class MainMenu extends javax.swing.JPanel {
      public void init() {
         //teoricamente era pra rodar gráfico de custo.
         panelCost.removeAll();
-        pg1 = new CostChart(panelCost.getWidth(), panelCost.getHeight());
-        pg1.criaGrafico();
+        costChart = new CostChart(panelCost.getWidth(), panelCost.getHeight());
+        costChart.criaGrafico();
 
-        pg1.criaGrafico();
-        Thread th = new Thread(new UpdaterCostThread(pg1.series,this.FlowValue, this.TensionValue, this.PotencyValue));
+        costChart.criaGrafico();
+        Thread th = new Thread(new UpdaterCostThread(costChart.series));
         th.setDaemon(true);
         th.start();
-
-        panelCost.add(pg1);
+        
+        desktop.add(costChart);
+        panelCost.add(costChart);
         panelCost.revalidate();
         panelCost.repaint();
           
@@ -356,7 +357,7 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void panelCostComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelCostComponentResized
         if (state == 1) {
-            pg1.changeSize(panelCost.getWidth(), panelCost.getHeight());
+            costChart.changeSize(panelCost.getWidth(), panelCost.getHeight());
         }
     }//GEN-LAST:event_panelCostComponentResized
 

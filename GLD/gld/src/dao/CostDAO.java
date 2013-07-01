@@ -35,7 +35,7 @@ public class CostDAO {
      * @return vetor de custo já calculados
      * @throws Exceção de SQL, pois se não houver conexão ou dados, irá falhar.
      */
-    public ArrayList<Mensuration> parameters() throws SQLException {
+    public ArrayList<Mensuration> parameters() {
         ArrayList<Mensuration> mensurationList = new ArrayList<>();
 
 
@@ -51,12 +51,8 @@ public class CostDAO {
                 mensuration.setFlow(rs.getDouble("flow"));
                 mensuration.setTension(rs.getDouble("tension"));
                 mensuration.setTimestamp(rs.getString("timestamp"));
-                
-                ctrl.setTime(mensuration.getTimestamp());
-                setCostValue(ctrl.energyValue(mensuration.getPotency()));
-                
-                
-             
+                ctrl.setTime(mensuration.getTimestamp().substring(8, 10));
+                setCostValue(ctrl.energyValue());
                 mensurationList.add(mensuration);
             }
 

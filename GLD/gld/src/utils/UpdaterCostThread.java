@@ -29,7 +29,10 @@ public class UpdaterCostThread implements Runnable {
     private JLabel tensionValue;
     private JLabel potencyvalue;
 
-    
+    public UpdaterCostThread(TimeSeries series) {
+        this.series = series;
+    }
+
     public UpdaterCostThread(TimeSeries series, JLabel flowValue, JLabel tensionValue, JLabel potencyValue) {
         this.series = series;
         this.flowValue = flowValue;
@@ -42,21 +45,27 @@ public class UpdaterCostThread implements Runnable {
      */
     @Override
     public void run() {
-        try {
-            List<Mensuration> mensuration = this.costDao.parameters();
+        List<Mensuration> mensuration = this.costDao.parameters();
+        for (Mensuration m : mensuration) {
+            series.addOrUpdate(m.getMillisecond(), m.getPotency() * costDao.getCostValue());
+           // if (this.tensionValue.isShowing()) {
+            //    updateButton(m);
+            //}
 
-            for (Mensuration m : mensuration) {
-                series.addOrUpdate(m.getMillisecond(), m.getPotency()*costDao.getCostValue()*10);
-                flowValue.setText(String.valueOf(m.getFlow()));
-                tensionValue.setText(String.valueOf(m.getTension()));
-                potencyvalue.setText(String.valueOf(m.getPotency()));
-                
-                //System.out.println(m.getMillisecond() + " Custo:" +costDao.getCostValue());
-               
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UpdaterCostThread.class.getName()).log(Level.SEVERE, null, ex);
         }
+        try {
+            Thread.sleep(Integer.parseInt(properties.getString("REFRESH_TIME")));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateButton(Mensuration m) {
+        flowValue.setText(String.valueOf(m.getFlow()));
+        tensionValue.setText(String.valueOf(m.getTension()));
+        potencyvalue.setText(String.valueOf(m.getPotency()));
+        
+        flowValue.revalidate();
+        flowValue.repaint();
     }
 }
