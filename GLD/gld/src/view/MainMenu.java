@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Login;
 import utils.UpdaterCostThread;
+import utils.UpdaterLoadCurveThread;
 import static view.MainWindow.desktop;
 import static view.MainWindow.loadWindow;
 import static view.MainWindow.user;
@@ -21,10 +22,14 @@ public class MainMenu extends javax.swing.JPanel {
     
     int i = 0, state = 0;
     private CostChart pg1;
-    
+    private LoadCurveChart loadCurveChart;
     
     private MainMenu pg;
 
+  
+    private javax.swing.JLabel FlowValue;
+    private javax.swing.JLabel PotencyValue;
+    private javax.swing.JLabel TensionValue;
     /**
      * Creates new form MainMenu
      */
@@ -34,6 +39,9 @@ public class MainMenu extends javax.swing.JPanel {
 
         this.init();
       
+        //this.FlowValue.setVisible(false);
+        //this.PotencyValue.setVisible(false);
+        //this.TensionValue.setVisible(false);
         //this.panelHibrido.setVisible(false);
 
         //if (Integer.parseInt(user.getTipo()) == 2) {
@@ -58,8 +66,28 @@ public class MainMenu extends javax.swing.JPanel {
         panelCost.add(pg1);
         panelCost.revalidate();
         panelCost.repaint();
-        state = 1;
+          
+                         //rodar grafico de consumo
+        panelConsumption.removeAll();
+        loadCurveChart = new LoadCurveChart(panelConsumption.getWidth(), panelConsumption.getHeight());
+        loadCurveChart.criaGrafico();
+        
+        loadCurveChart.criaGrafico();
+        Thread th2 = new Thread(new UpdaterLoadCurveThread(loadCurveChart.series, this.FlowValue, this.TensionValue, this.PotencyValue));
+        th2.setDaemon(true);
+        th2.start();
+
+        panelConsumption.add(loadCurveChart);
+        panelConsumption.revalidate();
+        panelConsumption.repaint();
+        
+        
+        state = 1;        
  }
+     
+     public void init2() {
+
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -119,6 +147,11 @@ public class MainMenu extends javax.swing.JPanel {
         );
 
         panelCost.setBorder(javax.swing.BorderFactory.createTitledBorder("Gráfico de Custo"));
+        panelCost.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                panelCostComponentResized(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelCostLayout = new javax.swing.GroupLayout(panelCost);
         panelCost.setLayout(panelCostLayout);
@@ -132,6 +165,11 @@ public class MainMenu extends javax.swing.JPanel {
         );
 
         panelConsumption.setBorder(javax.swing.BorderFactory.createTitledBorder("Gráfico de Consumo"));
+        panelConsumption.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                panelConsumptionComponentResized(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelConsumptionLayout = new javax.swing.GroupLayout(panelConsumption);
         panelConsumption.setLayout(panelConsumptionLayout);
@@ -242,7 +280,7 @@ public class MainMenu extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(panelCadastros, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+                        .addComponent(panelCadastros, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -251,7 +289,7 @@ public class MainMenu extends javax.swing.JPanel {
                 .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelHibrido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(panelConsumption, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -269,12 +307,7 @@ public class MainMenu extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-     private void formComponentResized(java.awt.event.ComponentEvent evt) {                                      
-        if (state == 1) {
-            pg1.changeSize(panelCost.getWidth(), panelCost.getHeight());
-        }
-    }   
+ 
     private void buttonUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUserActionPerformed
         MainWindow.desktop.removeAll();
         MainWindow.userWindow = new UserWindow(desktop.getHeight());
@@ -298,6 +331,18 @@ public class MainMenu extends javax.swing.JPanel {
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
     }//GEN-LAST:event_buttonConsumptionmActionPerformed
+
+    private void panelCostComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelCostComponentResized
+        if (state == 1) {
+            pg1.changeSize(panelCost.getWidth(), panelCost.getHeight());
+        }
+    }//GEN-LAST:event_panelCostComponentResized
+
+    private void panelConsumptionComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelConsumptionComponentResized
+        if (state == 1) {
+            loadCurveChart.changeSize(panelCost.getWidth(), panelCost.getHeight());
+        }
+    }//GEN-LAST:event_panelConsumptionComponentResized
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonConsumptione;
