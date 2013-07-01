@@ -62,6 +62,7 @@ public class CostWindow extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         matricula = new javax.swing.JLabel();
+        maxCost = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
@@ -98,15 +99,22 @@ public class CostWindow extends javax.swing.JPanel {
 
         matricula.setText("user");
 
+        maxCost.setText("jLabel1");
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(matricula)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jLabel2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(matricula))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(244, 244, 244)
+                        .add(maxCost)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -116,7 +124,9 @@ public class CostWindow extends javax.swing.JPanel {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel2)
                     .add(matricula))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .add(18, 18, 18)
+                .add(maxCost)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Comandos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
@@ -271,6 +281,7 @@ public class CostWindow extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         MainWindow.desktop.removeAll();
+        user = Login.getInstance();
         mainm = new MainMenu(user);
         MainWindow.desktop.add(mainm);
         MainWindow.desktop.revalidate();
@@ -300,5 +311,6 @@ public class CostWindow extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel matricula;
+    private javax.swing.JLabel maxCost;
     // End of variables declaration//GEN-END:variables
 }

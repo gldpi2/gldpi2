@@ -51,11 +51,13 @@ public class MainMenu extends javax.swing.JPanel {
         //this.TensionValue.setVisible(false);
         //this.panelHibrido.setVisible(false);
 
+        //desabilitar cadastro para perfil 2
         //if (Integer.parseInt(user.getTipo()) == 2) {
             //panelCadastros.setVisible(false);
+            //panelCadastros.disable();
         //}
 
-        //matricula.setText(user.getMatricula());
+        matricula.setText(user.getMatricula());
      }
     
 
@@ -66,7 +68,8 @@ public class MainMenu extends javax.swing.JPanel {
         costChart.criaGrafico();
 
         costChart.criaGrafico();
-        Thread th = new Thread(new UpdaterCostThread(costChart.series));
+        Thread th = new Thread(new UpdaterCostThread(costChart.series, 
+                                                    this.FlowValue, this.TensionValue, this.PotencyValue));
         th.setDaemon(true);
         th.start();
         
@@ -80,7 +83,10 @@ public class MainMenu extends javax.swing.JPanel {
         loadCurveChart = new LoadCurveChart(panelConsumption.getWidth(), panelConsumption.getHeight());
         loadCurveChart.startGraph();
         
-        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries()));
+        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries(),
+                                                              this.FlowValue, this.TensionValue, this.PotencyValue, 
+                                                              this.maxPotencyValue, this.maxPotencyTime,
+                                                              this.minPotencyValue, this.minPotencyTime));
         updaterThread.setDaemon(true);
         updaterThread.start();
 
@@ -341,7 +347,7 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void buttonCostmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCostmActionPerformed
         MainWindow.desktop.removeAll();
-        MainWindow.costWindow = new CostWindow(MainWindow.desktop.getHeight(), user);
+        MainWindow.costWindow = new CostWindow(MainWindow.desktop.getHeight(), MainWindow.user);
         MainWindow.desktop.add(MainWindow.costWindow);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
@@ -373,6 +379,7 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void buttonConsumptioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConsumptioneActionPerformed
         JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!");
+        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_buttonConsumptioneActionPerformed
 
     private void buttonStudyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStudyActionPerformed
