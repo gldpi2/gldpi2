@@ -23,6 +23,7 @@ public class MainMenu extends javax.swing.JPanel {
     int i = 0, state = 0;
     private CostChart pg1;
     private LoadCurveChart loadCurveChart;
+    private Thread updaterThread;
     
     private MainMenu pg;
 
@@ -30,6 +31,11 @@ public class MainMenu extends javax.swing.JPanel {
     private javax.swing.JLabel FlowValue;
     private javax.swing.JLabel PotencyValue;
     private javax.swing.JLabel TensionValue;
+    private javax.swing.JLabel maxPotencyValue;
+    private javax.swing.JLabel minPotencyValue;
+    private javax.swing.JLabel maxPotencyTime;
+    private javax.swing.JLabel minPotencyTime;
+    
     /**
      * Creates new form MainMenu
      */
@@ -70,13 +76,16 @@ public class MainMenu extends javax.swing.JPanel {
                          //rodar grafico de consumo
         panelConsumption.removeAll();
         loadCurveChart = new LoadCurveChart(panelConsumption.getWidth(), panelConsumption.getHeight());
-        loadCurveChart.criaGrafico();
+        loadCurveChart.startGraph();
         
-        loadCurveChart.criaGrafico();
-        Thread th2 = new Thread(new UpdaterLoadCurveThread(loadCurveChart.series, this.FlowValue, this.TensionValue, this.PotencyValue));
-        th2.setDaemon(true);
-        th2.start();
+        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries(),
+                                                                this.FlowValue, this.TensionValue, this.PotencyValue, 
+                                                                this.maxPotencyValue, this.maxPotencyTime,
+                                                                this.minPotencyValue, this.minPotencyTime));
+        updaterThread.setDaemon(true);
+        updaterThread.start();
 
+        desktop.add(loadCurveChart);
         panelConsumption.add(loadCurveChart);
         panelConsumption.revalidate();
         panelConsumption.repaint();
@@ -318,7 +327,7 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void buttonCostmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCostmActionPerformed
         MainWindow.desktop.removeAll();
-        MainWindow.costWindow = new CostWindow(desktop.getHeight(), MainWindow.user);
+        MainWindow.costWindow = new CostWindow(MainWindow.desktop.getHeight(), user);
         MainWindow.desktop.add(MainWindow.costWindow);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
