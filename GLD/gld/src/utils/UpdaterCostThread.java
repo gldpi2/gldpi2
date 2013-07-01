@@ -48,10 +48,11 @@ public class UpdaterCostThread implements Runnable {
         List<Mensuration> mensuration = this.costDao.parameters();
         for (Mensuration m : mensuration) {
             series.addOrUpdate(m.getMillisecond(), m.getPotency() * costDao.getCostValue());
-           // if (this.tensionValue.isShowing()) {
-            //    updateButton(m);
-            //}
-
+          if(this.tensionValue != null){
+            if (this.tensionValue.isShowing()) {
+                updateButton(m);
+            }
+          }
         }
         try {
             Thread.sleep(Integer.parseInt(properties.getString("REFRESH_TIME")));
