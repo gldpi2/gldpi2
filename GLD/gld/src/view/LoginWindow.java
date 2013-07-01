@@ -6,13 +6,10 @@ package view;
 
 import model.Login;
 import dao.LoginDAO;
-import java.awt.Color;
 
 import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import java.awt.*;
-import java.awt.event.KeyEvent;
 
 /**
  *
@@ -27,6 +24,7 @@ public class LoginWindow extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         getRootPane().setDefaultButton(buttonEntrar);
+        loading.setVisible(false);
     }
 
     /**
@@ -48,6 +46,7 @@ public class LoginWindow extends javax.swing.JFrame {
         buttonEntrar = new javax.swing.JButton();
         textMatricula = new javax.swing.JTextField();
         passwordSenha = new javax.swing.JPasswordField();
+        loading = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -77,6 +76,9 @@ public class LoginWindow extends javax.swing.JFrame {
 
         passwordSenha.setText("senha1234");
 
+        loading.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/loading_bar.gif"))); // NOI18N
+        loading.setText(" ");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -101,7 +103,9 @@ public class LoginWindow extends javax.swing.JFrame {
                         .add(16, 16, 16)))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(13, Short.MAX_VALUE)
+                .add(loading)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(buttonEntrar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 100, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(24, 24, 24))
         );
@@ -123,7 +127,9 @@ public class LoginWindow extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSeparator4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(buttonEntrar)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(buttonEntrar)
+                    .add(loading))
                 .addContainerGap())
         );
 
@@ -131,6 +137,7 @@ public class LoginWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEntrarActionPerformed
+        loading.setVisible(true);
         Login user = new Login();
         int ok;
 
@@ -140,13 +147,13 @@ public class LoginWindow extends javax.swing.JFrame {
         try {
             LoginDAO login = new LoginDAO();
             ok = login.verificarLogin(user);
-
+            
             if (ok == 1) {
-                JOptionPane.showMessageDialog(null, "Sessão iniciada com sucesso!", "Sessão iniciada!", JOptionPane.INFORMATION_MESSAGE);
                 MainWindow main = new MainWindow(user);
                 this.setVisible(false);
                 main.setVisible(true);
             } else {
+                loading.setVisible(false);
                 JOptionPane.showMessageDialog(null, "Problema ao efetuar login!\nSenha e/ou Matrícula incorretos!", "ERRO!", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException e) {
@@ -218,6 +225,7 @@ public class LoginWindow extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel loading;
     private javax.swing.JPasswordField passwordSenha;
     private javax.swing.JTextField textMatricula;
     // End of variables declaration//GEN-END:variables

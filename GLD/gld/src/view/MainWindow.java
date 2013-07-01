@@ -105,6 +105,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gerenciamento da Energia Elétrica pelo Lado da Demanda Associado a um Sistema Híbrido de Abastecimento");
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -120,7 +121,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 606, Short.MAX_VALUE)
+            .add(0, 614, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");
@@ -223,6 +224,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenuItem8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/information.png"))); // NOI18N
         jMenuItem8.setText("Sobre...");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem8);
 
         jMenuBar1.add(jMenu5);
@@ -308,6 +314,11 @@ public class MainWindow extends javax.swing.JFrame {
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        AboutWindow about = new AboutWindow();
+        about.setVisible(true);
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void closePowerGridMonitorThread() {
         monitorThread.stop();
