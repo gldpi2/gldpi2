@@ -70,7 +70,7 @@
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="panelCadastros" pref="175" max="32767" attributes="0"/>
+                          <Component id="panelCadastros" pref="174" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                           <Component id="jPanel4" pref="174" max="32767" attributes="0"/>
                       </Group>
@@ -82,7 +82,7 @@
                   <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jPanel5" pref="174" max="32767" attributes="0"/>
+                          <Component id="jPanel5" pref="173" max="32767" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                           <Component id="panelHibrido" max="32767" attributes="0"/>
                       </Group>
@@ -154,6 +154,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="panelCostComponentResized"/>
+          </Events>
 
           <Layout>
             <DimensionLayout dim="0">
@@ -176,6 +179,9 @@
               </Border>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="panelConsumptionComponentResized"/>
+          </Events>
 
           <Layout>
             <DimensionLayout dim="0">

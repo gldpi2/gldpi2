@@ -184,6 +184,11 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         );
 
         desktop.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Título Gráfico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
+        desktop.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                desktopComponentResized(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout desktopLayout = new org.jdesktop.layout.GroupLayout(desktop);
         desktop.setLayout(desktopLayout);
@@ -310,6 +315,12 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         MainWindow.desktop.repaint();
         updaterThread.stop();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void desktopComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_desktopComponentResized
+        if (state == 1) {
+            loadCurveChart.changeSize(desktop.getWidth(), desktop.getHeight());
+        }
+    }//GEN-LAST:event_desktopComponentResized
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FlowLabel;
