@@ -289,6 +289,24 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         closePowerGridMonitorThread();
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        int i;
+
+        Object[] options = {"Sim", "Não"};
+        i = JOptionPane.showOptionDialog(null,
+                "Deseja realmente finalizar a aplicação?",
+                "Sair do Sistema",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[1]);
+
+        if (i == JOptionPane.YES_OPTION) {
+        } else {
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        }
     }//GEN-LAST:event_formWindowClosing
 
     private void closePowerGridMonitorThread() {

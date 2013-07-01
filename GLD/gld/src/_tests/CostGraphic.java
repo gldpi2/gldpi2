@@ -88,7 +88,7 @@ class UpdaterThread implements Runnable {
                 final int j = (int) (Math.random() * SIZE);
                 Cost cost = new Cost();
                 
-                double method = ctrl.energyValue(flow_random, tension_random);
+                double method = ctrl.energyValue(flow_random * tension_random);
                 if (i % 2 == 0) {
                     series.add(new Millisecond(), method);
                 }

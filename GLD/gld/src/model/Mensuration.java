@@ -17,6 +17,9 @@ public class Mensuration {
     private double flow;
     private double tension;
     private String timestamp;
+    private int hour;
+    private int minute;
+    private int second;
     private Millisecond millisecond;
 
     /**
@@ -57,17 +60,20 @@ public class Mensuration {
         timestamp = timestamp.replace(".", "");
         timestamp = timestamp.replace(" ", "");
 
-        int year, mounth, day, hours, minutes, seconds;
+        int year, mounth, day, hour, minute, second;
 
         year = Integer.parseInt(timestamp.substring(0, 4));
         mounth = Integer.parseInt(timestamp.substring(4, 6));
         day = Integer.parseInt(timestamp.substring(6, 8));
-        hours = Integer.parseInt(timestamp.substring(8, 10));
-        minutes = Integer.parseInt(timestamp.substring(10, 12));
-        seconds = Integer.parseInt(timestamp.substring(12, 14));
+        hour = Integer.parseInt(timestamp.substring(8, 10));
+        minute = Integer.parseInt(timestamp.substring(10, 12));
+        second = Integer.parseInt(timestamp.substring(12, 14));
 
-        Date time = new Date(year, mounth, day, hours, minutes, seconds);
+        Date time = new Date(year, mounth, day, hour, minute, second);
 
+        this.hour = hour;
+        this.minute = minute;
+        this.second = second;
         this.millisecond = new Millisecond(time);
         this.timestamp = timestamp;
     }
@@ -111,8 +117,12 @@ public class Mensuration {
     public Millisecond getMillisecond() {
         return millisecond;
     }
-    
-    public double getPotency(){
+
+    public double getPotency() {
         return tension * flow;
+    }
+
+    public String getTime() {
+        return String.format("%02d:%02d:%02d", hour, minute, second);
     }
 }

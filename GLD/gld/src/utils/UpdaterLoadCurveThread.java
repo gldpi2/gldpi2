@@ -1,8 +1,6 @@
 package utils;
 
-import _tests.GraphPanel;
-import _tests.GraphPanelDAO;
-import java.sql.SQLException;
+import controller.LoadCurveCtrl;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,22 +17,33 @@ import org.jfree.data.time.TimeSeries;
 public class UpdaterLoadCurveThread implements Runnable {
 
     ResourceBundle properties = ResourceBundle.getBundle("utils.PropertiesFile");
-    private GraphPanelDAO graphPanelDao = new GraphPanelDAO();
+    private LoadCurveCtrl loadCurveCtrl = new LoadCurveCtrl();
     private TimeSeries series;
-    private JLabel FlowValue;
-    private JLabel TensionValue;
-    private JLabel Potencyvalue;
+    private JLabel flowValue;
+    private JLabel tensionValue;
+    private JLabel potencyvalue;
+    private JLabel maxPotencyValue;
+    private JLabel maxPotencyTime;
+    private JLabel minPotencyValue;
+    private JLabel minPotencyTime;
 
     /**
      * Método construtor da classe UpdaterLoadCurveThread.
      *
      * @param series XYSeries Referência da série apresentada no gráfico.
      */
-    public UpdaterLoadCurveThread(TimeSeries series, JLabel FlowValue, JLabel TensionValue, JLabel PotencyValue) {
+    public UpdaterLoadCurveThread(TimeSeries series,
+            JLabel flowValue, JLabel tensionValue, JLabel potencyValue,
+            JLabel maxPotencyValue, JLabel maxPotencyTime,
+            JLabel minPotencyValue, JLabel minPotencyTime) {
         this.series = series;
-        this.FlowValue = FlowValue;
-        this.TensionValue = TensionValue;
-        this.Potencyvalue = PotencyValue;
+        this.flowValue = flowValue;
+        this.tensionValue = tensionValue;
+        this.potencyvalue = potencyValue;
+        this.maxPotencyValue = maxPotencyValue;
+        this.maxPotencyTime = maxPotencyTime;
+        this.minPotencyValue = minPotencyValue;
+        this.minPotencyTime = minPotencyTime;
     }
 
     /**
@@ -43,48 +52,70 @@ public class UpdaterLoadCurveThread implements Runnable {
     @Override
     public void run() {
 
-        int i = 0;
         Mensuration lastMensuration = null;
-        Mensuration maxPotency;
 
-        try {
-            List<Mensuration> mensuration = this.graphPanelDao.getMensuration();
+        List<Mensuration> mensuration = this.loadCurveCtrl.getAllMensuration();
 
+        if (mensuration.size() > 0) {
             for (Mensuration m : mensuration) {
-                series.addOrUpdate(m.getMillisecond(), m.getPotency());
+                double currentPotency = m.getPotency();
+
+                series.addOrUpdate(m.getMillisecond(), currentPotency);
+
+                if (currentPotency > loadCurveCtrl.getMaxMensuration().getPotency()) {
+                    loadCurveCtrl.setMaxMensuration(m);
+                }
+
+                if (currentPotency < loadCurveCtrl.getMinMensuration().getPotency() || loadCurveCtrl.getMinMensuration().getPotency() == 0) {
+                    loadCurveCtrl.setMinMensuration(m);
+                }
 
                 lastMensuration = m;
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(GraphPanel.class.getName()).log(Level.SEVERE, null, ex);
+
+            updateMaxPotency(loadCurveCtrl.getMaxMensuration());
+            updateMinPotency(loadCurveCtrl.getMinMensuration());
         }
 
         while (true) {
-            try {
-                Mensuration m = this.graphPanelDao.getLastMensuration();
-                if (!(lastMensuration.getIdMensuration() == m.getIdMensuration())) {
-                    series.addOrUpdate(m.getMillisecond(), m.getPotency());
+            Mensuration m = this.loadCurveCtrl.getLastMensuration();
+            boolean wasEmpty = false;
 
-                    updateJLabel(FlowValue, m.getFlow(), lastMensuration.getFlow());
-                    updateJLabel(TensionValue, m.getTension(), lastMensuration.getTension());
-                    updateJLabel(Potencyvalue, m.getPotency(), lastMensuration.getPotency());
+            if (lastMensuration == null) {
+                lastMensuration = m;
+                wasEmpty = true;
+            }
 
-                    lastMensuration = m;
+            if (!(lastMensuration.getIdMensuration() == m.getIdMensuration())) {
+                double currentPotency = m.getPotency();
+
+                series.addOrUpdate(m.getMillisecond(), currentPotency);
+
+                if (currentPotency > loadCurveCtrl.getMaxMensuration().getPotency()) {
+                    updateMaxPotency(m);
                 }
-            } catch (SQLException ex) {
-                Logger.getLogger(GraphPanel.class.getName()).log(Level.SEVERE, null, ex);
+
+                if (currentPotency < loadCurveCtrl.getMinMensuration().getPotency() || loadCurveCtrl.getMinMensuration().getPotency() == 0) {
+                    updateMinPotency(m);
+                }
+
+                updateJLabel(flowValue, m.getFlow(), lastMensuration.getFlow());
+                updateJLabel(tensionValue, m.getTension(), lastMensuration.getTension());
+                updateJLabel(potencyvalue, m.getPotency(), currentPotency);
+
+                lastMensuration = m;
             }
 
             try {
                 Thread.sleep(Integer.parseInt(properties.getString("REFRESH_TIME")));
             } catch (InterruptedException ex) {
-                Logger.getLogger(GraphPanel.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UpdaterLoadCurveThread.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     private void updateJLabel(JLabel jLabel, double current, double last) {
-        jLabel.setText("" + current);
+        jLabel.setText(String.format("%.3f", current));
         if (last > current) {
             jLabel.setIcon(new ImageIcon("/icons/arow_up.png"));
         } else {
@@ -92,5 +123,27 @@ public class UpdaterLoadCurveThread implements Runnable {
         }
         jLabel.revalidate();
         jLabel.repaint();
+    }
+
+    private void updateMaxPotency(Mensuration m) {
+        loadCurveCtrl.setMaxMensuration(m);
+        this.maxPotencyValue.setText(String.format("%.3f", loadCurveCtrl.getMaxMensuration().getPotency()));
+        this.maxPotencyValue.revalidate();
+        this.maxPotencyValue.repaint();
+
+        this.maxPotencyTime.setText(m.getTime());
+        this.maxPotencyTime.revalidate();
+        this.maxPotencyTime.repaint();
+    }
+
+    private void updateMinPotency(Mensuration m) {
+        loadCurveCtrl.setMinMensuration(m);
+        this.minPotencyValue.setText(String.format("%.3f", loadCurveCtrl.getMinMensuration().getPotency()));
+        this.minPotencyValue.revalidate();
+        this.minPotencyValue.repaint();
+
+        this.minPotencyTime.setText(m.getTime());
+        this.minPotencyTime.revalidate();
+        this.minPotencyTime.repaint();
     }
 }
