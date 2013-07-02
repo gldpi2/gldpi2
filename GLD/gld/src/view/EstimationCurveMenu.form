@@ -30,7 +30,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Estimativas">
+            <TitledBorder title="Estimativa de Carga">
               <Font PropertyName="font" name="Bitstream Charter" size="24" style="1"/>
             </TitledBorder>
           </Border>
@@ -85,12 +85,12 @@
             <Property name="useNullLayout" type="boolean" value="false"/>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="jButtonCustoHistorico">
+            <Component class="javax.swing.JButton" name="jButtonCargaHistorico">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Estimativas de Custo pelo Hist&#xf3;rico"/>
+                <Property name="text" type="java.lang.String" value="Estimativas de Carga pelo Hist&#xf3;rico"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustoHistoricoActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCargaHistoricoActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -98,12 +98,12 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonCustoTempoReal">
+            <Component class="javax.swing.JButton" name="jButtonCargaTempoReal">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Estimativas de Custo em Tempo Real"/>
+                <Property name="text" type="java.lang.String" value="Estimativas de Carga em Tempo Real"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCustoTempoRealActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonCargaTempoRealActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">

@@ -22,7 +22,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static CostWindow costWindow;
     public static EstimationOnHistoryWindow eohWindow;
     public static UserWindow userWindow;
-    public static EstimationMenu estimationMenu;
+    public static EstimationCostMenu estimationMenu;
     PowerGridMonitor powerGridMonitor;
     Thread monitorThread;
     int state = 0;
@@ -328,7 +328,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         desktop.removeAll();
-        estimationMenu = new EstimationMenu(user);
+        estimationMenu = new EstimationCostMenu(user);
         desktop.add(estimationMenu);
         desktop.revalidate();
         desktop.repaint();

@@ -12,7 +12,7 @@ import static view.MainWindow.desktop;
  *
  * @author gld-pi2
  */
-public class EstimationMenu extends javax.swing.JPanel {
+public class EstimationCostMenu extends javax.swing.JPanel {
 
     MainMenu mainm;
     Login user;
@@ -20,7 +20,7 @@ public class EstimationMenu extends javax.swing.JPanel {
     /**
      * Creates new form EstimationMenu
      */
-    public EstimationMenu(Login user) {
+    public EstimationCostMenu(Login user) {
         initComponents();
         setSize(1024, 678);
 
@@ -48,7 +48,7 @@ public class EstimationMenu extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Estimativas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 1, 24))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Estimativa de Custo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 1, 24))); // NOI18N
 
         jPanelTipoEstimativa.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de Estimativas"));
         jPanelTipoEstimativa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
