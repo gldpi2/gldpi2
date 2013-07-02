@@ -26,7 +26,7 @@ public class EstimationCostMenu extends javax.swing.JPanel {
 
         //this.init();
 
-        matricula.setText(user.getMatricula());
+        //matricula.setText(user.getMatricula());
      }
 
     /**

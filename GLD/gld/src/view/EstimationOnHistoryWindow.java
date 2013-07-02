@@ -19,6 +19,7 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
     int i=0, state=0;
     private EstimationOnHistoryChart estimationHistory;
     MainMenu mainm;
+    EstimationCurveMenu estimationCurveMenu;
     Login user;
     /**
      * Creates new form EstimationOnHistoryWindow
@@ -64,6 +65,7 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         desktop = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
+        jButtonMenuEstimativas = new javax.swing.JButton();
 
         jButton4.setText("jButton4");
 
@@ -162,6 +164,13 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
             .add(0, 0, Short.MAX_VALUE)
         );
 
+        jButtonMenuEstimativas.setText("Voltar ao menu de Estimativas");
+        jButtonMenuEstimativas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonMenuEstimativasActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,6 +188,8 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
                         .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
+                        .add(jButtonMenuEstimativas)
+                        .add(18, 18, 18)
                         .add(jButton2)))
                 .addContainerGap())
         );
@@ -195,7 +206,9 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jButton2)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jButton2)
+                    .add(jButtonMenuEstimativas))
                 .add(6, 6, 6))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -220,10 +233,19 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_desktopComponentResized
 
+    private void jButtonMenuEstimativasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonMenuEstimativasActionPerformed
+        MainWindow.desktop.removeAll();
+        estimationCurveMenu = new EstimationCurveMenu(user);
+        MainWindow.desktop.add(estimationCurveMenu);
+        MainWindow.desktop.revalidate();
+        MainWindow.desktop.repaint();
+    }//GEN-LAST:event_jButtonMenuEstimativasActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel desktop;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonMenuEstimativas;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

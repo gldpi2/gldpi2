@@ -373,16 +373,20 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void buttonCosteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCosteActionPerformed
         MainWindow.desktop.removeAll();
-        MainWindow.estimationMenu = new EstimationCostMenu(MainWindow.user);
-        MainWindow.desktop.add(MainWindow.estimationMenu);
+        MainWindow.estimationCostMenu = new EstimationCostMenu(MainWindow.user);
+        MainWindow.desktop.add(MainWindow.estimationCostMenu);
+        MainWindow.desktop.revalidate();
+        MainWindow.desktop.repaint();
+    }//GEN-LAST:event_buttonCosteActionPerformed
+
+    private void buttonConsumptioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConsumptioneActionPerformed
+        MainWindow.desktop.removeAll();
+        MainWindow.estimationCurveMenu = new EstimationCurveMenu(MainWindow.user);
+        MainWindow.desktop.add(MainWindow.estimationCurveMenu);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
         
         //JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
-    }//GEN-LAST:event_buttonCosteActionPerformed
-
-    private void buttonConsumptioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConsumptioneActionPerformed
-        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_buttonConsumptioneActionPerformed
 
     private void buttonStudyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStudyActionPerformed

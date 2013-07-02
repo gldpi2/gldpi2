@@ -22,7 +22,8 @@ public class MainWindow extends javax.swing.JFrame {
     public static CostWindow costWindow;
     public static EstimationOnHistoryWindow eohWindow;
     public static UserWindow userWindow;
-    public static EstimationCostMenu estimationMenu;
+    public static EstimationCurveMenu estimationCurveMenu;
+    public static EstimationCostMenu estimationCostMenu;
     PowerGridMonitor powerGridMonitor;
     Thread monitorThread;
     int state = 0;
@@ -135,7 +136,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 614, Short.MAX_VALUE)
+            .add(0, 622, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Arquivo");
@@ -215,6 +216,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lightning.png"))); // NOI18N
         jMenuItem3.setText("Consumo");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem3);
 
         jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report_magnify.png"))); // NOI18N
@@ -328,11 +334,19 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         desktop.removeAll();
-        estimationMenu = new EstimationCostMenu(user);
-        desktop.add(estimationMenu);
+        estimationCostMenu = new EstimationCostMenu(user);
+        desktop.add(estimationCostMenu);
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        desktop.removeAll();
+        estimationCurveMenu = new EstimationCurveMenu(user);
+        desktop.add(estimationCurveMenu);
+        desktop.revalidate();
+        desktop.repaint();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void closePowerGridMonitorThread() {
         monitorThread.stop();
