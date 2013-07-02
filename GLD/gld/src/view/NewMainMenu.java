@@ -184,13 +184,13 @@ public class NewMainMenu extends javax.swing.JPanel {
 
     private void panelCostmComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelCostmComponentResized
          if (state == 1) {
-            loadCurveChart.changeSize(panelCostm.getWidth(), panelCostm.getHeight());
+            costChart.changeSize(panelCostm.getWidth(), panelCostm.getHeight());
         }
     }//GEN-LAST:event_panelCostmComponentResized
 
     private void panelConsumptionmComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelConsumptionmComponentResized
         if (state == 1) {
-            loadCurveChart.changeSize(panelCostm.getWidth(), panelCostm.getHeight());
+            loadCurveChart.changeSize(panelConsumptionm.getWidth(), panelConsumptionm.getHeight());
         }
     }//GEN-LAST:event_panelConsumptionmComponentResized
 

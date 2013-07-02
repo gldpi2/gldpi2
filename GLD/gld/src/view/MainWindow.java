@@ -45,10 +45,10 @@ public class MainWindow extends javax.swing.JFrame {
         }
 
         //descomentar caso queira chamar essa main menu
-        //this.init();
+        this.init();
         
         //descomentar caso queira chamar essa main menu
-        this.initNewMenu();
+        //this.initNewMenu();
 
     }
 
