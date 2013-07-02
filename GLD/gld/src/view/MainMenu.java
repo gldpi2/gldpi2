@@ -373,8 +373,8 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void buttonCosteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCosteActionPerformed
         MainWindow.desktop.removeAll();
-        MainWindow.eohWindows = new EstimationOnHistoryWindow(desktop.getHeight(), MainWindow.user);
-        MainWindow.desktop.add(MainWindow.eohWindows);
+        MainWindow.estimationMenu = new EstimationMenu(MainWindow.user);
+        MainWindow.desktop.add(MainWindow.estimationMenu);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
         

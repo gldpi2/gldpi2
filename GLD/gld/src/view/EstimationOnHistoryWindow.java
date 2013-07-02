@@ -67,7 +67,7 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
 
         jButton4.setText("jButton4");
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "PatternWindow", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 24))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Estimativa - Histórico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 24))); // NOI18N
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);

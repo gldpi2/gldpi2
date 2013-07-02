@@ -21,7 +21,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static LoadCurveWindow loadWindow;
     public static CostWindow costWindow;
     public static UserWindow userWindow;
-    public static EstimationOnHistoryWindow eohWindows;
+    public static EstimationMenu estimationMenu;
     PowerGridMonitor powerGridMonitor;
     Thread monitorThread;
     int state = 0;
@@ -327,8 +327,8 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         desktop.removeAll();
-        eohWindows = new EstimationOnHistoryWindow(desktop.getHeight(), user);
-        desktop.add(eohWindows);
+        estimationMenu = new EstimationMenu(user);
+        desktop.add(estimationMenu);
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
