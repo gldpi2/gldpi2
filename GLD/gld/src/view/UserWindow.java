@@ -458,7 +458,7 @@ public class UserWindow extends javax.swing.JPanel {
                     .addComponent(panelTabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addContainerGap())
         );
@@ -836,18 +836,5 @@ public class UserWindow extends javax.swing.JPanel {
         cell_claroField.setEnabled(false);
         profileCombo.setSelectedIndex(0);
         updateButton.setText("Cadastrar");
-    }
-
-    public static void main(String args[]) {
-        final JFrame frame = new JFrame();
-        frame.setLocation(100, 100);
-        frame.setSize(1000, 500);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(new UserWindow(frame.getHeight()));
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                frame.setVisible(true);
-            }
-        });
     }
 }
