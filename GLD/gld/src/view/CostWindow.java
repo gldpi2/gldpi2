@@ -15,6 +15,7 @@ public class CostWindow extends javax.swing.JPanel {
 
     int i = 0, state = 0;
     private CostChart pg;
+    private Thread th;
 
     MainMenu mainm;
     Login user;
@@ -40,7 +41,7 @@ public class CostWindow extends javax.swing.JPanel {
         pg.criaGrafico();
 
         pg.criaGrafico();
-        Thread th = new Thread(new UpdaterCostThread(pg.series,this.FlowValue, this.TensionValue, this.PotencyValue));
+        th = new Thread(new UpdaterCostThread(pg.series,this.FlowValue, this.TensionValue, this.PotencyValue));
         th.setDaemon(true);
         th.start();
 

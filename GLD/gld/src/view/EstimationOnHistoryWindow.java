@@ -17,7 +17,7 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
 //    ChartPanel pg;
     
     int i=0, state=0;
-    private EstimationOnHistoryChart pg;
+    private EstimationOnHistoryChart estimationHistory;
     MainMenu mainm;
     Login user;
     /**
@@ -33,15 +33,15 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
     
     public void init() {
         desktop.removeAll();
-        pg = new EstimationOnHistoryChart(desktop.getWidth(), desktop.getHeight());
-        pg.criaGrafico();
+        estimationHistory = new EstimationOnHistoryChart(desktop.getWidth(), desktop.getHeight());
+        estimationHistory.criaGrafico();
         
         EstimationOnHistory est = new EstimationOnHistory();
         
         System.out.println("");
         System.out.println("INdex: " + est.getIndex());
         
-        desktop.add(pg);
+        desktop.add(estimationHistory);
         state = 1;
     }
 
@@ -202,7 +202,7 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         if(state==1){
-            pg.changeSize(desktop.getWidth(),desktop.getHeight());    
+            estimationHistory.changeSize(desktop.getWidth(),desktop.getHeight());    
         }
     }//GEN-LAST:event_formComponentResized
 
@@ -216,7 +216,7 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
 
     private void desktopComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_desktopComponentResized
         if(state==1){
-            pg.changeSize(desktop.getWidth(),desktop.getHeight());    
+            estimationHistory.changeSize(desktop.getWidth(),desktop.getHeight());    
         }
     }//GEN-LAST:event_desktopComponentResized
 

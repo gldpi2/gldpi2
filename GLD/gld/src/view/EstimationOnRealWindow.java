@@ -6,7 +6,7 @@ import utils.EstimationOnRealThread;
 
 /**
  *
- * @author Wagner Santos
+ * @author Fernando Santos
  */
 public class EstimationOnRealWindow extends javax.swing.JPanel {
 

@@ -24,6 +24,7 @@ public class MainMenu extends javax.swing.JPanel {
     int i = 0, state = 0;
     private CostChart costChart;
     private LoadCurveChart loadCurveChart;
+    
     private Thread updaterThread;
     
     private MainMenu pg;
@@ -57,7 +58,7 @@ public class MainMenu extends javax.swing.JPanel {
             //panelCadastros.disable();
         //}
 
-        matricula.setText(user.getMatricula());
+        //matricula.setText(user.getMatricula());
      }
     
 
@@ -371,7 +372,13 @@ public class MainMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_panelConsumptionComponentResized
 
     private void buttonCosteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCosteActionPerformed
-        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+        MainWindow.desktop.removeAll();
+        MainWindow.eohWindows = new EstimationOnHistoryWindow(desktop.getHeight(), MainWindow.user);
+        MainWindow.desktop.add(MainWindow.eohWindows);
+        MainWindow.desktop.revalidate();
+        MainWindow.desktop.repaint();
+        
+        //JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_buttonCosteActionPerformed
 
     private void buttonConsumptioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConsumptioneActionPerformed
