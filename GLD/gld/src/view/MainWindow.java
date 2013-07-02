@@ -21,6 +21,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static LoadCurveWindow loadWindow;
     public static CostWindow costWindow;
     public static UserWindow userWindow;
+    public static EstimationOnHistoryWindow eohWindows;
     PowerGridMonitor powerGridMonitor;
     Thread monitorThread;
     int state = 0;
@@ -204,6 +205,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/money-coin.png"))); // NOI18N
         jMenuItem2.setText("Custo");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu4.add(jMenuItem2);
 
         jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lightning.png"))); // NOI18N
@@ -275,7 +281,7 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_menuCustosActionPerformed
-
+    
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         desktop.removeAll();
         loadWindow = new LoadCurveWindow(desktop.getHeight(), user);
@@ -318,6 +324,14 @@ public class MainWindow extends javax.swing.JFrame {
         AboutWindow about = new AboutWindow();
         about.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        desktop.removeAll();
+        eohWindows = new EstimationOnHistoryWindow(desktop.getHeight(), user);
+        desktop.add(eohWindows);
+        desktop.revalidate();
+        desktop.repaint();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void closePowerGridMonitorThread() {
         monitorThread.stop();
