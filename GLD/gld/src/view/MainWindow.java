@@ -107,13 +107,18 @@ public class MainWindow extends javax.swing.JFrame {
         menuCadastros = new javax.swing.JMenu();
         menuInserirUser = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         menuCustos = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu6 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         menuMainHibrido = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
@@ -156,7 +161,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenu1.add(menuRelatorios);
 
         menuCadastros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/application_form.png"))); // NOI18N
-        menuCadastros.setText("Cadastros");
+        menuCadastros.setText("Registros");
 
         menuInserirUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/user.png"))); // NOI18N
         menuInserirUser.setText("Usuários");
@@ -169,6 +174,15 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenu1.add(menuCadastros);
         jMenu1.add(jSeparator1);
+
+        jMenuItem12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/house_go.png"))); // NOI18N
+        jMenuItem12.setText("Voltar ao Menu Principal");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem12);
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cross.png"))); // NOI18N
         jMenuItem1.setText("Sair");
@@ -205,23 +219,41 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenu4.setText("Estimativas");
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/money-coin.png"))); // NOI18N
-        jMenuItem2.setText("Custo");
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/money-coin.png"))); // NOI18N
+        jMenu3.setText("Custo");
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clock.png"))); // NOI18N
+        jMenuItem2.setText("Tempo Real");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem2);
+        jMenu3.add(jMenuItem2);
 
-        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lightning.png"))); // NOI18N
-        jMenuItem3.setText("Consumo");
+        jMenuItem5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/book_open.png"))); // NOI18N
+        jMenuItem5.setText("Por Histórico");
+        jMenu3.add(jMenuItem5);
+
+        jMenu4.add(jMenu3);
+
+        jMenu6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lightning.png"))); // NOI18N
+        jMenu6.setText("Consumo");
+
+        jMenuItem3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clock.png"))); // NOI18N
+        jMenuItem3.setText("Tempo Real");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem3ActionPerformed(evt);
             }
         });
-        jMenu4.add(jMenuItem3);
+        jMenu6.add(jMenuItem3);
+
+        jMenuItem6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/book_open.png"))); // NOI18N
+        jMenuItem6.setText("Por Histórico");
+        jMenu6.add(jMenuItem6);
+
+        jMenu4.add(jMenu6);
 
         jMenuItem7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report_magnify.png"))); // NOI18N
         jMenuItem7.setText("Estudo Contratual");
@@ -348,6 +380,10 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.repaint();
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        initNewMenu();
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
+
     private void closePowerGridMonitorThread() {
         monitorThread.stop();
         Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "PowerGridMonitorThread parada.");
@@ -391,15 +427,20 @@ public class MainWindow extends javax.swing.JFrame {
     public static javax.swing.JPanel desktop;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
