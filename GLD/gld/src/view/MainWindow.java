@@ -25,6 +25,7 @@ public class MainWindow extends javax.swing.JFrame {
     Thread monitorThread;
     int state = 0;
     private MainMenu pg;
+    private NewMainMenu pg2;
 
     /**
      * Creates new form JanelaPrincipal
@@ -42,7 +43,11 @@ public class MainWindow extends javax.swing.JFrame {
             menuCadastros.setVisible(false);
         }
 
-        this.init();
+        //descomentar caso queira chamar essa main menu
+        //this.init();
+        
+        //descomentar caso queira chamar essa main menu
+        this.initNewMenu();
 
     }
 
@@ -54,6 +59,16 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.removeAll();
         pg = new MainMenu(user);
         desktop.add(pg);
+        desktop.revalidate();
+        desktop.repaint();
+
+        state = 1;  
+    }
+    
+    private void initNewMenu(){
+        desktop.removeAll();
+        pg2 = new NewMainMenu(user);
+        desktop.add(pg2);
         desktop.revalidate();
         desktop.repaint();
 
