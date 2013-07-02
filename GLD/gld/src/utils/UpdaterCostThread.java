@@ -46,27 +46,38 @@ public class UpdaterCostThread implements Runnable {
     @Override
     public void run() {
         List<Mensuration> mensuration = this.costDao.parameters();
-        for (Mensuration m : mensuration) {
-            series.addOrUpdate(m.getMillisecond(), m.getPotency() * costDao.getCostValue());
-          if(this.tensionValue != null){
-            if (this.tensionValue.isShowing()) {
-                updateButton(m);
+
+        while (mensuration.size() > 0) {
+            for (Mensuration m : mensuration) {
+                series.addOrUpdate(m.getMillisecond(), m.getPotency() * costDao.getCostValue());
+                if (this.tensionValue != null) {
+                    if (this.tensionValue.isShowing()) {
+                        try {
+                            updateButton(m);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(UpdaterCostThread.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println("");
+                        System.out.println("Tension: " + m.getTension());
+                        System.out.println("Flow: " + m.getFlow());
+                        System.out.println("Potency: " + m.getPotency());
+
+                    }
+                }
             }
-          }
-        }
-        try {
-            Thread.sleep(Integer.parseInt(properties.getString("REFRESH_TIME")));
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                Thread.sleep(Integer.parseInt(properties.getString("REFRESH_TIME")));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    private void updateButton(Mensuration m) {
+    private void updateButton(Mensuration m) throws InterruptedException {
         flowValue.setText(String.valueOf(m.getFlow()));
         tensionValue.setText(String.valueOf(m.getTension()));
         potencyvalue.setText(String.valueOf(m.getPotency()));
-        
-        flowValue.revalidate();
-        flowValue.repaint();
+        Thread.sleep(1000);
+
     }
 }

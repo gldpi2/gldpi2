@@ -59,10 +59,15 @@ public class CostDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         dbInterface.disconnect();
 
         return mensurationList;
     }
+    
+    public Mensuration singleMensuration(){
+        Mensuration mensuration = new Mensuration();
+        
+        return mensuration;
+    }
+    
 }
