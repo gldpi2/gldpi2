@@ -46,10 +46,10 @@ public class MainWindow extends javax.swing.JFrame {
             menuRegistros.setVisible(false);
         }
 
-        this.init();
+        //this.init();
         
         //descomentar caso queira chamar essa main menu
-        //this.initNewMenu();
+        this.initNewMenu();
 
     }
 
@@ -140,7 +140,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 622, Short.MAX_VALUE)
+            .add(0, 630, Short.MAX_VALUE)
         );
 
         raizArquivo.setText("Arquivo");
@@ -232,6 +232,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         menuCustoHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/book_open.png"))); // NOI18N
         menuCustoHistorico.setText("Por Histórico");
+        menuCustoHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuCustoHistoricoActionPerformed(evt);
+            }
+        });
         menuEstimativasCusto.add(menuCustoHistorico);
 
         raizEstimativas.add(menuEstimativasCusto);
@@ -250,12 +255,22 @@ public class MainWindow extends javax.swing.JFrame {
 
         menuConsumoHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/book_open.png"))); // NOI18N
         menuConsumoHistorico.setText("Por Histórico");
+        menuConsumoHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsumoHistoricoActionPerformed(evt);
+            }
+        });
         menuEstimativasConsumo.add(menuConsumoHistorico);
 
         raizEstimativas.add(menuEstimativasConsumo);
 
         menuEstudoContratual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report_magnify.png"))); // NOI18N
         menuEstudoContratual.setText("Estudo Contratual");
+        menuEstudoContratual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuEstudoContratualActionPerformed(evt);
+            }
+        });
         raizEstimativas.add(menuEstudoContratual);
 
         barraMenu.add(raizEstimativas);
@@ -364,24 +379,42 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSobreActionPerformed
 
     private void menuCustoTempoRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCustoTempoRealActionPerformed
-        desktop.removeAll();
-        estimationCostMenu = new EstimationCostMenu(user);
-        desktop.add(estimationCostMenu);
-        desktop.revalidate();
-        desktop.repaint();
+        //desktop.removeAll();
+        //estimationCostMenu = new EstimationCostMenu(user);
+        //desktop.add(estimationCostMenu);
+        //desktop.revalidate();
+        //desktop.repaint();
+        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuCustoTempoRealActionPerformed
 
     private void menuConsumoTempoRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsumoTempoRealActionPerformed
-        desktop.removeAll();
-        estimationCurveMenu = new EstimationCurveMenu(user);
-        desktop.add(estimationCurveMenu);
-        desktop.revalidate();
-        desktop.repaint();
+       // desktop.removeAll();
+       //estimationCurveMenu = new EstimationCurveMenu(user);
+       //desktop.add(estimationCurveMenu);
+       //desktop.revalidate();
+       //desktop.repaint();
+       JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuConsumoTempoRealActionPerformed
 
     private void menuVoltarMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVoltarMenuPrincipalActionPerformed
         initNewMenu();
     }//GEN-LAST:event_menuVoltarMenuPrincipalActionPerformed
+
+    private void menuCustoHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCustoHistoricoActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_menuCustoHistoricoActionPerformed
+
+    private void menuConsumoHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsumoHistoricoActionPerformed
+        desktop.removeAll();
+        eohWindow = new EstimationOnHistoryWindow(MainWindow.desktop.getHeight(), MainWindow.user);
+        desktop.add(MainWindow.eohWindow);
+        desktop.revalidate();
+        desktop.repaint();
+    }//GEN-LAST:event_menuConsumoHistoricoActionPerformed
+
+    private void menuEstudoContratualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEstudoContratualActionPerformed
+        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_menuEstudoContratualActionPerformed
 
     private void closePowerGridMonitorThread() {
         monitorThread.stop();

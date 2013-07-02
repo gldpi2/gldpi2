@@ -18,6 +18,7 @@ public class CostWindow extends javax.swing.JPanel {
     private Thread th;
 
     MainMenu mainm;
+    NewMainMenu newMainm;
     Login user;
     /**
      * Método construtor do Objeto de Window
@@ -302,10 +303,15 @@ public class CostWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_formComponentResized
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        //MainWindow.desktop.removeAll();
+        //user = Login.getInstance();
+        //mainm = new MainMenu(user);
+        //MainWindow.desktop.add(mainm);
+        //MainWindow.desktop.revalidate();
+        //MainWindow.desktop.repaint();
         MainWindow.desktop.removeAll();
-        user = Login.getInstance();
-        mainm = new MainMenu(user);
-        MainWindow.desktop.add(mainm);
+        newMainm = new NewMainMenu(user);
+        MainWindow.desktop.add(newMainm);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
     }//GEN-LAST:event_jButton2ActionPerformed
