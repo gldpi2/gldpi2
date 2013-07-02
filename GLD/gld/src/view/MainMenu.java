@@ -99,9 +99,6 @@ public class MainMenu extends javax.swing.JPanel {
         state = 1;        
  }
      
-     public void init2() {
-
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -374,16 +371,15 @@ public class MainMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_panelConsumptionComponentResized
 
     private void buttonCosteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCosteActionPerformed
-        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!");
+        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_buttonCosteActionPerformed
 
     private void buttonConsumptioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConsumptioneActionPerformed
-        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!");
         JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_buttonConsumptioneActionPerformed
 
     private void buttonStudyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStudyActionPerformed
-        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!");
+         JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_buttonStudyActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

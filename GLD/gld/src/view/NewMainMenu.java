@@ -4,6 +4,7 @@
  */
 package view;
 
+import model.Login;
 import utils.UpdaterCostThread;
 import utils.UpdaterLoadCurveThread;
 import static view.MainWindow.desktop;
@@ -33,7 +34,7 @@ public class NewMainMenu extends javax.swing.JPanel {
     /**
      * Creates new form NewMainMenu
      */
-    public NewMainMenu() {
+    public NewMainMenu(Login user) {
         initComponents();
         setSize(1024, 678);
 
@@ -57,7 +58,7 @@ public class NewMainMenu extends javax.swing.JPanel {
         panelCostm.revalidate();
         panelCostm.repaint();
           
-                         //rodar grafico de consumo
+        //rodar grafico de consumo
         panelConsumptionm.removeAll();
         loadCurveChart = new LoadCurveChart(panelConsumptionm.getWidth(), panelConsumptionm.getHeight());
         loadCurveChart.startGraph();
@@ -96,6 +97,7 @@ public class NewMainMenu extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Menu Principal - GLD", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 1, 24))); // NOI18N
         jPanel1.setToolTipText("");
 
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo.jpg"))); // NOI18N
 
         panelCostm.setBorder(javax.swing.BorderFactory.createTitledBorder("Gráfico de Custo"));
@@ -109,7 +111,7 @@ public class NewMainMenu extends javax.swing.JPanel {
         panelCostm.setLayout(panelCostmLayout);
         panelCostmLayout.setHorizontalGroup(
             panelCostmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 417, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelCostmLayout.setVerticalGroup(
             panelCostmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,12 +119,17 @@ public class NewMainMenu extends javax.swing.JPanel {
         );
 
         panelConsumptionm.setBorder(javax.swing.BorderFactory.createTitledBorder("Grafico de Carga"));
+        panelConsumptionm.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                panelConsumptionmComponentResized(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelConsumptionmLayout = new javax.swing.GroupLayout(panelConsumptionm);
         panelConsumptionm.setLayout(panelConsumptionmLayout);
         panelConsumptionmLayout.setHorizontalGroup(
             panelConsumptionmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 413, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelConsumptionmLayout.setVerticalGroup(
             panelConsumptionmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,29 +143,28 @@ public class NewMainMenu extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(panelCostm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelConsumptionm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(panelConsumptionm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(211, 211, 211))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelConsumptionm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelCostm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -181,6 +187,12 @@ public class NewMainMenu extends javax.swing.JPanel {
             loadCurveChart.changeSize(panelCostm.getWidth(), panelCostm.getHeight());
         }
     }//GEN-LAST:event_panelCostmComponentResized
+
+    private void panelConsumptionmComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelConsumptionmComponentResized
+        if (state == 1) {
+            loadCurveChart.changeSize(panelCostm.getWidth(), panelCostm.getHeight());
+        }
+    }//GEN-LAST:event_panelConsumptionmComponentResized
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
