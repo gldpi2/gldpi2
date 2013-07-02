@@ -4,7 +4,9 @@
  */
 package view;
 
+import javax.swing.JOptionPane;
 import model.Login;
+import static view.MainWindow.desktop;
 
 /**
  *
@@ -12,6 +14,9 @@ import model.Login;
  */
 public class EstimationMenu extends javax.swing.JPanel {
 
+    MainMenu mainm;
+    Login user;
+    
     /**
      * Creates new form EstimationMenu
      */
@@ -21,7 +26,7 @@ public class EstimationMenu extends javax.swing.JPanel {
 
         //this.init();
 
-        //matricula.setText(user.getMatricula());
+        matricula.setText(user.getMatricula());
      }
 
     /**
@@ -34,26 +39,35 @@ public class EstimationMenu extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jPanelTipoEstimativa = new javax.swing.JPanel();
+        jButtonCustoHistorico = new javax.swing.JButton();
+        jButtonCustoTempoReal = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         matricula = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Estimativas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 1, 24))); // NOI18N
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Estimativas por Histórico"));
-        jPanel2.setLayout(new java.awt.GridBagLayout());
+        jPanelTipoEstimativa.setBorder(javax.swing.BorderFactory.createTitledBorder("Tipo de Estimativas"));
+        jPanelTipoEstimativa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("jButton1");
-        jPanel2.add(jButton1, new java.awt.GridBagConstraints());
+        jButtonCustoHistorico.setText("Estimativas de Custo pelo Histórico");
+        jButtonCustoHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCustoHistoricoActionPerformed(evt);
+            }
+        });
+        jPanelTipoEstimativa.add(jButtonCustoHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, -1, -1));
 
-        jButton2.setText("jButton2");
-        jPanel2.add(jButton2, new java.awt.GridBagConstraints());
+        jButtonCustoTempoReal.setText("Estimativas de Custo em Tempo Real");
+        jButtonCustoTempoReal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCustoTempoRealActionPerformed(evt);
+            }
+        });
+        jPanelTipoEstimativa.add(jButtonCustoTempoReal, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 210, -1, -1));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
 
@@ -80,17 +94,16 @@ public class EstimationMenu extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(matricula))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Estimativas em Tempo Real"));
-        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jButton3.setText("jButton3");
-        jPanel4.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, -1, -1));
-
-        jButton4.setText("jButton4");
-        jPanel4.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, -1, -1));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/house_go.png"))); // NOI18N
+        jButton3.setText("Voltar ao Menu Principal");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -100,22 +113,25 @@ public class EstimationMenu extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 402, Short.MAX_VALUE)))
+                    .addComponent(jPanelTipoEstimativa, javax.swing.GroupLayout.DEFAULT_SIZE, 980, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton3))
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE))
-                .addContainerGap())
+                .addComponent(jPanelTipoEstimativa, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton3)
+                .addGap(6, 6, 6))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -129,16 +145,37 @@ public class EstimationMenu extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        MainWindow.desktop.removeAll();
+        mainm = new MainMenu(user);
+        MainWindow.desktop.add(mainm);
+        MainWindow.desktop.revalidate();
+        MainWindow.desktop.repaint();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButtonCustoHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustoHistoricoActionPerformed
+        JOptionPane.showMessageDialog(jPanelTipoEstimativa, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+        //MainWindow.desktop.removeAll();
+        //MainWindow.eohWindow = new EstimationOnHistoryWindow(MainWindow.desktop.getHeight(), MainWindow.user);
+        //MainWindow.desktop.add(MainWindow.eohWindow);
+        //MainWindow.desktop.revalidate();
+        //MainWindow.desktop.repaint();
+    }//GEN-LAST:event_jButtonCustoHistoricoActionPerformed
+
+    private void jButtonCustoTempoRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCustoTempoRealActionPerformed
+        JOptionPane.showMessageDialog(jPanelTipoEstimativa, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+    }//GEN-LAST:event_jButtonCustoTempoRealActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonCustoHistorico;
+    private javax.swing.JButton jButtonCustoTempoReal;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanelTipoEstimativa;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel matricula;
     // End of variables declaration//GEN-END:variables
 }

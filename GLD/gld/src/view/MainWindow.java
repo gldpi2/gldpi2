@@ -20,6 +20,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static Login user;
     public static LoadCurveWindow loadWindow;
     public static CostWindow costWindow;
+    public static EstimationOnHistoryWindow eohWindow;
     public static UserWindow userWindow;
     public static EstimationMenu estimationMenu;
     PowerGridMonitor powerGridMonitor;
