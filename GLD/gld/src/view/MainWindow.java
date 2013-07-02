@@ -36,7 +36,7 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow(Login usuario) {
         initComponents();
         initPowerGridMonitor();
-        setSize(1024, 700);
+        setSize(1024, 720);
         setLocationRelativeTo(null);
         this.user = usuario;
         this.menuRelatorios.setVisible(false);
