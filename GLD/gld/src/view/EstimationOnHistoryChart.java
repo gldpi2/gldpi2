@@ -8,7 +8,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.annotations.XYPointerAnnotation;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.time.Millisecond;
+import org.jfree.data.time.Day;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
 import org.jfree.data.xy.XYSeries;
@@ -16,7 +16,7 @@ import org.jfree.ui.TextAnchor;
 
 /**
  *
- * @author itallorossi
+ * @author Fernando
  */
 public class EstimationOnHistoryChart extends javax.swing.JPanel {
 
@@ -35,10 +35,10 @@ public class EstimationOnHistoryChart extends javax.swing.JPanel {
     }
 
     public void criaGrafico() {
-        this.series = new TimeSeries("kWh", Millisecond.class);
+        this.series = new TimeSeries("Hora", Day.class);
         TimeSeriesCollection dataset = new TimeSeriesCollection(this.series);
 
-        chart = ChartFactory.createTimeSeriesChart("Curva de Carga", "Hora", "Potência Ativa (kWh)", dataset, true, true, false);
+        chart = ChartFactory.createTimeSeriesChart("Estimativa ", "Dia", "Potência Ativa (kWh)", dataset, true, true, false);
 
         XYPlot xyplot = (XYPlot) chart.getPlot();
         xyplot.setBackgroundPaint(Color.lightGray);
@@ -49,9 +49,9 @@ public class EstimationOnHistoryChart extends javax.swing.JPanel {
         xAxis = xyplot.getDomainAxis();
 
         xAxis.setTickMarkPaint(Color.black);
-        xAxis.setRange(0, 86400000); // 24 horas = 86400000 mili
+        xAxis.setRange(0, 1440); // 24 horas = 86400000 mili - 1440 24 = 1440 minutos
         xAxis.setAutoRange(true);
-        xAxis.setFixedAutoRange(60000.0);
+        xAxis.setFixedAutoRange(60000000.0);
 
         ValueAxis yAxis = xyplot.getRangeAxis();
         yAxis.setRange(0, 6);
