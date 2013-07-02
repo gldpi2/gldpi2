@@ -2,7 +2,7 @@ package _tests;
 
 import javax.swing.JOptionPane;
 import utils.UpdaterCostThread;
-import utils.UpdaterGraphThread;
+import utils.UpdaterLoadCurveThread;
 
 
 /**
@@ -25,9 +25,9 @@ public class CostFrame extends javax.swing.JFrame {
         pg = new CostPanel(desktop.getWidth(), desktop.getHeight());
         
         pg.criarGrafico();
-        Thread th = new Thread(new UpdaterCostThread(pg.series));
-        th.setDaemon(true);
-        th.start();
+        //Thread th = new Thread(new UpdaterCostThread(pg.series, this.FlowValue, this.TensionValue, this.PotencyValue));
+        //th.setDaemon(true);
+       // th.start();
         
 
         desktop.add(pg);

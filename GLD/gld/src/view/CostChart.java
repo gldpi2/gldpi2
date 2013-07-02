@@ -1,18 +1,14 @@
 package view;
 
-import java.awt.Color;
-import java.awt.Font;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.annotations.XYPointerAnnotation;
 import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.time.TimeSeriesCollection;
-import org.jfree.data.xy.XYSeries;
-import org.jfree.ui.TextAnchor;
+
 
 /**
  *
@@ -27,13 +23,19 @@ public class CostChart extends javax.swing.JPanel {
     int state;
 
     /**
-     * Creates new form CharPanel
+     * Método construtor para construção do gráfico
+     * @param x largua
+     * @param y altura
      */
     public CostChart(int x, int y) {
         initComponents();
         setSize(x, y);
     }
 
+   /**
+    * Método de criação do gráfico.
+    * Utilizando gráfico de series
+    */ 
     public void criaGrafico(){
         series = new TimeSeries("R$/kWh", Millisecond.class);
         final TimeSeriesCollection dataset = new TimeSeriesCollection(series);
@@ -42,9 +44,9 @@ public class CostChart extends javax.swing.JPanel {
         final XYPlot plot = result.getXYPlot();
         ValueAxis axis = plot.getDomainAxis();
         axis.setAutoRange(true);
-        axis.setFixedAutoRange(60000.0);  // 60 seconds
+        axis.setFixedAutoRange(60000.0);
         axis = plot.getRangeAxis();
-        axis.setRange(0.0, 100.0);
+        axis.setRange(0.0, 10.0);
         
         myChartPanel = new ChartPanel(result, true);
         myChartPanel.setSize(this.getWidth(), this.getHeight());
@@ -53,11 +55,16 @@ public class CostChart extends javax.swing.JPanel {
         this.add(myChartPanel);
         this.revalidate();
         this.repaint();
-        state = 1;
+        
         
         state = 1;
     }
 
+    /**
+     * Método para alteração do tamanho
+     * @param x largura
+     * @param y altura
+     */
     public void changeSize(int x, int y) {
         if (state != 0) {
             myChartPanel.setSize(x, y);

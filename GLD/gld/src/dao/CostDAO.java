@@ -13,11 +13,13 @@ import utils.DatabaseInterface;
  */
 public class CostDAO {
 
-    Mensuration mensuration = new Mensuration();
+    
     CostCtrl ctrl = new CostCtrl();
     DatabaseInterface dbInterface = new DatabaseInterface();
+    
     double costValue;
 
+    
     public double getCostValue() {
         return costValue;
     }
@@ -33,21 +35,24 @@ public class CostDAO {
      * @return vetor de custo já calculados
      * @throws Exceção de SQL, pois se não houver conexão ou dados, irá falhar.
      */
-    public ArrayList<Mensuration> parameters() throws SQLException {
+    public ArrayList<Mensuration> parameters() {
         ArrayList<Mensuration> mensurationList = new ArrayList<>();
 
 
         String sql = "SELECT * FROM mensuration";
         dbInterface.connect();
 
-        ResultSet rsMensuration = dbInterface.executeQuery(sql);
+        ResultSet rs = dbInterface.executeQuery(sql);
         try {
-            while (rsMensuration.next()) {
-                mensuration.setFlow(rsMensuration.getDouble(2));
-                mensuration.setTension(rsMensuration.getDouble(3));
-                mensuration.setTimestamp(rsMensuration.getString(4));
-                setCostValue(ctrl.energyValue(mensuration.getFlow(), mensuration.getTension()));
-                ctrl.setTime(mensuration.getTimestamp());
+            while (rs.next()) {
+                Mensuration mensuration;
+                mensuration = new Mensuration();
+                mensuration.setIdMensuration(rs.getInt("id_mensuration"));
+                mensuration.setFlow(rs.getDouble("flow"));
+                mensuration.setTension(rs.getDouble("tension"));
+                mensuration.setTimestamp(rs.getString("timestamp"));
+                ctrl.setTime(mensuration.getTimestamp().substring(8, 10));
+                setCostValue(ctrl.energyValue());
                 mensurationList.add(mensuration);
             }
 
