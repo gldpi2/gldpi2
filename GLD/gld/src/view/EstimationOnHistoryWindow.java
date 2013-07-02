@@ -4,15 +4,13 @@
  */
 package view;
 
+import model.EstimationOnHistory;
 import model.Login;
-import utils.UpdaterLoadCurveThread;
-import view.EstimationOnHistoryChart;
-import view.MainMenu;
-import view.MainWindow;
+import utils.UpdaterCostThread;
 
 /**
  *
- * @author itallorossi
+ * @author Fernando
  */
 public class EstimationOnHistoryWindow extends javax.swing.JPanel {
 //    private static final String title = "Which operating system are you using?";
@@ -38,9 +36,10 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
         pg = new EstimationOnHistoryChart(desktop.getWidth(), desktop.getHeight());
         pg.criaGrafico();
         
-//        Thread th = new Thread(new UpdaterLoadCurveThread(pg.series));
-//        th.setDaemon(true);
-//        th.start();
+        EstimationOnHistory est = new EstimationOnHistory();
+        
+        System.out.println("");
+        System.out.println("INdex: " + est.getIndex());
         
         desktop.add(pg);
         state = 1;
