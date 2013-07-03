@@ -21,7 +21,8 @@ public class MainWindow extends javax.swing.JFrame {
     public static LoadCurveWindow loadWindow;
     public static CostWindow costWindow;
     public static EstimationOnHistoryWindow eohWindow;
-    public static EstimationOnRealWindow eorWindow;
+    public static EstimationOnRealCostWindow eorCostWindow;
+    public static EstimationOnRealLoadWindow eorLoadWindow;
     public static UserWindow userWindow;
     public static EstimationCurveMenu estimationCurveMenu;
     public static EstimationCostMenu estimationCostMenu;
@@ -381,20 +382,20 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuCustoTempoRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCustoTempoRealActionPerformed
         desktop.removeAll();
-        eorWindow = new EstimationOnRealWindow(MainWindow.desktop.getHeight(), MainWindow.user);
-        desktop.add(eorWindow);
+        eorCostWindow = new EstimationOnRealCostWindow(MainWindow.desktop.getHeight(), MainWindow.user);
+        desktop.add(eorCostWindow);
         desktop.revalidate();
         desktop.repaint();
         //JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuCustoTempoRealActionPerformed
 
     private void menuConsumoTempoRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsumoTempoRealActionPerformed
-       // desktop.removeAll();
-       //estimationCurveMenu = new EstimationCurveMenu(user);
-       //desktop.add(estimationCurveMenu);
-       //desktop.revalidate();
-       //desktop.repaint();
-       JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+       desktop.removeAll();
+       eorLoadWindow = new EstimationOnRealLoadWindow(MainWindow.desktop.getHeight(), MainWindow.user);
+       desktop.add(eorLoadWindow);
+       desktop.revalidate();
+       desktop.repaint();
+       //JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuConsumoTempoRealActionPerformed
 
     private void menuVoltarMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVoltarMenuPrincipalActionPerformed
