@@ -37,4 +37,51 @@ public class CostCtrl {
         double index = ((greater + minor + (4 * better)) / 6);
         return index;
     }
+    
+    public double getPert(int interval){
+        try {
+            List<Mensuration> data;
+            switch (interval) {
+                case INTERVAL_LAST_60_MIM:
+                    data = dao.getMensurationLast60Minutes();
+                    break;
+                //Estimativa conforme o último dia da semana passada (ex: terça passada)
+                case INTERVAL_LAST_DAY:
+                    data = dao.getMensurationADayLastWeek();
+                    break;
+                case INTERVAL_LAST_24_HOURS:
+                    data = dao.getMensurationLast24Hours();
+                    break;
+                case INTERVAL_LAST_168_HOURS:
+                    data = dao.getMensurationLast168Hours();
+                    break;
+                case INTERVAL_LAST_672_HOURS:
+                    data = dao.getMensurationLast672Hours();
+                    break;
+
+                default:
+                    System.err.print("No correct interval passed for PERL function");
+                    return 0;
+            }
+
+            Mensuration tempMensuration = data.get(0);
+            minor = tempMensuration.getFlow();
+            greater = tempMensuration.getFlow();
+            double avarage = 0;
+            for (Mensuration item : data) {
+                if (item.getFlow() > greater) {
+                    greater = item.getFlow();
+                }
+                if (item.getFlow() < minor) {
+                    minor = item.getFlow();
+                }
+                avarage += item.getFlow();
+            }
+            return this.pert(greater, minor, avarage / data.size());
+        } catch (SQLException e){
+            System.err.print(e.getSQLState());
+            return 0;
+        }
+
+    }
 }
