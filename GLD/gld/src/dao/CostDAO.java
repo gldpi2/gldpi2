@@ -1,6 +1,6 @@
 package dao;
 
-import controller.CostCtrl;
+import controller.CostEstimationOnHistoryCtrl;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import model.Mensuration;
@@ -13,7 +13,7 @@ import utils.DatabaseInterface;
 public class CostDAO {
 
     
-    CostCtrl ctrl = new CostCtrl();
+    CostEstimationOnHistoryCtrl ctrl = new CostEstimationOnHistoryCtrl();
     DatabaseInterface dbInterface = new DatabaseInterface();
     
     double costValue;
