@@ -30,6 +30,8 @@ public class NewMainMenu extends javax.swing.JPanel {
     private javax.swing.JLabel minPotencyValue;
     private javax.swing.JLabel maxPotencyTime;
     private javax.swing.JLabel minPotencyTime;
+    private javax.swing.JLabel maxCostValue;
+    private javax.swing.JLabel minCostValue;
     
     /**
      * Creates new form NewMainMenu
@@ -49,7 +51,8 @@ public class NewMainMenu extends javax.swing.JPanel {
 
         costChart.criaGrafico();
         Thread th = new Thread(new UpdaterCostThread(costChart.series, 
-                                                    this.FlowValue, this.TensionValue, this.PotencyValue));
+                                                    this.FlowValue, this.TensionValue, this.PotencyValue,
+                                                    this.maxCostValue, this.minCostValue));
         th.setDaemon(true);
         th.start();
         
