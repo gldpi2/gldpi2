@@ -4,7 +4,10 @@
  */
 package controller;
 
-import model.Cost;
+import dao.LoadEstimationOnHistoryDAO;
+import java.sql.SQLException;
+import java.util.List;
+import model.Mensuration;
 
 /**
  *
@@ -12,44 +15,26 @@ import model.Cost;
  */
 public class CostCtrl {
 
-    public final static double HOUR = 3600;
-    public final static double PEAK = 19.65 / HOUR;
-    public final static double VALUE_OFFPEAK = 5.22 / HOUR;
-    Cost cost = new Cost();
-    String time;
-    double hour;
+    double minor;
+    double greater;
+    double better;
+    private LoadEstimationOnHistoryDAO dao = new LoadEstimationOnHistoryDAO();
+    //TODO, NOT IMPLEMENTED YET
+    public static final int INTERVAL_HOUR = 1;
+    public static final int INTERVAL_LAST_60_MIM = 1;
+    //TODO, NOT IMPLEMENTED YET
+    public static final int INTERVAL_DAY = 2;
+    public static final int INTERVAL_LAST_DAY = 3;
+    public static final int INTERVAL_LAST_24_HOURS = 4;
+    //TODO, NOT IMPLEMENTED YET
+    public static final int INTERVAL_WEEK = 5;
+    public static final int INTERVAL_LAST_168_HOURS = 6;
+    //TODO, NOT IMPLEMENTED YET
+    public static final int INTERVAL_MONTH = 7;
+    public static final int INTERVAL_LAST_672_HOURS = 8;
 
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    /**
-     * Método para cálculo da hora/kWh
-     *
-     * @param tension tensão no momento atual
-     * @param flow corrente no momento atual
-     * @return custo atual.
-     */
-    public double energyValue() {
-
-        /**
-         * Método que verifica a hora do banco de dados e coloca o valor do kWh de
-         * acordo com o documento da CEB (Companhia Energética de Brasília) Hora
-         * de ponta é entre 18 e 21 e o restante tem valor menor
-         */
-        hour = Double.parseDouble(getTime());
-        if (hour >= 18 && hour < 21) {
-            cost.setValueEnergy(PEAK);
-        } else {
-            cost.setValueEnergy(VALUE_OFFPEAK);
-        }
-        double costValue = cost.getValueEnergy()*100;
-        
-
-        return costValue;
+    private double pert(double greater, double minor, double better) {
+        double index = ((greater + minor + (4 * better)) / 6);
+        return index;
     }
 }
