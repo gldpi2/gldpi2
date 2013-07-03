@@ -14,6 +14,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     private Thread updaterThread;
 
     MainMenu mainm;
+    NewMainMenu newMainm;
     Login user;
     /**
      * Creates new form PatternWindow
@@ -308,12 +309,12 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_formComponentResized
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        updaterThread.stop();
         MainWindow.desktop.removeAll();
-        mainm = new MainMenu(user);
-        MainWindow.desktop.add(mainm);
+        newMainm = new NewMainMenu(user);
+        MainWindow.desktop.add(newMainm);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
-        updaterThread.stop();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void desktopComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_desktopComponentResized

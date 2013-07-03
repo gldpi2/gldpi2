@@ -94,7 +94,7 @@ public class NewMainMenu extends javax.swing.JPanel {
         panelConsumptionm = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Menu Principal - GLD", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 1, 24))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GLD", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 1, 24))); // NOI18N
         jPanel1.setToolTipText("");
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
