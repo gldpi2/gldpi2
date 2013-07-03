@@ -1,12 +1,16 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package utils;
 
-import controller.LoadCurveCtrl;
+import controller.CostCtrl;
+import dao.CostDAO;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.*;
 import javax.swing.JLabel;
 import model.GaussJordan;
 import model.Mensuration;
@@ -15,108 +19,127 @@ import org.jfree.data.time.TimeSeries;
 
 /**
  *
- * @author wagner
+ * @author Matheus
  */
 public class EstimationOnRealThread implements Runnable {
 
     ResourceBundle properties = ResourceBundle.getBundle("utils.PropertiesFile");
-    private LoadCurveCtrl loadCurveCtrl = new LoadCurveCtrl();
-    private TimeSeries series, estimated;
+    private CostDAO costDao = new CostDAO();
+    CostCtrl ctrl = new CostCtrl();
+    GaussJordan gj = new GaussJordan();
+    private TimeSeries series;
+    private TimeSeries estimate;
     private JLabel flowValue;
     private JLabel tensionValue;
     private JLabel potencyvalue;
-    private JLabel estimates;
+    private JLabel maxCostValue;
+    private JLabel minCostValue;
+    private JLabel estimateValue;
+    private static final int NUM_ESTIMATES = 3;
 
-
-    /**
-     * Método construtor da classe UpdaterLoadCurveThread.
-     *
-     * @param series XYSeries Referência da série apresentada no gráfico.
-     */
-    public EstimationOnRealThread(TimeSeries series) {
+    public EstimationOnRealThread(TimeSeries series, TimeSeries estimate) {
         this.series = series;
+        this.estimate = estimate;
     }
 
-    public EstimationOnRealThread(TimeSeries series,
-            JLabel flowValue, JLabel tensionValue, JLabel potencyValue, 
-            JLabel estimates) {
+    public EstimationOnRealThread(TimeSeries series, TimeSeries estimate, JLabel flowValue, JLabel tensionValue, JLabel potencyValue,
+            JLabel estimateValue, JLabel maxCostValue, JLabel minCostValue) {
         this.series = series;
+        this.estimate = estimate;
         this.flowValue = flowValue;
         this.tensionValue = tensionValue;
         this.potencyvalue = potencyValue;
-        this.estimates = estimates;
-
+        this.maxCostValue = maxCostValue;
+        this.minCostValue = minCostValue;
+        this.estimateValue = estimateValue;
     }
 
     /**
-     * Método que executa as funcionalidades da thread UpdaterLoadCurveThread.
+     *
      */
     @Override
     public void run() {
-        Mensuration lastMensuration = null;
-
-        List<Mensuration> mensuration = this.loadCurveCtrl.getAllMensuration();
-        List<Double> dados = new ArrayList();
-
-        if (mensuration.size() > 0) {
+        List<Mensuration> mensuration = this.costDao.parameters();
+        double[] cost = new double[mensuration.size()];
+        ArrayList<Mensuration> estimate_data = new ArrayList();
+        while (mensuration.size() > 0) {
             for (Mensuration m : mensuration) {
-                double currentPotency = m.getPotency();
-                dados.add(currentPotency);
-                series.addOrUpdate(m.getMillisecond(), currentPotency);
-                if (currentPotency > loadCurveCtrl.getMaxMensuration().getPotency()) {
-                    loadCurveCtrl.setMaxMensuration(m);
-                }
-                if (currentPotency < loadCurveCtrl.getMinMensuration().getPotency() || loadCurveCtrl.getMinMensuration().getPotency() == 0) {
-                    loadCurveCtrl.setMinMensuration(m);
-                }
-                lastMensuration = m;
-            }
-        }
-
-        while (true) {
-            Mensuration m = this.loadCurveCtrl.getLastMensuration();
-            GaussJordan gj = new GaussJordan();
-            double[] data = new double[Integer.parseInt(estimates.getText())];
-
-            if (lastMensuration == null) {
-                lastMensuration = m;
-            }
-
-            if (!(lastMensuration.getIdMensuration() == m.getIdMensuration())) {
-                double currentPotency = m.getPotency();
-                dados.add(currentPotency);
-                series.addOrUpdate(m.getMillisecond(), currentPotency);
-                for(int i = dados.size()-1;i>(dados.size()-Integer.parseInt(estimates.getText())-1);i--){
-                    Second millisecond = m.getMillisecond().getSecond();
-                    for(int j = 0; j <= i; j++){
-                        millisecond.next();
+                series.addOrUpdate(m.getMillisecond(), m.getPotency() * costDao.getCostValue());
+                for (int i = 0; i < mensuration.size(); i++) {
+                    cost[i] = costDao.getCostValue() * m.getPotency();
+                    double costNext = costDao.getCostValue() * mensuration.iterator().next().getPotency();
+                    if (cost[i] > costNext) {
+                        updateCostMax(cost[i]);
+                        updateCostMin(costNext);
                     }
                 }
-                updateJLabel(flowValue, m.getFlow(), lastMensuration.getFlow());
-                updateJLabel(tensionValue, m.getTension(), lastMensuration.getTension());
-                updateJLabel(potencyvalue, m.getPotency(), currentPotency);
 
-                lastMensuration = m;
+                if (estimate_data.size() < NUM_ESTIMATES) {
+                    estimate_data.add(m);
+                } else {
+                    estimate_data.remove(0);
+                    estimate_data.add(m);
+                    int estimationNumber = Integer.parseInt(estimateValue.getText());
+                    if (cost.length >= NUM_ESTIMATES) {
+                        double[] fx = new double[NUM_ESTIMATES];
+                        double[] estimation = new double[NUM_ESTIMATES];
+                        int k = cost.length - NUM_ESTIMATES;
+                        int i = 0;
+                        while (i < NUM_ESTIMATES) {
+                            fx[i] = estimate_data.get(i).getPotency() * costDao.getCostValue();
+                            i++;
+                            k++;
+                        }
+                        gj.loadFx(fx);
+                        estimation = gj.estimate(estimationNumber);
+                        Second estimativeTime;
+                        for (i = 0; i < estimation.length; i++) {
+                            estimativeTime = m.getMillisecond().getSecond();
+                            for (k = 0; k < i; k++) {
+                                estimativeTime = (Second) estimativeTime.next();
+                            }
+                            estimate.addOrUpdate(estimativeTime, estimation[i]);
+                        }
+                    }
+                }
+
+                if (this.tensionValue != null) {
+                    if (this.tensionValue.isShowing()) {
+                        try {
+                            updateButton(m);
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(EstimationOnRealThread.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
             }
-
             try {
                 Thread.sleep(Integer.parseInt(properties.getString("REFRESH_TIME")));
-            } catch (InterruptedException ex) {
-                Logger.getLogger(EstimationOnRealThread.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
 
-    private void updateJLabel(JLabel jLabel, double current, double last) {
-        if (jLabel != null) {
-            jLabel.setText(String.format("%.3f", current));
-            if (last > current) {
-                jLabel.setIcon(new ImageIcon("/icons/arow_down.png"));
-            } else {
-                jLabel.setIcon(new ImageIcon("/icons/arow_up.png"));
-            }
-            jLabel.revalidate();
-            jLabel.repaint();
+    private void updateButton(Mensuration m) throws InterruptedException {
+        if (this.flowValue != null) {
+            this.flowValue.setText(String.valueOf(m.getFlow()));
+            this.tensionValue.setText(String.valueOf(m.getTension()));
+            this.potencyvalue.setText(String.valueOf(m.getPotency()));
+        }
+        Thread.sleep(Integer.parseInt(properties.getString("REFRESH_TIME")));
+    }
+
+    private void updateCostMax(double maxCost) {
+        if (maxCostValue != null) {
+            maxCostValue.setText(String.format("%.2f", maxCost));
+        }
+
+    }
+
+    private void updateCostMin(double minCost) {
+        if (minCostValue != null) {
+            minCostValue.setText(String.format("%.2f", minCost));
         }
     }
 }

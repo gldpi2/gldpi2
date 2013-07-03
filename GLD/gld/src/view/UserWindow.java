@@ -17,8 +17,8 @@ import javax.swing.table.TableColumn;
 import model.Login;
 import model.User;
 import model.UserTableModel;
-import utils.SQLFindUserException;
-import utils.SQLRegisterException;
+import exceptions.SQLFindUserException;
+import exceptions.SQLRegisterException;
 
 /**
  *

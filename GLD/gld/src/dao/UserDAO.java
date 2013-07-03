@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import model.User;
 import utils.DatabaseInterface;
-import utils.SQLFindUserException;
-import utils.SQLRegisterException;
+import exceptions.SQLFindUserException;
+import exceptions.SQLRegisterException;
 
 /**
  *

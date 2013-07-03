@@ -21,6 +21,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static LoadCurveWindow loadWindow;
     public static CostWindow costWindow;
     public static EstimationOnHistoryWindow eohWindow;
+    public static EstimationOnRealWindow eorWindow;
     public static UserWindow userWindow;
     public static EstimationCurveMenu estimationCurveMenu;
     public static EstimationCostMenu estimationCostMenu;
@@ -379,12 +380,12 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSobreActionPerformed
 
     private void menuCustoTempoRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCustoTempoRealActionPerformed
-        //desktop.removeAll();
-        //estimationCostMenu = new EstimationCostMenu(user);
-        //desktop.add(estimationCostMenu);
-        //desktop.revalidate();
-        //desktop.repaint();
-        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+        desktop.removeAll();
+        eorWindow = new EstimationOnRealWindow(MainWindow.desktop.getHeight(), MainWindow.user);
+        desktop.add(eorWindow);
+        desktop.revalidate();
+        desktop.repaint();
+        //JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuCustoTempoRealActionPerformed
 
     private void menuConsumoTempoRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsumoTempoRealActionPerformed

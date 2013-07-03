@@ -1,43 +1,76 @@
 package view;
 
-import controller.LoadCurveCtrl;
+import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.data.time.Millisecond;
+import org.jfree.data.time.Second;
 import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.TimeSeriesCollection;
+
 
 /**
  *
  * @author itallorossi
  */
 public class EstimationOnRealChart extends javax.swing.JPanel {
-
-    public LoadCurveCtrl loadCurveCtrl = new LoadCurveCtrl();
+    private static final long serialVersionUID = 1L;
+    
+    public TimeSeries series, estimate;
+    public JFreeChart result;
+    public ChartPanel myChartPanel;
+    int state;
 
     /**
-     * Creates new form CharPanel
+     * Método construtor para construção do gráfico
+     * @param x largua
+     * @param y altura
      */
     public EstimationOnRealChart(int x, int y) {
         initComponents();
         setSize(x, y);
     }
 
-    public void startGraph() {
-        ChartPanel panel = loadCurveCtrl.createLoadCurveGraphPanel();
-        panel.setSize(this.getWidth(), this.getHeight());
-        panel.setVisible(true);
+   /**
+    * Método de criação do gráfico.
+    * Utilizando gráfico de series
+    */ 
+    public void criaGrafico(){
+        series = new TimeSeries("Custo Real(R$/kWh)", Millisecond.class);
+        estimate = new TimeSeries("Estimativa(R$/kWh)", Second.class);
+        final TimeSeriesCollection dataset = new TimeSeriesCollection(series);
+        dataset.addSeries(estimate);
+                       
+        result = ChartFactory.createTimeSeriesChart("Estimativa de Custo","Hora", "Valor em Real (R$)",dataset,true,true,false);
+        final XYPlot plot = result.getXYPlot();
+        ValueAxis axis = plot.getDomainAxis();
+        axis.setAutoRange(true);
+        axis.setFixedAutoRange(60000.0);
+        axis = plot.getRangeAxis();
+        axis.setRange(0.0, 10.0);
+        
+        myChartPanel = new ChartPanel(result, true);
+        myChartPanel.setSize(this.getWidth(), this.getHeight());
+        myChartPanel.setVisible(true);
         this.removeAll();
-        this.add(panel);
+        this.add(myChartPanel);
         this.revalidate();
         this.repaint();
-        loadCurveCtrl.setState(1);
+        
+        
+        state = 1;
     }
 
-    public TimeSeries getSeries() {
-        return this.loadCurveCtrl.getSeries();
-    }
-
+    /**
+     * Método para alteração do tamanho
+     * @param x largura
+     * @param y altura
+     */
     public void changeSize(int x, int y) {
-        if (loadCurveCtrl.getState() != 0) {
-            loadCurveCtrl.setSize(x, y);
+        if (state != 0) {
+            myChartPanel.setSize(x, y);
             this.setSize(x, y);
         }
     }

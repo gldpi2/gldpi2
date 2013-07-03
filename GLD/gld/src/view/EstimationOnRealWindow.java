@@ -1,3 +1,7 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package view;
 
 import javax.swing.JFrame;
@@ -6,19 +10,20 @@ import utils.EstimationOnRealThread;
 
 /**
  *
- * @author Fernando Santos
+ * @author itallorossi
  */
 public class EstimationOnRealWindow extends javax.swing.JPanel {
 
     int i = 0, state = 0;
-    private EstimationOnRealChart estimationOnRealChart;
-    private Thread updaterThread;
+    private EstimationOnRealChart pg;
+    private Thread th;
 
     MainMenu mainm;
     NewMainMenu newMainm;
     Login user;
     /**
-     * Creates new form PatternWindow
+     * Método construtor do Objeto de Window
+     * @param y altura da tela
      */
     public EstimationOnRealWindow(int y, Login user) {
         initComponents();
@@ -28,21 +33,25 @@ public class EstimationOnRealWindow extends javax.swing.JPanel {
         this.init();
     }
 
+    /**
+     * Método de iniciação do componente.
+     * Ajusta o tamanho do painel do gráfico dentro do tela
+     */
     public void init() {
         desktop.removeAll();
-        estimationOnRealChart = new EstimationOnRealChart(desktop.getWidth(), desktop.getHeight());
-        estimationOnRealChart.startGraph();
+        pg = new EstimationOnRealChart(desktop.getWidth(), desktop.getHeight());
+        pg.criaGrafico();
 
-        updaterThread = new Thread(new EstimationOnRealThread(estimationOnRealChart.getSeries(),
-                                                                this.FlowValue, this.TensionValue, this.PotencyValue, 
-                                                                this.qtdeEstimativasLabel));
-        updaterThread.setDaemon(true);
-        updaterThread.start();
+        pg.criaGrafico();
+        th = new Thread(new EstimationOnRealThread(pg.series, pg.estimate, this.FlowValue, this.TensionValue, this.PotencyValue,
+                this.estimateNumberLabel ,this.maxCost, this.minCost));
+        th.setDaemon(true);
+        th.start();
 
-        desktop.add(estimationOnRealChart);
+        desktop.add(pg);
         state = 1;
-    }
-
+ }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,17 +66,16 @@ public class EstimationOnRealWindow extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         matricula = new javax.swing.JLabel();
-        maxPotencyLabel = new javax.swing.JLabel();
-        maxPotencyValue = new javax.swing.JLabel();
-        maxPotencyTime = new javax.swing.JLabel();
-        minPotencyLabel = new javax.swing.JLabel();
-        minPotencyValue = new javax.swing.JLabel();
-        minPotencyTime = new javax.swing.JLabel();
+        jLabelCostMax = new javax.swing.JLabel();
+        maxCost = new javax.swing.JLabel();
+        jLabelCostMin = new javax.swing.JLabel();
+        minCost = new javax.swing.JLabel();
+        maxCost1 = new javax.swing.JLabel();
+        maxCost2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jSlider1 = new javax.swing.JSlider();
-        jLabel1 = new javax.swing.JLabel();
-        qtdeEstimativasLabel = new javax.swing.JLabel();
+        estimateLabel = new javax.swing.JLabel();
+        estimateNumberLabel = new javax.swing.JLabel();
+        estimateSlider = new javax.swing.JSlider();
         jSeparator1 = new javax.swing.JSeparator();
         desktop = new javax.swing.JPanel();
         infoPanel = new javax.swing.JPanel();
@@ -80,7 +88,7 @@ public class EstimationOnRealWindow extends javax.swing.JPanel {
 
         jButton4.setText("jButton4");
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Estimativa de Carga", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 24))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Estimativa de Custos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 24))); // NOI18N
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -102,25 +110,19 @@ public class EstimationOnRealWindow extends javax.swing.JPanel {
 
         matricula.setText("user");
 
-        maxPotencyLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        maxPotencyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        maxPotencyLabel.setText("Demanda Máxima");
+        jLabelCostMax.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/currency_dollar_red (1).png"))); // NOI18N
+        jLabelCostMax.setText("Custo Máximo: ");
 
-        maxPotencyValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        maxPotencyValue.setText("Atualizando...");
+        maxCost.setText("Atualizando...");
 
-        maxPotencyTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        maxPotencyTime.setText("Atualizando...");
+        jLabelCostMin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/currency_dollar_green (1).png"))); // NOI18N
+        jLabelCostMin.setText("Custo Mínimo:");
 
-        minPotencyLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
-        minPotencyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        minPotencyLabel.setText("Demanda Mínima");
+        minCost.setText("Atualizando...");
 
-        minPotencyValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        minPotencyValue.setText("Atualizando...");
+        maxCost1.setText("R$:");
 
-        minPotencyTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        minPotencyTime.setText("Atualizando...");
+        maxCost2.setText("R$:");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -128,95 +130,83 @@ public class EstimationOnRealWindow extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jLabel2)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(matricula)
-                .add(87, 87, 87)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(maxPotencyTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(maxPotencyValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(maxPotencyLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .add(18, 18, 18)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(minPotencyTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(minPotencyValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(minPotencyLabel))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jLabel2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(matricula)
+                        .add(68, 68, 68)
+                        .add(jLabelCostMax))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(maxCost1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(maxCost)))
+                .add(90, 90, 90)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jLabelCostMin)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(maxCost2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(minCost)))
+                .addContainerGap(306, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(minPotencyLabel)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(minPotencyValue)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(minPotencyTime))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel2)
-                            .add(matricula)
-                            .add(maxPotencyLabel))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(maxPotencyValue)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(maxPotencyTime)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel2)
+                    .add(matricula)
+                    .add(jLabelCostMax)
+                    .add(jLabelCostMin))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(maxCost)
+                    .add(minCost, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(maxCost1)
+                    .add(maxCost2))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Comandos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Dia", "Mês", "Ano" }));
+        estimateLabel.setText("Número de Projeções:");
 
-        jSlider1.setMaximum(20);
-        jSlider1.setMinimum(2);
-        jSlider1.setMinorTickSpacing(1);
-        jSlider1.setPaintLabels(true);
-        jSlider1.setPaintTicks(true);
-        jSlider1.setSnapToTicks(true);
-        jSlider1.setValue(10);
-        jSlider1.setValueIsAdjusting(true);
-        jSlider1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        estimateNumberLabel.setText("1");
+
+        estimateSlider.setMajorTickSpacing(1);
+        estimateSlider.setMaximum(10);
+        estimateSlider.setMinimum(1);
+        estimateSlider.setMinorTickSpacing(1);
+        estimateSlider.setPaintTicks(true);
+        estimateSlider.setValue(1);
+        estimateSlider.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jSlider1MouseDragged(evt);
+                estimateSliderMouseDragged(evt);
             }
         });
-
-        jLabel1.setText("<html>Quantidade de <br>estimativas:</html>");
-
-        qtdeEstimativasLabel.setText(""+jSlider1.getValue());
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(qtdeEstimativasLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(jComboBox1, 0, 141, Short.MAX_VALUE)
-                            .add(jSlider1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .add(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .add(estimateLabel)
+                    .add(estimateNumberLabel)
+                    .add(estimateSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(qtdeEstimativasLabel))
+                .add(estimateLabel)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jSlider1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(estimateNumberLabel)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(estimateSlider, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -231,11 +221,11 @@ public class EstimationOnRealWindow extends javax.swing.JPanel {
         desktop.setLayout(desktopLayout);
         desktopLayout.setHorizontalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 399, Short.MAX_VALUE)
+            .add(0, 414, Short.MAX_VALUE)
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 656, Short.MAX_VALUE)
+            .add(0, 614, Short.MAX_VALUE)
         );
 
         infoPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tempo Real", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
@@ -297,7 +287,7 @@ public class EstimationOnRealWindow extends javax.swing.JPanel {
                 .add(FlowLabel)
                 .add(18, 18, 18)
                 .add(FlowValue)
-                .addContainerGap(318, Short.MAX_VALUE))
+                .addContainerGap(284, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -313,8 +303,9 @@ public class EstimationOnRealWindow extends javax.swing.JPanel {
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(infoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(infoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(13, 13, 13))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
                         .add(jButton2)))
@@ -324,13 +315,17 @@ public class EstimationOnRealWindow extends javax.swing.JPanel {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(infoPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(infoPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(3, 3, 3)))
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jButton2)
@@ -340,12 +335,13 @@ public class EstimationOnRealWindow extends javax.swing.JPanel {
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         if (state == 1) {
-            estimationOnRealChart.changeSize(desktop.getWidth(), desktop.getHeight());
+            pg.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_formComponentResized
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         //MainWindow.desktop.removeAll();
+        //user = Login.getInstance();
         //mainm = new MainMenu(user);
         //MainWindow.desktop.add(mainm);
         //MainWindow.desktop.revalidate();
@@ -355,19 +351,18 @@ public class EstimationOnRealWindow extends javax.swing.JPanel {
         MainWindow.desktop.add(newMainm);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
-        updaterThread.stop();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void desktopComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_desktopComponentResized
         if (state == 1) {
-            estimationOnRealChart.changeSize(desktop.getWidth(), desktop.getHeight());
+            pg.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_desktopComponentResized
 
-    private void jSlider1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSlider1MouseDragged
+    private void estimateSliderMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_estimateSliderMouseDragged
         // TODO add your handling code here:
-        qtdeEstimativasLabel.setText(""+jSlider1.getValue());
-    }//GEN-LAST:event_jSlider1MouseDragged
+        estimateNumberLabel.setText(""+estimateSlider.getValue());
+    }//GEN-LAST:event_estimateSliderMouseDragged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FlowLabel;
@@ -377,24 +372,23 @@ public class EstimationOnRealWindow extends javax.swing.JPanel {
     private javax.swing.JLabel TensioLabel;
     private javax.swing.JLabel TensionValue;
     private javax.swing.JPanel desktop;
+    private javax.swing.JLabel estimateLabel;
+    private javax.swing.JLabel estimateNumberLabel;
+    private javax.swing.JSlider estimateSlider;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelCostMax;
+    private javax.swing.JLabel jLabelCostMin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSlider jSlider1;
     private javax.swing.JLabel matricula;
-    private javax.swing.JLabel maxPotencyLabel;
-    private javax.swing.JLabel maxPotencyTime;
-    private javax.swing.JLabel maxPotencyValue;
-    private javax.swing.JLabel minPotencyLabel;
-    private javax.swing.JLabel minPotencyTime;
-    private javax.swing.JLabel minPotencyValue;
-    private javax.swing.JLabel qtdeEstimativasLabel;
+    private javax.swing.JLabel maxCost;
+    private javax.swing.JLabel maxCost1;
+    private javax.swing.JLabel maxCost2;
+    private javax.swing.JLabel minCost;
     // End of variables declaration//GEN-END:variables
 public static void main(String args[]) {
         final JFrame frame = new JFrame();
@@ -407,5 +401,4 @@ public static void main(String args[]) {
                 frame.setVisible(true);
             }
         });
-    }
-}
+    }}
