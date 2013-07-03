@@ -47,5 +47,30 @@ public class EstimationOnHistoryDAO {
         return measurementList;
     }
 
+    public List<Mensuration> getMensurationLast672Hours() throws SQLException {
+        List<Mensuration> measurementList;
+
+        measurementList = new ArrayList<>();
+
+        String sql = "SELECT * "
+                + "FROM mensuration "
+                + "LIMITE 0, " + String.valueOf(NUMBER_REG_WEEK*4)
+                + "ORDER BY  `mensuration`.`timestamp` DESC ";
+
+        dbInterface.connect();
+        ResultSet rs = dbInterface.executeQuery(sql);
+        while (rs.next()) {
+            Mensuration mensuration;
+            mensuration = new Mensuration();
+            mensuration.setIdMensuration(rs.getInt("id_mensuration"));
+            mensuration.setFlow(rs.getDouble("flow"));
+            mensuration.setTension(rs.getDouble("tension"));
+            mensuration.setTimestamp(rs.getString("timestamp"));
+            measurementList.add(mensuration);
+        }
+        dbInterface.disconnect();
+        return measurementList;
+    }
+
     
 }
