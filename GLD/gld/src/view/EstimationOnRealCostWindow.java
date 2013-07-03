@@ -4,7 +4,6 @@
  */
 package view;
 
-import javax.swing.JFrame;
 import model.Login;
 import utils.EstimationOnRealCostThread;
 
