@@ -4,7 +4,7 @@
  */
 package utils;
 
-import controller.CostCtrl;
+import controller.LoadEstimationOnHistoryCtrl;
 import dao.CostDAO;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +25,7 @@ public class EstimationOnRealThread implements Runnable {
 
     ResourceBundle properties = ResourceBundle.getBundle("utils.PropertiesFile");
     private CostDAO costDao = new CostDAO();
-    CostCtrl ctrl = new CostCtrl();
+    LoadEstimationOnHistoryCtrl ctrl = new LoadEstimationOnHistoryCtrl();
     GaussJordan gj = new GaussJordan();
     private TimeSeries series;
     private TimeSeries estimate;
