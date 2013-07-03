@@ -5,6 +5,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,11 +18,15 @@ public class PowerGridMonitor implements Runnable {
     private ArrayList<Thread> storeMeasurementThread = new ArrayList<>();
     private int idThread = 0;
     private int maxThread = 100;
+    private ResourceBundle properties;
+    private int port;
 
     /**
      * Método construtor da classe PowerGridMonitor.
      */
     public PowerGridMonitor() {
+        this.properties = ResourceBundle.getBundle("utils.PropertiesFile");
+        port = Integer.parseInt(this.properties.getString("PORT"));
     }
 
     /**
@@ -31,7 +36,7 @@ public class PowerGridMonitor implements Runnable {
     public void run() {
         DatagramSocket serverSocket;
         try {
-            serverSocket = new DatagramSocket(9876);
+            serverSocket = new DatagramSocket(this.port);
 
             while (true) {
                 byte[] receiveData = new byte[1024];
