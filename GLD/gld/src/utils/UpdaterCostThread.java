@@ -4,7 +4,7 @@
  */
 package utils;
 
-import controller.CostEstimationOnHistoryCtrl;
+import controller.CostCtrl;
 import dao.CostDAO;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,7 +22,7 @@ public class UpdaterCostThread implements Runnable {
 
     ResourceBundle properties = ResourceBundle.getBundle("utils.PropertiesFile");
     private CostDAO costDao = new CostDAO();
-    CostEstimationOnHistoryCtrl ctrl = new CostEstimationOnHistoryCtrl();
+    CostCtrl ctrl = new CostCtrl();
     private TimeSeries series;
     private JLabel flowValue;
     private JLabel tensionValue;

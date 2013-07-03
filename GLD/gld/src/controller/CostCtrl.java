@@ -4,10 +4,10 @@
  */
 package controller;
 
-import dao.LoadEstimationOnHistoryDAO;
-import java.sql.SQLException;
-import java.util.List;
-import model.Mensuration;
+import static controller.CostCtrl.HOUR;
+import static controller.CostCtrl.PEAK;
+import static controller.CostCtrl.VALUE_OFFPEAK;
+import model.Cost;
 
 /**
  *
@@ -15,73 +15,44 @@ import model.Mensuration;
  */
 public class CostCtrl {
 
-    double minor;
-    double greater;
-    double better;
-    private LoadEstimationOnHistoryDAO dao = new LoadEstimationOnHistoryDAO();
-    //TODO, NOT IMPLEMENTED YET
-    public static final int INTERVAL_HOUR = 1;
-    public static final int INTERVAL_LAST_60_MIM = 1;
-    //TODO, NOT IMPLEMENTED YET
-    public static final int INTERVAL_DAY = 2;
-    public static final int INTERVAL_LAST_DAY = 3;
-    public static final int INTERVAL_LAST_24_HOURS = 4;
-    //TODO, NOT IMPLEMENTED YET
-    public static final int INTERVAL_WEEK = 5;
-    public static final int INTERVAL_LAST_168_HOURS = 6;
-    //TODO, NOT IMPLEMENTED YET
-    public static final int INTERVAL_MONTH = 7;
-    public static final int INTERVAL_LAST_672_HOURS = 8;
+    public final static double HOUR = 3600;
+    public final static double PEAK = 19.65 / HOUR;
+    public final static double VALUE_OFFPEAK = 5.22 / HOUR;
+    Cost cost = new Cost();
+    String time;
+    double hour;
 
-    private double pert(double greater, double minor, double better) {
-        double index = ((greater + minor + (4 * better)) / 6);
-        return index;
+    public String getTime() {
+        return time;
     }
-    
-    public double getPert(int interval){
-        try {
-            List<Mensuration> data;
-            switch (interval) {
-                case INTERVAL_LAST_60_MIM:
-                    data = dao.getMensurationLast60Minutes();
-                    break;
-                //Estimativa conforme o último dia da semana passada (ex: terça passada)
-                case INTERVAL_LAST_DAY:
-                    data = dao.getMensurationADayLastWeek();
-                    break;
-                case INTERVAL_LAST_24_HOURS:
-                    data = dao.getMensurationLast24Hours();
-                    break;
-                case INTERVAL_LAST_168_HOURS:
-                    data = dao.getMensurationLast168Hours();
-                    break;
-                case INTERVAL_LAST_672_HOURS:
-                    data = dao.getMensurationLast672Hours();
-                    break;
 
-                default:
-                    System.err.print("No correct interval passed for PERL function");
-                    return 0;
-            }
+    public void setTime(String time) {
+        this.time = time;
+    }
 
-            Mensuration tempMensuration = data.get(0);
-            minor = tempMensuration.getFlow();
-            greater = tempMensuration.getFlow();
-            double avarage = 0;
-            for (Mensuration item : data) {
-                if (item.getFlow() > greater) {
-                    greater = item.getFlow();
-                }
-                if (item.getFlow() < minor) {
-                    minor = item.getFlow();
-                }
-                avarage += item.getFlow();
-            }
-            return this.pert(greater, minor, avarage / data.size());
-        } catch (SQLException e){
-            System.err.print(e.getSQLState());
-            return 0;
+    /**
+     * Método para cálculo da hora/kWh
+     *
+     * @param tension tensão no momento atual
+     * @param flow corrente no momento atual
+     * @return custo atual.
+     */
+    public double energyValue() {
+
+        /**
+         * Método que verifica a hora do banco de dados e coloca o valor do kWh de
+         * acordo com o documento da CEB (Companhia Energética de Brasília) Hora
+         * de ponta é entre 18 e 21 e o restante tem valor menor
+         */
+        hour = Double.parseDouble(getTime());
+        if (hour >= 18 && hour < 21) {
+            cost.setValueEnergy(PEAK);
+        } else {
+            cost.setValueEnergy(VALUE_OFFPEAK);
         }
+        double costValue = cost.getValueEnergy()*100;
+        
 
+        return costValue;
     }
 }
