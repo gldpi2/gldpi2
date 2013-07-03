@@ -146,5 +146,25 @@ public class EstimationOnHistoryDAO {
         return measurementList;
     }
 
-    
+    public Mensuration getLastMensuration() throws SQLException {
+        Mensuration mensuration = new Mensuration();
+
+        dbInterface.connect();
+        int lastId = dbInterface.getLastId("mensuration");
+
+        String sql = "SELECT * FROM mensuration WHERE id_mensuration =" + lastId;
+
+        ResultSet rs = dbInterface.executeQuery(sql);
+
+        while (rs.next()) {
+            mensuration.setIdMensuration(rs.getInt("id_mensuration"));
+            mensuration.setFlow(rs.getDouble("flow"));
+            mensuration.setTension(rs.getDouble("tension"));
+            mensuration.setTimestamp(rs.getString("timestamp"));
+        }
+
+        dbInterface.disconnect();
+
+        return mensuration;
+    }
 }
