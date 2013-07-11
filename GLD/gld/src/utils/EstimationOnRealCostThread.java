@@ -59,7 +59,7 @@ public class EstimationOnRealCostThread implements Runnable {
      */
     @Override
     public void run() {
-        List<Mensuration> mensuration = this.costDao.parameters();
+        List<Mensuration> mensuration = this.costDao.allMeasurements();
         double[] cost = new double[mensuration.size()];
         ArrayList<Mensuration> estimate_data = new ArrayList();
         while (mensuration.size() > 0) {

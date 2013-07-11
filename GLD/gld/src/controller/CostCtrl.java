@@ -8,6 +8,7 @@ import static controller.CostCtrl.HOUR;
 import static controller.CostCtrl.PEAK;
 import static controller.CostCtrl.VALUE_OFFPEAK;
 import model.Cost;
+import model.Mensuration;
 
 /**
  *
@@ -54,5 +55,29 @@ public class CostCtrl {
         
 
         return costValue;
+    }
+    
+    public void setCostMax(double maxCost){
+         cost.setMaxCost(maxCost);
+    }
+    
+    public void setCostMin(double minCost){
+        cost.setMinCost(minCost);
+    }
+    
+    public double getCostMax(){
+        return cost.getMaxCost();
+    }
+    
+    public double getCostMin(){
+        return cost.getMinCost();
+    }
+    
+    public void setMensuration(Mensuration mensuration){
+        cost.mensuration = mensuration;
+    }
+    
+    public Mensuration getMensuration(){
+        return cost.mensuration;
     }
 }

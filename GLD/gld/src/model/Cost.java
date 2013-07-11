@@ -9,6 +9,9 @@ public class Cost {
     double valueEnergy = 0.0;
     double costValue;
     String time;
+    public double maxCost;
+    public double minCost;
+    public Mensuration mensuration = new Mensuration();
 
     /**
      * Método para configurar o valor de energia
@@ -48,4 +51,23 @@ public class Cost {
     public void setTime(String time) {
         this.time = time;
     }
+
+    public double getMaxCost() {
+        return maxCost;
+    }
+
+    public void setMaxCost(double maxCost) {
+        this.maxCost = maxCost;
+    }
+
+    public double getMinCost() {
+        return minCost;
+    }
+
+    public void setMinCost(double minCost) {
+        this.minCost = minCost;
+    }
+    
+    
+    
 }

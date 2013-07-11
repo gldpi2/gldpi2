@@ -18,7 +18,7 @@ public class CostChart extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
     
     public TimeSeries series;
-    public JFreeChart result;
+    public JFreeChart costChart;
     public ChartPanel myChartPanel;
     int state;
 
@@ -40,15 +40,19 @@ public class CostChart extends javax.swing.JPanel {
         series = new TimeSeries("R$/kWh", Millisecond.class);
         final TimeSeriesCollection dataset = new TimeSeriesCollection(series);
                        
-        result = ChartFactory.createTimeSeriesChart("Gráfico de Custo","Hora", "Valor em Real (R$)",dataset,true,true,false);
-        final XYPlot plot = result.getXYPlot();
-        ValueAxis axis = plot.getDomainAxis();
-        axis.setAutoRange(true);
-        axis.setFixedAutoRange(60000.0);
-        axis = plot.getRangeAxis();
-        axis.setRange(0.0, 10.0);
+        costChart = ChartFactory.createTimeSeriesChart("Gráfico de Custo","Hora", "Valor em Real (R$)",dataset,true,true,false);
+        final XYPlot plot = costChart.getXYPlot();
+        ValueAxis xAxis = plot.getDomainAxis();
+        xAxis.setAutoRange(true);
+        xAxis.setFixedAutoRange(60000.0);
+        //xAxis.setRange(0, 86400000);
         
-        myChartPanel = new ChartPanel(result, true);
+        ValueAxis yAxis;
+        yAxis = plot.getRangeAxis();
+        //yAxis.setRange(0.0, 10.0);
+        yAxis.setAutoRange(true);
+        
+        myChartPanel = new ChartPanel(costChart, true);
         myChartPanel.setSize(this.getWidth(), this.getHeight());
         myChartPanel.setVisible(true);
         this.removeAll();
