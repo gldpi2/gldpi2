@@ -49,7 +49,7 @@ public class MainWindow extends javax.swing.JFrame {
         }
 
         //this.init();
-        
+
         //descomentar caso queira chamar essa main menu
         this.initNewMenu();
 
@@ -66,10 +66,10 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.revalidate();
         desktop.repaint();
 
-        state = 1;  
+        state = 1;
     }
-    
-    private void initNewMenu(){
+
+    private void initNewMenu() {
         desktop.removeAll();
         pg2 = new NewMainMenu(user);
         desktop.add(pg2);
@@ -81,7 +81,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void initPowerGridMonitor() {
         Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "Inicializando PowerGridMonitorThread");
-        
+
         powerGridMonitor = new PowerGridMonitor();
 
         monitorThread = new Thread(powerGridMonitor);
@@ -336,7 +336,7 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_menuCustosActionPerformed
-    
+
     private void menuConsumoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsumoActionPerformed
         desktop.removeAll();
         loadWindow = new LoadCurveWindow(desktop.getHeight(), user);
@@ -390,12 +390,12 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCustoTempoRealActionPerformed
 
     private void menuConsumoTempoRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsumoTempoRealActionPerformed
-       desktop.removeAll();
-       eorLoadWindow = new EstimationOnRealLoadWindow(MainWindow.desktop.getHeight(), MainWindow.user);
-       desktop.add(eorLoadWindow);
-       desktop.revalidate();
-       desktop.repaint();
-       //JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+        desktop.removeAll();
+        eorLoadWindow = new EstimationOnRealLoadWindow(MainWindow.desktop.getHeight(), MainWindow.user);
+        desktop.add(eorLoadWindow);
+        desktop.revalidate();
+        desktop.repaint();
+        //JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuConsumoTempoRealActionPerformed
 
     private void menuVoltarMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVoltarMenuPrincipalActionPerformed
@@ -419,7 +419,6 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_menuEstudoContratualActionPerformed
 
     private void closePowerGridMonitorThread() {
-        monitorThread.stop();
         Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "PowerGridMonitorThread parada.");
     }
 
@@ -430,7 +429,7 @@ public class MainWindow extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

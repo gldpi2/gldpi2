@@ -17,7 +17,7 @@ count = 0;
 while true do
 	-- contact daytime host
 	flow = (count % 10) + 1
-	msg = "3,"..flow..",1.0,"
+	msg = "3,"..flow..","..flow..","
 	assert(udp:sendto(msg, ip, port))
 	print (msg)
 	count = count + 1

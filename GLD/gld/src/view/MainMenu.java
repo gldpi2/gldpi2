@@ -1,18 +1,10 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import model.Login;
 import utils.UpdaterCostThread;
 import utils.UpdaterLoadCurveThread;
 import static view.MainWindow.desktop;
-import static view.MainWindow.loadWindow;
-import static view.MainWindow.user;
 
 /**
  *
@@ -20,16 +12,11 @@ import static view.MainWindow.user;
  */
 public class MainMenu extends javax.swing.JPanel {
 
-    
     int i = 0, state = 0;
     private CostChart costChart;
     private LoadCurveChart loadCurveChart;
-    
-    private Thread updaterThread;
-    
+    private Thread loadCurveUpdaterThread;
     private MainMenu pg;
-
-  
     private javax.swing.JLabel FlowValue;
     private javax.swing.JLabel PotencyValue;
     private javax.swing.JLabel TensionValue;
@@ -39,70 +26,47 @@ public class MainMenu extends javax.swing.JPanel {
     private javax.swing.JLabel minPotencyTime;
     private javax.swing.JLabel maxCostValue;
     private javax.swing.JLabel minCostValue;
-    
+
     /**
      * Creates new form MainMenu
      */
     public MainMenu(Login user) {
         initComponents();
         setSize(1024, 678);
+    }
 
-        this.init();
-      
-        //this.FlowValue.setVisible(false);
-        //this.PotencyValue.setVisible(false);
-        //this.TensionValue.setVisible(false);
-        //this.panelHibrido.setVisible(false);
-
-        //desabilitar cadastro para perfil 2
-        //if (Integer.parseInt(user.getTipo()) == 2) {
-            //panelCadastros.setVisible(false);
-            //panelCadastros.disable();
-        //}
-
-        //matricula.setText(user.getMatricula());
-     }
-    
-
-     public void init() {
+    public void init() {
         //teoricamente era pra rodar gráfico de custo.
         panelCost.removeAll();
         costChart = new CostChart(panelCost.getWidth(), panelCost.getHeight());
         costChart.criaGrafico();
 
         costChart.criaGrafico();
-        Thread th = new Thread(new UpdaterCostThread(costChart.series, 
-                                                    this.FlowValue, this.TensionValue, this.PotencyValue,
-                                                    this.maxCostValue, this.minCostValue));
-        th.setDaemon(true);
-        th.start();
-        
+        Thread costUpdaterCostThread = new Thread(new UpdaterCostThread(costChart.series));
+        costUpdaterCostThread.setDaemon(true);
+        costUpdaterCostThread.start();
+
         desktop.add(costChart);
         panelCost.add(costChart);
         panelCost.revalidate();
         panelCost.repaint();
-          
-                         //rodar grafico de consumo
+
+        //rodar grafico de consumo
         panelConsumption.removeAll();
         loadCurveChart = new LoadCurveChart(panelConsumption.getWidth(), panelConsumption.getHeight());
         loadCurveChart.startGraph();
-        
-        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries(),
-                                                              this.FlowValue, this.TensionValue, this.PotencyValue, 
-                                                              this.maxPotencyValue, this.maxPotencyTime,
-                                                              this.minPotencyValue, this.minPotencyTime));
-        updaterThread.setDaemon(true);
-        updaterThread.start();
+
+        loadCurveUpdaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries()));
+        loadCurveUpdaterThread.setDaemon(true);
+        loadCurveUpdaterThread.start();
 
         desktop.add(loadCurveChart);
         panelConsumption.add(loadCurveChart);
         panelConsumption.revalidate();
         panelConsumption.repaint();
-        
-        
-        state = 1;        
- }
-     
+
+        state = 1;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -337,7 +301,7 @@ public class MainMenu extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
- 
+
     private void buttonUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUserActionPerformed
         MainWindow.desktop.removeAll();
         MainWindow.userWindow = new UserWindow(desktop.getHeight());
@@ -375,11 +339,7 @@ public class MainMenu extends javax.swing.JPanel {
     }//GEN-LAST:event_panelConsumptionComponentResized
 
     private void buttonCosteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCosteActionPerformed
-        //MainWindow.desktop.removeAll();
-        //MainWindow.estimationCostMenu = new EstimationCostMenu(MainWindow.user);
-        //MainWindow.desktop.add(MainWindow.estimationCostMenu);
-        //MainWindow.desktop.revalidate();
-        //MainWindow.desktop.repaint();
+        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_buttonCosteActionPerformed
 
     private void buttonConsumptioneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConsumptioneActionPerformed
@@ -388,14 +348,12 @@ public class MainMenu extends javax.swing.JPanel {
         //MainWindow.desktop.add(MainWindow.estimationCurveMenu);
         //MainWindow.desktop.revalidate();
         //MainWindow.desktop.repaint();
-        
-        //JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_buttonConsumptioneActionPerformed
 
     private void buttonStudyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStudyActionPerformed
-         JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(panelCost, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_buttonStudyActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonConsumptione;
     private javax.swing.JButton buttonConsumptionm;

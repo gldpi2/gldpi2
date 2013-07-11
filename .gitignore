@@ -10,6 +10,7 @@
 *.exe
 *.o
 *.so
+*.orig
 
 # OS generated files #
 ######################
@@ -21,3 +22,4 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+/GLD/teste/nbproject/private/

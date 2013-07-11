@@ -19,10 +19,7 @@ public class NewMainMenu extends javax.swing.JPanel {
     private CostChart costChart;
     private LoadCurveChart loadCurveChart;
     private Thread updaterThread;
-    
     private MainMenu pg;
-
-  
     private javax.swing.JLabel FlowValue;
     private javax.swing.JLabel PotencyValue;
     private javax.swing.JLabel TensionValue;
@@ -32,7 +29,7 @@ public class NewMainMenu extends javax.swing.JPanel {
     private javax.swing.JLabel minPotencyTime;
     private javax.swing.JLabel maxCostValue;
     private javax.swing.JLabel minCostValue;
-    
+
     /**
      * Creates new form NewMainMenu
      */
@@ -43,33 +40,33 @@ public class NewMainMenu extends javax.swing.JPanel {
         this.init();
     }
 
-     public void init() {
+    public void init() {
         //teoricamente era pra rodar gráfico de custo.
         panelCostm.removeAll();
         costChart = new CostChart(panelCostm.getWidth(), panelCostm.getHeight());
         costChart.criaGrafico();
 
         costChart.criaGrafico();
-        Thread th = new Thread(new UpdaterCostThread(costChart.series, 
-                                                    this.FlowValue, this.TensionValue, this.PotencyValue,
-                                                    this.maxCostValue, this.minCostValue));
+        Thread th = new Thread(new UpdaterCostThread(costChart.series,
+                this.FlowValue, this.TensionValue, this.PotencyValue,
+                this.maxCostValue, this.minCostValue));
         th.setDaemon(true);
         th.start();
-        
+
         desktop.add(costChart);
         panelCostm.add(costChart);
         panelCostm.revalidate();
         panelCostm.repaint();
-          
+
         //rodar grafico de consumo
         panelConsumptionm.removeAll();
         loadCurveChart = new LoadCurveChart(panelConsumptionm.getWidth(), panelConsumptionm.getHeight());
         loadCurveChart.startGraph();
-        
+
         updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries(),
-                                                              this.FlowValue, this.TensionValue, this.PotencyValue, 
-                                                              this.maxPotencyValue, this.maxPotencyTime,
-                                                              this.minPotencyValue, this.minPotencyTime));
+                this.FlowValue, this.TensionValue, this.PotencyValue,
+                this.maxPotencyValue, this.maxPotencyTime,
+                this.minPotencyValue, this.minPotencyTime));
         updaterThread.setDaemon(true);
         updaterThread.start();
 
@@ -77,11 +74,10 @@ public class NewMainMenu extends javax.swing.JPanel {
         panelConsumptionm.add(loadCurveChart);
         panelConsumptionm.revalidate();
         panelConsumptionm.repaint();
-        
-        
-        state = 1;        
- }
-    
+
+        state = 1;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -186,7 +182,7 @@ public class NewMainMenu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void panelCostmComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_panelCostmComponentResized
-         if (state == 1) {
+        if (state == 1) {
             costChart.changeSize(panelCostm.getWidth(), panelCostm.getHeight());
         }
     }//GEN-LAST:event_panelCostmComponentResized
@@ -196,7 +192,6 @@ public class NewMainMenu extends javax.swing.JPanel {
             loadCurveChart.changeSize(panelConsumptionm.getWidth(), panelConsumptionm.getHeight());
         }
     }//GEN-LAST:event_panelConsumptionmComponentResized
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
