@@ -26,6 +26,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static UserWindow userWindow;
     public static EstimationCurveMenu estimationCurveMenu;
     public static EstimationCostMenu estimationCostMenu;
+    public static PatternWindow pattern;
     PowerGridMonitor powerGridMonitor;
     Thread monitorThread;
     int state = 0;
@@ -41,7 +42,7 @@ public class MainWindow extends javax.swing.JFrame {
         setSize(1024, 720);
         setLocationRelativeTo(null);
         user = usuario;
-        this.menuRelatorios.setVisible(false);
+        
         this.raizHibrido.setVisible(false);
 
         if (Integer.parseInt(user.getTipo()) == 2) {
@@ -101,10 +102,7 @@ public class MainWindow extends javax.swing.JFrame {
         desktop = new javax.swing.JPanel();
         barraMenu = new javax.swing.JMenuBar();
         raizArquivo = new javax.swing.JMenu();
-        menuRelatorios = new javax.swing.JMenu();
-        relatorioCusto = new javax.swing.JMenuItem();
-        relatorioConsumo = new javax.swing.JMenuItem();
-        relatorioEstimativas = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         menuRegistros = new javax.swing.JMenu();
         menuRegistrosUsuario = new javax.swing.JMenuItem();
         separadorArquivo = new javax.swing.JPopupMenu.Separator();
@@ -142,24 +140,18 @@ public class MainWindow extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 630, Short.MAX_VALUE)
+            .add(0, 638, Short.MAX_VALUE)
         );
 
         raizArquivo.setText("Arquivo");
 
-        menuRelatorios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/reports.png"))); // NOI18N
-        menuRelatorios.setText("Relatórios");
-
-        relatorioCusto.setText("Custo");
-        menuRelatorios.add(relatorioCusto);
-
-        relatorioConsumo.setText("Consumo");
-        menuRelatorios.add(relatorioConsumo);
-
-        relatorioEstimativas.setText("Estimativas");
-        menuRelatorios.add(relatorioEstimativas);
-
-        raizArquivo.add(menuRelatorios);
+        jMenuItem1.setText("Teste Calendário");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        raizArquivo.add(jMenuItem1);
 
         menuRegistros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/application_form.png"))); // NOI18N
         menuRegistros.setText("Registros");
@@ -418,6 +410,14 @@ public class MainWindow extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuEstudoContratualActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        desktop.removeAll();
+        pattern = new PatternWindow(desktop.getHeight(), user);
+        desktop.add(pattern);
+        desktop.revalidate();
+        desktop.repaint();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     private void closePowerGridMonitorThread() {
         Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "PowerGridMonitorThread parada.");
     }
@@ -459,6 +459,7 @@ public class MainWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     public static javax.swing.JPanel desktop;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem menuConsumo;
     private javax.swing.JMenuItem menuConsumoHistorico;
     private javax.swing.JMenuItem menuConsumoTempoReal;
@@ -470,7 +471,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuEstudoContratual;
     private javax.swing.JMenu menuRegistros;
     private javax.swing.JMenuItem menuRegistrosUsuario;
-    private javax.swing.JMenu menuRelatorios;
     private javax.swing.JMenuItem menuSair;
     private javax.swing.JMenuItem menuSobre;
     private javax.swing.JMenuItem menuVoltarMenuPrincipal;
@@ -479,9 +479,6 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu raizEstimativas;
     private javax.swing.JMenu raizHibrido;
     private javax.swing.JMenu raizMonitoramento;
-    private javax.swing.JMenuItem relatorioConsumo;
-    private javax.swing.JMenuItem relatorioCusto;
-    private javax.swing.JMenuItem relatorioEstimativas;
     private javax.swing.JPopupMenu.Separator separadorArquivo;
     // End of variables declaration//GEN-END:variables
 }
