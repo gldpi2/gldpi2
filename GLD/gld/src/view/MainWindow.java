@@ -20,7 +20,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static Login user;
     public static LoadCurveWindow loadWindow;
     public static CostWindow costWindow;
-    public static EstimationOnHistoryWindow eohWindow;
+    public static LoadEstimationOnHistoryWindow eohWindow;
     public static EstimationOnRealCostWindow eorCostWindow;
     public static EstimationOnRealLoadWindow eorLoadWindow;
     public static UserWindow userWindow;
@@ -400,7 +400,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuConsumoHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsumoHistoricoActionPerformed
         desktop.removeAll();
-        eohWindow = new EstimationOnHistoryWindow(MainWindow.desktop.getHeight(), MainWindow.user);
+        eohWindow = new LoadEstimationOnHistoryWindow(MainWindow.desktop.getHeight(), MainWindow.user);
         desktop.add(MainWindow.eohWindow);
         desktop.revalidate();
         desktop.repaint();

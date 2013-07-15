@@ -23,7 +23,7 @@ public class EstimationOnHistoryModelTest {
     @Test
     public void estimar(){
         
-        EstimationOnHistory est = new EstimationOnHistory();
+        LoadEstimationOnHistory est = new LoadEstimationOnHistory();
         double resultado = est.pert(5, 2, 3);
         
         assertEquals(3.1, resultado);

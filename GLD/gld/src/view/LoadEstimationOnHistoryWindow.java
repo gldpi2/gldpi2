@@ -4,7 +4,7 @@
  */
 package view;
 
-import model.EstimationOnHistory;
+import model.LoadEstimationOnHistory;
 import model.Login;
 import utils.UpdaterCostThread;
 
@@ -12,20 +12,20 @@ import utils.UpdaterCostThread;
  *
  * @author Fernando
  */
-public class EstimationOnHistoryWindow extends javax.swing.JPanel {
+public class LoadEstimationOnHistoryWindow extends javax.swing.JPanel {
 //    private static final String title = "Which operating system are you using?";
 //    ChartPanel pg;
     
     int i=0, state=0;
-    private EstimationOnHistoryChart estimationHistory;
+    private LoadEstimationOnHistoryChart estimationHistory;
     MainMenu mainm;
     NewMainMenu newMainm;
     EstimationCurveMenu estimationCurveMenu;
     Login user;
     /**
-     * Creates new form EstimationOnHistoryWindow
+     * Creates new form LoadEstimationOnHistoryWindow
      */
-    public EstimationOnHistoryWindow(int y, Login user) {
+    public LoadEstimationOnHistoryWindow(int y, Login user) {
         initComponents();
         setSize(1024,y);
         
@@ -35,13 +35,10 @@ public class EstimationOnHistoryWindow extends javax.swing.JPanel {
     
     public void init() {
         desktop.removeAll();
-        estimationHistory = new EstimationOnHistoryChart(desktop.getWidth(), desktop.getHeight());
-        estimationHistory.criaGrafico();
+        estimationHistory = new LoadEstimationOnHistoryChart(desktop.getWidth(), desktop.getHeight());
+        estimationHistory.startGraph();
         
-        EstimationOnHistory est = new EstimationOnHistory();
-        
-        System.out.println("");
-        System.out.println("INdex: " + est.getIndex());
+        LoadEstimationOnHistory est = new LoadEstimationOnHistory();
         
         desktop.add(estimationHistory);
         state = 1;

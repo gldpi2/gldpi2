@@ -8,7 +8,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.sound.midi.Soundbank;
 import model.Mensuration;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import utils.DatabaseInterface;
 
 /**
@@ -28,9 +33,9 @@ public class LoadEstimationOnHistoryDAO {
         measurementList = new ArrayList<>();
 
         String sql = "SELECT * "
-                + "FROM mensuration "
-                + "LIMITE 0, " + String.valueOf(NUMBER_REG_WEEK)
-                + "ORDER BY  `mensuration`.`timestamp` DESC ";
+                + " FROM mensuration "
+                + " LIMITE 0, " + String.valueOf(NUMBER_REG_WEEK)
+                + " ORDER BY  `mensuration`.`timestamp` DESC ";
 
         dbInterface.connect();
         ResultSet rs = dbInterface.executeQuery(sql);
@@ -53,9 +58,9 @@ public class LoadEstimationOnHistoryDAO {
         measurementList = new ArrayList<>();
 
         String sql = "SELECT * "
-                + "FROM mensuration "
-                + "LIMITE 0, " + String.valueOf(NUMBER_REG_WEEK*4)
-                + "ORDER BY  `mensuration`.`timestamp` DESC ";
+                + " FROM mensuration "
+                + " LIMITE 0, " + String.valueOf(NUMBER_REG_WEEK*4)
+                + " ORDER BY  `mensuration`.`timestamp` DESC ";
 
         dbInterface.connect();
         ResultSet rs = dbInterface.executeQuery(sql);
@@ -78,9 +83,9 @@ public class LoadEstimationOnHistoryDAO {
         measurementList = new ArrayList<>();
 
         String sql = "SELECT * "
-                + "FROM mensuration "
-                + "LIMITE 0, " + String.valueOf(NUMBER_REG_HOUR)
-                + "ORDER BY  `mensuration`.`timestamp` DESC ";
+                + " FROM mensuration "
+                + " LIMITE 0, " + String.valueOf(NUMBER_REG_HOUR)
+                + " ORDER BY  `mensuration`.`timestamp` DESC ";
 
         dbInterface.connect();
         ResultSet rs = dbInterface.executeQuery(sql);
@@ -103,9 +108,9 @@ public class LoadEstimationOnHistoryDAO {
         measurementList = new ArrayList<>();
 
         String sql = "SELECT * "
-                + "FROM mensuration "
-                + "LIMITE 0, " + String.valueOf(NUMBER_REG_DAY)
-                + "ORDER BY  `mensuration`.`timestamp` DESC ";
+                + " FROM mensuration "
+                + " LIMITE 0, " + String.valueOf(NUMBER_REG_DAY)
+                + " ORDER BY  `mensuration`.`timestamp` DESC ";
 
         dbInterface.connect();
         ResultSet rs = dbInterface.executeQuery(sql);
@@ -123,12 +128,20 @@ public class LoadEstimationOnHistoryDAO {
     }
 
     public List<Mensuration> getMensurationADayLastWeek() throws SQLException {
+
+        Calendar now = Calendar.getInstance();
+        now.add(Calendar.DATE,-14);
+               
         List<Mensuration> measurementList;
         measurementList = new ArrayList<>();
+        
         String sql = "SELECT * "
-                + "FROM mensuration "
-                + "LIMITE " + String.valueOf(NUMBER_REG_WEEK * 6) + ", " + String.valueOf(NUMBER_REG_WEEK)
-                + "ORDER BY  `mensuration`.`timestamp` DESC ";
+                + " FROM mensuration "
+                + " WHERE  `timestamp`" 
+                + " BETWEEN  ' " + now.get(Calendar.YEAR) + "-"+ (now.get(Calendar.MONTH) +1 ) +"-"+ now.get(Calendar.DAY_OF_MONTH) +" 00:00:00'";
+                
+        
+        sql  +=   " AND  ' " + now.get(Calendar.YEAR) + "-"+ (now.get(Calendar.MONTH) +1 )+"-"+ now.get(Calendar.DAY_OF_MONTH) +" 23:59:59' ";
 
         dbInterface.connect();
         ResultSet rs = dbInterface.executeQuery(sql);
@@ -167,4 +180,7 @@ public class LoadEstimationOnHistoryDAO {
 
         return mensuration;
     }
+
+    
+
 }
