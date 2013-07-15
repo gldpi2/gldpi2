@@ -156,11 +156,28 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jComboBox1" pref="141" max="32767" attributes="0"/>
-                      <Component id="jDateChooser1" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="monthChooser" max="32767" attributes="0"/>
+                      <Component id="commandsCombo" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="labelTo" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="labelFrom" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="dateChooserTo" max="32767" attributes="0"/>
+                              <Component id="dateChooserFrom" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Component id="yearChooser" alignment="0" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="15" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -168,23 +185,64 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
+                  <Component id="commandsCombo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="591" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="dateChooserFrom" max="32767" attributes="0"/>
+                      <Component id="labelFrom" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="dateChooserTo" max="32767" attributes="0"/>
+                      <Component id="labelTo" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="monthChooser" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="yearChooser" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="491" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JComboBox" name="jComboBox1">
+        <Component class="javax.swing.JComboBox" name="commandsCombo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Selecione...&quot;, &quot;Dia&quot;, &quot;M&#xea;s&quot;, &quot;Ano&quot; })" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Selecione...&quot;, &quot;Di&#xe1;rio&quot;, &quot;Mensal&quot;, &quot;Per&#xed;odo&quot; })" type="code"/>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="commandsComboActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="dateChooserFrom">
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelFrom">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="De:"/>
+          </Properties>
+        </Component>
+        <Component class="com.toedter.calendar.JDateChooser" name="dateChooserTo">
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelTo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="At&#xe9;:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JComboBox" name="monthChooser">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Janeiro&quot;, &quot;Fevereiro&quot;, &quot;Mar&#xe7;o&quot;, &quot;Abril&quot;, &quot;Maio&quot;, &quot;Junho&quot;, &quot;Julho&quot;, &quot;Agosto&quot;, &quot;Setembro&quot;, &quot;Outubro&quot;, &quot;Novembro&quot;, &quot;Dezembro&quot; })" type="code"/>
             </Property>
           </Properties>
         </Component>
-        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+        <Component class="javax.swing.JComboBox" name="yearChooser">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;2013&quot;, &quot;2014&quot;, &quot;2015&quot; })" type="code"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

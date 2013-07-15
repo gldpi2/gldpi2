@@ -137,7 +137,6 @@ public class LoginWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEntrarActionPerformed
-        loading.setVisible(true);
         Login user = new Login();
         int ok;
 
@@ -145,6 +144,7 @@ public class LoginWindow extends javax.swing.JFrame {
         user.setSenha(passwordSenha.getText());
 
         try {
+            loading.setVisible(true);
             LoginDAO login = new LoginDAO();
             ok = login.verificarLogin(user);
             
