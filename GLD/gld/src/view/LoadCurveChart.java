@@ -1,7 +1,6 @@
 package view;
 
 import controller.LoadCurveCtrl;
-import model.LoadCurve;
 import org.jfree.chart.ChartPanel;
 import org.jfree.data.time.TimeSeries;
 
