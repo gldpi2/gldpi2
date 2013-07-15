@@ -98,8 +98,8 @@ public class LoadEstimationOnHistory {
         for (int i = 0; i < 24; i++) {
             final Minute m0 = new Minute(0, new Hour(i, today));
             final Minute m1 = new Minute(0, new Hour(i + 1, today));
-            loadEstimationOnHistorySerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), interval[i]);            
-        }
+            loadEstimationOnHistorySerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), interval[i]);             
+        }  
         
         final TimePeriodValuesCollection dataset = new TimePeriodValuesCollection();
 
