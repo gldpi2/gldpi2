@@ -158,6 +158,41 @@ public class LoadEstimationOnHistoryDAO {
         dbInterface.disconnect();
         return measurementList;
     }
+    
+    public List<Mensuration> getMensurationLast30Days() throws SQLException {
+
+        Calendar now = Calendar.getInstance();
+               
+        List<Mensuration> measurementList;
+        measurementList = new ArrayList<>();
+        now.add(Calendar.DATE,-30);
+        
+        String sql = "SELECT * "
+                + " FROM mensuration "
+                + " WHERE  `timestamp`" 
+                + " BETWEEN  ' " + now.get(Calendar.YEAR) + "-"+ (now.get(Calendar.MONTH) +1 ) +"-"+ now.get(Calendar.DAY_OF_MONTH) +" 23:59:59'";
+                
+        now.add(Calendar.DATE,+30);
+        
+        sql  +=   " AND  ' " + now.get(Calendar.YEAR) + "-"+ (now.get(Calendar.MONTH) +1 )+"-"+ now.get(Calendar.DAY_OF_MONTH) +" 00:00:01' ";
+
+        System.out.println(sql);
+        
+        dbInterface.connect();
+        ResultSet rs = dbInterface.executeQuery(sql);
+
+        while (rs.next()) {
+            Mensuration mensuration;
+            mensuration = new Mensuration();
+            mensuration.setIdMensuration(rs.getInt("id_mensuration"));
+            mensuration.setFlow(rs.getDouble("flow"));
+            mensuration.setTension(rs.getDouble("tension"));
+            mensuration.setTimestamp(rs.getString("timestamp"));
+            measurementList.add(mensuration);
+        }
+        dbInterface.disconnect();
+        return measurementList;
+    }
 
     public Mensuration getLastMensuration() throws SQLException {
         Mensuration mensuration = new Mensuration();

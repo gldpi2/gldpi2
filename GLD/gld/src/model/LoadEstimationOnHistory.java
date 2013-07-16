@@ -1,7 +1,9 @@
 package model;
 
+import controller.LoadEstimationOnHistoryCtrl;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import java.util.Vector;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
@@ -39,9 +41,9 @@ public class LoadEstimationOnHistory {
     public final float valorAlerta = 1;
     public final float valorContratado = 0.95f;
 
-    public ChartPanel createLoadEstimationOnHistoryGraphPanel(double[] interval) {
+    public ChartPanel createLoadEstimationOnHistoryGraphPanel(Vector<Double> interval,int type) {
         
-        final XYDataset mensurationDataSet = createMensurationDataSet(interval);
+        final XYDataset mensurationDataSet = createMensurationDataSet(interval, type);
         XYBarRenderer x = new XYBarRenderer();
         XYBarRenderer.setDefaultShadowsVisible(false);
         x.setDrawBarOutline(true);
@@ -55,8 +57,21 @@ public class LoadEstimationOnHistory {
 
         final DateAxis domainAxis = new DateAxis("Date");
         domainAxis.setVerticalTickLabels(true);
-        domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.HOUR, 1));
-        domainAxis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
+        switch(type){
+            case LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY:
+                domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.HOUR, 1));
+                domainAxis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
+                break;
+            case LoadEstimationOnHistoryCtrl.INTERVAL_MONTH:
+                domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.DAY, 1));
+                domainAxis.setDateFormatOverride(new SimpleDateFormat("dd/MM"));
+                break;
+            default:
+                domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.HOUR, 1));
+                domainAxis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
+                break;
+                
+        }
         domainAxis.setLowerMargin(0.01);
         domainAxis.setUpperMargin(0.01);
         final ValueAxis rangeAxis = new NumberAxis("Value");
@@ -89,16 +104,16 @@ public class LoadEstimationOnHistory {
      *
      * @return the dataset.
      */
-    public XYDataset createMensurationDataSet(double[] interval) {
+    public XYDataset createMensurationDataSet(Vector<Double> interval,int type) {
         //final TimePeriodValues offPeakSerie = new TimePeriodValues("Fora de Ponta");
         //final TimePeriodValues peakSerie = new TimePeriodValues("Ponta");
         final TimePeriodValues loadEstimationOnHistorySerie = new TimePeriodValues("Estimativa");
 
         final Day today = new Day();
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < type ; i++) {
             final Minute m0 = new Minute(0, new Hour(i, today));
             final Minute m1 = new Minute(0, new Hour(i + 1, today));
-            loadEstimationOnHistorySerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), interval[i]);             
+            loadEstimationOnHistorySerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), interval.get(i));             
         }  
         
         final TimePeriodValuesCollection dataset = new TimePeriodValuesCollection();

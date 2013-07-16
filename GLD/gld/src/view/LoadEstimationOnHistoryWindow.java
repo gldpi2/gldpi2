@@ -4,6 +4,7 @@
  */
 package view;
 
+import controller.LoadEstimationOnHistoryCtrl;
 import model.LoadEstimationOnHistory;
 import model.Login;
 import utils.UpdaterCostThread;
@@ -15,31 +16,33 @@ import utils.UpdaterCostThread;
 public class LoadEstimationOnHistoryWindow extends javax.swing.JPanel {
 //    private static final String title = "Which operating system are you using?";
 //    ChartPanel pg;
-    
-    int i=0, state=0;
+
+    int i = 0, state = 0;
     private LoadEstimationOnHistoryChart estimationHistory;
     MainMenu mainm;
     NewMainMenu newMainm;
     EstimationCurveMenu estimationCurveMenu;
     Login user;
+
     /**
      * Creates new form LoadEstimationOnHistoryWindow
      */
     public LoadEstimationOnHistoryWindow(int y, Login user) {
         initComponents();
-        setSize(1024,y);
-        
+        setSize(1024, y);
+
         matricula.setText(user.getMatricula());
         this.init();
     }
-    
+
     public void init() {
         desktop.removeAll();
         estimationHistory = new LoadEstimationOnHistoryChart(desktop.getWidth(), desktop.getHeight());
-        estimationHistory.startGraph();
-        
+        int last_day = LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY;
+        estimationHistory.startGraph(LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY);
+
         LoadEstimationOnHistory est = new LoadEstimationOnHistory();
-        
+
         desktop.add(estimationHistory);
         state = 1;
     }
@@ -59,7 +62,7 @@ public class LoadEstimationOnHistoryWindow extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         matricula = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox();
+        loadEstimationOnHistoryCombo = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
         desktop = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
@@ -111,7 +114,13 @@ public class LoadEstimationOnHistoryWindow extends javax.swing.JPanel {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Comandos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Dia", "Mês", "Ano" }));
+        loadEstimationOnHistoryCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Dia", "Mês", "Ano" }));
+        loadEstimationOnHistoryCombo.setSelectedIndex(1);
+        loadEstimationOnHistoryCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadEstimationOnHistoryComboActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -119,14 +128,14 @@ public class LoadEstimationOnHistoryWindow extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(loadEstimationOnHistoryCombo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 141, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(loadEstimationOnHistoryCombo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(625, Short.MAX_VALUE))
         );
 
@@ -200,8 +209,8 @@ public class LoadEstimationOnHistoryWindow extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        if(state==1){
-            estimationHistory.changeSize(desktop.getWidth(),desktop.getHeight());    
+        if (state == 1) {
+            estimationHistory.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_formComponentResized
 
@@ -214,21 +223,33 @@ public class LoadEstimationOnHistoryWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void desktopComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_desktopComponentResized
-        if(state==1){
-            estimationHistory.changeSize(desktop.getWidth(),desktop.getHeight());    
+        if (state == 1) {
+            estimationHistory.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_desktopComponentResized
 
+    private void loadEstimationOnHistoryComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadEstimationOnHistoryComboActionPerformed
+        String event = String.valueOf(loadEstimationOnHistoryCombo.getSelectedItem());
+        if (event.equals("")) {
+            return;
+        } else if (event.equals("Dia")) {
+            estimationHistory.startGraph(LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY);
+        } else if (event.equals("Mês")) {
+            estimationHistory.startGraph(LoadEstimationOnHistoryCtrl.INTERVAL_MONTH);
+        } else if (event.equals("Ano")) {
+            //estimationHistory.startGraph(LoadEstimationOnHistoryCtrl.);
+        }
+    }//GEN-LAST:event_loadEstimationOnHistoryComboActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel desktop;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JComboBox loadEstimationOnHistoryCombo;
     private javax.swing.JLabel matricula;
     // End of variables declaration//GEN-END:variables
 }

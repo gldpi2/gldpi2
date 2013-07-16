@@ -20,8 +20,8 @@ public class LoadEstimationOnHistoryChart extends javax.swing.JPanel {
         setSize(x, y);
     }
 
-    public void startGraph() {
-        ChartPanel panel = loadEstimationOnHistoryCtrl.createLoadEstimationOnHistoryGraphPanel(LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY);
+    public void startGraph(int interval) {
+        ChartPanel panel = loadEstimationOnHistoryCtrl.createLoadEstimationOnHistoryGraphPanel(interval);
         panel.setSize(this.getWidth(), this.getHeight());
         panel.setVisible(true);
         this.removeAll();
