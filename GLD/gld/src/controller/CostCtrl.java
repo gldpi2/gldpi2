@@ -11,6 +11,8 @@ import dao.CostDAO;
 import java.util.List;
 import model.Cost;
 import model.Mensuration;
+import org.jfree.chart.ChartPanel;
+import org.jfree.data.time.TimeSeries;
 
 /**
  *
@@ -80,5 +82,13 @@ public class CostCtrl {
     
     public Mensuration getMensuration(){
         return cost.mensuration;
+    }
+    
+    public ChartPanel createCostChart(){
+       return cost.createCostChart();
+    }
+    
+    public TimeSeries getAllSeries(){
+        return cost.series;
     }
 }
