@@ -16,18 +16,16 @@ import utils.DatabaseInterface;
  */
 public class CostDAO {
 
-    CostCtrl ctrl = new CostCtrl();
-    DatabaseInterface dbInterface = new DatabaseInterface();
-    double costValue;
+    private DatabaseInterface dbInterface = new DatabaseInterface();
+    private String time;
 
-    public double getCostValue() {
-        return costValue;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public void setCostValue(double costValue) {
-        this.costValue = costValue;
+    public String getTime() {
+        return time;
     }
-
     /**
      * Método que irá pegar as mediçõe através da DAO e aqui irá fazer o cálculo
      * do custo
@@ -51,8 +49,7 @@ public class CostDAO {
                 mensuration.setFlow(rs.getDouble("flow"));
                 mensuration.setTension(rs.getDouble("tension"));
                 mensuration.setTimestamp(rs.getString("timestamp"));
-                ctrl.setTime(mensuration.getTimestamp().substring(8, 10));
-                setCostValue(ctrl.energyValue());
+                setTime(mensuration.getTimestamp().substring(8, 10));
                 mensurationList.add(mensuration);
             }
 
