@@ -64,10 +64,10 @@ public class EstimationOnRealCostThread implements Runnable {
         ArrayList<Mensuration> estimate_data = new ArrayList();
         while (mensuration.size() > 0) {
             for (Mensuration m : mensuration) {
-                series.addOrUpdate(m.getMillisecond(), m.getPotency() * costDao.getCostValue());
+                series.addOrUpdate(m.getMillisecond(), m.getPotency() * ctrl.energyValue());
                 for (int i = 0; i < mensuration.size(); i++) {
-                    cost[i] = costDao.getCostValue() * m.getPotency();
-                    double costNext = costDao.getCostValue() * mensuration.iterator().next().getPotency();
+                    cost[i] = ctrl.energyValue() * m.getPotency();
+                    double costNext = ctrl.energyValue() * mensuration.iterator().next().getPotency();
                     if (cost[i] > costNext) {
                         updateCostMax(cost[i]);
                         updateCostMin(costNext);
@@ -85,7 +85,7 @@ public class EstimationOnRealCostThread implements Runnable {
                     int k;
                     int i = 0;
                     while (i < NUM_ESTIMATES) {
-                        fx[i] = estimate_data.get(i).getPotency() * costDao.getCostValue();
+                        fx[i] = estimate_data.get(i).getPotency() * ctrl.energyValue();
                         i++;
                     }
                     gj.loadFx(fx);
