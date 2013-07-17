@@ -13,9 +13,11 @@ public class Mensuration {
     private double flow;
     private double tension;
     private double powerFactor;
+    private double frequency;
     private double flowPanel;
     private double flowAeroGenerator;
     private double bateryTension;
+    private double bateryLoad;
     private int activeSystem;
     private int energyAvailable;
     private String timestamp;
@@ -168,11 +170,19 @@ public class Mensuration {
         this.bateryTension = bateryTension;
     }
 
+    public void setBateryLoad(double bateryLoad) {
+        this.bateryLoad = bateryLoad;
+    }
+
     public void setActiveSystem(int activeSystem) {
         this.activeSystem = activeSystem;
     }
 
     public void setEnergyAvailable(int energyAvailable) {
         this.energyAvailable = energyAvailable;
+    }
+
+    public void setFrequency(double frequency) {
+        this.frequency = frequency;
     }
 }

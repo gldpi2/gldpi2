@@ -98,12 +98,12 @@ public class UpdaterLoadCurveThread implements Runnable {
                     if (averagePotency == 0) {
                         averagePotency = m.getPotency();
                     } else {
-                        averagePotency += currentPotency;
+                        averagePotency = (currentPotency + averagePotency) / 2;
                     }
 
                 } else {
                     inserted = false;
-                    averagePotency += currentPotency;
+                    averagePotency = (currentPotency + averagePotency) / 2;
                 }
 
                 if (currentPotency > loadCurveCtrl.getMaxMensuration().getPotency()) {
@@ -140,7 +140,7 @@ public class UpdaterLoadCurveThread implements Runnable {
 
                         averagePotency = (averagePotency + currentPotency) / 2;
 
-                        loadCurve.offPeakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), averagePotency);
+                        //loadCurve.offPeakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), averagePotency);
 
                         inserted = true;
                         averagePotency = 0;
@@ -177,11 +177,11 @@ public class UpdaterLoadCurveThread implements Runnable {
     private void updateJLabel(JLabel jLabel, double current, double last) {
         if (jLabel != null) {
             jLabel.setText(String.format("%.3f", current));
-            if (last > current) {
-                jLabel.setIcon(new ImageIcon("/icons/arow_up.png"));
-            } else {
-                jLabel.setIcon(new ImageIcon("/icons/arow_up.png"));
-            }
+//            if (last > current) {
+//                jLabel.setIcon(new ImageIcon("/icons/arow_up.png"));
+//            } else {
+//                jLabel.setIcon(new ImageIcon("/icons/arow_up.png"));
+//            }
             jLabel.revalidate();
             jLabel.repaint();
         }
