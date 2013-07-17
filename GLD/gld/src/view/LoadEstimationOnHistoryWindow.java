@@ -30,12 +30,10 @@ public class LoadEstimationOnHistoryWindow extends javax.swing.JPanel {
     public LoadEstimationOnHistoryWindow(int y, Login user) {
         initComponents();
         setSize(1024, y);
-
-        matricula.setText(user.getMatricula());
         this.init();
     }
 
-    public void init() {
+    private void init() {
         desktop.removeAll();
         estimationHistory = new LoadEstimationOnHistoryChart(desktop.getWidth(), desktop.getHeight());
         int last_day = LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY;

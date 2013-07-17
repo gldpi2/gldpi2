@@ -16,41 +16,40 @@ public class EstimationOnRealCostWindow extends javax.swing.JPanel {
     int i = 0, state = 0;
     private EstimationOnRealCostChart pg;
     private Thread th;
-
     MainMenu mainm;
     NewMainMenu newMainm;
     Login user;
+
     /**
      * Método construtor do Objeto de Window
+     *
      * @param y altura da tela
      */
     public EstimationOnRealCostWindow(int y, Login user) {
         initComponents();
         setSize(1024, y);
-
-        matricula.setText(user.getMatricula());
         this.init();
     }
 
     /**
-     * Método de iniciação do componente.
-     * Ajusta o tamanho do painel do gráfico dentro do tela
+     * Método de iniciação do componente. Ajusta o tamanho do painel do gráfico
+     * dentro do tela
      */
-    public void init() {
+    private void init() {
         desktop.removeAll();
         pg = new EstimationOnRealCostChart(desktop.getWidth(), desktop.getHeight());
         pg.criaGrafico();
 
         pg.criaGrafico();
         th = new Thread(new EstimationOnRealCostThread(pg.series, pg.estimate, this.FlowValue, this.TensionValue, this.PotencyValue,
-                this.estimateNumberLabel ,this.maxCost, this.minCost));
+                this.estimateNumberLabel, this.maxCost, this.minCost));
         th.setDaemon(true);
         th.start();
 
         desktop.add(pg);
         state = 1;
- }
-    
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -360,9 +359,8 @@ public class EstimationOnRealCostWindow extends javax.swing.JPanel {
 
     private void estimateSliderMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_estimateSliderMouseDragged
         // TODO add your handling code here:
-        estimateNumberLabel.setText(""+estimateSlider.getValue());
+        estimateNumberLabel.setText("" + estimateSlider.getValue());
     }//GEN-LAST:event_estimateSliderMouseDragged
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FlowLabel;
     private javax.swing.JLabel FlowValue;

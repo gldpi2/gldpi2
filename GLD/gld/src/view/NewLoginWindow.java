@@ -1,11 +1,9 @@
 package view;
 
-import dao.LoginDAO;
-import java.sql.SQLException;
+import controller.LoginCtrl;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import model.Login;
 
 /**
  *
@@ -25,9 +23,9 @@ public class NewLoginWindow extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        textMatricula = new javax.swing.JTextField();
+        registerField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        passwordSenha = new javax.swing.JPasswordField();
+        passwordField = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
         buttonEntrar = new javax.swing.JButton();
 
@@ -39,19 +37,19 @@ public class NewLoginWindow extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Seja Bem-Vindo ao GLD!", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans", 0, 24))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bem-Vindo ao GLD!", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans", 0, 24))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
         jLabel1.setText("Matrícula");
 
-        textMatricula.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
-        textMatricula.setText("090038070");
+        registerField.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        registerField.setText("090038070");
 
         jLabel2.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
         jLabel2.setText("Senha");
 
-        passwordSenha.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
-        passwordSenha.setText("senha1234");
+        passwordField.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        passwordField.setText("senha1234");
 
         buttonEntrar.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
         buttonEntrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/door_in.png"))); // NOI18N
@@ -76,13 +74,13 @@ public class NewLoginWindow extends javax.swing.JFrame {
                             .add(jLabel2))
                         .add(18, 18, 18)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                            .add(passwordSenha, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                            .add(textMatricula))
-                        .add(0, 0, Short.MAX_VALUE)))
+                            .add(passwordField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                            .add(registerField))
+                        .add(0, 0, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(buttonEntrar)))
                 .addContainerGap())
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .add(0, 0, Short.MAX_VALUE)
-                .add(buttonEntrar))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -90,15 +88,16 @@ public class NewLoginWindow extends javax.swing.JFrame {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
-                    .add(textMatricula, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(registerField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabel2)
-                    .add(passwordSenha, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
+                    .add(passwordField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(buttonEntrar))
+                .add(buttonEntrar)
+                .add(0, 0, 0))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -116,25 +115,15 @@ public class NewLoginWindow extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEntrarActionPerformed
-        Login user = new Login();
-        int ok;
+        LoginCtrl loginCtrl = new LoginCtrl();
+        loginCtrl.setLogin(registerField.getText(), passwordField.getText());
 
-        user.setMatricula(textMatricula.getText());
-        user.setSenha(passwordSenha.getText());
-
-        try {
-            LoginDAO login = new LoginDAO();
-            ok = login.verificarLogin(user);
-
-            if (ok == 1) {
-                MainWindow main = new MainWindow(user);
-                this.setVisible(false);
-                main.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Problema ao efetuar login!\nSenha e/ou Matrícula incorretos!", "ERRO!", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (loginCtrl.verifyLogin(registerField.getText(), passwordField.getText()) == 1) {
+            MainWindow main = new MainWindow(loginCtrl.getLogin());
+            this.setVisible(false);
+            main.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Problema ao efetuar login!\nSenha e/ou Matrícula incorretos!", "ERRO!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_buttonEntrarActionPerformed
 
@@ -200,7 +189,7 @@ public class NewLoginWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JPasswordField passwordSenha;
-    private javax.swing.JTextField textMatricula;
+    private javax.swing.JPasswordField passwordField;
+    private javax.swing.JTextField registerField;
     // End of variables declaration//GEN-END:variables
 }

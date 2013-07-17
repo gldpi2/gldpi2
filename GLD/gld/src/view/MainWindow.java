@@ -47,7 +47,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         this.raizHibrido.setVisible(false);
 
-        if (Integer.parseInt(user.getTipo()) == 2) {
+        if (Integer.parseInt(user.getPermission()) == 2) {
             menuRegistros.setVisible(false);
         }
 

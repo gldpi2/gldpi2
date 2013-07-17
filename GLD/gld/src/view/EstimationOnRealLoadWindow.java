@@ -12,30 +12,28 @@ public class EstimationOnRealLoadWindow extends javax.swing.JPanel {
     int i = 0, state = 0;
     private EstimationOnRealLoadChart estimationLoadChart;
     private Thread updaterThread;
-
     MainMenu mainm;
     NewMainMenu newMainm;
     Login user;
+
     /**
      * Creates new form PatternWindow
      */
     public EstimationOnRealLoadWindow(int y, Login user) {
         initComponents();
         setSize(1024, y);
-
-        matricula.setText(user.getMatricula());
         this.init();
     }
 
-    public void init() {
+    private void init() {
         desktop.removeAll();
         estimationLoadChart = new EstimationOnRealLoadChart(desktop.getWidth(), desktop.getHeight());
         estimationLoadChart.startGraph();
 
         updaterThread = new Thread(new EstimationOnRealLoadThread(estimationLoadChart.series, estimationLoadChart.estimate,
-                                                                this.FlowValue, this.TensionValue, this.PotencyValue,
-                                                                this.estimateNumberLabel, this.maxPotencyValue, this.maxPotencyTime,
-                                                                this.minPotencyValue, this.minPotencyTime));
+                this.FlowValue, this.TensionValue, this.PotencyValue,
+                this.estimateNumberLabel, this.maxPotencyValue, this.maxPotencyTime,
+                this.minPotencyValue, this.minPotencyTime));
         updaterThread.setDaemon(true);
         updaterThread.start();
 
@@ -351,9 +349,8 @@ public class EstimationOnRealLoadWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_desktopComponentResized
 
     private void estimateSliderMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_estimateSliderMouseDragged
-        estimateNumberLabel.setText(""+estimateSlider.getValue());
+        estimateNumberLabel.setText("" + estimateSlider.getValue());
     }//GEN-LAST:event_estimateSliderMouseDragged
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FlowLabel;
     private javax.swing.JLabel FlowValue;

@@ -6,43 +6,34 @@ package model;
  */
 public class Login {
 
-    private String matricula;
-    private String senha;
-    private String tipo;
-    private static Login uniqueInstance;
-
-    public static Login getInstance() {
-        if (uniqueInstance == null) {
-            uniqueInstance = new Login();
-        }
-
-        return uniqueInstance;
-    }
+    private String register;
+    private String password;
+    private String permission;
 
     public Login() {
     }
 
-    public String getMatricula() {
-        return matricula;
+    public String getRegister() {
+        return register;
     }
 
-    public void setMatricula(String matricula) {
-        this.matricula = matricula;
+    public void setRegister(String matricula) {
+        this.register = matricula;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String senha) {
+        this.password = senha;
     }
 
-    public String getTipo() {
-        return tipo;
+    public String getPermission() {
+        return permission;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setPermission(String tipo) {
+        this.permission = tipo;
     }
 }

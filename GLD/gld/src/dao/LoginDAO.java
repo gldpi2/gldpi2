@@ -21,7 +21,7 @@ public class LoginDAO {
     public int verificarLogin(Login user) throws SQLException {
         int i = 0;
 
-        String sql = "SELECT * FROM user WHERE register = '" + user.getMatricula() + "' AND password = '" + user.getSenha() + "'";
+        String sql = "SELECT * FROM user WHERE register = '" + user.getRegister() + "' AND password = '" + user.getPassword() + "'";
 
         dbInterface.connect();
 
@@ -29,7 +29,7 @@ public class LoginDAO {
 
         while (rs.next()) {
             i++;
-            user.setTipo(rs.getString("profile"));
+            user.setPermission(rs.getString("profile"));
         }
 
         dbInterface.disconnect();

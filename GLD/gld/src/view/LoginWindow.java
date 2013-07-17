@@ -141,8 +141,8 @@ public class LoginWindow extends javax.swing.JFrame {
         Login user = new Login();
         int ok;
 
-        user.setMatricula(textMatricula.getText());
-        user.setSenha(passwordSenha.getText());
+        user.setRegister(textMatricula.getText());
+        user.setPassword(passwordSenha.getText());
 
         try {
             loading.setVisible(true);

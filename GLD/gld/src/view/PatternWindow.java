@@ -37,7 +37,7 @@ public class PatternWindow extends javax.swing.JPanel {
         year = today.getYear();
         dimensionCombo = new Dimension(159, 28);
         
-        matricula.setText(user.getMatricula());
+        matricula.setText(user.getRegister());
         this.init();
     }
 

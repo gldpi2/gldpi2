@@ -23,7 +23,7 @@ public class LoadCurveWindow1 extends javax.swing.JPanel {
         initComponents();
         setSize(1024, y);
 
-        matricula.setText(user.getMatricula());
+        matricula.setText(user.getRegister());
         this.init();
     }
 
