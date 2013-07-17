@@ -60,7 +60,7 @@ public class UpdaterLoadCurveThread implements Runnable {
     public void run() {
         Mensuration lastMensuration = null;
 
-        List<Mensuration> mensuration = this.loadCurveCtrl.getMensurationByDay(1, 7, 2013);
+        List<Mensuration> mensuration = this.loadCurveCtrl.getMensurationByDay(19, 6, 2013);
 
         final Day today = new Day();
 
