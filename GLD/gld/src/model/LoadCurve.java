@@ -95,58 +95,8 @@ public class LoadCurve {
         peakSerie = new TimePeriodValues("Ponta");
         alternativeSerie = new TimePeriodValues("Ponta");
 
-//        final Day today = new Day();
-//        for (int i = 0; i < 6; i++) {
-//            final Minute m0 = new Minute(0, new Hour(i, today));
-//            final Minute m1 = new Minute(15, new Hour(i, today));
-//            final Minute m2 = new Minute(30, new Hour(i, today));
-//            final Minute m3 = new Minute(45, new Hour(i, today));
-//            final Minute m4 = new Minute(0, new Hour(i + 1, today));
-//            offPeakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), Math.random());
-//            offPeakSerie.add(new SimpleTimePeriod(m1.getStart(), m2.getStart()), Math.random());
-//            offPeakSerie.add(new SimpleTimePeriod(m2.getStart(), m3.getStart()), Math.random());
-//            offPeakSerie.add(new SimpleTimePeriod(m3.getStart(), m4.getStart()), Math.random());
-//        }
-//
-//        for (int i = 6; i < 12; i++) {
-//            final Minute m0 = new Minute(0, new Hour(i, today));
-//            final Minute m1 = new Minute(15, new Hour(i, today));
-//            final Minute m2 = new Minute(30, new Hour(i, today));
-//            final Minute m3 = new Minute(45, new Hour(i, today));
-//            final Minute m4 = new Minute(0, new Hour(i + 1, today));
-//            peakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), Math.random());
-//            peakSerie.add(new SimpleTimePeriod(m1.getStart(), m2.getStart()), Math.random());
-//            peakSerie.add(new SimpleTimePeriod(m2.getStart(), m3.getStart()), Math.random());
-//            peakSerie.add(new SimpleTimePeriod(m3.getStart(), m4.getStart()), Math.random());
-//        }
-//
-//        for (int i = 12; i < 18; i++) {
-//            final Minute m0 = new Minute(0, new Hour(i, today));
-//            final Minute m1 = new Minute(15, new Hour(i, today));
-//            final Minute m2 = new Minute(30, new Hour(i, today));
-//            final Minute m3 = new Minute(45, new Hour(i, today));
-//            final Minute m4 = new Minute(0, new Hour(i + 1, today));
-//            offPeakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), Math.random());
-//            offPeakSerie.add(new SimpleTimePeriod(m1.getStart(), m2.getStart()), Math.random());
-//            offPeakSerie.add(new SimpleTimePeriod(m2.getStart(), m3.getStart()), Math.random());
-//            offPeakSerie.add(new SimpleTimePeriod(m3.getStart(), m4.getStart()), Math.random());
-//        }
-//
-//        for (int i = 18; i < 24; i++) {
-//            final Minute m0 = new Minute(0, new Hour(i, today));
-//            final Minute m1 = new Minute(15, new Hour(i, today));
-//            final Minute m2 = new Minute(30, new Hour(i, today));
-//            final Minute m3 = new Minute(45, new Hour(i, today));
-//            final Minute m4 = new Minute(0, new Hour(i + 1, today));
-//            peakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), Math.random());
-//            peakSerie.add(new SimpleTimePeriod(m1.getStart(), m2.getStart()), Math.random());
-//            peakSerie.add(new SimpleTimePeriod(m2.getStart(), m3.getStart()), Math.random());
-//            peakSerie.add(new SimpleTimePeriod(m3.getStart(), m4.getStart()), Math.random());
-//        }
-
         final TimePeriodValuesCollection dataset = new TimePeriodValuesCollection();
 
-        System.out.println("loadCurve " + offPeakSerie);
         dataset.addSeries(offPeakSerie);
         dataset.addSeries(peakSerie);
 

@@ -35,9 +35,13 @@ public class NewPatternWindow extends javax.swing.JPanel {
     private void init() {
         desktop.removeAll();
         loadChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
+<<<<<<< HEAD
         loadChart.startGraph(false);
 
         initialVisibleComponents();
+=======
+        loadChart.startGraph(true);
+>>>>>>> 6357d42ed51a4880ffcce07bb2da69b6cd902094
 
         desktop.add(loadChart);
         state = 1;
