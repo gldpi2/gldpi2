@@ -6,6 +6,7 @@ package view;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Login;
@@ -307,11 +308,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         Object[] options = {"Sim", "Não"};
         i = JOptionPane.showOptionDialog(null,
-                "Deseja realmente finalizar a aplicação?",
+                "Deseja realmente fechar o sistema?",
                 "Sair do Sistema",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                null,
+                new ImageIcon("src/icons/cross.png"),
                 options,
                 options[1]);
 

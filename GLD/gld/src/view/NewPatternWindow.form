@@ -423,6 +423,9 @@
           </Properties>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="dateChooserFrom">
+          <Events>
+            <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="dateChooserFromFocusLost"/>
+          </Events>
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="dateChooserTo">
         </Component>

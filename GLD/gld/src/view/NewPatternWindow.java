@@ -1,5 +1,11 @@
 package view;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Date;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import model.Login;
 import org.jfree.data.time.Day;
 
@@ -46,6 +52,17 @@ public class NewPatternWindow extends javax.swing.JPanel {
         yearChooser.setVisible(false);
         monthChooser.setSelectedIndex(month);
         yearChooser.setSelectedIndex(year);
+
+        dateChooserFrom.getDateEditor().addPropertyChangeListener(
+                new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                Date data = dateChooserFrom.getDate();
+                if (data != null && dateChooserTo.isVisible()) {
+                    dateChooserTo.setMinSelectableDate(data);
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -248,6 +265,12 @@ public class NewPatternWindow extends javax.swing.JPanel {
 
         toLabel.setText("Até:");
 
+        dateChooserFrom.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dateChooserFromFocusLost(evt);
+            }
+        });
+
         monthChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
 
         yearChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2013", "2014", "2015", "2016" }));
@@ -340,11 +363,25 @@ public class NewPatternWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_desktopComponentResized
 
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
-        MainWindow.desktop.removeAll();
-        newMenu = new NewMainMenu(userLogged);
-        MainWindow.desktop.add(newMenu);
-        MainWindow.desktop.revalidate();
-        MainWindow.desktop.repaint();
+        int i;
+
+        Object[] options = {"Sim", "Não"};
+        i = JOptionPane.showOptionDialog(null,
+                "Deseja realmente Voltar ao Menu Principal?",
+                "Voltar ao Menu Principal",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                new ImageIcon("src/icons/house_go.png"),
+                options,
+                options[1]);
+
+        if (i == JOptionPane.YES_OPTION) {
+            MainWindow.desktop.removeAll();
+            newMenu = new NewMainMenu(userLogged);
+            MainWindow.desktop.add(newMenu);
+            MainWindow.desktop.revalidate();
+            MainWindow.desktop.repaint();
+        }
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
     private void commandsComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commandsComboActionPerformed
@@ -353,6 +390,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
         switch (selected) {
             case "Diário":
                 dateChooserFrom.setVisible(true);
+                dateChooserFrom.cleanup();
                 dateChooserTo.setVisible(false);
                 toLabel.setVisible(false);
                 fromLabel.setVisible(false);
@@ -366,7 +404,9 @@ public class NewPatternWindow extends javax.swing.JPanel {
                 break;
             case "Período":
                 dateChooserFrom.setVisible(true);
+                dateChooserFrom.cleanup();
                 dateChooserTo.setVisible(true);
+                dateChooserTo.cleanup();
                 toLabel.setVisible(true);
                 fromLabel.setVisible(true);
                 monthChooser.setVisible(false);
@@ -377,6 +417,9 @@ public class NewPatternWindow extends javax.swing.JPanel {
                 break;
         }
     }//GEN-LAST:event_commandsComboActionPerformed
+
+    private void dateChooserFromFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateChooserFromFocusLost
+    }//GEN-LAST:event_dateChooserFromFocusLost
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMainMenu;
     private javax.swing.JComboBox commandsCombo;
