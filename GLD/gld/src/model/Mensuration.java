@@ -4,6 +4,9 @@
  */
 package model;
 
+import java.util.Date;
+import org.jfree.data.time.Millisecond;
+
 /**
  *
  * @author wagner
@@ -20,6 +23,7 @@ public class Mensuration {
     private int hour;
     private int minute;
     private int second;
+    private Millisecond millisecond;
 
     /**
      * Método para configurar o identificador da medição.
@@ -66,6 +70,9 @@ public class Mensuration {
         minute = Integer.parseInt(timestamp.substring(10, 12));
         second = Integer.parseInt(timestamp.substring(12, 14));
 
+        Date time = new Date(year, mounth, day, hour, minute, second);
+
+        this.millisecond = new Millisecond(time);
         this.timestamp = timestamp;
     }
 
@@ -103,6 +110,10 @@ public class Mensuration {
      */
     public String getTimestamp() {
         return timestamp;
+    }
+
+    public Millisecond getMillisecond() {
+        return millisecond;
     }
 
     public double getPotency() {
