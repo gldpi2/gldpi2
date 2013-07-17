@@ -48,3 +48,13 @@ value_transpassed FLOAT,
 `timestamp` timestamp DEFAULT CURRENT_TIMESTAMP ,
 PRIMARY KEY ( id_rate )
 )
+
+CREATE TABLE IF NOT EXISTS contract (
+  id_contract int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  contracted_peak_demand float DEFAULT NULL,
+  humid_season varchar(10) DEFAULT NULL,
+  dry_season varchar(10) DEFAULT NULL,
+  out_peak_demand float DEFAULT NULL,
+  timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id_contract)
+)

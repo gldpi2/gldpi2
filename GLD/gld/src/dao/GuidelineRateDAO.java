@@ -20,17 +20,17 @@ import utils.DatabaseInterface;
 public class GuidelineRateDAO {
 
     private DatabaseInterface dbint = new DatabaseInterface();
-    public static final String insertGuidelineRate = "INSERT INTO guideline_rate (guideline_rate, category, peak_demand, out_peak_demand, peak_energy_dry, "
-            + "out_peak_energy_dry, pea_energ_humid, out_peak_energy_humid, value_transpassed) VALUES "
-            + "(?,?,?,?,?,?,?,?,?)";
     public static final String searchGuidelineRate = "SELECT * FROM guideline_rate";
 
     public GuidelineRateDAO() {
     }
 
-    public void savingGuidelineRate(GuidelineRate guidelineRate) {
+    public void createGuidelineRate(GuidelineRate guidelineRate) {
 
-        dbint.executeQuery(insertGuidelineRate);
+
+        String insertGuidelineRate = "INSERT INTO guideline_rate (guideline_rate, category, peak_demand, out_peak_demand, peak_energy_dry, "
+            + "out_peak_energy_dry, pea_energ_humid, out_peak_energy_humid, value_transpassed) VALUES "
+            + "(?,?,?,?,?,?,?,?,?)";
 
         String[] params = new String[9];
         params[0] = guidelineRate.getGuidelineRate();
@@ -76,9 +76,9 @@ public class GuidelineRateDAO {
 
     public void updateGuidelineRate(GuidelineRate guidelineRate) {
 
-        String sql = "SELECT id_rate FROM guideline_rate";
+        String updateGuidelineRate = "SELECT id_rate FROM guideline_rate";
 
-        sql = "UPDATE guideline_rate set guideline_rate = ?, category = ?, peak_demand = ?, out_peak_demand = ?, "
+        updateGuidelineRate = "UPDATE guideline_rate set guideline_rate = ?, category = ?, peak_demand = ?, out_peak_demand = ?, "
                 + "peak_energy_dry = ?, out_peak_energy_dry = ?, peak_energy_humid = ?, "
                 + "out_peak_energy_humid = ?, value_transpassed = ?";
 
@@ -95,13 +95,10 @@ public class GuidelineRateDAO {
 
         dbint.connect();
 
-        dbint.insert(insertGuidelineRate, params);
+        dbint.insert(updateGuidelineRate, params);
 
         dbint.disconnect();
 
-    }
-
-    public void savingGuidelineRate(List<GuidelineRate> guidelineRete) {
     }
 
     public void updateGuidelineRate(List<GuidelineRate> guidelineRate) {

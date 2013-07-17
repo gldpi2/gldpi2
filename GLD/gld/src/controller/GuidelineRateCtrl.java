@@ -17,7 +17,7 @@ public class GuidelineRateCtrl {
 
     GuidelineRateDAO dao = new GuidelineRateDAO();
 
-    public void savingGuidelineRate(String guidelineRate, String category, String peakDemand, String outPeakDemand,
+    public void createGuidelineRate(String guidelineRate, String category, String peakDemand, String outPeakDemand,
             String peakEnergyDry, String outPeakEnergyDry, String peakEnergyHumid,
             String outPeakEnergyHumid, String valueTranspassed, String timestamp) {
 
@@ -34,7 +34,7 @@ public class GuidelineRateCtrl {
         guideline.setValueTranspassed(valueTranspassed);
         guideline.setTimestamp(timestamp);
 
-        dao.savingGuidelineRate(guideline);
+        dao.createGuidelineRate(guideline);
     }
 
     public void updateGuidelineRate(String guidelineRate, String category, String peakDemand, String outPeakDemand,
@@ -54,7 +54,7 @@ public class GuidelineRateCtrl {
         guideline.setValueTranspassed(valueTranspassed);
         guideline.setTimestamp(timestamp);
 
-        dao.savingGuidelineRate(guideline);
+        dao.updateGuidelineRate(guideline);
     }
     
      public List<GuidelineRate> readGuidelineRate() throws SQLException{
