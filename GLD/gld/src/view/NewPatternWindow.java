@@ -445,7 +445,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
 
     private void monthChooserItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_monthChooserItemStateChanged
         String selected = commandsCombo.getSelectedItem().toString();
-        int selectedMonth = Integer.parseInt(monthChooser.getSelectedItem().toString());
+        int selectedMonth = monthChooser.getSelectedIndex() + 1;
         int selectedYear = Integer.parseInt(yearChooser.getSelectedItem().toString());
 
         if (selected.equals("Mensal")) {
