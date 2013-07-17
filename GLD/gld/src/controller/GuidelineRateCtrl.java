@@ -17,13 +17,14 @@ public class GuidelineRateCtrl {
 
     GuidelineRateDAO dao = new GuidelineRateDAO();
 
-    public void savingGuidelineRate(String guidelineRate, String peakDemand, String outPeakDemand,
+    public void savingGuidelineRate(String guidelineRate, String category, String peakDemand, String outPeakDemand,
             String peakEnergyDry, String outPeakEnergyDry, String peakEnergyHumid,
             String outPeakEnergyHumid, String valueTranspassed, String timestamp) {
 
         GuidelineRate guideline = new GuidelineRate();
 
         guideline.setGuidelineRate(guidelineRate);
+        guideline.setCategory(category);
         guideline.setPeakDemand(peakDemand);
         guideline.setOutPeakDemand(outPeakDemand);
         guideline.setPeakEnergyDry(peakEnergyDry);
@@ -36,13 +37,14 @@ public class GuidelineRateCtrl {
         dao.savingGuidelineRate(guideline);
     }
 
-    public void updateGuidelineRate(String guidelineRate, String peakDemand, String outPeakDemand,
+    public void updateGuidelineRate(String guidelineRate, String category, String peakDemand, String outPeakDemand,
             String peakEnergyDry, String outPeakEnergyDry, String peakEnergyHumid,
             String outPeakEnergyHumid, String valueTranspassed, String timestamp) {
 
         GuidelineRate guideline = new GuidelineRate();
 
         guideline.setGuidelineRate(guidelineRate);
+        guideline.setCategory(category);
         guideline.setPeakDemand(peakDemand);
         guideline.setOutPeakDemand(outPeakDemand);
         guideline.setPeakEnergyDry(peakEnergyDry);

@@ -20,9 +20,9 @@ import utils.DatabaseInterface;
 public class GuidelineRateDAO {
 
     private DatabaseInterface dbint = new DatabaseInterface();
-    public static final String insertGuidelineRate = "INSERT INTO guideline_rate (guideline_rate, peak_demand, out_peak_demand, peak_energy_dry, "
+    public static final String insertGuidelineRate = "INSERT INTO guideline_rate (guideline_rate, category, peak_demand, out_peak_demand, peak_energy_dry, "
             + "out_peak_energy_dry, pea_energ_humid, out_peak_energy_humid, value_transpassed) VALUES "
-            + "(?,?,?,?,?,?,?,?)";
+            + "(?,?,?,?,?,?,?,?,?)";
     public static final String searchGuidelineRate = "SELECT * FROM guideline_rate";
 
     public GuidelineRateDAO() {
@@ -32,15 +32,16 @@ public class GuidelineRateDAO {
 
         dbint.executeQuery(insertGuidelineRate);
 
-        String[] params = new String[8];
+        String[] params = new String[9];
         params[0] = guidelineRate.getGuidelineRate();
-        params[1] = guidelineRate.getPeakDemand();
-        params[2] = guidelineRate.getOutPeakDemand();
-        params[3] = guidelineRate.getPeakEnergyDry();
-        params[4] = guidelineRate.getOutPeakEnergyDry();
-        params[5] = guidelineRate.getPeakEnergyHumid();
-        params[6] = guidelineRate.getOutPeakEnergyHumid();
-        params[7] = guidelineRate.getValueTranspassed();
+        params[1] = guidelineRate.getCategory();
+        params[2] = guidelineRate.getPeakDemand();
+        params[3] = guidelineRate.getOutPeakDemand();
+        params[4] = guidelineRate.getPeakEnergyDry();
+        params[5] = guidelineRate.getOutPeakEnergyDry();
+        params[6] = guidelineRate.getPeakEnergyHumid();
+        params[7] = guidelineRate.getOutPeakEnergyHumid();
+        params[8] = guidelineRate.getValueTranspassed();
 
         dbint.connect();
 
@@ -60,7 +61,7 @@ public class GuidelineRateDAO {
         while (rs.next()) {
             GuidelineRate guidelineRate;
 
-            guidelineRate = new GuidelineRate(rs.getString("guideline_rate"), rs.getString("peak_demand"),
+            guidelineRate = new GuidelineRate(rs.getString("guideline_rate"), rs.getString("category"), rs.getString("peak_demand"),
                     rs.getString("out_peak_demand"), rs.getString("peak_energy_dry"),
                     rs.getString("out_peak_energy_dry"), rs.getString("peak_energy_humid"),
                     rs.getString("out_peak_energy_humid"), rs.getString("value_transpassed"),
@@ -77,19 +78,20 @@ public class GuidelineRateDAO {
 
         String sql = "SELECT id_rate FROM guideline_rate";
 
-        sql = "UPDATE guideline_rate set guideline_rate = ?, peak_demand = ?, out_peak_demand = ?, "
+        sql = "UPDATE guideline_rate set guideline_rate = ?, category = ?, peak_demand = ?, out_peak_demand = ?, "
                 + "peak_energy_dry = ?, out_peak_energy_dry = ?, peak_energy_humid = ?, "
                 + "out_peak_energy_humid = ?, value_transpassed = ?";
 
-        String[] params = new String[8];
+        String[] params = new String[9];
         params[0] = guidelineRate.getGuidelineRate();
-        params[1] = guidelineRate.getPeakDemand();
-        params[2] = guidelineRate.getOutPeakDemand();
-        params[3] = guidelineRate.getPeakEnergyDry();
-        params[4] = guidelineRate.getOutPeakEnergyDry();
-        params[5] = guidelineRate.getPeakEnergyHumid();
-        params[6] = guidelineRate.getOutPeakEnergyHumid();
-        params[7] = guidelineRate.getValueTranspassed();
+        params[1] = guidelineRate.getCategory();
+        params[2] = guidelineRate.getPeakDemand();
+        params[3] = guidelineRate.getOutPeakDemand();
+        params[4] = guidelineRate.getPeakEnergyDry();
+        params[5] = guidelineRate.getOutPeakEnergyDry();
+        params[6] = guidelineRate.getPeakEnergyHumid();
+        params[7] = guidelineRate.getOutPeakEnergyHumid();
+        params[8] = guidelineRate.getValueTranspassed();
 
         dbint.connect();
 

@@ -15,23 +15,25 @@ public class GuidelineRate {
 
     private int idGuidelineRate;
     private String guidelineRate = null;
-    private String peakDemand;
-    private String outPeakDemand;
-    private String peakEnergyDry;
-    private String outPeakEnergyDry;
-    private String peakEnergyHumid;
-    private String outPeakEnergyHumid;
-    private String valueTranspassed;
-    private String timestamp;
+    private String category = null;
+    private String peakDemand = null;
+    private String outPeakDemand = null;
+    private String peakEnergyDry = null;
+    private String outPeakEnergyDry = null;
+    private String peakEnergyHumid = null;
+    private String outPeakEnergyHumid = null;
+    private String valueTranspassed = null;
+    private String timestamp = null;
     private int year;
     private int month;
     private int day;
 
-    public GuidelineRate(String guidelineRate, String peakDemand, String outPeakDemand,
+    public GuidelineRate(String guidelineRate, String category, String peakDemand, String outPeakDemand,
             String peakEnergyDry, String outPeakEnergyDry, String peakEnergyHumid,
             String outPeakEnergyHumid, String valueTranspassed, String timestamp) {
 
         this.guidelineRate = guidelineRate;
+        this.category = category;
         this.outPeakDemand = outPeakDemand;
         this.outPeakEnergyDry = outPeakEnergyDry;
         this.outPeakEnergyHumid = outPeakEnergyHumid;
@@ -41,8 +43,8 @@ public class GuidelineRate {
         this.valueTranspassed = valueTranspassed;
 
     }
-    
-    public GuidelineRate(){
+
+    public GuidelineRate() {
     }
 
     public String getGuidelineRate() {
@@ -59,6 +61,14 @@ public class GuidelineRate {
 
     public String getTimestamp() {
         return timestamp;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public void setTimestamp(String timestamp) {
