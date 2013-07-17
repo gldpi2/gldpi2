@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package model;
 
 import java.util.Date;
@@ -16,6 +12,12 @@ public class Mensuration {
     private int idMensuration;
     private double flow;
     private double tension;
+    private double powerFactor;
+    private double flowPanel;
+    private double flowAeroGenerator;
+    private double bateryTension;
+    private int activeSystem;
+    private int energyAvailable;
     private String timestamp;
     private int year;
     private int mounth;
@@ -148,5 +150,29 @@ public class Mensuration {
 
     public int getYear() {
         return this.year;
+    }
+
+    public void setPowerFactor(double powerFactor) {
+        this.powerFactor = powerFactor;
+    }
+
+    public void setFlowPanel(double flowPanel) {
+        this.flowPanel = flowPanel;
+    }
+
+    public void setFlowAeroGenerator(double flowAeroGenerator) {
+        this.flowAeroGenerator = flowAeroGenerator;
+    }
+
+    public void setBateryTension(double bateryTension) {
+        this.bateryTension = bateryTension;
+    }
+
+    public void setActiveSystem(int activeSystem) {
+        this.activeSystem = activeSystem;
+    }
+
+    public void setEnergyAvailable(int energyAvailable) {
+        this.energyAvailable = energyAvailable;
     }
 }
