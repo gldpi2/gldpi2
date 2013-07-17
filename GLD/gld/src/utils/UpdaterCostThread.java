@@ -1,7 +1,6 @@
 package utils;
 
 import controller.CostCtrl;
-import dao.CostDAO;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -17,9 +16,9 @@ import org.jfree.data.time.TimeSeries;
 public class UpdaterCostThread implements Runnable {
 
     ResourceBundle properties = ResourceBundle.getBundle("utils.PropertiesFile");
-    private CostDAO costDao = new CostDAO();
     CostCtrl ctrl = new CostCtrl();
     private TimeSeries series;
+    private TimeSeries seriesLimit;
     private JLabel flowValue;
     private JLabel tensionValue;
     private JLabel potencyvalue;
@@ -30,9 +29,10 @@ public class UpdaterCostThread implements Runnable {
         this.series = series;
     }
 
-    public UpdaterCostThread(TimeSeries series, JLabel flowValue, JLabel tensionValue, JLabel potencyValue,
+    public UpdaterCostThread(TimeSeries series, TimeSeries seriesLimit, JLabel flowValue, JLabel tensionValue, JLabel potencyValue,
             JLabel maxCostValue, JLabel minCostValue) {
         this.series = series;
+        this.seriesLimit = seriesLimit;
         this.flowValue = flowValue;
         this.tensionValue = tensionValue;
         this.potencyvalue = potencyValue;
@@ -52,7 +52,7 @@ public class UpdaterCostThread implements Runnable {
             for (Mensuration m : mensuration) {
                 double cost = m.getPotency();
                 series.addOrUpdate(m.getMillisecond(), calculateCost(m));
-
+                //seriesLimit.add(m.getMillisecond(), 300);
                 if (this.tensionValue != null) {
                     if (this.tensionValue.isShowing()) {
                         try {                        

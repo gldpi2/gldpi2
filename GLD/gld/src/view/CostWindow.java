@@ -42,7 +42,7 @@ public class CostWindow extends javax.swing.JPanel {
         pg.criaGrafico();
 
         pg.criaGrafico();
-        th = new Thread(new UpdaterCostThread(pg.getSeries(),this.FlowValue, this.TensionValue, this.PotencyValue,
+        th = new Thread(new UpdaterCostThread(pg.getSeries(), pg.limitSeries(),this.FlowValue, this.TensionValue, this.PotencyValue,
                         this.maxCost, this.minCost));
         th.setDaemon(true);
         th.start();
