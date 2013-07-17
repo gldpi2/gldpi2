@@ -57,6 +57,7 @@ public class ContractDAO {
             contract = new Contract(rs.getString("contracted_peak_demand"), rs.getString("out_peak_demand"),
                     rs.getString("humid_season"), rs.getString("dry_humid"), rs.getString("timestamp"));
 
+            listContract.add(contract);
         }
 
         dbint.disconnect();

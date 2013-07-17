@@ -67,6 +67,7 @@ public class GuidelineRateDAO {
                     rs.getString("out_peak_energy_humid"), rs.getString("value_transpassed"),
                     rs.getString("timestamp"));
 
+            listGuideline.add(guidelineRate);
         }
 
         dbint.disconnect();
