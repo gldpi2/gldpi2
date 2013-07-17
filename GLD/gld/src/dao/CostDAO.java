@@ -17,14 +17,14 @@ import utils.DatabaseInterface;
 public class CostDAO {
 
     private DatabaseInterface dbInterface = new DatabaseInterface();
-    private String time;
+    private String timeHour;
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setTime(String timeHour) {
+        this.timeHour = timeHour;
     }
 
     public String getTime() {
-        return time;
+        return timeHour;
     }
     /**
      * Método que irá pegar as mediçõe através da DAO e aqui irá fazer o cálculo

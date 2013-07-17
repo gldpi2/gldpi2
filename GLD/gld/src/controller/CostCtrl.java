@@ -4,13 +4,12 @@
  */
 package controller;
 
-import static controller.CostCtrl.HOUR;
-import static controller.CostCtrl.PEAK;
-import static controller.CostCtrl.VALUE_OFFPEAK;
 import dao.CostDAO;
 import java.util.List;
 import model.Cost;
 import model.Mensuration;
+import org.jfree.chart.ChartPanel;
+import org.jfree.data.time.TimeSeries;
 
 /**
  *
@@ -18,9 +17,11 @@ import model.Mensuration;
  */
 public class CostCtrl {
 
-    public final static double HOUR = 3600;
-    public final static double PEAK = 19.65 / HOUR;
-    public final static double VALUE_OFFPEAK = 5.22 / HOUR;
+    private final static double PEAK = 0.3260544; 
+    private final static double VALUE_OFFPEAK = 0.2079277;
+    private final static double DEMANDPEAK = 19.65;
+    private final static double DEMANDOFFPEAK = 5.22;
+    
     private CostDAO cDao = new CostDAO();
     private List<Mensuration> listMensuration;
     private Cost cost = new Cost();
@@ -80,5 +81,13 @@ public class CostCtrl {
     
     public Mensuration getMensuration(){
         return cost.mensuration;
+    }
+    
+    public ChartPanel createCostChart(){
+       return cost.createCostChart();
+    }
+    
+    public TimeSeries getAllSeries(){
+        return cost.series;
     }
 }

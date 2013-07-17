@@ -42,7 +42,7 @@ public class MainMenu extends javax.swing.JPanel {
         costChart.criaGrafico();
 
         costChart.criaGrafico();
-        Thread costUpdaterCostThread = new Thread(new UpdaterCostThread(costChart.series));
+        Thread costUpdaterCostThread = new Thread(new UpdaterCostThread(costChart.getSeries()));
         costUpdaterCostThread.setDaemon(true);
         costUpdaterCostThread.start();
 
