@@ -26,7 +26,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static UserWindow userWindow;
     public static EstimationCurveMenu estimationCurveMenu;
     public static EstimationCostMenu estimationCostMenu;
-    public static PatternWindow pattern;
+    public static NewPatternWindow pattern;
     PowerGridMonitor powerGridMonitor;
     Thread monitorThread;
     int state = 0;
@@ -42,7 +42,7 @@ public class MainWindow extends javax.swing.JFrame {
         setSize(1024, 720);
         setLocationRelativeTo(null);
         user = usuario;
-        
+
         this.raizHibrido.setVisible(false);
 
         if (Integer.parseInt(user.getTipo()) == 2) {
@@ -145,7 +145,8 @@ public class MainWindow extends javax.swing.JFrame {
 
         raizArquivo.setText("Arquivo");
 
-        jMenuItem1.setText("Teste Calendário");
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.META_MASK));
+        jMenuItem1.setText("New Pattern");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -412,7 +413,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         desktop.removeAll();
-        pattern = new PatternWindow(desktop.getHeight(), user);
+        pattern = new NewPatternWindow(desktop.getHeight(), user);
         desktop.add(pattern);
         desktop.revalidate();
         desktop.repaint();
