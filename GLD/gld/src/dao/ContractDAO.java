@@ -18,17 +18,18 @@ import utils.DatabaseInterface;
 public class ContractDAO {
 
     private DatabaseInterface dbint = new DatabaseInterface();
-    public static final String insertContract = "INSERT INTO contract (peak_demand, out_peak_demand, "
-            + "humid_season, dry_season) VALUES "
-            + "(?,?,?,?)";
+    
     public static final String searchContract = "SELECT * FROM contract";
 
     public ContractDAO() {
     }
 
-    public void savingContract(Contract contract) {
-        dbint.executeQuery(insertContract);
-
+    public void createContract(Contract contract) {
+        
+        String insertContract = "INSERT INTO contract (peak_demand, out_peak_demand, "
+            + "humid_season, dry_season) VALUES "
+            + "(?,?,?,?)";
+        
         String[] params = new String[3];
         params[0] = contract.getPeakDemandContracted();
         params[1] = contract.getOutPeakDemandContracted();
@@ -64,10 +65,25 @@ public class ContractDAO {
     }
 
     public void updateContract(Contract contract) {
+        String updateContract = "SELECT id_contract FROM contract";
         
+        updateContract = "UPDATE contract set contracted_peak_demand = ?, out_peak_demand = ?, "
+                + "humid_season = ?, dry_season = ?, timestamp = ? ";
+        
+        String[] params = new String[3];
+        params[0] = contract.getPeakDemandContracted();
+        params[1] = contract.getOutPeakDemandContracted();
+        params[2] = contract.getHumidSeason();
+        params[3] = contract.getDrySeason();
+
+        dbint.connect();
+
+        dbint.insert(updateContract, params);
+
+        dbint.disconnect();
     }
 
-    public void savingContract(List<Contract> contract) {
+    public void createContract(List<Contract> contract) {
     }
 
     public void updateContract(List<Contract> contract) {
