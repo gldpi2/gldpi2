@@ -141,4 +141,12 @@ public class Mensuration {
     public int getDay() {
         return this.day;
     }
+
+    public int getMounth() {
+        return this.mounth;
+    }
+
+    public int getYear() {
+        return this.year;
+    }
 }

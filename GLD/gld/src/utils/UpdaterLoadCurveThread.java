@@ -60,18 +60,21 @@ public class UpdaterLoadCurveThread implements Runnable {
     public void run() {
         Mensuration lastMensuration = null;
 
-        List<Mensuration> mensuration = this.loadCurveCtrl.getMensurationByDay(19, 06, 2013);
+        List<Mensuration> mensuration = this.loadCurveCtrl.getMensurationByDay(1, 7, 2013);
 
         final Day today = new Day();
 
         boolean inserted = false;
         double averagePotency = 0;
 
+        int i = 0;
         if (mensuration.size() > 0) {
-
-
             for (Mensuration m : mensuration) {
                 double currentPotency = m.getPotency();
+
+                if (averagePotency == 0) {
+                    averagePotency = m.getPotency();
+                }
 
                 if (m.getMinute() % 15 == 0) {
                     if (!inserted) {
@@ -85,7 +88,13 @@ public class UpdaterLoadCurveThread implements Runnable {
                         inserted = true;
                         averagePotency = 0;
                     }
-                    averagePotency += currentPotency;
+
+                    if (averagePotency == 0) {
+                        averagePotency = m.getPotency();
+                    } else {
+                        averagePotency += currentPotency;
+                    }
+
                 } else {
                     inserted = false;
                     averagePotency += currentPotency;
@@ -106,6 +115,8 @@ public class UpdaterLoadCurveThread implements Runnable {
             updateMinPotency(loadCurveCtrl.getMinMensuration());
         }
 
+        inserted = false;
+        averagePotency = 0;
         while (true) {
             Mensuration m = this.loadCurveCtrl.getLastMensuration();
 

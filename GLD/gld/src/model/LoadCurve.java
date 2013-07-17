@@ -49,7 +49,7 @@ public class LoadCurve {
 
         final XYItemRenderer mensurationRender = x;
 
-        mensurationRender.setSeriesPaint(0, new Color(0, 255, 0, 255));
+        mensurationRender.setSeriesPaint(0, Color.GREEN);
         mensurationRender.setSeriesPaint(1, Color.RED);
         mensurationRender.setSeriesPaint(2, Color.BLUE);
 
