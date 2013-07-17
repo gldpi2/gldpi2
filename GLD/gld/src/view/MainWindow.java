@@ -33,6 +33,7 @@ public class MainWindow extends javax.swing.JFrame {
     int state = 0;
     private MainMenu pg;
     private NewMainMenu pg2;
+    private GuidelineRateWindow1 guideLineWindow;
 
     /**
      * Creates new form JanelaPrincipal
@@ -106,6 +107,7 @@ public class MainWindow extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         menuRegistros = new javax.swing.JMenu();
         menuRegistrosUsuario = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         separadorArquivo = new javax.swing.JPopupMenu.Separator();
         menuVoltarMenuPrincipal = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenuItem();
@@ -166,6 +168,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         menuRegistros.add(menuRegistrosUsuario);
+
+        jMenuItem2.setText("Enquadramento Tarifário");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        menuRegistros.add(jMenuItem2);
 
         raizArquivo.add(menuRegistros);
         raizArquivo.add(separadorArquivo);
@@ -359,7 +369,7 @@ public class MainWindow extends javax.swing.JFrame {
                 "Sair do Sistema",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                null,
+                new ImageIcon("src/icons/cross.png"),
                 options,
                 options[1]);
 
@@ -380,7 +390,6 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.add(eorCostWindow);
         desktop.revalidate();
         desktop.repaint();
-        //JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuCustoTempoRealActionPerformed
 
     private void menuConsumoTempoRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuConsumoTempoRealActionPerformed
@@ -389,7 +398,6 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.add(eorLoadWindow);
         desktop.revalidate();
         desktop.repaint();
-        //JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
     }//GEN-LAST:event_menuConsumoTempoRealActionPerformed
 
     private void menuVoltarMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVoltarMenuPrincipalActionPerformed
@@ -419,6 +427,14 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        desktop.removeAll();
+        guideLineWindow = new GuidelineRateWindow1(desktop.getHeight());
+        desktop.add(guideLineWindow);
+        desktop.revalidate();
+        desktop.repaint();
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void closePowerGridMonitorThread() {
         Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "PowerGridMonitorThread parada.");
@@ -462,6 +478,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenuBar barraMenu;
     public static javax.swing.JPanel desktop;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem menuConsumo;
     private javax.swing.JMenuItem menuConsumoHistorico;
     private javax.swing.JMenuItem menuConsumoTempoReal;

@@ -2,12 +2,13 @@ package view;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Login;
 import org.jfree.data.time.Day;
+import utils.DatabaseInterface;
 
 /**
  *
@@ -22,6 +23,11 @@ public class NewPatternWindow extends javax.swing.JPanel {
     private NewMainMenu newMenu;
     private Login userLogged;
     private Day today = new Day();
+    private DatabaseInterface dbInterface = new DatabaseInterface();
+    /*
+     * 0 - data minima selecionavel / 1 - data maxima selecionavel
+     */
+    private Date[] dates = new Date[2];
 
     public NewPatternWindow(int y, Login user) {
         initComponents();
@@ -38,6 +44,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
         loadChart.startGraph(false);
 
         initialVisibleComponents();
+        setMaxAndMinDates();
         loadChart.startGraph(true);
 
         desktop.add(loadChart);
@@ -49,21 +56,33 @@ public class NewPatternWindow extends javax.swing.JPanel {
         dateChooserFrom.setVisible(false);
         toLabel.setVisible(false);
         dateChooserTo.setVisible(false);
-        monthChooser.setVisible(false);
         yearChooser.setVisible(false);
-        monthChooser.setSelectedIndex(month);
+        monthChooser.setVisible(false);
         yearChooser.setSelectedIndex(year);
+        monthChooser.setSelectedIndex(month);
 
         dateChooserFrom.getDateEditor().addPropertyChangeListener(
                 new PropertyChangeListener() {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
+                Calendar cal = Calendar.getInstance();
                 Date data = dateChooserFrom.getDate();
+
                 if (data != null && dateChooserTo.isVisible()) {
-                    dateChooserTo.setMinSelectableDate(data);
+                    cal.setTime(data);
+                    cal.add(Calendar.DATE, 1);
+                    Date newData = cal.getTime();
+                    dateChooserTo.setMinSelectableDate(newData);
+                    dateChooserTo.setCalendar(null);
                 }
             }
         });
+    }
+
+    private void setMaxAndMinDates() {
+        dbInterface.connect();
+        dates = dbInterface.getMaxAndMinDates();
+        dbInterface.disconnect();
     }
 
     @SuppressWarnings("unchecked")
@@ -93,8 +112,8 @@ public class NewPatternWindow extends javax.swing.JPanel {
         toLabel = new javax.swing.JLabel();
         dateChooserFrom = new com.toedter.calendar.JDateChooser();
         dateChooserTo = new com.toedter.calendar.JDateChooser();
-        monthChooser = new javax.swing.JComboBox();
         yearChooser = new javax.swing.JComboBox();
+        monthChooser = new javax.swing.JComboBox();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "NewPatternWindow", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 24))); // NOI18N
         setMaximumSize(new java.awt.Dimension(1024, 720));
@@ -127,7 +146,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 426, Short.MAX_VALUE)
+            .add(0, 429, Short.MAX_VALUE)
         );
 
         panelInformations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
@@ -266,15 +285,14 @@ public class NewPatternWindow extends javax.swing.JPanel {
 
         toLabel.setText("Até:");
 
-        dateChooserFrom.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                dateChooserFromFocusLost(evt);
-            }
-        });
+        yearChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2013", "2014", "2015", "2016"}));
 
         monthChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
-
-        yearChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2013", "2014", "2015", "2016" }));
+        monthChooser.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                monthChooserItemStateChanged(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout panelCommandsLayout = new org.jdesktop.layout.GroupLayout(panelCommands);
         panelCommands.setLayout(panelCommandsLayout);
@@ -292,8 +310,8 @@ public class NewPatternWindow extends javax.swing.JPanel {
                             .add(dateChooserTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(dateChooserFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .add(panelCommandsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, yearChooser, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, monthChooser, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, yearChooser, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, commandsCombo, 0, 159, Short.MAX_VALUE)))
                 .add(3, 3, 3))
         );
@@ -302,9 +320,9 @@ public class NewPatternWindow extends javax.swing.JPanel {
             .add(panelCommandsLayout.createSequentialGroup()
                 .add(commandsCombo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(monthChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(yearChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(monthChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(panelCommandsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(panelCommandsLayout.createSequentialGroup()
@@ -387,31 +405,37 @@ public class NewPatternWindow extends javax.swing.JPanel {
 
     private void commandsComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commandsComboActionPerformed
         String selected = commandsCombo.getSelectedItem().toString();
+        dateChooserFrom.setMinSelectableDate(dates[0]);
+        dateChooserFrom.setMaxSelectableDate(dates[1]);
+        dateChooserTo.setMaxSelectableDate(dates[1]);
 
         switch (selected) {
             case "Diário":
                 dateChooserFrom.setVisible(true);
-                dateChooserFrom.cleanup();
+                dateChooserFrom.setCalendar(null);
+                dateChooserTo.updateUI();
                 dateChooserTo.setVisible(false);
                 toLabel.setVisible(false);
                 fromLabel.setVisible(false);
-                monthChooser.setVisible(false);
                 yearChooser.setVisible(false);
+                monthChooser.setVisible(false);
                 break;
             case "Mensal":
                 initialVisibleComponents();
-                monthChooser.setVisible(true);
                 yearChooser.setVisible(true);
+                monthChooser.setVisible(true);
                 break;
             case "Período":
                 dateChooserFrom.setVisible(true);
-                dateChooserFrom.cleanup();
+                dateChooserFrom.setCalendar(null);
+                dateChooserFrom.updateUI();
                 dateChooserTo.setVisible(true);
-                dateChooserTo.cleanup();
+                dateChooserTo.setCalendar(null);
+                dateChooserTo.updateUI();
                 toLabel.setVisible(true);
                 fromLabel.setVisible(true);
-                monthChooser.setVisible(false);
                 yearChooser.setVisible(false);
+                monthChooser.setVisible(false);
                 break;
             default:
                 initialVisibleComponents();
@@ -419,8 +443,19 @@ public class NewPatternWindow extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_commandsComboActionPerformed
 
-    private void dateChooserFromFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateChooserFromFocusLost
-    }//GEN-LAST:event_dateChooserFromFocusLost
+    private void monthChooserItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_monthChooserItemStateChanged
+        String selected = commandsCombo.getSelectedItem().toString();
+        int selectedMonth = Integer.parseInt(monthChooser.getSelectedItem().toString());
+        int selectedYear = Integer.parseInt(yearChooser.getSelectedItem().toString());
+
+        if (selected.equals("Mensal")) {
+            if (selectedYear >= dates[0].getYear() || selectedYear <= dates[1].getYear()) {
+                if (selectedMonth <= dates[0].getMonth() || selectedMonth >= dates[1].getMonth()) {
+                    System.out.println("\n\nTESTE!!!\n\n");
+                }
+            }
+        }
+    }//GEN-LAST:event_monthChooserItemStateChanged
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMainMenu;
     private javax.swing.JComboBox commandsCombo;
