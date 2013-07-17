@@ -6,9 +6,12 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
-import javax.swing.JLabel;
+import model.LoadCurve;
 import model.Mensuration;
-import org.jfree.data.time.TimeSeries;
+import org.jfree.data.time.Day;
+import org.jfree.data.time.Hour;
+import org.jfree.data.time.Minute;
+import org.jfree.data.time.SimpleTimePeriod;
 
 /**
  *
@@ -18,7 +21,7 @@ public class UpdaterLoadCurveThread implements Runnable {
 
     ResourceBundle properties = ResourceBundle.getBundle("utils.PropertiesFile");
     private LoadCurveCtrl loadCurveCtrl = new LoadCurveCtrl();
-    private TimeSeries series;
+    private LoadCurve loadCurve;
     private JLabel flowValue;
     private JLabel tensionValue;
     private JLabel potencyvalue;
@@ -32,15 +35,15 @@ public class UpdaterLoadCurveThread implements Runnable {
      *
      * @param series XYSeries Referência da série apresentada no gráfico.
      */
-    public UpdaterLoadCurveThread(TimeSeries series) {
-        this.series = series;
+    public UpdaterLoadCurveThread(LoadCurve loadCurve) {
+        this.loadCurve = loadCurve;
     }
 
-    public UpdaterLoadCurveThread(TimeSeries series,
+    public UpdaterLoadCurveThread(LoadCurve loadCurve,
             JLabel flowValue, JLabel tensionValue, JLabel potencyValue,
             JLabel maxPotencyValue, JLabel maxPotencyTime,
             JLabel minPotencyValue, JLabel minPotencyTime) {
-        this.series = series;
+        this.loadCurve = loadCurve;
         this.flowValue = flowValue;
         this.tensionValue = tensionValue;
         this.potencyvalue = potencyValue;
@@ -57,13 +60,36 @@ public class UpdaterLoadCurveThread implements Runnable {
     public void run() {
         Mensuration lastMensuration = null;
 
-        List<Mensuration> mensuration = this.loadCurveCtrl.getAllMensuration();
+        List<Mensuration> mensuration = this.loadCurveCtrl.getMensurationByDay(19, 06, 2013);
+
+        final Day today = new Day();
+
+        boolean inserted = false;
+        double averagePotency = 0;
 
         if (mensuration.size() > 0) {
+
+
             for (Mensuration m : mensuration) {
                 double currentPotency = m.getPotency();
 
-                series.addOrUpdate(m.getMillisecond(), currentPotency);
+                if (m.getMinute() % 15 == 0) {
+                    if (!inserted) {
+                        final Minute m0 = new Minute(m.getMinute(), new Hour(m.getHour(), today));
+                        final Minute m1 = new Minute(m.getMinute() + 15, new Hour(m.getHour(), today));
+
+                        averagePotency = (averagePotency + currentPotency) / 2;
+
+                        loadCurve.offPeakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), averagePotency);
+
+                        inserted = true;
+                        averagePotency = 0;
+                    }
+                    averagePotency += currentPotency;
+                } else {
+                    inserted = false;
+                    averagePotency += currentPotency;
+                }
 
                 if (currentPotency > loadCurveCtrl.getMaxMensuration().getPotency()) {
                     loadCurveCtrl.setMaxMensuration(m);
@@ -90,7 +116,23 @@ public class UpdaterLoadCurveThread implements Runnable {
             if (!(lastMensuration.getIdMensuration() == m.getIdMensuration())) {
                 double currentPotency = m.getPotency();
 
-                series.addOrUpdate(m.getMillisecond(), currentPotency);
+                if (m.getMinute() % 15 == 0) {
+                    if (!inserted) {
+                        final Minute m0 = new Minute(m.getMinute(), new Hour(m.getHour(), today));
+                        final Minute m1 = new Minute(m.getMinute() + 15, new Hour(m.getHour(), today));
+
+                        averagePotency = (averagePotency + currentPotency) / 2;
+
+                        loadCurve.offPeakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), averagePotency);
+
+                        inserted = true;
+                        averagePotency = 0;
+                    }
+                    averagePotency += currentPotency;
+                } else {
+                    inserted = false;
+                    averagePotency += currentPotency;
+                }
 
                 if (currentPotency > loadCurveCtrl.getMaxMensuration().getPotency()) {
                     updateMaxPotency(m);

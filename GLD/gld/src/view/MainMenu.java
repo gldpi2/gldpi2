@@ -54,9 +54,9 @@ public class MainMenu extends javax.swing.JPanel {
         //rodar grafico de consumo
         panelConsumption.removeAll();
         loadCurveChart = new LoadCurveChart(panelConsumption.getWidth(), panelConsumption.getHeight());
-        loadCurveChart.startGraph();
+        loadCurveChart.startGraph(false);
 
-        loadCurveUpdaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries()));
+        loadCurveUpdaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getLoadCurve()));
         loadCurveUpdaterThread.setDaemon(true);
         loadCurveUpdaterThread.start();
 

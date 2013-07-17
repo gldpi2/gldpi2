@@ -1,8 +1,8 @@
 package view;
 
 import controller.LoadCurveCtrl;
+import model.LoadCurve;
 import org.jfree.chart.ChartPanel;
-import org.jfree.data.time.TimeSeries;
 
 /**
  *
@@ -20,7 +20,7 @@ public class LoadCurveChart extends javax.swing.JPanel {
         setSize(x, y);
     }
 
-    public void startGraph() {
+    public void startGraph(boolean verticalTick) {
         ChartPanel panel = loadCurveCtrl.createLoadCurveGraphPanel();
         panel.setSize(this.getWidth(), this.getHeight());
         panel.setVisible(true);
@@ -31,8 +31,8 @@ public class LoadCurveChart extends javax.swing.JPanel {
         loadCurveCtrl.setState(1);
     }
 
-    public TimeSeries getSeries() {
-        return this.loadCurveCtrl.getSeries();
+    public LoadCurve getLoadCurve() {
+        return this.loadCurveCtrl.getLoadCurve();
     }
 
     public void changeSize(int x, int y) {
