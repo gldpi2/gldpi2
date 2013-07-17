@@ -1,43 +1,43 @@
 package view;
 
-import controller.LoadCurveCtrl;
-import model.LoadCurve;
+import controller.LoadEstimationOnHistoryCtrl;
 import org.jfree.chart.ChartPanel;
+import org.jfree.data.time.TimeSeries;
 
 /**
  *
- * @author itallorossi
+ * @author Fernando
  */
-public class LoadCurveChart extends javax.swing.JPanel {
+public class LoadEstimationOnHistoryChart extends javax.swing.JPanel {
 
-    public LoadCurveCtrl loadCurveCtrl = new LoadCurveCtrl();
+    public LoadEstimationOnHistoryCtrl loadEstimationOnHistoryCtrl = new LoadEstimationOnHistoryCtrl();
 
     /**
      * Creates new form CharPanel
      */
-    public LoadCurveChart(int x, int y) {
+    public LoadEstimationOnHistoryChart(int x, int y) {
         initComponents();
         setSize(x, y);
     }
 
-    public void startGraph(boolean verticalTick) {
-        ChartPanel panel = loadCurveCtrl.createLoadCurveGraphPanel();
+    public void startGraph(int interval) {
+        ChartPanel panel = loadEstimationOnHistoryCtrl.createLoadEstimationOnHistoryGraphPanel(interval);
         panel.setSize(this.getWidth(), this.getHeight());
         panel.setVisible(true);
         this.removeAll();
         this.add(panel);
         this.revalidate();
         this.repaint();
-        loadCurveCtrl.setState(1);
+        loadEstimationOnHistoryCtrl.setState(1);
     }
 
-    public LoadCurve getLoadCurve() {
-        return this.loadCurveCtrl.getLoadCurve();
+    public TimeSeries getSeries() {
+        return this.loadEstimationOnHistoryCtrl.getSeries();
     }
 
     public void changeSize(int x, int y) {
-        if (loadCurveCtrl.getState() != 0) {
-            loadCurveCtrl.setSize(x, y);
+        if (loadEstimationOnHistoryCtrl.getState() != 0) {
+            loadEstimationOnHistoryCtrl.setSize(x, y);
             this.setSize(x, y);
         }
     }

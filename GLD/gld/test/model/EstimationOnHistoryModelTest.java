@@ -4,6 +4,7 @@
  */
 package model;
 
+import controller.LoadEstimationOnHistoryCtrl;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -23,10 +24,10 @@ public class EstimationOnHistoryModelTest {
     @Test
     public void estimar(){
         
-        EstimationOnHistory est = new EstimationOnHistory();
+        LoadEstimationOnHistoryCtrl est = new LoadEstimationOnHistoryCtrl();
         double resultado = est.pert(5, 2, 3);
         
-        assertEquals(3.1, resultado);
+        assertEquals(3.166, resultado,0.00666666666665);
     }
     
     @BeforeClass

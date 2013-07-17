@@ -47,7 +47,39 @@ public class LoadCurveDAO {
         return measurementList;
     }
 
-    public Mensuration getLastMensuration(){
+    public List<Mensuration> getMensurationByDay(int day, int mounth, int year) {
+        List<Mensuration> measurementList;
+
+        measurementList = new ArrayList<>();
+
+        String sql = "SELECT * FROM `mensuration` "
+                + "WHERE timestamp >= \"" + year + "-" + mounth + "-" + day + " 00:00:00\""
+                + " AND timestamp <= \"" + year + "-" + mounth + "-" + day + " 23:59:59\"";
+
+        dbInterface.connect();
+        ResultSet rs = dbInterface.executeQuery(sql);
+        try {
+            while (rs.next()) {
+                Mensuration mensuration;
+
+                mensuration = new Mensuration();
+                mensuration.setIdMensuration(rs.getInt("id_mensuration"));
+                mensuration.setFlow(rs.getDouble("flow"));
+                mensuration.setTension(rs.getDouble("tension"));
+                mensuration.setTimestamp(rs.getString("timestamp"));
+
+                measurementList.add(mensuration);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoadCurveDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        dbInterface.disconnect();
+
+        return measurementList;
+    }
+
+    public Mensuration getLastMensuration() {
         Mensuration mensuration = new Mensuration();
 
         dbInterface.connect();

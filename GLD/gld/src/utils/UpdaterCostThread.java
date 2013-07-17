@@ -45,7 +45,7 @@ public class UpdaterCostThread implements Runnable {
      */
     @Override
     public void run() {
-        List<Mensuration> mensuration = this.costDao.allMeasurements();
+        List<Mensuration> mensuration = ctrl.allMensuration();
 
         
         while (mensuration.size() > 0) {
@@ -124,6 +124,6 @@ public class UpdaterCostThread implements Runnable {
     }
 
     private double calculateCost(Mensuration m) {
-        return m.getPotency() * costDao.getCostValue();
+        return m.getPotency() * ctrl.energyValue();
     }
 }

@@ -12,10 +12,10 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     int i = 0, state = 0;
     private LoadCurveChart loadCurveChart;
     private Thread updaterThread;
-
     MainMenu mainm;
     NewMainMenu newMainm;
     Login user;
+
     /**
      * Creates new form PatternWindow
      */
@@ -30,12 +30,12 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     public void init() {
         desktop.removeAll();
         loadCurveChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
-        loadCurveChart.startGraph();
+        loadCurveChart.startGraph(true);
 
-        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries(),
-                                                                this.FlowValue, this.TensionValue, this.PotencyValue, 
-                                                                this.maxPotencyValue, this.maxPotencyTime,
-                                                                this.minPotencyValue, this.minPotencyTime));
+        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getLoadCurve(),
+                this.FlowValue, this.TensionValue, this.PotencyValue,
+                this.maxPotencyValue, this.maxPotencyTime,
+                this.minPotencyValue, this.minPotencyTime));
         updaterThread.setDaemon(true);
         updaterThread.start();
 
@@ -322,7 +322,6 @@ public class LoadCurveWindow extends javax.swing.JPanel {
             loadCurveChart.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_desktopComponentResized
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FlowLabel;
     private javax.swing.JLabel FlowValue;

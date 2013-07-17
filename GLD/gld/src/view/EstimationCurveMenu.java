@@ -156,7 +156,7 @@ public class EstimationCurveMenu extends javax.swing.JPanel {
 
     private void jButtonCargaHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCargaHistoricoActionPerformed
         MainWindow.desktop.removeAll();
-        MainWindow.eohWindow = new EstimationOnHistoryWindow(MainWindow.desktop.getHeight(), MainWindow.user);
+        MainWindow.eohWindow = new LoadEstimationOnHistoryWindow(MainWindow.desktop.getHeight(), MainWindow.user);
         MainWindow.desktop.add(MainWindow.eohWindow);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();

@@ -5,28 +5,30 @@ import java.util.List;
 import model.LoadCurve;
 import model.Mensuration;
 import org.jfree.chart.ChartPanel;
-import org.jfree.data.time.TimeSeries;
 
 /**
  *
  * @author Wagner Santos
  */
-
 public class LoadCurveCtrl {
-    
+
     private LoadCurve loadCurve;
     private LoadCurveDAO loadCurveDAO;
-    
-    public LoadCurveCtrl(){
+
+    public LoadCurveCtrl() {
         this.loadCurveDAO = new LoadCurveDAO();
         this.loadCurve = new LoadCurve();
     }
-    
-    public List<Mensuration> getAllMensuration(){
+
+    public List<Mensuration> getAllMensuration() {
         return loadCurveDAO.getAllMensuration();
     }
-    
-    public Mensuration getLastMensuration(){
+
+    public List<Mensuration> getMensurationByDay(int day, int mounth, int year) {
+        return loadCurveDAO.getMensurationByDay(day, mounth, year);
+    }
+
+    public Mensuration getLastMensuration() {
         return loadCurveDAO.getLastMensuration();
     }
 
@@ -34,27 +36,27 @@ public class LoadCurveCtrl {
         return loadCurve.createLoadCurveGraphPanel();
     }
 
-    public Mensuration getMaxMensuration(){
+    public Mensuration getMaxMensuration() {
         return this.loadCurve.maxMensuration;
     }
 
-    public TimeSeries getSeries() {
-        return this.loadCurve.series;
+    public LoadCurve getLoadCurve() {
+        return this.loadCurve;
     }
 
     public int getState() {
         return this.loadCurve.state;
     }
-    
+
     public Mensuration getMinMensuration() {
         return this.loadCurve.minMensuration;
     }
-    
-    public void setMaxMensuration(Mensuration maxMensuration){
+
+    public void setMaxMensuration(Mensuration maxMensuration) {
         this.loadCurve.maxMensuration = maxMensuration;
     }
-    
-    public void setMinMensuration(Mensuration minMensuration){
+
+    public void setMinMensuration(Mensuration minMensuration) {
         this.loadCurve.minMensuration = minMensuration;
     }
 
@@ -65,5 +67,4 @@ public class LoadCurveCtrl {
     public void setSize(int x, int y) {
         this.loadCurve.chartPanel.setSize(x, y);
     }
-    
 }

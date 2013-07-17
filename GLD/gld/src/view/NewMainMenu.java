@@ -47,7 +47,7 @@ public class NewMainMenu extends javax.swing.JPanel {
         costChart.criaGrafico();
 
         costChart.criaGrafico();
-        Thread th = new Thread(new UpdaterCostThread(costChart.series,
+        Thread th = new Thread(new UpdaterCostThread(costChart.getSeries(),
                 this.FlowValue, this.TensionValue, this.PotencyValue,
                 this.maxCostValue, this.minCostValue));
         th.setDaemon(true);
@@ -61,9 +61,9 @@ public class NewMainMenu extends javax.swing.JPanel {
         //rodar grafico de consumo
         panelConsumptionm.removeAll();
         loadCurveChart = new LoadCurveChart(panelConsumptionm.getWidth(), panelConsumptionm.getHeight());
-        loadCurveChart.startGraph();
+        loadCurveChart.startGraph(false);
 
-        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getSeries(),
+        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getLoadCurve(),
                 this.FlowValue, this.TensionValue, this.PotencyValue,
                 this.maxPotencyValue, this.maxPotencyTime,
                 this.minPotencyValue, this.minPotencyTime));

@@ -1,13 +1,8 @@
 package view;
 
-import org.jfree.chart.ChartFactory;
+import controller.CostCtrl;
 import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.ValueAxis;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.TimeSeries;
-import org.jfree.data.time.TimeSeriesCollection;
 
 
 /**
@@ -17,8 +12,7 @@ import org.jfree.data.time.TimeSeriesCollection;
 public class CostChart extends javax.swing.JPanel {
     private static final long serialVersionUID = 1L;
     
-    public TimeSeries series;
-    public JFreeChart costChart;
+    private CostCtrl ctrl = new CostCtrl();
     public ChartPanel myChartPanel;
     int state;
 
@@ -37,33 +31,21 @@ public class CostChart extends javax.swing.JPanel {
     * Utilizando gráfico de series
     */ 
     public void criaGrafico(){
-        series = new TimeSeries("R$/kWh", Millisecond.class);
-        final TimeSeriesCollection dataset = new TimeSeriesCollection(series);
-                       
-        costChart = ChartFactory.createTimeSeriesChart("Gráfico de Custo","Hora", "Valor em Real (R$)",dataset,true,true,false);
-        final XYPlot plot = costChart.getXYPlot();
-        ValueAxis xAxis = plot.getDomainAxis();
-        xAxis.setAutoRange(true);
-        xAxis.setFixedAutoRange(60000.0);
-        //xAxis.setRange(0, 86400000);
-        
-        ValueAxis yAxis;
-        yAxis = plot.getRangeAxis();
-        //yAxis.setRange(0.0, 10.0);
-        yAxis.setAutoRange(true);
-        
-        myChartPanel = new ChartPanel(costChart, true);
+        myChartPanel = ctrl.createCostChart();
         myChartPanel.setSize(this.getWidth(), this.getHeight());
         myChartPanel.setVisible(true);
         this.removeAll();
         this.add(myChartPanel);
         this.revalidate();
         this.repaint();
-        
+           
         
         state = 1;
     }
-
+      public TimeSeries getSeries() {
+        return ctrl.getAllSeries();
+    }
+    
     /**
      * Método para alteração do tamanho
      * @param x largura
