@@ -80,7 +80,7 @@ public class UpdaterLoadCurveThread implements Runnable {
                 if (m.getMinute() % 15 == 0) {
                     if (!inserted || lastMinuteInserted != m.getMinute()) {
                         final Minute m0 = new Minute(m.getMinute(), new Hour(m.getHour(), today));
-                        final Minute m1 = new Minute(m.getMinute() + 15, new Hour(m.getHour(), today));
+                        final Minute m1 = new Minute(m.getMinute() + 10, new Hour(m.getHour(), today));
 
                         averagePotency = (averagePotency + currentPotency) / 2;
 
@@ -133,7 +133,7 @@ public class UpdaterLoadCurveThread implements Runnable {
             if (!(lastMensuration.getIdMensuration() == m.getIdMensuration())) {
                 double currentPotency = m.getPotency();
 
-                if (m.getMinute() % 15 == 0) {
+                if (m.getMinute() % 15 == 0 || lastMinuteInserted != m.getMinute()) {
                     if (!inserted) {
                         final Minute m0 = new Minute(m.getMinute(), new Hour(m.getHour(), today));
                         final Minute m1 = new Minute(m.getMinute() + 15, new Hour(m.getHour(), today));

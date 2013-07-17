@@ -45,7 +45,7 @@ public class LoadCurve {
         XYBarRenderer x = new XYBarRenderer();
         XYBarRenderer.setDefaultShadowsVisible(false);
         x.setDrawBarOutline(true);
-        x.setMargin(0.3);
+        x.setMargin(0.2);
 
         final XYItemRenderer mensurationRender = x;
 
