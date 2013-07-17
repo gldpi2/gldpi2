@@ -31,7 +31,6 @@ public class NewCostWindow extends javax.swing.JPanel {
      * 0 - data minima selecionavel / 1 - data maxima selecionavel
      */
     private Date[] dates = new Date[2];
-    private Thread updaterThread;
 
     public NewCostWindow(int y, Login user) {
         initComponents();
@@ -54,6 +53,8 @@ public class NewCostWindow extends javax.swing.JPanel {
 
         desktop.add(costChart);
         state = 1;
+        
+        initialVisibleComponents();
     }
 
     private void initialVisibleComponents() {
@@ -82,12 +83,6 @@ public class NewCostWindow extends javax.swing.JPanel {
                 }
             }
         });
-    }
-
-    private void setMaxAndMinDates() {
-        dbInterface.connect();
-        dates = dbInterface.getMaxAndMinDates();
-        dbInterface.disconnect();
     }
 
     @SuppressWarnings("unchecked")
