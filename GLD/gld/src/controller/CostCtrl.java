@@ -90,4 +90,8 @@ public class CostCtrl {
     public TimeSeries getAllSeries(){
         return cost.series;
     }
+    
+    public TimeSeries limitSeries(){
+        return cost.seriesLimit;
+    }
 }

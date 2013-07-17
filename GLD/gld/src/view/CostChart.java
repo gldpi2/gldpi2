@@ -45,6 +45,10 @@ public class CostChart extends javax.swing.JPanel {
       public TimeSeries getSeries() {
         return ctrl.getAllSeries();
     }
+      
+     public TimeSeries limitSeries(){
+         return ctrl.limitSeries();
+     }
     
     /**
      * Método para alteração do tamanho

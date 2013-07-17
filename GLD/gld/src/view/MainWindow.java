@@ -20,7 +20,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     public static Login user;
     public static LoadCurveWindow loadWindow;
-    public static CostWindow costWindow;
+    public static NewCostWindow NewCostWindow;
     public static LoadEstimationOnHistoryWindow eohWindow;
     public static EstimationOnRealCostWindow eorCostWindow;
     public static EstimationOnRealLoadWindow eorLoadWindow;
@@ -335,8 +335,8 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuCustosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCustosActionPerformed
         desktop.removeAll();
-        costWindow = new CostWindow(desktop.getHeight(), user);
-        desktop.add(costWindow);
+        NewCostWindow = new NewCostWindow(desktop.getHeight(), user);
+        desktop.add(NewCostWindow);
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_menuCustosActionPerformed

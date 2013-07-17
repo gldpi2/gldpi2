@@ -8,6 +8,7 @@ import model.Login;
 import dao.LoginDAO;
 
 import java.sql.SQLException;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -147,7 +148,7 @@ public class LoginWindow extends javax.swing.JFrame {
             loading.setVisible(true);
             LoginDAO login = new LoginDAO();
             ok = login.verificarLogin(user);
-            
+
             if (ok == 1) {
                 MainWindow main = new MainWindow(user);
                 this.setVisible(false);
@@ -168,15 +169,16 @@ public class LoginWindow extends javax.swing.JFrame {
 
         Object[] options = {"Sim", "Não"};
         i = JOptionPane.showOptionDialog(null,
-                "Deseja realmente finalizar a aplicação?",
+                "Deseja realmente fechar o sistema?",
                 "Sair do Sistema",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
-                null,
+                new ImageIcon("src/icons/cross.png"),
                 options,
                 options[1]);
 
         if (i == JOptionPane.YES_OPTION) {
+            System.exit(0);
         } else {
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         }
@@ -189,7 +191,7 @@ public class LoginWindow extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

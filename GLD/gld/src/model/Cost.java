@@ -16,12 +16,13 @@ import org.jfree.data.time.TimeSeriesCollection;
 public class Cost {
 
     public TimeSeries series;
+    public TimeSeries seriesLimit;
     public JFreeChart costChart;
     public ChartPanel myChartPanel;
     
-    double valueEnergy = 0.0;
-    double costValue;
-    String time;
+    private double valueEnergy = 0.0;
+    private double costValue;
+    private String time;
     public double maxCost;
     public double minCost;
     public Mensuration mensuration = new Mensuration();
@@ -84,18 +85,20 @@ public class Cost {
     public ChartPanel createCostChart(){
         series = new TimeSeries("R$/kWh", Millisecond.class);
         final TimeSeriesCollection dataset = new TimeSeriesCollection(series);
-                       
+        //dataset.addSeries(seriesLimit);
+                
+        
         costChart = ChartFactory.createTimeSeriesChart("Gráfico de Custo","Hora", "Valor em Real (R$)",dataset,true,true,false);
         final XYPlot plot = costChart.getXYPlot();
         ValueAxis xAxis = plot.getDomainAxis();
+        ValueAxis yAxis = plot.getRangeAxis();
+        
         xAxis.setAutoRange(true);
         xAxis.setFixedAutoRange(60000.0);
         //xAxis.setRange(0, 86400000);
         
-        ValueAxis yAxis;
-        yAxis = plot.getRangeAxis();
-        //yAxis.setRange(0.0, 10.0);
-        yAxis.setAutoRange(true);
+        
+        
         myChartPanel = new ChartPanel(costChart,true);
         
         return myChartPanel;

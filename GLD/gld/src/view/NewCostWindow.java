@@ -9,18 +9,20 @@ import javax.swing.JOptionPane;
 import model.Login;
 import org.jfree.data.time.Day;
 import utils.DatabaseInterface;
-import utils.UpdaterLoadCurveThread;
+import utils.UpdaterCostThread;
 
 /**
  *
  * @author itallorossi
  */
-public class NewPatternWindow extends javax.swing.JPanel {
+public class NewCostWindow extends javax.swing.JPanel {
 
     private int state;
     private int month;
     private int year;
-    private LoadCurveChart loadChart;
+    int i = 0;
+    private CostChart costChart;
+    private Thread th;
     private NewMainMenu newMenu;
     private Login userLogged;
     private Day today = new Day();
@@ -31,7 +33,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
     private Date[] dates = new Date[2];
     private Thread updaterThread;
 
-    public NewPatternWindow(int y, Login user) {
+    public NewCostWindow(int y, Login user) {
         initComponents();
         month = today.getMonth() - 1;
         year = today.getYear() - 2013;
@@ -42,21 +44,15 @@ public class NewPatternWindow extends javax.swing.JPanel {
 
     private void init() {
         desktop.removeAll();
-        loadChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
-        loadChart.startGraph(false);
+        costChart = new CostChart(desktop.getWidth(), desktop.getHeight());
+        costChart.criaGrafico();
 
-        updaterThread = new Thread(new UpdaterLoadCurveThread(loadChart.getLoadCurve(),
-                this.flowLabel, this.tensionLabel, this.potencyLabel,
-                null, null,
-                null, null));
-        updaterThread.setDaemon(true);
-        updaterThread.start();
+        costChart.criaGrafico();
+        th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), flowLabel, tensionLabel, potencyLabel, flowLabel, flowLabel));
+        th.setDaemon(true);
+        th.start();
 
-        initialVisibleComponents();
-        setMaxAndMinDates();
-        loadChart.startGraph(true);
-
-        desktop.add(loadChart);
+        desktop.add(costChart);
         state = 1;
     }
 
@@ -124,7 +120,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
         yearChooser = new javax.swing.JComboBox();
         monthChooser = new javax.swing.JComboBox();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "NewPatternWindow", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 24))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gráfico de Custo", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 24))); // NOI18N
         setMaximumSize(new java.awt.Dimension(1024, 720));
         setMinimumSize(new java.awt.Dimension(1024, 720));
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -155,7 +151,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 429, Short.MAX_VALUE)
+            .add(0, 453, Short.MAX_VALUE)
         );
 
         panelInformations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
@@ -321,7 +317,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
                             .add(toLabel))
                         .add(6, 6, 6)
                         .add(panelCommandsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(dateChooserTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(dateChooserTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                             .add(dateChooserFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .add(panelCommandsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, monthChooser, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -381,17 +377,19 @@ public class NewPatternWindow extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(backToMainMenu))
         );
+
+        getAccessibleContext().setAccessibleName("Gráfico de Custo");
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         if (state == 1) {
-            loadChart.changeSize(desktop.getWidth(), desktop.getHeight());
+            costChart.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_formComponentResized
 
     private void desktopComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_desktopComponentResized
         if (state == 1) {
-            loadChart.changeSize(desktop.getWidth(), desktop.getHeight());
+            costChart.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_desktopComponentResized
 

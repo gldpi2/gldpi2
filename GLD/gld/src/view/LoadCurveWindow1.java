@@ -1,30 +1,25 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import model.Login;
-import utils.UpdaterCostThread;
+import utils.UpdaterLoadCurveThread;
 
 /**
  *
- * @author itallorossi
+ * @author Wagner Santos
  */
-public class CostWindow extends javax.swing.JPanel {
+public class LoadCurveWindow1 extends javax.swing.JPanel {
 
     int i = 0, state = 0;
-    private CostChart pg;
-    private Thread th;
-
+    private LoadCurveChart loadCurveChart;
+    private Thread updaterThread;
     MainMenu mainm;
     NewMainMenu newMainm;
     Login user;
+
     /**
-     * Método construtor do Objeto de Window
-     * @param y altura da tela
+     * Creates new form PatternWindow
      */
-    public CostWindow(int y, Login user) {
+    public LoadCurveWindow1(int y, Login user) {
         initComponents();
         setSize(1024, y);
 
@@ -32,25 +27,22 @@ public class CostWindow extends javax.swing.JPanel {
         this.init();
     }
 
-    /**
-     * Método de iniciação do componente.
-     * Ajusta o tamanho do painel do gráfico dentro do tela
-     */
     public void init() {
         desktop.removeAll();
-        pg = new CostChart(desktop.getWidth(), desktop.getHeight());
-        pg.criaGrafico();
+        loadCurveChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
+        loadCurveChart.startGraph(true);
 
-        pg.criaGrafico();
-        th = new Thread(new UpdaterCostThread(pg.getSeries(), pg.limitSeries(),this.FlowValue, this.TensionValue, this.PotencyValue,
-                        this.maxCost, this.minCost));
-        th.setDaemon(true);
-        th.start();
+        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getLoadCurve(),
+                this.FlowValue, this.TensionValue, this.PotencyValue,
+                this.maxPotencyValue, this.maxPotencyTime,
+                this.minPotencyValue, this.minPotencyTime));
+        updaterThread.setDaemon(true);
+        updaterThread.start();
 
-        desktop.add(pg);
+        desktop.add(loadCurveChart);
         state = 1;
- }
-    
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -65,12 +57,12 @@ public class CostWindow extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         matricula = new javax.swing.JLabel();
-        jLabelCostMax = new javax.swing.JLabel();
-        maxCost = new javax.swing.JLabel();
-        jLabelCostMin = new javax.swing.JLabel();
-        minCost = new javax.swing.JLabel();
-        maxCost1 = new javax.swing.JLabel();
-        maxCost2 = new javax.swing.JLabel();
+        maxPotencyLabel = new javax.swing.JLabel();
+        maxPotencyValue = new javax.swing.JLabel();
+        maxPotencyTime = new javax.swing.JLabel();
+        minPotencyLabel = new javax.swing.JLabel();
+        minPotencyValue = new javax.swing.JLabel();
+        minPotencyTime = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
@@ -85,7 +77,7 @@ public class CostWindow extends javax.swing.JPanel {
 
         jButton4.setText("jButton4");
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Monitoramento de Custos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 24))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Curva de Carga", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 1, 24))); // NOI18N
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -107,19 +99,25 @@ public class CostWindow extends javax.swing.JPanel {
 
         matricula.setText("user");
 
-        jLabelCostMax.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/currency_dollar_red (1).png"))); // NOI18N
-        jLabelCostMax.setText("Custo Máximo: ");
+        maxPotencyLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        maxPotencyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        maxPotencyLabel.setText("Demanda Máxima");
 
-        maxCost.setText("Atualizando...");
+        maxPotencyValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        maxPotencyValue.setText("Atualizando...");
 
-        jLabelCostMin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/currency_dollar_green (1).png"))); // NOI18N
-        jLabelCostMin.setText("Custo Mínimo:");
+        maxPotencyTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        maxPotencyTime.setText("Atualizando...");
 
-        minCost.setText("Atualizando...");
+        minPotencyLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
+        minPotencyLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minPotencyLabel.setText("Demanda Mínima");
 
-        maxCost1.setText("R$:");
+        minPotencyValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minPotencyValue.setText("Atualizando...");
 
-        maxCost2.setText("R$:");
+        minPotencyTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minPotencyTime.setText("Atualizando...");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -127,42 +125,42 @@ public class CostWindow extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jLabel2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(matricula)
-                        .add(68, 68, 68)
-                        .add(jLabelCostMax))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(maxCost1)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(maxCost)))
-                .add(90, 90, 90)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jLabelCostMin)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(maxCost2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(minCost)))
-                .addContainerGap(306, Short.MAX_VALUE))
+                .add(jLabel2)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(matricula)
+                .add(87, 87, 87)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(maxPotencyTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(maxPotencyValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(maxPotencyLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(18, 18, 18)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(minPotencyTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(minPotencyValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(minPotencyLabel))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel2)
-                    .add(matricula)
-                    .add(jLabelCostMax)
-                    .add(jLabelCostMin))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(maxCost)
-                    .add(minCost, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(maxCost1)
-                    .add(maxCost2))
-                .addContainerGap(84, Short.MAX_VALUE))
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(minPotencyLabel)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(minPotencyValue)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(minPotencyTime))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel2)
+                            .add(matricula)
+                            .add(maxPotencyLabel))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(maxPotencyValue)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(maxPotencyTime)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Comandos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
@@ -183,7 +181,7 @@ public class CostWindow extends javax.swing.JPanel {
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(563, Short.MAX_VALUE))
+                .addContainerGap(625, Short.MAX_VALUE))
         );
 
         desktop.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Título Gráfico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Lucida Grande", 0, 14))); // NOI18N
@@ -197,7 +195,7 @@ public class CostWindow extends javax.swing.JPanel {
         desktop.setLayout(desktopLayout);
         desktopLayout.setHorizontalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 409, Short.MAX_VALUE)
+            .add(0, 394, Short.MAX_VALUE)
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -263,7 +261,7 @@ public class CostWindow extends javax.swing.JPanel {
                 .add(FlowLabel)
                 .add(18, 18, 18)
                 .add(FlowValue)
-                .addContainerGap(284, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -279,9 +277,8 @@ public class CostWindow extends javax.swing.JPanel {
                         .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(infoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(13, 13, 13))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(infoPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
                         .add(jButton2)))
@@ -291,17 +288,13 @@ public class CostWindow extends javax.swing.JPanel {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(infoPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(3, 3, 3)))
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(infoPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jButton2)
@@ -311,17 +304,12 @@ public class CostWindow extends javax.swing.JPanel {
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         if (state == 1) {
-            pg.changeSize(desktop.getWidth(), desktop.getHeight());
+            loadCurveChart.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_formComponentResized
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        //MainWindow.desktop.removeAll();
-        //user = Login.getInstance();
-        //mainm = new MainMenu(user);
-        //MainWindow.desktop.add(mainm);
-        //MainWindow.desktop.revalidate();
-        //MainWindow.desktop.repaint();
+        updaterThread.stop();
         MainWindow.desktop.removeAll();
         newMainm = new NewMainMenu(user);
         MainWindow.desktop.add(newMainm);
@@ -331,10 +319,9 @@ public class CostWindow extends javax.swing.JPanel {
 
     private void desktopComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_desktopComponentResized
         if (state == 1) {
-            pg.changeSize(desktop.getWidth(), desktop.getHeight());
+            loadCurveChart.changeSize(desktop.getWidth(), desktop.getHeight());
         }
     }//GEN-LAST:event_desktopComponentResized
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FlowLabel;
     private javax.swing.JLabel FlowValue;
@@ -348,15 +335,15 @@ public class CostWindow extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabelCostMax;
-    private javax.swing.JLabel jLabelCostMin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel matricula;
-    private javax.swing.JLabel maxCost;
-    private javax.swing.JLabel maxCost1;
-    private javax.swing.JLabel maxCost2;
-    private javax.swing.JLabel minCost;
+    private javax.swing.JLabel maxPotencyLabel;
+    private javax.swing.JLabel maxPotencyTime;
+    private javax.swing.JLabel maxPotencyValue;
+    private javax.swing.JLabel minPotencyLabel;
+    private javax.swing.JLabel minPotencyTime;
+    private javax.swing.JLabel minPotencyValue;
     // End of variables declaration//GEN-END:variables
 }

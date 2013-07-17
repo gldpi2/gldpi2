@@ -47,7 +47,7 @@ public class NewMainMenu extends javax.swing.JPanel {
         costChart.criaGrafico();
 
         costChart.criaGrafico();
-        Thread th = new Thread(new UpdaterCostThread(costChart.getSeries(),
+        Thread th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(),
                 this.FlowValue, this.TensionValue, this.PotencyValue,
                 this.maxCostValue, this.minCostValue));
         th.setDaemon(true);

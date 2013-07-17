@@ -312,8 +312,8 @@ public class MainMenu extends javax.swing.JPanel {
 
     private void buttonCostmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCostmActionPerformed
         MainWindow.desktop.removeAll();
-        MainWindow.costWindow = new CostWindow(MainWindow.desktop.getHeight(), MainWindow.user);
-        MainWindow.desktop.add(MainWindow.costWindow);
+        MainWindow.NewCostWindow = new NewCostWindow(MainWindow.desktop.getHeight(), MainWindow.user);
+        MainWindow.desktop.add(MainWindow.NewCostWindow);
         MainWindow.desktop.revalidate();
         MainWindow.desktop.repaint();
     }//GEN-LAST:event_buttonCostmActionPerformed
