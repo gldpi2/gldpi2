@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -159,7 +160,7 @@ public class DatabaseInterface {
 
         try {
             st = this.conn.prepareStatement(sql);
-            
+
             if (sql.contains("TRUNCATE")) {
                 st.execute();
             } else {
@@ -223,5 +224,28 @@ public class DatabaseInterface {
      */
     public boolean isConfigured() {
         return this.configured;
+    }
+
+    public Date[] getMaxAndMinDates() {
+        PreparedStatement st;
+        ResultSet rs;
+        String sql;
+        Date[] dates = new Date[2];
+
+        try {
+            sql = "select min(timestamp) as minimo, max(timestamp) as maximo from mensuration";
+            st = this.conn.prepareStatement(sql);
+
+            rs = st.executeQuery();
+
+            if (rs != null && rs.next()) {
+                dates[0] = rs.getDate("minimo");
+                dates[1] = rs.getDate("maximo");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return dates;
     }
 }

@@ -1,6 +1,14 @@
 package view;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import model.Login;
+import org.jfree.data.time.Day;
+import utils.DatabaseInterface;
 
 /**
  *
@@ -9,10 +17,23 @@ import model.Login;
 public class NewPatternWindow extends javax.swing.JPanel {
 
     private int state;
+    private int month;
+    private int year;
     private LoadCurveChart loadChart;
+    private NewMainMenu newMenu;
+    private Login userLogged;
+    private Day today = new Day();
+    private DatabaseInterface dbInterface = new DatabaseInterface();
+    /*
+     * 0 - data minima selecionavel / 1 - data maxima selecionavel
+     */
+    private Date[] dates = new Date[2];
 
     public NewPatternWindow(int y, Login user) {
         initComponents();
+        month = today.getMonth() - 1;
+        year = today.getYear() - 2013;
+        userLogged = user;
         setSize(1024, y);
         init();
     }
@@ -20,10 +41,48 @@ public class NewPatternWindow extends javax.swing.JPanel {
     private void init() {
         desktop.removeAll();
         loadChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
+        loadChart.startGraph(false);
+
+        initialVisibleComponents();
+        setMaxAndMinDates();
         loadChart.startGraph(true);
 
         desktop.add(loadChart);
         state = 1;
+    }
+
+    private void initialVisibleComponents() {
+        fromLabel.setVisible(false);
+        dateChooserFrom.setVisible(false);
+        toLabel.setVisible(false);
+        dateChooserTo.setVisible(false);
+        yearChooser.setVisible(false);
+        monthChooser.setVisible(false);
+        yearChooser.setSelectedIndex(year);
+        monthChooser.setSelectedIndex(month);
+
+        dateChooserFrom.getDateEditor().addPropertyChangeListener(
+                new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                Calendar cal = Calendar.getInstance();
+                Date data = dateChooserFrom.getDate();
+
+                if (data != null && dateChooserTo.isVisible()) {
+                    cal.setTime(data);
+                    cal.add(Calendar.DATE, 1);
+                    Date newData = cal.getTime();
+                    dateChooserTo.setMinSelectableDate(newData);
+                    dateChooserTo.setCalendar(null);
+                }
+            }
+        });
+    }
+
+    private void setMaxAndMinDates() {
+        dbInterface.connect();
+        dates = dbInterface.getMaxAndMinDates();
+        dbInterface.disconnect();
     }
 
     @SuppressWarnings("unchecked")
@@ -48,6 +107,13 @@ public class NewPatternWindow extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         frequencyLabel = new javax.swing.JLabel();
         panelCommands = new javax.swing.JPanel();
+        commandsCombo = new javax.swing.JComboBox();
+        fromLabel = new javax.swing.JLabel();
+        toLabel = new javax.swing.JLabel();
+        dateChooserFrom = new com.toedter.calendar.JDateChooser();
+        dateChooserTo = new com.toedter.calendar.JDateChooser();
+        yearChooser = new javax.swing.JComboBox();
+        monthChooser = new javax.swing.JComboBox();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(null, "NewPatternWindow", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 24))); // NOI18N
         setMaximumSize(new java.awt.Dimension(1024, 720));
@@ -80,7 +146,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 475, Short.MAX_VALUE)
+            .add(0, 429, Short.MAX_VALUE)
         );
 
         panelInformations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
@@ -89,7 +155,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
         panelInformations.setLayout(panelInformationsLayout);
         panelInformationsLayout.setHorizontalGroup(
             panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 371, Short.MAX_VALUE)
+            .add(0, 416, Short.MAX_VALUE)
         );
         panelInformationsLayout.setVerticalGroup(
             panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -208,15 +274,67 @@ public class NewPatternWindow extends javax.swing.JPanel {
 
         panelCommands.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Comandos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
 
+        commandsCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Diário", "Mensal", "Período" }));
+        commandsCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                commandsComboActionPerformed(evt);
+            }
+        });
+
+        fromLabel.setText("De:");
+
+        toLabel.setText("Até:");
+
+        yearChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2013", "2014", "2015", "2016"}));
+
+        monthChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+        monthChooser.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                monthChooserItemStateChanged(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout panelCommandsLayout = new org.jdesktop.layout.GroupLayout(panelCommands);
         panelCommands.setLayout(panelCommandsLayout);
         panelCommandsLayout.setHorizontalGroup(
             panelCommandsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 207, Short.MAX_VALUE)
+            .add(panelCommandsLayout.createSequentialGroup()
+                .add(panelCommandsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(panelCommandsLayout.createSequentialGroup()
+                        .add(5, 5, 5)
+                        .add(panelCommandsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(fromLabel)
+                            .add(toLabel))
+                        .add(6, 6, 6)
+                        .add(panelCommandsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(dateChooserTo, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(dateChooserFrom, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .add(panelCommandsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, monthChooser, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, yearChooser, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, commandsCombo, 0, 159, Short.MAX_VALUE)))
+                .add(3, 3, 3))
         );
         panelCommandsLayout.setVerticalGroup(
             panelCommandsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 0, Short.MAX_VALUE)
+            .add(panelCommandsLayout.createSequentialGroup()
+                .add(commandsCombo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(yearChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(monthChooser, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(panelCommandsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(panelCommandsLayout.createSequentialGroup()
+                        .add(6, 6, 6)
+                        .add(fromLabel)
+                        .add(24, 24, 24)
+                        .add(toLabel))
+                    .add(panelCommandsLayout.createSequentialGroup()
+                        .add(dateChooserFrom, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(dateChooserTo, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(0, 0, 0))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
@@ -224,24 +342,24 @@ public class NewPatternWindow extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(separador)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(backToMainMenu))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(panelCommands, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(panelInformations, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(panelRealTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(847, Short.MAX_VALUE)
+                .add(backToMainMenu))
+            .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(panelInformations, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(panelCommands, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(panelRealTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 149, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(panelRealTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(panelCommands, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
@@ -264,24 +382,96 @@ public class NewPatternWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_desktopComponentResized
 
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
-        frequencyLabel.setText("10.000");
-        flowLabel.setText("15.000");
-        potencyLabel.setText("8.000");
-        tensionLabel.setText("25.000");
-        potencyFactorLabel.setText("110.000");
-        sourceLabel.setText("CEB");
+        int i;
+
+        Object[] options = {"Sim", "Não"};
+        i = JOptionPane.showOptionDialog(null,
+                "Deseja realmente Voltar ao Menu Principal?",
+                "Voltar ao Menu Principal",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                new ImageIcon("src/icons/house_go.png"),
+                options,
+                options[1]);
+
+        if (i == JOptionPane.YES_OPTION) {
+            MainWindow.desktop.removeAll();
+            newMenu = new NewMainMenu(userLogged);
+            MainWindow.desktop.add(newMenu);
+            MainWindow.desktop.revalidate();
+            MainWindow.desktop.repaint();
+        }
     }//GEN-LAST:event_backToMainMenuActionPerformed
+
+    private void commandsComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_commandsComboActionPerformed
+        String selected = commandsCombo.getSelectedItem().toString();
+        dateChooserFrom.setMinSelectableDate(dates[0]);
+        dateChooserFrom.setMaxSelectableDate(dates[1]);
+        dateChooserTo.setMaxSelectableDate(dates[1]);
+
+        switch (selected) {
+            case "Diário":
+                dateChooserFrom.setVisible(true);
+                dateChooserFrom.setCalendar(null);
+                dateChooserTo.updateUI();
+                dateChooserTo.setVisible(false);
+                toLabel.setVisible(false);
+                fromLabel.setVisible(false);
+                yearChooser.setVisible(false);
+                monthChooser.setVisible(false);
+                break;
+            case "Mensal":
+                initialVisibleComponents();
+                yearChooser.setVisible(true);
+                monthChooser.setVisible(true);
+                break;
+            case "Período":
+                dateChooserFrom.setVisible(true);
+                dateChooserFrom.setCalendar(null);
+                dateChooserFrom.updateUI();
+                dateChooserTo.setVisible(true);
+                dateChooserTo.setCalendar(null);
+                dateChooserTo.updateUI();
+                toLabel.setVisible(true);
+                fromLabel.setVisible(true);
+                yearChooser.setVisible(false);
+                monthChooser.setVisible(false);
+                break;
+            default:
+                initialVisibleComponents();
+                break;
+        }
+    }//GEN-LAST:event_commandsComboActionPerformed
+
+    private void monthChooserItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_monthChooserItemStateChanged
+        String selected = commandsCombo.getSelectedItem().toString();
+        int selectedMonth = Integer.parseInt(monthChooser.getSelectedItem().toString());
+        int selectedYear = Integer.parseInt(yearChooser.getSelectedItem().toString());
+
+        if (selected.equals("Mensal")) {
+            if (selectedYear >= dates[0].getYear() || selectedYear <= dates[1].getYear()) {
+                if (selectedMonth <= dates[0].getMonth() || selectedMonth >= dates[1].getMonth()) {
+                    System.out.println("\n\nTESTE!!!\n\n");
+                }
+            }
+        }
+    }//GEN-LAST:event_monthChooserItemStateChanged
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMainMenu;
+    private javax.swing.JComboBox commandsCombo;
+    private com.toedter.calendar.JDateChooser dateChooserFrom;
+    private com.toedter.calendar.JDateChooser dateChooserTo;
     private javax.swing.JPanel desktop;
     private javax.swing.JLabel flowLabel;
     private javax.swing.JLabel frequencyLabel;
+    private javax.swing.JLabel fromLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JComboBox monthChooser;
     private javax.swing.JPanel panelCommands;
     private javax.swing.JPanel panelInformations;
     private javax.swing.JPanel panelRealTime;
@@ -290,5 +480,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
     private javax.swing.JSeparator separador;
     private javax.swing.JLabel sourceLabel;
     private javax.swing.JLabel tensionLabel;
+    private javax.swing.JLabel toLabel;
+    private javax.swing.JComboBox yearChooser;
     // End of variables declaration//GEN-END:variables
 }
