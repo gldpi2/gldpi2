@@ -4,7 +4,7 @@
  */
 package gld;
 
-import view.LoginWindow;
+import view.NewLoginWindow;
 
 /**
  *
@@ -13,7 +13,7 @@ import view.LoginWindow;
 public class Main {
 
     public static void main(String[] args) {
-        LoginWindow login = new LoginWindow();
+        NewLoginWindow login = new NewLoginWindow();
         login.setVisible(true);
     }
 }

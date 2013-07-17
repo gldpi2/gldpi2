@@ -432,6 +432,9 @@
               <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;2013&quot;, &quot;2014&quot;, &quot;2015&quot;, &quot;2016&quot;})" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="yearChooserItemStateChanged"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="monthChooser">
           <Properties>

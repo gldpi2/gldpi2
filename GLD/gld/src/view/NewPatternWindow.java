@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import model.Login;
 import org.jfree.data.time.Day;
 import utils.DatabaseInterface;
+import utils.UpdaterLoadCurveThread;
 
 /**
  *
@@ -28,6 +29,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
      * 0 - data minima selecionavel / 1 - data maxima selecionavel
      */
     private Date[] dates = new Date[2];
+    private Thread updaterThread;
 
     public NewPatternWindow(int y, Login user) {
         initComponents();
@@ -42,6 +44,13 @@ public class NewPatternWindow extends javax.swing.JPanel {
         desktop.removeAll();
         loadChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
         loadChart.startGraph(false);
+
+        updaterThread = new Thread(new UpdaterLoadCurveThread(loadChart.getLoadCurve(),
+                this.flowLabel, this.tensionLabel, this.potencyLabel,
+                null, null,
+                null, null));
+        updaterThread.setDaemon(true);
+        updaterThread.start();
 
         initialVisibleComponents();
         setMaxAndMinDates();
@@ -286,6 +295,11 @@ public class NewPatternWindow extends javax.swing.JPanel {
         toLabel.setText("Até:");
 
         yearChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2013", "2014", "2015", "2016"}));
+        yearChooser.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                yearChooserItemStateChanged(evt);
+            }
+        });
 
         monthChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
         monthChooser.addItemListener(new java.awt.event.ItemListener() {
@@ -449,13 +463,31 @@ public class NewPatternWindow extends javax.swing.JPanel {
         int selectedYear = Integer.parseInt(yearChooser.getSelectedItem().toString());
 
         if (selected.equals("Mensal")) {
-            if (selectedYear >= dates[0].getYear() || selectedYear <= dates[1].getYear()) {
-                if (selectedMonth <= dates[0].getMonth() || selectedMonth >= dates[1].getMonth()) {
-                    System.out.println("\n\nTESTE!!!\n\n");
-                }
-            }
+            System.out.println("Mes: " + selectedMonth + "Ano: " + selectedYear);
+//            if (selectedMonth < dates[0].getMonth() || selectedYear < dates[0].getYear()) {
+//                System.out.println("\n\nERRO!!!\n\n");
+//                if (selectedMonth > dates[1].getMonth() || selectedYear >= dates[1].getYear()) {
+//                    System.out.println("\n\nERRO!!!\n\n");
+//                }
+//            }
         }
     }//GEN-LAST:event_monthChooserItemStateChanged
+
+    private void yearChooserItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_yearChooserItemStateChanged
+        String selected = commandsCombo.getSelectedItem().toString();
+        int selectedMonth = monthChooser.getSelectedIndex() + 1;
+        int selectedYear = Integer.parseInt(yearChooser.getSelectedItem().toString());
+
+        if (selected.equals("Mensal")) {
+            System.out.println("Mes: " + selectedMonth + "Ano: " + selectedYear);
+//            if (selectedMonth < dates[0].getMonth() || selectedYear < dates[0].getYear()) {
+//                System.out.println("\n\nERRO!!!\n\n");
+//                if (selectedMonth > dates[1].getMonth() || selectedYear >= dates[1].getYear()) {
+//                    System.out.println("\n\nERRO!!!\n\n");
+//                }
+//            }
+        }
+    }//GEN-LAST:event_yearChooserItemStateChanged
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMainMenu;
     private javax.swing.JComboBox commandsCombo;
