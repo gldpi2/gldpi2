@@ -21,14 +21,17 @@ public class Contract {
     private int day;
 
     public Contract(String peakDemandContracted, String outPeakDemandContracted, String humidSeason,
-                    String drySeason, String timestamp){
+            String drySeason, String timestamp) {
         this.peakDemandContracted = peakDemandContracted;
         this.outPeakDemandContracted = outPeakDemandContracted;
         this.humidSeason = humidSeason;
         this.drySeason = drySeason;
         this.timestamp = timestamp;
     }
-    
+
+    public Contract() {
+    }
+
     public int getIdContract() {
         return idContract;
     }
