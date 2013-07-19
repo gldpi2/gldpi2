@@ -4,6 +4,7 @@
  */
 package view;
 
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -46,10 +47,7 @@ public class MainWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         user = usuario;
 
-        System.out.println(" " + user.getPermission());
-
         if (user.getPermission().equals("2")) {
-            System.out.println("PERMISSAO 2!!!");
             menuRegistros.setVisible(false);
             separadorArquivo.setVisible(false);
         }
@@ -58,7 +56,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         //descomentar caso queira chamar essa main menu
         this.initNewMenu();
-
     }
 
     public MainWindow() {
