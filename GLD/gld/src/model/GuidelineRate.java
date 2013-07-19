@@ -127,6 +127,7 @@ public class GuidelineRate {
         this.peakEnergyHumid = peakEnergyHumid;
     }
 
+
     public String getOutPeakEnergyHumid() {
         return outPeakEnergyHumid;
     }

@@ -217,4 +217,8 @@ public class Mensuration {
     public int getEnergyAvailable() {
         return energyAvailable;
     }
+
+    public String getDate() {
+        return "" + this.day + "/" + this.mounth + "/" + this.year;
+    }
 }

@@ -87,6 +87,29 @@ public class UserDAO {
 
         return usersList;
     }
+    /*
+    public readUserName() throws SQLException{
+        User userName;
+        
+        String sql = "SELECT name FROM user";
+
+        dbint.connect();
+        ResultSet rs = dbint.executeQuery(sql);
+
+        while (rs.next()) {
+            User user;
+
+            user = new User(rs.getString("name"), rs.getString("register"), rs.getString("password"),
+                    rs.getString("email"), rs.getString("cell_oi"), rs.getString("cell_vivo"), rs.getString("cell_tim"),
+                    rs.getString("cell_claro"), rs.getInt("profile"), rs.getInt("enable"));
+
+            
+        }
+
+        dbint.disconnect();
+
+        return userName;
+    }*/
 
     public void updateUser(User user) throws SQLException{
         

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package controller;
 
 import dao.CostDAO;
@@ -17,8 +13,8 @@ import org.jfree.data.time.TimeSeries;
  */
 public class CostCtrl {
 
-    private final static double PEAK = 0.3260544; 
-    private final static double VALUE_OFFPEAK = 0.2079277;
+    private final static double PEAK = 0.3260544 / 1000; 
+    private final static double VALUE_OFFPEAK = 0.2079277 / 1000;
     private final static double DEMANDPEAK = 19.65;
     private final static double DEMANDOFFPEAK = 5.22;
     

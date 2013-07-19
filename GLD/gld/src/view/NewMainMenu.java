@@ -4,9 +4,13 @@
  */
 package view;
 
+import controller.LoadCurveCtrl;
+import java.awt.Color;
 import model.Login;
 import utils.UpdaterCostThread;
 import utils.UpdaterLoadCurveThread;
+import java.util.Calendar;
+
 import static view.MainWindow.desktop;
 
 /**
@@ -31,6 +35,11 @@ public class NewMainMenu extends javax.swing.JPanel {
     private javax.swing.JLabel minCostValue;
 
     /**
+     * Most used for controling the last mensuration
+     */
+    LoadCurveCtrl lcControl;
+    
+    /**
      * Creates new form NewMainMenu
      */
     public NewMainMenu(Login user) {
@@ -41,6 +50,8 @@ public class NewMainMenu extends javax.swing.JPanel {
     }
 
     public void init() {
+        lcControl = new LoadCurveCtrl();
+        
         //teoricamente era pra rodar gráfico de custo.
         panelCostm.removeAll();
         costChart = new CostChart(panelCostm.getWidth(), panelCostm.getHeight());
@@ -71,9 +82,50 @@ public class NewMainMenu extends javax.swing.JPanel {
         panelConsumptionm.revalidate();
         panelConsumptionm.repaint();
 
+        this.setTimeTableValue();
+        this.setAltSourceValue();
+        this.setPowerGridValue();
+        
         state = 1;
     }
 
+    public void setTimeTableValue() {
+        Calendar now = Calendar.getInstance();
+        int hour = now.get(Calendar.HOUR_OF_DAY);
+        if(hour >= 18 && hour < 21 ){
+            timetableValue.setText("Ponta");
+            timetableValue.setForeground(Color.red);
+        }else {
+            timetableValue.setText("Fora de Ponta");
+            timetableValue.setForeground(Color.green);
+        }
+    }
+    
+    public void setAltSourceValue() {
+        double tension = lcControl.getLastMensuration().getBateryTension();
+        if(tension >= 14.0){
+            altSourceValue.setText("Carregado");
+            altSourceValue.setForeground(Color.green);
+        }else if(tension < 14 && tension >0){
+            altSourceValue.setText("Carregando");
+            altSourceValue.setForeground(Color.yellow);
+        }else if(tension <=0  ){
+            altSourceValue.setText("Vazio");
+            altSourceValue.setForeground(Color.red);
+        }
+    }
+    
+    public void setPowerGridValue(){
+        int available = lcControl.getLastMensuration().getEnergyAvailable();
+        if(available == 0){
+            powerGridValue.setText("Indisponível");
+            powerGridValue.setForeground(Color.red);
+        }else if(available == 1){
+            powerGridValue.setText("Disponível");
+            powerGridValue.setForeground(Color.green);
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,10 +139,21 @@ public class NewMainMenu extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         panelCostm = new javax.swing.JPanel();
         panelConsumptionm = new javax.swing.JPanel();
+        panelHibridSystem = new javax.swing.JPanel();
+        sysHibridDiv0 = new javax.swing.JPanel();
+        powerGridLabel = new javax.swing.JLabel();
+        powerGridValue = new javax.swing.JLabel();
+        altSourceLabel = new javax.swing.JLabel();
+        altSourceValue = new javax.swing.JLabel();
+        timetableLabel = new javax.swing.JLabel();
+        timetableValue = new javax.swing.JLabel();
+        periodLabel = new javax.swing.JLabel();
+        periodValue = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GLD", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 1, 24))); // NOI18N
         jPanel1.setToolTipText("");
+        jPanel1.setPreferredSize(new java.awt.Dimension(1024, 720));
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo.jpg"))); // NOI18N
@@ -106,11 +169,11 @@ public class NewMainMenu extends javax.swing.JPanel {
         panelCostm.setLayout(panelCostmLayout);
         panelCostmLayout.setHorizontalGroup(
             panelCostmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 485, Short.MAX_VALUE)
         );
         panelCostmLayout.setVerticalGroup(
             panelCostmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 556, Short.MAX_VALUE)
         );
 
         panelConsumptionm.setBorder(javax.swing.BorderFactory.createTitledBorder("Grafico de Carga"));
@@ -128,7 +191,98 @@ public class NewMainMenu extends javax.swing.JPanel {
         );
         panelConsumptionmLayout.setVerticalGroup(
             panelConsumptionmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 556, Short.MAX_VALUE)
+        );
+
+        panelHibridSystem.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Sistema Hibrido"))));
+
+        sysHibridDiv0.setPreferredSize(new java.awt.Dimension(260, 95));
+
+        powerGridLabel.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        powerGridLabel.setText("Rede Elétrica:");
+
+        powerGridValue.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        powerGridValue.setText("jLabel3");
+
+        altSourceLabel.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        altSourceLabel.setText("Fonte Alternativa:");
+
+        altSourceValue.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        altSourceValue.setText("jLabel3");
+
+        timetableLabel.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        timetableLabel.setText("Horário:");
+
+        timetableValue.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        timetableValue.setText("jLabel3");
+
+        periodLabel.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        periodLabel.setText("Período:");
+
+        periodValue.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        periodValue.setText("jLabel3");
+
+        javax.swing.GroupLayout sysHibridDiv0Layout = new javax.swing.GroupLayout(sysHibridDiv0);
+        sysHibridDiv0.setLayout(sysHibridDiv0Layout);
+        sysHibridDiv0Layout.setHorizontalGroup(
+            sysHibridDiv0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sysHibridDiv0Layout.createSequentialGroup()
+                .addGroup(sysHibridDiv0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sysHibridDiv0Layout.createSequentialGroup()
+                        .addComponent(powerGridLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(powerGridValue))
+                    .addGroup(sysHibridDiv0Layout.createSequentialGroup()
+                        .addComponent(altSourceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addComponent(altSourceValue))
+                    .addGroup(sysHibridDiv0Layout.createSequentialGroup()
+                        .addComponent(timetableLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(timetableValue))
+                    .addGroup(sysHibridDiv0Layout.createSequentialGroup()
+                        .addComponent(periodLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(periodValue)))
+                .addContainerGap())
+        );
+        sysHibridDiv0Layout.setVerticalGroup(
+            sysHibridDiv0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sysHibridDiv0Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(sysHibridDiv0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(powerGridLabel)
+                    .addComponent(powerGridValue))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(sysHibridDiv0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(altSourceLabel)
+                    .addComponent(altSourceValue))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(sysHibridDiv0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(timetableLabel)
+                    .addComponent(timetableValue))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(sysHibridDiv0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(periodLabel)
+                    .addComponent(periodValue))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelHibridSystemLayout = new javax.swing.GroupLayout(panelHibridSystem);
+        panelHibridSystem.setLayout(panelHibridSystemLayout);
+        panelHibridSystemLayout.setHorizontalGroup(
+            panelHibridSystemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHibridSystemLayout.createSequentialGroup()
+                .addContainerGap(100, Short.MAX_VALUE)
+                .addComponent(sysHibridDiv0, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87))
+        );
+        panelHibridSystemLayout.setVerticalGroup(
+            panelHibridSystemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelHibridSystemLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(sysHibridDiv0, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jLabel2.setText("©WM ENERGIA, 2013");
@@ -140,28 +294,31 @@ public class NewMainMenu extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(panelCostm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelCostm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelConsumptionm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(211, 211, 211))
+                        .addComponent(panelConsumptionm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addComponent(panelHibridSystem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelHibridSystem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addGap(37, 37, 37)
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelConsumptionm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelCostm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelCostm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelConsumptionm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -169,11 +326,11 @@ public class NewMainMenu extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1020, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -189,10 +346,20 @@ public class NewMainMenu extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_panelConsumptionmComponentResized
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel altSourceLabel;
+    private javax.swing.JLabel altSourceValue;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel panelConsumptionm;
     private javax.swing.JPanel panelCostm;
+    private javax.swing.JPanel panelHibridSystem;
+    private javax.swing.JLabel periodLabel;
+    private javax.swing.JLabel periodValue;
+    private javax.swing.JLabel powerGridLabel;
+    private javax.swing.JLabel powerGridValue;
+    private javax.swing.JPanel sysHibridDiv0;
+    private javax.swing.JLabel timetableLabel;
+    private javax.swing.JLabel timetableValue;
     // End of variables declaration//GEN-END:variables
 }

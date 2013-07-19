@@ -92,144 +92,126 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="warningLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="66" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="createGuidelineButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="cell_oiLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="emailLabel" min="-2" max="-2" attributes="0"/>
-                                      <Component id="passwrod2Label" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="cell_vivoLabel" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                              <Component id="cell_claroLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="cell_timLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="profileLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                          <Component id="createGuidelineButton" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                      <Component id="categoryComboBox" pref="336" max="32767" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="outPeakDemandLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Component id="outPeakDemandField" min="-2" pref="85" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="outPeakEnergyDryLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
                                           <Component id="outPeakEnergyDryField" min="-2" pref="85" max="-2" attributes="0"/>
-                                          <Component id="outPeakEnergyHumidField" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
-                                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                              <Component id="peakDemandField" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                                              <Component id="peakEnergyDryField" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                                              <Component id="peakEnergyHumidField" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="cell_oiLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="outPeakEnergyHumidField" min="-2" pref="85" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="cell_timLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="peakDemandField" min="-2" pref="85" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="cell_claroLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="peakEnergyDryField" min="-2" pref="85" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="peakLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="outPeakLabel" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="categoryLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="guidelineComboBox" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                                              <Component id="guidelineRateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="warningLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="profileLabel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="peakEnergyHumidField" min="-2" pref="85" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="profileLabel1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="valueTranspassedField" min="-2" pref="85" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="profileLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="valueTranspassedField" min="-2" pref="85" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                      </Group>
-                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="registerLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="21" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="guidelineComboBox" alignment="1" min="-2" pref="185" max="-2" attributes="0"/>
-                                  <Component id="categoryComboBox" alignment="1" min="-2" pref="185" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                          <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
+                          <Component id="guidelineRateLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="guidelineComboBox" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="categoryLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="categoryComboBox" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="outPeakLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="outPeakDemandField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="passwrod2Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="outPeakDemandLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="outPeakEnergyDryField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="emailLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="outPeakEnergyDryLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="outPeakEnergyHumidField" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cell_oiLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="outPeakEnergyHumidField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="cell_vivoLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Component id="cell_timLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                                  <Component id="cell_claroLabel" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="profileLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="peakEnergyHumidField" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                                  <Component id="peakDemandField" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="peakEnergyDryField" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="peakLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="peakDemandField" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cell_timLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cell_claroLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="peakEnergyDryField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="profileLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="peakEnergyHumidField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="profileLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="valueTranspassedField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="8" max="32767" attributes="0"/>
+                          <EmptySpace pref="165" max="32767" attributes="0"/>
                           <Component id="warningLabel" min="-2" pref="34" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="createGuidelineButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="guidelineComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="registerLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="categoryComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="380" max="32767" attributes="0"/>
-                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -247,9 +229,9 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="nameLabel">
+                <Component class="javax.swing.JLabel" name="guidelineRateLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Tipo de Tarifa:"/>
+                    <Property name="text" type="java.lang.String" value="Tipo de Tarifa*:"/>
                     <Property name="name" type="java.lang.String" value="" noResource="true"/>
                   </Properties>
                 </Component>
@@ -280,34 +262,34 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="categoryComboBoxActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="registerLabel">
+                <Component class="javax.swing.JLabel" name="categoryLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Categoria:"/>
+                    <Property name="text" type="java.lang.String" value="Categoria*:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="passwordLabel">
+                <Component class="javax.swing.JLabel" name="outPeakLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Fora de Ponta:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="passwrod2Label">
+                <Component class="javax.swing.JLabel" name="outPeakDemandLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Custo Demanda:"/>
+                    <Property name="text" type="java.lang.String" value="Custo Demanda*:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="emailLabel">
+                <Component class="javax.swing.JLabel" name="outPeakEnergyDryLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Custo Energia Seca:"/>
+                    <Property name="text" type="java.lang.String" value="Custo Energia Seca*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="outPeakEnergyDryField">
                 </Component>
                 <Component class="javax.swing.JLabel" name="cell_oiLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Custo Energia &#xda;mida:"/>
+                    <Property name="text" type="java.lang.String" value="Custo Energia &#xda;mida*:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="cell_vivoLabel">
+                <Component class="javax.swing.JLabel" name="peakLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Ponta"/>
                   </Properties>
@@ -318,12 +300,12 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="cell_timLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Custo Demanda:"/>
+                    <Property name="text" type="java.lang.String" value="Custo Demanda*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="cell_claroLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Custo Energia Seca:"/>
+                    <Property name="text" type="java.lang.String" value="Custo Energia Seca*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="peakEnergyDryField">
@@ -332,7 +314,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="profileLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Custo Energia &#xda;mida:"/>
+                    <Property name="text" type="java.lang.String" value="Custo Energia &#xda;mida*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="warningLabel">
@@ -352,7 +334,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="profileLabel1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Valor Ultrapassado"/>
+                    <Property name="text" type="java.lang.String" value="Valor Ultrapassado*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="valueTranspassedField">
@@ -371,146 +353,120 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="warningLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="66" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="categoryComboBoxEdition" pref="336" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="passwordLabel1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="passwrod2Label1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="outPeakDemandFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="emailLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="outPeakEnergyDryFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="cell_oiLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="outPeakEnergyHumidFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="cell_timLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="peakDemandFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="cell_claroLabel1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="peakEnergyDryFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="profileLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="peakEnergyHumidFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="nameLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cell_vivoLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="passwordLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="registerLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="guidelineComboBoxEdition" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
+                                      <Component id="warningLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="profileLabel3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="valueTranspassedFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
-                                      <Group type="102" attributes="0">
-                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          <Component id="editGuidelineButton" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="cell_oiLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="emailLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="passwrod2Label1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="cell_vivoLabel1" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="113" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                                      <Component id="cell_claroLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="cell_timLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="profileLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="1" attributes="0">
-                                              <Component id="outPeakDemandFieldEdition" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
-                                              <Component id="outPeakEnergyDryFieldEdition" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
-                                              <Component id="outPeakEnergyHumidFieldEdition" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
-                                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                                  <Component id="peakDemandFieldEdition" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                                                  <Component id="peakEnergyDryFieldEdition" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                                                  <Component id="peakEnergyHumidFieldEdition" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="profileLabel3" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="valueTranspassedFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="26" pref="26" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="editGuidelineButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                      </Group>
-                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nameLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="registerLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="21" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="guidelineComboBoxEdition" alignment="1" min="-2" pref="185" max="-2" attributes="0"/>
-                                  <Component id="categoryComboBoxEdition" alignment="1" min="-2" pref="185" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="nameLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="guidelineComboBoxEdition" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="registerLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="categoryComboBoxEdition" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="passwordLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="outPeakDemandFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="passwrod2Label1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="outPeakDemandFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="outPeakEnergyDryFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="emailLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="outPeakEnergyDryFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="outPeakEnergyHumidFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="cell_oiLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="outPeakEnergyHumidFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="cell_vivoLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                  <Component id="cell_timLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                                  <Component id="cell_claroLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="3" attributes="0">
-                                      <Component id="profileLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="peakEnergyHumidFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                                  <Component id="peakDemandFieldEdition" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="peakEnergyDryFieldEdition" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="cell_vivoLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cell_timLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="peakDemandFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="cell_claroLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="peakEnergyDryFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="profileLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="peakEnergyHumidFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="profileLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="valueTranspassedFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="8" max="32767" attributes="0"/>
+                          <EmptySpace pref="165" max="32767" attributes="0"/>
                           <Component id="warningLabel1" min="-2" pref="34" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="editGuidelineButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="nameLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="guidelineComboBoxEdition" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="registerLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="categoryComboBoxEdition" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace pref="380" max="32767" attributes="0"/>
-                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -530,7 +486,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="nameLabel1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Tipo de Tarifa:"/>
+                    <Property name="text" type="java.lang.String" value="Tipo de Tarifa*:"/>
                     <Property name="name" type="java.lang.String" value="" noResource="true"/>
                   </Properties>
                 </Component>
@@ -563,7 +519,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="registerLabel1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Categoria:"/>
+                    <Property name="text" type="java.lang.String" value="Categoria*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="passwordLabel1">
@@ -573,19 +529,19 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="passwrod2Label1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Custo Demanda:"/>
+                    <Property name="text" type="java.lang.String" value="Custo Demanda*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="emailLabel1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Custo Energia Seca:"/>
+                    <Property name="text" type="java.lang.String" value="Custo Energia Seca*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="outPeakEnergyDryFieldEdition">
                 </Component>
                 <Component class="javax.swing.JLabel" name="cell_oiLabel1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Custo Energia &#xda;mida:"/>
+                    <Property name="text" type="java.lang.String" value="Custo Energia &#xda;mida*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="cell_vivoLabel1">
@@ -599,12 +555,12 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="cell_timLabel1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Custo Demanda:"/>
+                    <Property name="text" type="java.lang.String" value="Custo Demanda*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="cell_claroLabel1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Custo Energia Seca:"/>
+                    <Property name="text" type="java.lang.String" value="Custo Energia Seca*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="peakEnergyDryFieldEdition">
@@ -613,7 +569,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="profileLabel2">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Custo Energia &#xda;mida:"/>
+                    <Property name="text" type="java.lang.String" value="Custo Energia &#xda;mida*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="warningLabel1">
@@ -633,7 +589,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="profileLabel3">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="*Valor Ultrapassado"/>
+                    <Property name="text" type="java.lang.String" value="Valor Ultrapassado*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="valueTranspassedFieldEdition">
@@ -656,7 +612,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="1" pref="513" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="1" pref="590" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
