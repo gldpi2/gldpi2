@@ -19,7 +19,8 @@ public class GuidelineRateCtrl {
 
     public void createGuidelineRate(String guidelineRate, String category, String peakDemand, String outPeakDemand,
             String peakEnergyDry, String outPeakEnergyDry, String peakEnergyHumid,
-            String outPeakEnergyHumid, String valueTranspassed, String timestamp) {
+            String outPeakEnergyHumid, String valueTranspassed, int dryMonthStart,
+            int humidMonthStart, String timestamp) {
 
         GuidelineRate guideline = new GuidelineRate();
 
@@ -32,6 +33,8 @@ public class GuidelineRateCtrl {
         guideline.setPeakEnergyHumid(peakEnergyHumid);
         guideline.setOutPeakEnergyHumid(outPeakEnergyHumid);
         guideline.setValueTranspassed(valueTranspassed);
+        guideline.setDryMonthStart(dryMonthStart);
+        guideline.setHumidMonthStart(humidMonthStart);
         //guideline.setTimestamp(timestamp);
 
         dao.createGuidelineRate(guideline);
@@ -39,7 +42,8 @@ public class GuidelineRateCtrl {
 
     public void updateGuidelineRate(String guidelineRate, String category, String peakDemand, String outPeakDemand,
             String peakEnergyDry, String outPeakEnergyDry, String peakEnergyHumid,
-            String outPeakEnergyHumid, String valueTranspassed, String timestamp) {
+            String outPeakEnergyHumid, String valueTranspassed, int dryMonthStart,
+            int humidMonthStart, String timestamp) {
 
         GuidelineRate guideline = new GuidelineRate();
 
@@ -52,6 +56,8 @@ public class GuidelineRateCtrl {
         guideline.setPeakEnergyHumid(peakEnergyHumid);
         guideline.setOutPeakEnergyHumid(outPeakEnergyHumid);
         guideline.setValueTranspassed(valueTranspassed);
+        guideline.setDryMonthStart(dryMonthStart);
+        guideline.setHumidMonthStart(humidMonthStart);
         guideline.setTimestamp(timestamp);
 
         dao.updateGuidelineRate(guideline);

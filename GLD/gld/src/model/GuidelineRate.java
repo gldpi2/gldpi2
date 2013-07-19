@@ -23,11 +23,14 @@ public class GuidelineRate {
     private String peakEnergyHumid = null;
     private String outPeakEnergyHumid = null;
     private String valueTranspassed = null;
+    private int dryMonthStart;
+    private int humidMonthStart;
     private String timestamp = null;
 
     public GuidelineRate(String guidelineRate, String category, String peakDemand, String outPeakDemand,
             String peakEnergyDry, String outPeakEnergyDry, String peakEnergyHumid,
-            String outPeakEnergyHumid, String valueTranspassed, String timestamp) {
+            String outPeakEnergyHumid, String valueTranspassed, int dryMonthStart,
+            int humidMonthStart, String timestamp) {
 
         this.guidelineRate = guidelineRate;
         this.category = category;
@@ -38,6 +41,8 @@ public class GuidelineRate {
         this.peakEnergyDry = peakEnergyDry;
         this.peakEnergyHumid = peakEnergyHumid;
         this.valueTranspassed = valueTranspassed;
+        this.dryMonthStart = dryMonthStart;
+        this.humidMonthStart = humidMonthStart;
 
     }
 
@@ -125,6 +130,22 @@ public class GuidelineRate {
 
     public void setPeakEnergyHumid(String peakEnergyHumid) {
         this.peakEnergyHumid = peakEnergyHumid;
+    }
+
+    public int getDryMonthStart() {
+        return dryMonthStart;
+    }
+
+    public void setDryMonthStart(int dryMonthStart) {
+        this.dryMonthStart = dryMonthStart;
+    }
+
+    public int getHumidMonthStart() {
+        return humidMonthStart;
+    }
+
+    public void setHumidMonthStart(int humidMonthStart) {
+        this.humidMonthStart = humidMonthStart;
     }
 
     public String getOutPeakEnergyHumid() {
