@@ -5,7 +5,6 @@
 package controller;
 
 import dao.LoadEstimationOnHistoryDAO;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Vector;
 import model.LoadEstimationOnHistory;
@@ -68,14 +67,13 @@ public class LoadEstimationOnHistoryCtrl {
                     break;
                 case INTERVAL_MONTH:
                     data = dao.getMensurationLast30Days();
-                    ret = this.getPertByDays(data,30);
+                    ret = this.getPertByDays(data, 30);
                     break;
                 default:
                     System.err.print("No correct interval passed for PERT function");
                     break;
             }
         } catch (Exception ex) {
-            
         }
         return loadEstimationOnHistory.createLoadEstimationOnHistoryGraphPanel(ret, interval);
     }
@@ -113,7 +111,7 @@ public class LoadEstimationOnHistoryCtrl {
 
         Vector<Double> ret = new Vector<>();
         int regPerHour = data.size() / 24;
-        //O numero de horas 
+        //O numero de horas
         for (int i = 0; i < 24; i++) {
             Mensuration tempMensuration = data.get(i * regPerHour);
             minor = tempMensuration.getFlow();
@@ -130,16 +128,16 @@ public class LoadEstimationOnHistoryCtrl {
                 average += data.get(index).getFlow();
             }
             average /= regPerHour;
-            ret.add( this.pert(greater, minor, average) );
+            ret.add(this.pert(greater, minor, average));
         }
         return ret;
     }
-    
-    private Vector<Double> getPertByDays(List<Mensuration> data,int days) {
+
+    private Vector<Double> getPertByDays(List<Mensuration> data, int days) {
 
         Vector<Double> ret = new Vector<>();
         int regPerDays = data.size() / days;
-        
+
         for (int i = 0; i < days; i++) {
             Mensuration tempMensuration = data.get(i * regPerDays);
             minor = tempMensuration.getFlow();
@@ -160,10 +158,9 @@ public class LoadEstimationOnHistoryCtrl {
         }
         return ret;
     }
-    
 }
 
-/**    
+/**
     public static void main(String args[])  {
 
         LoadEstimationOnHistoryCtrl dao = new LoadEstimationOnHistoryCtrl();
@@ -175,6 +172,6 @@ public class LoadEstimationOnHistoryCtrl {
             System.out.println("Pert: " + item);
         }
 
-        
+
     }
     */
