@@ -29,8 +29,8 @@ public class GuidelineRateDAO {
 
 
         String insertGuidelineRate = "INSERT INTO guideline_rate (guideline_rate, category, peak_demand, out_peak_demand, peak_energy_dry, "
-            + "out_peak_energy_dry, peak_energy_humid, out_peak_energy_humid, value_transpassed, dry_month, humid_month) VALUES "
-            + "(?,?,?,?,?,?,?,?,?,?,?)";
+            + "out_peak_energy_dry, peak_energy_humid, out_peak_energy_humid, value_transpassed) VALUES "
+            + "(?,?,?,?,?,?,?,?,?)";
 
         String[] params = new String[9];
         params[0] = guidelineRate.getGuidelineRate();
@@ -42,8 +42,7 @@ public class GuidelineRateDAO {
         params[6] = guidelineRate.getPeakEnergyHumid();
         params[7] = guidelineRate.getOutPeakEnergyHumid();
         params[8] = guidelineRate.getValueTranspassed();
-        params[9] = String.valueOf(guidelineRate.getDryMonthStart());
-        params[10] = String.valueOf(guidelineRate.getHumidMonthStart());
+
 
         dbint.connect();
 
@@ -67,7 +66,6 @@ public class GuidelineRateDAO {
                     rs.getString("out_peak_demand"), rs.getString("peak_energy_dry"),
                     rs.getString("out_peak_energy_dry"), rs.getString("peak_energy_humid"),
                     rs.getString("out_peak_energy_humid"), rs.getString("value_transpassed"),
-                    rs.getInt("dry_month"), rs.getInt("humid_month"),
                     rs.getString("timestamp"));
 
             listGuideline.add(guidelineRate);
@@ -82,7 +80,7 @@ public class GuidelineRateDAO {
 
         String updateGuidelineRate = "UPDATE guideline_rate SET guideline_rate = ?, category = ?, peak_demand = ?, out_peak_demand = ?, "
                 + "peak_energy_dry = ?, out_peak_energy_dry = ?, peak_energy_humid = ?, "
-                + "out_peak_energy_humid = ?, value_transpassed = ?, dry_month = ?, humid_month = ?" 
+                + "out_peak_energy_humid = ?, value_transpassed = ?" 
                 + "WHERE id_rate = ?";
 
         String[] params = new String[12];
@@ -95,9 +93,7 @@ public class GuidelineRateDAO {
         params[6] = guidelineRate.getPeakEnergyHumid();
         params[7] = guidelineRate.getOutPeakEnergyHumid();
         params[8] = guidelineRate.getValueTranspassed();
-        params[9] = String.valueOf(guidelineRate.getDryMonthStart());
-        params[10] = String.valueOf(guidelineRate.getHumidMonthStart());
-        params[12] = String.valueOf(guidelineRate.getIdGuidelineRate());
+        params[9] = String.valueOf(guidelineRate.getIdGuidelineRate());
         
         dbint.connect();
 
