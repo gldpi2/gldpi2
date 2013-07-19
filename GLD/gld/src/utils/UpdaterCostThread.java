@@ -22,22 +22,18 @@ public class UpdaterCostThread implements Runnable {
     private JLabel flowValue;
     private JLabel tensionValue;
     private JLabel potencyvalue;
-    private JLabel maxCostValue;
-    private JLabel minCostValue;
 
     public UpdaterCostThread(TimeSeries series) {
         this.series = series;
     }
 
-    public UpdaterCostThread(TimeSeries series, TimeSeries seriesLimit, JLabel flowValue, JLabel tensionValue, JLabel potencyValue,
-            JLabel maxCostValue, JLabel minCostValue) {
+    public UpdaterCostThread(TimeSeries series, TimeSeries seriesLimit, JLabel flowValue,
+            JLabel tensionValue, JLabel potencyValue) {
         this.series = series;
         this.seriesLimit = seriesLimit;
         this.flowValue = flowValue;
         this.tensionValue = tensionValue;
         this.potencyvalue = potencyValue;
-        this.maxCostValue = maxCostValue;
-        this.minCostValue = minCostValue;
     }
 
     /**
@@ -45,22 +41,20 @@ public class UpdaterCostThread implements Runnable {
      */
     @Override
     public void run() {
+        Mensuration previusMensuration = null;
         List<Mensuration> mensuration = ctrl.allMensuration();
-
-        
         while (mensuration.size() > 0) {
             for (Mensuration m : mensuration) {
-                double cost = m.getPotency();
                 series.addOrUpdate(m.getMillisecond(), calculateCost(m));
-                //seriesLimit.add(m.getMillisecond(), 300);
+                seriesLimit.addOrUpdate(m.getMillisecond(), 300);
                 if (this.tensionValue != null) {
                     if (this.tensionValue.isShowing()) {
-                        try {                        
+                        try {
                             updateButton(m);
                         } catch (InterruptedException ex) {
                             Logger.getLogger(UpdaterCostThread.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                       
+
                     }
                 }
             }
@@ -74,13 +68,13 @@ public class UpdaterCostThread implements Runnable {
 
     private void updateButton(Mensuration m) throws InterruptedException {
         if (this.flowValue != null) {
-            this.flowValue.setText(String.format("%.3f", m.getFlow()));
-            this.tensionValue.setText(String.format("%.2f",m.getTension()));
-            this.potencyvalue.setText(String.format("%.2f",m.getPotency()));
+            this.flowValue.setText(String.format("%.2f", m.getFlow()));
+            this.tensionValue.setText(String.format("%.2f", m.getTension()));
+            this.potencyvalue.setText(String.format("%.2f", m.getPotency()));
         }
         Thread.sleep(Integer.parseInt(properties.getString("REFRESH_TIME")));
     }
-    
+
     private double calculateCost(Mensuration m) {
         return m.getPotency() * ctrl.energyValue();
     }
