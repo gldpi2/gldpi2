@@ -1,9 +1,15 @@
 package view;
 
 import controller.LoginCtrl;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Properties;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import utils.DatabaseInterface;
 
 /**
  *
@@ -21,13 +27,14 @@ public class LoginWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        desktopLogin = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         registerField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
         buttonEntrar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -37,7 +44,7 @@ public class LoginWindow extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bem-Vindo ao GLD!", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans", 0, 24))); // NOI18N
+        desktopLogin.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Bem-Vindo ao GLD!", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans", 0, 24))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
         jLabel1.setText("Matrícula");
@@ -60,43 +67,56 @@ public class LoginWindow extends javax.swing.JFrame {
             }
         });
 
-        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
+        jButton1.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/database_connect.png"))); // NOI18N
+        jButton1.setText("Base de Dados");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout desktopLoginLayout = new org.jdesktop.layout.GroupLayout(desktopLogin);
+        desktopLogin.setLayout(desktopLoginLayout);
+        desktopLoginLayout.setHorizontalGroup(
+            desktopLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(desktopLoginLayout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(desktopLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jSeparator1)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(desktopLoginLayout.createSequentialGroup()
+                        .add(desktopLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel1)
                             .add(jLabel2))
                         .add(18, 18, 18)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                        .add(desktopLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(passwordField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
                             .add(registerField))
                         .add(0, 0, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, desktopLoginLayout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
+                        .add(jButton1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(buttonEntrar)))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
+        desktopLoginLayout.setVerticalGroup(
+            desktopLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(desktopLoginLayout.createSequentialGroup()
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(desktopLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
                     .add(registerField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(desktopLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jLabel2)
                     .add(passwordField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(buttonEntrar)
+                .add(desktopLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(buttonEntrar)
+                    .add(jButton1))
                 .add(0, 0, 0))
         );
 
@@ -104,11 +124,11 @@ public class LoginWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(desktopLogin, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(desktopLogin, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -118,13 +138,25 @@ public class LoginWindow extends javax.swing.JFrame {
         LoginCtrl loginCtrl = new LoginCtrl();
         loginCtrl.setLogin(registerField.getText(), passwordField.getText());
 
-        if (loginCtrl.verifyLogin(registerField.getText(), passwordField.getText()) == 1) {
-            MainWindow main = new MainWindow(loginCtrl.getLogin());
-            this.setVisible(false);
-            main.setVisible(true);
+        DatabaseInterface dbInterface = new DatabaseInterface();
+
+
+        dbInterface.connect();
+
+        if (dbInterface.isConnected() == false) {
+            JOptionPane.showMessageDialog(null, "Não foi possível conectar com o banco de dados!\nFavor entrar com um host válido!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            return;
         } else {
-            JOptionPane.showMessageDialog(null, "Problema ao efetuar login!\nSenha e/ou Matrícula incorretos!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            if (loginCtrl.verifyLogin(registerField.getText(), passwordField.getText()) == 1) {
+                MainWindow main = new MainWindow(loginCtrl.getLogin());
+                this.setVisible(false);
+                main.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Problema ao efetuar login!\nSenha e/ou Matrícula incorretos!\nVerifque se o banco de dados está configurado!", "ERRO!", JOptionPane.ERROR_MESSAGE);
+            }
         }
+
+        dbInterface.disconnect();
     }//GEN-LAST:event_buttonEntrarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
@@ -148,6 +180,45 @@ public class LoginWindow extends javax.swing.JFrame {
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         }
     }//GEN-LAST:event_formWindowClosing
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Object[] options = {"Sim", "Não"};
+        String host = (String) JOptionPane.showInputDialog(null,
+                "Entre com o HOST do banco de dados: ",
+                "HOST",
+                JOptionPane.QUESTION_MESSAGE,
+                new ImageIcon("src/icons/database_connect.png"),
+                null,
+                null);
+
+        Properties dbProperties = new Properties();
+        FileWriter writer;
+
+        if (!host.equals("")) {
+            try {
+                dbProperties.load(new FileInputStream("src/utils/PropertiesFile.properties"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            dbProperties.setProperty("HOST", host);
+
+            try {
+                writer = new FileWriter("src/utils/PropertiesFile.properties");
+                dbProperties.store(writer, null);
+                writer.flush();
+                writer.close();
+                JOptionPane.showMessageDialog(null,
+                        "O sistema será fechado para que as configurações sejam aplicadas!\nReinicie o sistema para começar a usar!",
+                        "Banco de Dados Configurado",
+                        JOptionPane.INFORMATION_MESSAGE,
+                        new ImageIcon("src/icons/cross.png"));
+                System.exit(0);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,9 +256,10 @@ public class LoginWindow extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEntrar;
+    private javax.swing.JPanel desktopLogin;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField registerField;
