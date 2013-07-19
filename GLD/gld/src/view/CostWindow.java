@@ -8,7 +8,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Login;
 import org.jfree.data.time.Day;
-import utils.DatabaseInterface;
 import utils.UpdaterCostThread;
 
 /**
@@ -46,8 +45,8 @@ public class CostWindow extends javax.swing.JPanel {
         costChart.criaGrafico();
 
         costChart.criaGrafico();
-//        th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), flowLabel,
-//                        tensionLabel,potencyLabel));
+         th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), flowLabel,
+                   tensionLabel,potencyLabel));
         th.setDaemon(true);
         th.start();
 
