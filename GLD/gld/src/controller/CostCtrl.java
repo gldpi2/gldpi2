@@ -23,6 +23,7 @@ public class CostCtrl {
     private final static double DEMANDOFFPEAK = 5.22;
     
     private CostDAO cDao = new CostDAO();
+    private Mensuration mensuration = new Mensuration();
     private List<Mensuration> listMensuration;
     private Cost cost = new Cost();
     private double hour;
@@ -32,6 +33,12 @@ public class CostCtrl {
        listMensuration = cDao.allMeasurements();
         
         return listMensuration;
+    }
+    
+    public Mensuration verifyMensuration(){
+        mensuration = cDao.singleMensuration();
+        
+        return mensuration;
     }
     /**
      * Método para cálculo da hora/kWh
