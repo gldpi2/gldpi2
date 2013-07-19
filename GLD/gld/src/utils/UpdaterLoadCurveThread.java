@@ -29,8 +29,11 @@ public class UpdaterLoadCurveThread implements Runnable {
     private JLabel frequencyValue;
     private JLabel maxPotencyValue;
     private JLabel maxPotencyTime;
+    private JLabel maxPotencyDate;
     private JLabel minPotencyValue;
     private JLabel minPotencyTime;
+    private JLabel minPotencyDate;
+    private JLabel sourceLabel;
 
     /**
      * Método construtor da classe UpdaterLoadCurveThread.
@@ -44,8 +47,9 @@ public class UpdaterLoadCurveThread implements Runnable {
     public UpdaterLoadCurveThread(LoadCurve loadCurve,
             JLabel flowValue, JLabel tensionValue, JLabel potencyValue,
             JLabel powerFactorValue, JLabel frequencyValue,
-            JLabel maxPotencyValue, JLabel maxPotencyTime,
-            JLabel minPotencyValue, JLabel minPotencyTime) {
+            JLabel maxPotencyValue, JLabel maxPotencyTime, JLabel maxPotencyDate,
+            JLabel minPotencyValue, JLabel minPotencyTime, JLabel minPotencyDate,
+            JLabel sourceLabel) {
         this.loadCurve = loadCurve;
         this.flowValue = flowValue;
         this.tensionValue = tensionValue;
@@ -54,8 +58,11 @@ public class UpdaterLoadCurveThread implements Runnable {
         this.frequencyValue = frequencyValue;
         this.maxPotencyValue = maxPotencyValue;
         this.maxPotencyTime = maxPotencyTime;
+        this.maxPotencyDate = maxPotencyDate;
         this.minPotencyValue = minPotencyValue;
         this.minPotencyTime = minPotencyTime;
+        this.minPotencyDate = minPotencyDate;
+        this.sourceLabel = sourceLabel;
     }
 
     /**
@@ -78,9 +85,14 @@ public class UpdaterLoadCurveThread implements Runnable {
             for (Mensuration m : mensuration) {
                 double currentPotency = m.getPotency();
 
+                //REMOVER!!!! INICIO
                 if (lastMensuration == null) {
                     lastMensuration = m;
                 }
+                updateMaxPotency(m);
+                updateMinPotency(m);
+                this.updateSourceAvaible(m);
+                //REMOVER!!!! FIM
 
                 if (averagePotency == 0) {
                     averagePotency = m.getPotency();
@@ -128,7 +140,7 @@ public class UpdaterLoadCurveThread implements Runnable {
                 lastMensuration = m;
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(10);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(UpdaterLoadCurveThread.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -147,6 +159,8 @@ public class UpdaterLoadCurveThread implements Runnable {
 
             if (!(lastMensuration.getIdMensuration() == m.getIdMensuration())) {
                 double currentPotency = m.getPotency();
+
+                this.updateSourceAvaible(m);
 
                 if (m.getMinute() % 15 == 0 || lastMinuteInserted != m.getMinute()) {
                     if (!inserted) {
@@ -192,7 +206,7 @@ public class UpdaterLoadCurveThread implements Runnable {
     }
 
     private void updateAllLabels(Mensuration currentMensuration, Mensuration lastMensuration) {
-        updateJLabel(flowValue, currentMensuration.getBateryTension(), lastMensuration.getBateryTension());
+        updateJLabel(flowValue, currentMensuration.getFlow(), lastMensuration.getFlow());
         updateJLabel(tensionValue, currentMensuration.getTension(), lastMensuration.getTension());
         updateJLabel(potencyvalue, currentMensuration.getPotency(), lastMensuration.getPotency());
         updateJLabel(powerFactorValue, currentMensuration.getPowerFactor(), lastMensuration.getPowerFactor());
@@ -215,26 +229,44 @@ public class UpdaterLoadCurveThread implements Runnable {
     private void updateMaxPotency(Mensuration m) {
         if (this.maxPotencyValue != null) {
             loadCurveCtrl.setMaxMensuration(m);
-            this.maxPotencyValue.setText(String.format("%.3f", loadCurveCtrl.getMaxMensuration().getPotency()));
+            this.maxPotencyValue.setText(String.format("%.3f", loadCurveCtrl.getMaxMensuration().getPotency()) + " kW");
             this.maxPotencyValue.revalidate();
             this.maxPotencyValue.repaint();
 
             this.maxPotencyTime.setText(m.getTime());
             this.maxPotencyTime.revalidate();
             this.maxPotencyTime.repaint();
+
+            this.maxPotencyDate.setText(m.getDate());
+            this.maxPotencyDate.revalidate();
+            this.maxPotencyDate.repaint();
         }
     }
 
     private void updateMinPotency(Mensuration m) {
-        if (this.maxPotencyValue != null) {
+        if (this.minPotencyValue != null) {
             loadCurveCtrl.setMinMensuration(m);
-            this.minPotencyValue.setText(String.format("%.3f", loadCurveCtrl.getMinMensuration().getPotency()));
+            this.minPotencyValue.setText(String.format("%.3f", loadCurveCtrl.getMinMensuration().getPotency()) + " kW");
             this.minPotencyValue.revalidate();
             this.minPotencyValue.repaint();
 
             this.minPotencyTime.setText(m.getTime());
             this.minPotencyTime.revalidate();
             this.minPotencyTime.repaint();
+
+            this.minPotencyDate.setText(m.getDate());
+            this.minPotencyDate.revalidate();
+            this.minPotencyDate.repaint();
+        }
+    }
+
+    private void updateSourceAvaible(Mensuration current) {
+        if (this.sourceLabel != null) {
+            if (current.getEnergyAvailable() == 1) {
+                this.sourceLabel.setText("Disponível");
+            } else {
+                this.sourceLabel.setText("Indisponível");
+            }
         }
     }
 }

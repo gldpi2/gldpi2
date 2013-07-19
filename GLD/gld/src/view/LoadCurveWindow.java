@@ -43,12 +43,13 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     private void init() {
         desktop.removeAll();
         loadChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
-        loadChart.startGraph(false);
 
         updaterThread = new Thread(new UpdaterLoadCurveThread(loadChart.getLoadCurve(),
                 this.flowLabel, this.tensionLabel, this.potencyLabel,
                 this.powerFactorLabel, this.frequencyLabel,
-                null, null, null, null));
+                this.maxValue, this.maxTime, this.maxDate,
+                this.minValue, this.minTime, this.minDate,
+                this.sourceLabel));
         updaterThread.setDaemon(true);
         updaterThread.start();
 
@@ -102,6 +103,14 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         separador = new javax.swing.JSeparator();
         desktop = new javax.swing.JPanel();
         panelInformations = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        maxTime = new javax.swing.JLabel();
+        maxValue = new javax.swing.JLabel();
+        maxDate = new javax.swing.JLabel();
+        minValue = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        minDate = new javax.swing.JLabel();
+        minTime = new javax.swing.JLabel();
         panelRealTime = new javax.swing.JPanel();
         powerFactorLabel = new javax.swing.JLabel();
         sourceLabel = new javax.swing.JLabel();
@@ -155,20 +164,85 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 429, Short.MAX_VALUE)
+            .add(0, 423, Short.MAX_VALUE)
         );
 
-        panelInformations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
+        panelInformations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações do Sistema Híbrido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
+        panelInformations.setToolTipText("");
+
+        jLabel6.setFont(new java.awt.Font("PT Sans Caption", 1, 14)); // NOI18N
+        jLabel6.setText("Máximo:");
+        jLabel6.setToolTipText("");
+
+        maxTime.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        maxTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        maxTime.setText("-");
+
+        maxValue.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        maxValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        maxValue.setText("-");
+
+        maxDate.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        maxDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        maxDate.setText("-");
+
+        minValue.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        minValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minValue.setText("-");
+
+        jLabel8.setFont(new java.awt.Font("PT Sans Caption", 1, 14)); // NOI18N
+        jLabel8.setText("Mínimo:");
+        jLabel8.setToolTipText("");
+
+        minDate.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        minDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minDate.setText("-");
+
+        minTime.setFont(new java.awt.Font("Ubuntu", 0, 14)); // NOI18N
+        minTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        minTime.setText("-");
 
         org.jdesktop.layout.GroupLayout panelInformationsLayout = new org.jdesktop.layout.GroupLayout(panelInformations);
         panelInformations.setLayout(panelInformationsLayout);
         panelInformationsLayout.setHorizontalGroup(
             panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 416, Short.MAX_VALUE)
+            .add(panelInformationsLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(panelInformationsLayout.createSequentialGroup()
+                        .add(jLabel8)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(minDate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(minTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(minValue, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(panelInformationsLayout.createSequentialGroup()
+                        .add(jLabel6)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(maxDate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(maxTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(maxValue, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(0, 0, Short.MAX_VALUE)))
+                .addContainerGap(64, Short.MAX_VALUE))
         );
         panelInformationsLayout.setVerticalGroup(
             panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 0, Short.MAX_VALUE)
+            .add(panelInformationsLayout.createSequentialGroup()
+                .add(panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel6)
+                    .add(maxDate)
+                    .add(maxTime)
+                    .add(maxValue))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel8)
+                    .add(minValue)
+                    .add(minTime)
+                    .add(minDate))
+                .add(0, 0, Short.MAX_VALUE))
         );
 
         panelRealTime.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Rede Elétrica - Tempo Real", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
@@ -183,7 +257,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         sourceLabel.setText("Atualizando...");
 
         jLabel3.setFont(new java.awt.Font("PT Sans Caption", 1, 14)); // NOI18N
-        jLabel3.setText("Fonte");
+        jLabel3.setText("Disponibilidade");
 
         jLabel4.setFont(new java.awt.Font("PT Sans Caption", 1, 14)); // NOI18N
         jLabel4.setText("Fator de Potência");
@@ -223,16 +297,15 @@ public class LoadCurveWindow extends javax.swing.JPanel {
             .add(panelRealTimeLayout.createSequentialGroup()
                 .add(10, 10, 10)
                 .add(panelRealTimeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(panelRealTimeLayout.createSequentialGroup()
-                        .add(sourceLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(10, 10, 10))
-                    .add(panelRealTimeLayout.createSequentialGroup()
-                        .add(jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(82, 82, 82))
                     .add(jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(panelRealTimeLayout.createSequentialGroup()
-                        .add(powerFactorLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(10, 10, 10)))
+                        .add(panelRealTimeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(sourceLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(powerFactorLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(10, 10, 10))
+                    .add(panelRealTimeLayout.createSequentialGroup()
+                        .add(jLabel3)
+                        .add(0, 0, Short.MAX_VALUE)))
                 .add(20, 20, 20)
                 .add(panelRealTimeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(panelRealTimeLayout.createSequentialGroup()
@@ -358,7 +431,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(panelRealTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(847, Short.MAX_VALUE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(backToMainMenu))
             .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -369,7 +442,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                     .add(panelInformations, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(panelRealTime, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(panelCommands, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(desktop, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(separador, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -481,7 +554,15 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel maxDate;
+    private javax.swing.JLabel maxTime;
+    private javax.swing.JLabel maxValue;
+    private javax.swing.JLabel minDate;
+    private javax.swing.JLabel minTime;
+    private javax.swing.JLabel minValue;
     private javax.swing.JComboBox monthChooser;
     private javax.swing.JPanel panelCommands;
     private javax.swing.JPanel panelInformations;

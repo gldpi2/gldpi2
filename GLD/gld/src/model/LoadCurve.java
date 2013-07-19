@@ -34,7 +34,7 @@ public class LoadCurve {
     public TimeSeries series;
     public TimePeriodValues offPeakSerie = new TimePeriodValues("Fora de Ponta");
     public TimePeriodValues peakSerie = new TimePeriodValues("Ponta");
-    public TimePeriodValues alternativeSerie = new TimePeriodValues("Ponta");
+    public TimePeriodValues alternativeSerie = new TimePeriodValues("Energia");
     public int state = 0;
     public Mensuration maxMensuration = new Mensuration();
     public Mensuration minMensuration = new Mensuration();
@@ -93,12 +93,13 @@ public class LoadCurve {
     public XYDataset createMensurationDataSet() {
         offPeakSerie = new TimePeriodValues("Fora de Ponta");
         peakSerie = new TimePeriodValues("Ponta");
-        alternativeSerie = new TimePeriodValues("Ponta");
+        alternativeSerie = new TimePeriodValues("Fontes Alternativas");
 
         final TimePeriodValuesCollection dataset = new TimePeriodValuesCollection();
 
         dataset.addSeries(offPeakSerie);
         dataset.addSeries(peakSerie);
+        dataset.addSeries(alternativeSerie);
 
         return dataset;
     }

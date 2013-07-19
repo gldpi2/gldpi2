@@ -43,6 +43,7 @@ public class GuidelineRateDAO {
         params[7] = guidelineRate.getOutPeakEnergyHumid();
         params[8] = guidelineRate.getValueTranspassed();
 
+
         dbint.connect();
 
         dbint.insert(insertGuidelineRate, params);
@@ -82,7 +83,7 @@ public class GuidelineRateDAO {
                 + "out_peak_energy_humid = ?, value_transpassed = ?" 
                 + "WHERE id_rate = ?";
 
-        String[] params = new String[10];
+        String[] params = new String[12];
         params[0] = guidelineRate.getGuidelineRate();
         params[1] = guidelineRate.getCategory();
         params[2] = guidelineRate.getPeakDemand();
