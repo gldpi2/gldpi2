@@ -1,6 +1,5 @@
 package dao;
 
-import controller.CostCtrl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -61,10 +60,12 @@ public class CostDAO {
         return mensurationList;
     }
 
-    public Mensuration singleMensuration(int id) {
+    public Mensuration singleMensuration() {
         Mensuration mensuration = new Mensuration();
         conectDB();
-        String sql = "SELECT * FROM mensuration WHERE id_mensuration =" + id;
+        
+        int last = dbInterface.getLastId("mensuration");
+        String sql = "SELECT * FROM mensuration WHERE id_mensuration =" + last;
         ResultSet rs = dbInterface.executeQuery(sql);
 
         try {

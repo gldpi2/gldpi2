@@ -29,7 +29,7 @@ public class GuidelineRateDAO {
 
 
         String insertGuidelineRate = "INSERT INTO guideline_rate (guideline_rate, category, peak_demand, out_peak_demand, peak_energy_dry, "
-            + "out_peak_energy_dry, pea_energ_humid, out_peak_energy_humid, value_transpassed) VALUES "
+            + "out_peak_energy_dry, peak_energy_humid, out_peak_energy_humid, value_transpassed) VALUES "
             + "(?,?,?,?,?,?,?,?,?)";
 
         String[] params = new String[9];
@@ -42,6 +42,7 @@ public class GuidelineRateDAO {
         params[6] = guidelineRate.getPeakEnergyHumid();
         params[7] = guidelineRate.getOutPeakEnergyHumid();
         params[8] = guidelineRate.getValueTranspassed();
+
 
         dbint.connect();
 
@@ -77,13 +78,12 @@ public class GuidelineRateDAO {
 
     public void updateGuidelineRate(GuidelineRate guidelineRate) {
 
-        String updateGuidelineRate = "SELECT id_rate FROM guideline_rate";
-
-        updateGuidelineRate = "UPDATE guideline_rate set guideline_rate = ?, category = ?, peak_demand = ?, out_peak_demand = ?, "
+        String updateGuidelineRate = "UPDATE guideline_rate SET guideline_rate = ?, category = ?, peak_demand = ?, out_peak_demand = ?, "
                 + "peak_energy_dry = ?, out_peak_energy_dry = ?, peak_energy_humid = ?, "
-                + "out_peak_energy_humid = ?, value_transpassed = ?";
+                + "out_peak_energy_humid = ?, value_transpassed = ?" 
+                + "WHERE id_rate = ?";
 
-        String[] params = new String[9];
+        String[] params = new String[12];
         params[0] = guidelineRate.getGuidelineRate();
         params[1] = guidelineRate.getCategory();
         params[2] = guidelineRate.getPeakDemand();
@@ -93,7 +93,8 @@ public class GuidelineRateDAO {
         params[6] = guidelineRate.getPeakEnergyHumid();
         params[7] = guidelineRate.getOutPeakEnergyHumid();
         params[8] = guidelineRate.getValueTranspassed();
-
+        params[9] = String.valueOf(guidelineRate.getIdGuidelineRate());
+        
         dbint.connect();
 
         dbint.insert(updateGuidelineRate, params);
