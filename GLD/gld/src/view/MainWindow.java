@@ -28,12 +28,13 @@ public class MainWindow extends javax.swing.JFrame {
     public static EstimationCurveMenu estimationCurveMenu;
     public static EstimationCostMenu estimationCostMenu;
     public static NewPatternWindow pattern;
-    PowerGridMonitor powerGridMonitor;
-    Thread monitorThread;
-    int state = 0;
+    private PowerGridMonitor powerGridMonitor;
+    private Thread monitorThread;
+    private int state = 0;
     private MainMenu pg;
     private NewMainMenu pg2;
     private GuidelineRateWindow guideLineWindow;
+    private EstimationOnRealLoadWindow loadWindowEst;
 
     /**
      * Creates new form JanelaPrincipal
@@ -45,8 +46,12 @@ public class MainWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         user = usuario;
 
-        if (Integer.parseInt(user.getPermission()) == 2) {
+        System.out.println(" " + user.getPermission());
+
+        if (user.getPermission().equals("2")) {
+            System.out.println("PERMISSAO 2!!!");
             menuRegistros.setVisible(false);
+            separadorArquivo.setVisible(false);
         }
 
         //this.init();
@@ -104,17 +109,16 @@ public class MainWindow extends javax.swing.JFrame {
         raizArquivo = new javax.swing.JMenu();
         menuRegistros = new javax.swing.JMenu();
         menuRegistrosUsuario = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         separadorArquivo = new javax.swing.JPopupMenu.Separator();
         menuVoltarMenuPrincipal = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenuItem();
         raizMonitoramento = new javax.swing.JMenu();
-        menuCustos = new javax.swing.JMenuItem();
         menuConsumo = new javax.swing.JMenuItem();
+        menuCustos = new javax.swing.JMenuItem();
         raizEstimativas = new javax.swing.JMenu();
-        menuEstimativasCusto = new javax.swing.JMenu();
-        menuCustoTempoReal = new javax.swing.JMenuItem();
-        menuCustoHistorico = new javax.swing.JMenuItem();
+        menuEstimativaCusto = new javax.swing.JMenuItem();
         menuEstudoContratual = new javax.swing.JMenuItem();
         raizAjuda = new javax.swing.JMenu();
         menuSobre = new javax.swing.JMenuItem();
@@ -153,6 +157,11 @@ public class MainWindow extends javax.swing.JFrame {
         });
         menuRegistros.add(menuRegistrosUsuario);
 
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report.png"))); // NOI18N
+        jMenuItem1.setText("Contrato");
+        menuRegistros.add(jMenuItem1);
+
+        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/money_exclamation.png"))); // NOI18N
         jMenuItem2.setText("Enquadramento Tarifário");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,6 +195,15 @@ public class MainWindow extends javax.swing.JFrame {
 
         raizMonitoramento.setText("Monitoramento");
 
+        menuConsumo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/chart_bar.png"))); // NOI18N
+        menuConsumo.setText("Perfil do Consumidor");
+        menuConsumo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuConsumoActionPerformed(evt);
+            }
+        });
+        raizMonitoramento.add(menuConsumo);
+
         menuCustos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/chart_curve.png"))); // NOI18N
         menuCustos.setText("Custo");
         menuCustos.addActionListener(new java.awt.event.ActionListener() {
@@ -195,41 +213,18 @@ public class MainWindow extends javax.swing.JFrame {
         });
         raizMonitoramento.add(menuCustos);
 
-        menuConsumo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/chart_line.png"))); // NOI18N
-        menuConsumo.setText("Consumo");
-        menuConsumo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuConsumoActionPerformed(evt);
-            }
-        });
-        raizMonitoramento.add(menuConsumo);
-
         barraMenu.add(raizMonitoramento);
 
         raizEstimativas.setText("Previsões");
 
-        menuEstimativasCusto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/money-coin.png"))); // NOI18N
-        menuEstimativasCusto.setText("Custo");
-
-        menuCustoTempoReal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/clock.png"))); // NOI18N
-        menuCustoTempoReal.setText("Tempo Real");
-        menuCustoTempoReal.addActionListener(new java.awt.event.ActionListener() {
+        menuEstimativaCusto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/money-coin.png"))); // NOI18N
+        menuEstimativaCusto.setText("Custo");
+        menuEstimativaCusto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuCustoTempoRealActionPerformed(evt);
+                menuEstimativaCustoActionPerformed(evt);
             }
         });
-        menuEstimativasCusto.add(menuCustoTempoReal);
-
-        menuCustoHistorico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/book_open.png"))); // NOI18N
-        menuCustoHistorico.setText("Por Histórico");
-        menuCustoHistorico.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuCustoHistoricoActionPerformed(evt);
-            }
-        });
-        menuEstimativasCusto.add(menuCustoHistorico);
-
-        raizEstimativas.add(menuEstimativasCusto);
+        raizEstimativas.add(menuEstimativaCusto);
 
         menuEstudoContratual.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report_magnify.png"))); // NOI18N
         menuEstudoContratual.setText("Estudo Contratual");
@@ -342,21 +337,9 @@ public class MainWindow extends javax.swing.JFrame {
         about.setVisible(true);
     }//GEN-LAST:event_menuSobreActionPerformed
 
-    private void menuCustoTempoRealActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCustoTempoRealActionPerformed
-        desktop.removeAll();
-        eorCostWindow = new EstimationOnRealCostWindow(MainWindow.desktop.getHeight(), MainWindow.user);
-        desktop.add(eorCostWindow);
-        desktop.revalidate();
-        desktop.repaint();
-    }//GEN-LAST:event_menuCustoTempoRealActionPerformed
-
     private void menuVoltarMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVoltarMenuPrincipalActionPerformed
         initNewMenu();
     }//GEN-LAST:event_menuVoltarMenuPrincipalActionPerformed
-
-    private void menuCustoHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCustoHistoricoActionPerformed
-        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
-    }//GEN-LAST:event_menuCustoHistoricoActionPerformed
 
     private void menuEstudoContratualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEstudoContratualActionPerformed
         JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
@@ -369,6 +352,14 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void menuEstimativaCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEstimativaCustoActionPerformed
+        desktop.removeAll();
+        loadWindowEst = new EstimationOnRealLoadWindow(desktop.getHeight(), user);
+        desktop.add(loadWindowEst);
+        desktop.revalidate();
+        desktop.repaint();
+    }//GEN-LAST:event_menuEstimativaCustoActionPerformed
 
     private void closePowerGridMonitorThread() {
         Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "PowerGridMonitorThread parada.");
@@ -411,12 +402,11 @@ public class MainWindow extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     public static javax.swing.JPanel desktop;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem menuConsumo;
-    private javax.swing.JMenuItem menuCustoHistorico;
-    private javax.swing.JMenuItem menuCustoTempoReal;
     private javax.swing.JMenuItem menuCustos;
-    private javax.swing.JMenu menuEstimativasCusto;
+    private javax.swing.JMenuItem menuEstimativaCusto;
     private javax.swing.JMenuItem menuEstudoContratual;
     private javax.swing.JMenu menuRegistros;
     private javax.swing.JMenuItem menuRegistrosUsuario;
