@@ -111,6 +111,8 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         minDate = new javax.swing.JLabel();
         minTime = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         panelRealTime = new javax.swing.JPanel();
         powerFactorLabel = new javax.swing.JLabel();
         sourceLabel = new javax.swing.JLabel();
@@ -160,7 +162,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         desktop.setLayout(desktopLayout);
         desktopLayout.setHorizontalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 0, Short.MAX_VALUE)
+            .add(0, 1050, Short.MAX_VALUE)
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -202,6 +204,13 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         minTime.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         minTime.setText("-");
 
+        jLabel9.setFont(new java.awt.Font("PT Sans Caption", 1, 14)); // NOI18N
+        jLabel9.setText("Status da Bateria:");
+        jLabel9.setToolTipText("");
+
+        jLabel10.setFont(new java.awt.Font("PT Sans Caption", 1, 14)); // NOI18N
+        jLabel10.setText("Meta:");
+
         org.jdesktop.layout.GroupLayout panelInformationsLayout = new org.jdesktop.layout.GroupLayout(panelInformations);
         panelInformations.setLayout(panelInformationsLayout);
         panelInformationsLayout.setHorizontalGroup(
@@ -209,28 +218,34 @@ public class LoadCurveWindow extends javax.swing.JPanel {
             .add(panelInformationsLayout.createSequentialGroup()
                 .addContainerGap()
                 .add(panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(panelInformationsLayout.createSequentialGroup()
-                        .add(jLabel8)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(minDate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(minTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(minValue, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(panelInformationsLayout.createSequentialGroup()
-                        .add(jLabel6)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(maxDate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(maxTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(maxValue, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(64, Short.MAX_VALUE))
+                    .add(panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                        .add(panelInformationsLayout.createSequentialGroup()
+                            .add(jLabel8)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(minDate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(minTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(minValue, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(panelInformationsLayout.createSequentialGroup()
+                            .add(jLabel6)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(maxDate, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(maxTime, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                            .add(maxValue, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 85, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jLabel9)
+                    .add(jLabel10))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelInformationsLayout.setVerticalGroup(
             panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(panelInformationsLayout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, panelInformationsLayout.createSequentialGroup()
+                .add(jLabel9)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel10)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
                     .add(maxDate)
@@ -242,7 +257,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                     .add(minValue)
                     .add(minTime)
                     .add(minDate))
-                .add(0, 0, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         panelRealTime.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados da Rede Elétrica - Tempo Real", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
@@ -550,6 +565,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     private javax.swing.JLabel frequencyLabel;
     private javax.swing.JLabel fromLabel;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -557,6 +573,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel maxDate;
     private javax.swing.JLabel maxTime;
     private javax.swing.JLabel maxValue;
