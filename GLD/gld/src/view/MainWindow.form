@@ -9,17 +9,6 @@
             <Property name="text" type="java.lang.String" value="Arquivo"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
-              <Properties>
-                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="Meta+1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="New Pattern"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
-              </Events>
-            </MenuItem>
             <Menu class="javax.swing.JMenu" name="menuRegistros">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -106,7 +95,7 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="raizEstimativas">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Estimativas"/>
+            <Property name="text" type="java.lang.String" value="Previs&#xf5;es"/>
           </Properties>
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="menuEstimativasCusto">
@@ -141,38 +130,6 @@
                 </MenuItem>
               </SubComponents>
             </Menu>
-            <Menu class="javax.swing.JMenu" name="menuEstimativasConsumo">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/icons/lightning.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Consumo"/>
-              </Properties>
-              <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="menuConsumoTempoReal">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/icons/clock.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Tempo Real"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuConsumoTempoRealActionPerformed"/>
-                  </Events>
-                </MenuItem>
-                <MenuItem class="javax.swing.JMenuItem" name="menuConsumoHistorico">
-                  <Properties>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/icons/book_open.png"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="Por Hist&#xf3;rico"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuConsumoHistoricoActionPerformed"/>
-                  </Events>
-                </MenuItem>
-              </SubComponents>
-            </Menu>
             <MenuItem class="javax.swing.JMenuItem" name="menuEstudoContratual">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -185,11 +142,6 @@
               </Events>
             </MenuItem>
           </SubComponents>
-        </Menu>
-        <Menu class="javax.swing.JMenu" name="raizHibrido">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Sistema Hibr&#xed;do"/>
-          </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="raizAjuda">
           <Properties>
