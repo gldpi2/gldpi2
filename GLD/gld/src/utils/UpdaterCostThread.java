@@ -22,7 +22,7 @@ public class UpdaterCostThread implements Runnable {
     private TimeSeries seriesLimit;
     private JLabel flowValue;
     private JLabel tensionValue;
-    private JLabel potencyvalue;
+    private JLabel potencyValue;
 
     public UpdaterCostThread(TimeSeries series) {
         this.series = series;
@@ -34,7 +34,7 @@ public class UpdaterCostThread implements Runnable {
         this.seriesLimit = seriesLimit;
         this.flowValue = flowValue;
         this.tensionValue = tensionValue;
-        this.potencyvalue = potencyValue;
+        this.potencyValue = potencyValue;
     }
 
     /**
@@ -51,10 +51,11 @@ public class UpdaterCostThread implements Runnable {
         for (Mensuration m : mensuration) {
             if (previusMensuration.getIdMensuration() != m.getIdMensuration()) {
                 series.addOrUpdate(m.getMillisecond(), calculateCost(m));
-                seriesLimit.addOrUpdate(m.getMillisecond(), 22000);
-                if (this.potencyvalue != null) {
+                seriesLimit.addOrUpdate(m.getMillisecond(), 50);
+                if (this.potencyValue != null) {
                     try {
                         updateButton(m, previusMensuration);
+                        
                     } catch (InterruptedException ex) {
                         Logger.getLogger(UpdaterCostThread.class.getName()).log(Level.SEVERE, null, ex);
                     }
@@ -74,6 +75,15 @@ public class UpdaterCostThread implements Runnable {
         updateTension(m, previus);
         updatePotency(m, previus);
 
+        this.potencyValue.revalidate();
+        this.potencyValue.repaint();
+                        
+        this.flowValue.revalidate();
+        this.flowValue.repaint();
+                        
+        this.tensionValue.revalidate();
+        this.tensionValue.repaint();
+        
         Thread.sleep(Integer.parseInt(properties.getString("REFRESH_TIME")));
     }
 
@@ -84,33 +94,33 @@ public class UpdaterCostThread implements Runnable {
     private void updateFlow(Mensuration m, Mensuration previus) {
         this.flowValue.setText(String.format("%.2f", m.getFlow()));
         if (m.getFlow() > previus.getFlow()) {
-            this.flowValue.setIcon(new ImageIcon("src/icons/arrow_down_small.png"));
-        } else {
             this.flowValue.setIcon(new ImageIcon("src/icons/arrow_up_small.png"));
+        } else {
+            this.flowValue.setIcon(new ImageIcon("src/icons/arrow_down_small.png"));
         }
-        this.flowValue.revalidate();
-        this.flowValue.repaint();
+        //this.flowValue.revalidate();
+        //this.flowValue.repaint();
     }
 
     private void updateTension(Mensuration m, Mensuration previus) {
         this.tensionValue.setText(String.format("%.2f", m.getTension()));
         if (m.getTension() > previus.getTension()) {
-            this.tensionValue.setIcon(new ImageIcon("src/icons/arrow_down_small.png"));
-        } else {
             this.tensionValue.setIcon(new ImageIcon("src/icons/arrow_up_small.png"));
+        } else {
+            this.tensionValue.setIcon(new ImageIcon("src/icons/arrow_down_small.png"));
         }
-        this.tensionValue.revalidate();
-        this.tensionValue.repaint();
+        //this.tensionValue.revalidate();
+        //this.tensionValue.repaint();
     }
 
     private void updatePotency(Mensuration m, Mensuration previus) {
-        this.potencyvalue.setText(String.format("%.2f", m.getPotency()));
+        this.potencyValue.setText(String.format("%.2f", m.getPotency()));
         if (m.getTension() > previus.getTension()) {
-            this.potencyvalue.setIcon(new ImageIcon("src/icons/arrow_down_small.png"));
+            this.potencyValue.setIcon(new ImageIcon("src/icons/arrow_up_small.png"));
         } else {
-            this.potencyvalue.setIcon(new ImageIcon("src/icons/arrow_up_small.png"));
+            this.potencyValue.setIcon(new ImageIcon("src/icons/arrow_down_small.png"));
         }
-        this.potencyvalue.revalidate();
-        this.potencyvalue.repaint();
+        //this.potencyValue.revalidate();
+        //this.potencyValue.repaint();
     }
 }

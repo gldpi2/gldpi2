@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -86,13 +87,15 @@ public class Cost {
         series = new TimeSeries("R$/kWh", Millisecond.class);
         final TimeSeriesCollection dataset = new TimeSeriesCollection(series);
         dataset.addSeries(seriesLimit);
-                
-        
+   
         costChart = ChartFactory.createTimeSeriesChart("Gráfico de Custo","Hora", "Valor em Real (R$)",dataset,true,true,false);
+        
+        
         final XYPlot plot = costChart.getXYPlot();
+        costChart.setBackgroundPaint(Color.getColor("opaco"));
+        
         ValueAxis xAxis = plot.getDomainAxis();
         //ValueAxis yAxis = plot.getRangeAxis();
-        
         xAxis.setAutoRange(true);
         xAxis.setFixedAutoRange(60000.0);
         //xAxis.setRange(0, 86400000);
@@ -100,6 +103,7 @@ public class Cost {
         
         
         myChartPanel = new ChartPanel(costChart,true);
+        myChartPanel.setMouseZoomable(false, false);
         
         return myChartPanel;
     }
