@@ -32,7 +32,7 @@ public class GuidelineRateCtrl {
         guideline.setPeakEnergyHumid(peakEnergyHumid);
         guideline.setOutPeakEnergyHumid(outPeakEnergyHumid);
         guideline.setValueTranspassed(valueTranspassed);
-        guideline.setTimestamp(timestamp);
+        //guideline.setTimestamp(timestamp);
 
         dao.createGuidelineRate(guideline);
     }

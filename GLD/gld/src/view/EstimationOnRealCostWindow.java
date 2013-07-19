@@ -358,7 +358,6 @@ public class EstimationOnRealCostWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_desktopComponentResized
 
     private void estimateSliderMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_estimateSliderMouseDragged
-        // TODO add your handling code here:
         estimateNumberLabel.setText("" + estimateSlider.getValue());
     }//GEN-LAST:event_estimateSliderMouseDragged
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -24,9 +24,6 @@ public class GuidelineRate {
     private String outPeakEnergyHumid = null;
     private String valueTranspassed = null;
     private String timestamp = null;
-    private int year;
-    private int month;
-    private int day;
 
     public GuidelineRate(String guidelineRate, String category, String peakDemand, String outPeakDemand,
             String peakEnergyDry, String outPeakEnergyDry, String peakEnergyHumid,
@@ -82,10 +79,6 @@ public class GuidelineRate {
         year = Integer.parseInt(timestamp.substring(0, 4));
         month = Integer.parseInt(timestamp.substring(4, 6));
         day = Integer.parseInt(timestamp.substring(6, 8));
-
-        this.year = year;
-        this.month = month;
-        this.day = day;
 
         this.timestamp = timestamp;
     }
@@ -150,27 +143,4 @@ public class GuidelineRate {
         this.valueTranspassed = valueTranspassed;
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
-    public int getMonth() {
-        return month;
-    }
-
-    public void setMonth(int month) {
-        this.month = month;
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public void setDay(int day) {
-        this.day = day;
-    }
 }
