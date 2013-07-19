@@ -62,7 +62,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jTabbedPane1" pref="774" max="32767" attributes="0"/>
+                      <Component id="jTabbedPane1" max="32767" attributes="0"/>
                       <Component id="readPanel" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
@@ -100,14 +100,14 @@
                               <Group type="102" attributes="0">
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="categoryComboBox" max="32767" attributes="0"/>
+                                      <Component id="categoryComboBox" pref="336" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="passwrod2Label" min="-2" max="-2" attributes="0"/>
+                                          <Component id="outPeakDemandLabel" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="outPeakDemandField" min="-2" pref="85" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="emailLabel" min="-2" max="-2" attributes="0"/>
+                                          <Component id="outPeakEnergyDryLabel" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="outPeakEnergyDryField" min="-2" pref="85" max="-2" attributes="0"/>
                                       </Group>
@@ -121,17 +121,6 @@
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="peakDemandField" min="-2" pref="85" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="dryMonthLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="humidMonthLaber" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace pref="16" max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="humidMonthComboBox" max="32767" attributes="0"/>
-                                              <Component id="dryMonthComboBox" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="cell_claroLabel" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="32767" attributes="0"/>
@@ -139,14 +128,14 @@
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="cell_vivoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="peakLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="outPeakLabel" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="177" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="registerLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="categoryLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="guidelineComboBox" alignment="0" min="-2" pref="185" max="-2" attributes="0"/>
-                                              <Component id="nameLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="guidelineRateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="warningLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -172,24 +161,24 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="nameLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="guidelineRateLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="guidelineComboBox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="registerLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="categoryLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="categoryComboBox" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="passwordLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="outPeakLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="outPeakDemandField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="passwrod2Label" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="outPeakDemandLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="outPeakEnergyDryField" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="emailLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="outPeakEnergyDryLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
@@ -197,7 +186,7 @@
                               <Component id="outPeakEnergyHumidField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="cell_vivoLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="peakLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="peakDemandField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -218,17 +207,7 @@
                               <Component id="profileLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="valueTranspassedField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="75" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="dryMonthLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="dryMonthComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="humidMonthLaber" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="humidMonthComboBox" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace pref="165" max="32767" attributes="0"/>
                           <Component id="warningLabel" min="-2" pref="34" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="createGuidelineButton" min="-2" max="-2" attributes="0"/>
@@ -250,7 +229,7 @@
                     </Property>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="nameLabel">
+                <Component class="javax.swing.JLabel" name="guidelineRateLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Tipo de Tarifa*:"/>
                     <Property name="name" type="java.lang.String" value="" noResource="true"/>
@@ -283,22 +262,22 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="categoryComboBoxActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="registerLabel">
+                <Component class="javax.swing.JLabel" name="categoryLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Categoria*:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="passwordLabel">
+                <Component class="javax.swing.JLabel" name="outPeakLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Fora de Ponta:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="passwrod2Label">
+                <Component class="javax.swing.JLabel" name="outPeakDemandLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Custo Demanda*:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="emailLabel">
+                <Component class="javax.swing.JLabel" name="outPeakEnergyDryLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Custo Energia Seca*:"/>
                   </Properties>
@@ -310,7 +289,7 @@
                     <Property name="text" type="java.lang.String" value="Custo Energia &#xda;mida*:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="cell_vivoLabel">
+                <Component class="javax.swing.JLabel" name="peakLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Ponta"/>
                   </Properties>
@@ -360,61 +339,6 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="valueTranspassedField">
                 </Component>
-                <Component class="javax.swing.JLabel" name="dryMonthLabel">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="In&#xed;cio do Per&#xed;odo Seco*:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="humidMonthLaber">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="In&#xed;cio do Per&#xed;odo &#xda;mido*:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="dryMonthComboBox">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="13">
-                        <StringItem index="0" value="Selecione o m&#xea;s"/>
-                        <StringItem index="1" value="Janeiro"/>
-                        <StringItem index="2" value="Fevereiro"/>
-                        <StringItem index="3" value="Mar&#xe7;o"/>
-                        <StringItem index="4" value="Abril"/>
-                        <StringItem index="5" value="Maio"/>
-                        <StringItem index="6" value="Junho"/>
-                        <StringItem index="7" value="Julho"/>
-                        <StringItem index="8" value="Agosto"/>
-                        <StringItem index="9" value="Setembro"/>
-                        <StringItem index="10" value="Outubro"/>
-                        <StringItem index="11" value="Novembro"/>
-                        <StringItem index="12" value="Dezembro"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dryMonthComboBoxActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="humidMonthComboBox">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="13">
-                        <StringItem index="0" value="Selecione o m&#xea;s"/>
-                        <StringItem index="1" value="Janeiro"/>
-                        <StringItem index="2" value="Fevereiro"/>
-                        <StringItem index="3" value="Mar&#xe7;o"/>
-                        <StringItem index="4" value="Abril"/>
-                        <StringItem index="5" value="Maio"/>
-                        <StringItem index="6" value="Junho"/>
-                        <StringItem index="7" value="Julho"/>
-                        <StringItem index="8" value="Agosto"/>
-                        <StringItem index="9" value="Setembro"/>
-                        <StringItem index="10" value="Outubro"/>
-                        <StringItem index="11" value="Novembro"/>
-                        <StringItem index="12" value="Dezembro"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="editPanel">
@@ -432,7 +356,7 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="categoryComboBoxEdition" max="32767" attributes="0"/>
+                              <Component id="categoryComboBoxEdition" pref="336" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="passwrod2Label1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -454,17 +378,6 @@
                                   <Component id="peakDemandFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="dryMonthLabelEdition" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="humidMonthLaberEdition" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace pref="16" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="humidMonthComboBoxEdition" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="dryMonthComboBoxEdition" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
                                   <Component id="cell_claroLabel1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="peakEnergyDryFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
@@ -473,10 +386,6 @@
                                   <Component id="profileLabel2" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="peakEnergyHumidFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="editGuidelineButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -493,6 +402,10 @@
                                   <Component id="profileLabel3" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="valueTranspassedFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="editGuidelineButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -549,17 +462,7 @@
                               <Component id="profileLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="valueTranspassedFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="75" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="dryMonthLabelEdition" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="dryMonthComboBoxEdition" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="humidMonthLaberEdition" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="humidMonthComboBoxEdition" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <EmptySpace pref="165" max="32767" attributes="0"/>
                           <Component id="warningLabel1" min="-2" pref="34" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="editGuidelineButton" min="-2" max="-2" attributes="0"/>
@@ -690,61 +593,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="valueTranspassedFieldEdition">
-                </Component>
-                <Component class="javax.swing.JLabel" name="dryMonthLabelEdition">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="In&#xed;cio do Per&#xed;odo Seco*:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="dryMonthComboBoxEdition">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="13">
-                        <StringItem index="0" value="Selecione o m&#xea;s"/>
-                        <StringItem index="1" value="Janeiro"/>
-                        <StringItem index="2" value="Fevereiro"/>
-                        <StringItem index="3" value="Mar&#xe7;o"/>
-                        <StringItem index="4" value="Abril"/>
-                        <StringItem index="5" value="Maio"/>
-                        <StringItem index="6" value="Junho"/>
-                        <StringItem index="7" value="Julho"/>
-                        <StringItem index="8" value="Agosto"/>
-                        <StringItem index="9" value="Setembro"/>
-                        <StringItem index="10" value="Outubro"/>
-                        <StringItem index="11" value="Novembro"/>
-                        <StringItem index="12" value="Dezembro"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="dryMonthComboBoxEditionActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JLabel" name="humidMonthLaberEdition">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="In&#xed;cio do Per&#xed;odo &#xda;mido*:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="humidMonthComboBoxEdition">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="13">
-                        <StringItem index="0" value="Selecione o m&#xea;s"/>
-                        <StringItem index="1" value="Janeiro"/>
-                        <StringItem index="2" value="Fevereiro"/>
-                        <StringItem index="3" value="Mar&#xe7;o"/>
-                        <StringItem index="4" value="Abril"/>
-                        <StringItem index="5" value="Maio"/>
-                        <StringItem index="6" value="Junho"/>
-                        <StringItem index="7" value="Julho"/>
-                        <StringItem index="8" value="Agosto"/>
-                        <StringItem index="9" value="Setembro"/>
-                        <StringItem index="10" value="Outubro"/>
-                        <StringItem index="11" value="Novembro"/>
-                        <StringItem index="12" value="Dezembro"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
                 </Component>
               </SubComponents>
             </Container>
