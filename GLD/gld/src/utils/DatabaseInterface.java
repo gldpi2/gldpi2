@@ -114,7 +114,8 @@ public class DatabaseInterface {
      * @param params String[] Parametros da sql em um array de string
      * (this.getParamString())
      * @return result int Retorna o resultado da execução
-     *
+     * 
+     * @FIXME! o nome da função não representa a totalidade de suas atribuições  
      */
     public synchronized int insert(String sql, String[] params) {
         PreparedStatement st;
