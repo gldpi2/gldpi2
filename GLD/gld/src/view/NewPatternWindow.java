@@ -9,7 +9,6 @@ import javax.swing.JOptionPane;
 import model.Login;
 import org.jfree.data.time.Day;
 import utils.DatabaseInterface;
-import utils.UpdaterLoadCurveThread;
 
 /**
  *
@@ -45,10 +44,10 @@ public class NewPatternWindow extends javax.swing.JPanel {
         loadChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
         loadChart.startGraph(false);
 
-        updaterThread = new Thread(new UpdaterLoadCurveThread(loadChart.getLoadCurve(),
-                this.flowLabel, this.tensionLabel, this.potencyLabel,
-                this.powerFactorLabel, this.flowLabel,
-                null, null, null, null));
+//        updaterThread = new Thread(new UpdaterLoadCurveThread(loadChart.getLoadCurve(),
+//                this.flowLabel, this.tensionLabel, this.potencyLabel,
+//                this.powerFactorLabel, this.flowLabel,
+//                null, null, null, null));
         updaterThread.setDaemon(true);
         updaterThread.start();
 
