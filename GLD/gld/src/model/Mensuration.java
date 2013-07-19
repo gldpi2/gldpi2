@@ -185,4 +185,36 @@ public class Mensuration {
     public void setFrequency(double frequency) {
         this.frequency = frequency;
     }
+
+    public double getPowerFactor() {
+        return powerFactor;
+    }
+
+    public double getFrequency() {
+        return frequency;
+    }
+
+    public double getFlowPanel() {
+        return flowPanel;
+    }
+
+    public double getFlowAeroGenerator() {
+        return flowAeroGenerator;
+    }
+
+    public double getBateryTension() {
+        return bateryTension;
+    }
+
+    public double getBateryLoad() {
+        return bateryLoad;
+    }
+
+    public int getActiveSystem() {
+        return activeSystem;
+    }
+
+    public int getEnergyAvailable() {
+        return energyAvailable;
+    }
 }

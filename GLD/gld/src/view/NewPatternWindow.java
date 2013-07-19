@@ -47,8 +47,8 @@ public class NewPatternWindow extends javax.swing.JPanel {
 
         updaterThread = new Thread(new UpdaterLoadCurveThread(loadChart.getLoadCurve(),
                 this.flowLabel, this.tensionLabel, this.potencyLabel,
-                null, null,
-                null, null));
+                this.powerFactorLabel, this.flowLabel,
+                null, null, null, null));
         updaterThread.setDaemon(true);
         updaterThread.start();
 
@@ -103,7 +103,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
         desktop = new javax.swing.JPanel();
         panelInformations = new javax.swing.JPanel();
         panelRealTime = new javax.swing.JPanel();
-        potencyFactorLabel = new javax.swing.JLabel();
+        powerFactorLabel = new javax.swing.JLabel();
         sourceLabel = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -174,9 +174,9 @@ public class NewPatternWindow extends javax.swing.JPanel {
         panelRealTime.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Tempo Real", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
         panelRealTime.setMinimumSize(new java.awt.Dimension(275, 154));
 
-        potencyFactorLabel.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
-        potencyFactorLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow_up_small.png"))); // NOI18N
-        potencyFactorLabel.setText("Atualizando...");
+        powerFactorLabel.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        powerFactorLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/arrow_up_small.png"))); // NOI18N
+        powerFactorLabel.setText("Atualizando...");
 
         sourceLabel.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
         sourceLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/lightning.png"))); // NOI18N
@@ -231,7 +231,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
                         .add(82, 82, 82))
                     .add(jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(panelRealTimeLayout.createSequentialGroup()
-                        .add(potencyFactorLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(powerFactorLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(10, 10, 10)))
                 .add(20, 20, 20)
                 .add(panelRealTimeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -275,7 +275,7 @@ public class NewPatternWindow extends javax.swing.JPanel {
                     .add(jLabel7))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(panelRealTimeLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(potencyFactorLabel)
+                    .add(powerFactorLabel)
                     .add(tensionLabel)
                     .add(frequencyLabel))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -507,8 +507,8 @@ public class NewPatternWindow extends javax.swing.JPanel {
     private javax.swing.JPanel panelCommands;
     private javax.swing.JPanel panelInformations;
     private javax.swing.JPanel panelRealTime;
-    private javax.swing.JLabel potencyFactorLabel;
     private javax.swing.JLabel potencyLabel;
+    private javax.swing.JLabel powerFactorLabel;
     private javax.swing.JSeparator separador;
     private javax.swing.JLabel sourceLabel;
     private javax.swing.JLabel tensionLabel;

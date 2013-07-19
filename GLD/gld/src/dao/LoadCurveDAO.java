@@ -98,10 +98,19 @@ public class LoadCurveDAO {
         ResultSet rs = dbInterface.executeQuery(sql);
         try {
             while (rs.next()) {
+                mensuration = new Mensuration();
                 mensuration.setIdMensuration(rs.getInt("id_mensuration"));
                 mensuration.setFlow(rs.getDouble("flow"));
                 mensuration.setTension(rs.getDouble("tension"));
                 mensuration.setTimestamp(rs.getString("timestamp"));
+                mensuration.setPowerFactor(rs.getDouble("power_factor"));
+                mensuration.setFlowPanel(rs.getDouble("flow_panel"));
+                mensuration.setFlowAeroGenerator(rs.getDouble("flow_aero_generator"));
+                mensuration.setBateryLoad(rs.getDouble("batery_load"));
+                mensuration.setActiveSystem(rs.getInt("active_system"));
+                mensuration.setEnergyAvailable(rs.getInt("energy_available"));
+                mensuration.setFrequency(rs.getDouble("frequency"));
+                mensuration.setBateryTension(rs.getDouble("batery_tension"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoadCurveDAO.class.getName()).log(Level.SEVERE, null, ex);

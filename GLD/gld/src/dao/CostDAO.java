@@ -1,6 +1,5 @@
 package dao;
 
-import controller.CostCtrl;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
