@@ -15,7 +15,7 @@ import utils.UpdaterCostThread;
  *
  * @author itallorossi
  */
-public class NewCostWindow extends javax.swing.JPanel {
+public class CostWindow extends javax.swing.JPanel {
 
     private int state;
     private int month;
@@ -26,13 +26,12 @@ public class NewCostWindow extends javax.swing.JPanel {
     private NewMainMenu newMenu;
     private Login userLogged;
     private Day today = new Day();
-    private DatabaseInterface dbInterface = new DatabaseInterface();
     /*
      * 0 - data minima selecionavel / 1 - data maxima selecionavel
      */
     private Date[] dates = new Date[2];
 
-    public NewCostWindow(int y, Login user) {
+    public CostWindow(int y, Login user) {
         initComponents();
         month = today.getMonth() - 1;
         year = today.getYear() - 2013;
@@ -47,7 +46,8 @@ public class NewCostWindow extends javax.swing.JPanel {
         costChart.criaGrafico();
 
         costChart.criaGrafico();
-        th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), flowLabel, tensionLabel, potencyLabel, flowLabel, flowLabel));
+        th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), flowLabel,
+                        tensionLabel,potencyLabel));
         th.setDaemon(true);
         th.start();
 
@@ -372,8 +372,6 @@ public class NewCostWindow extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(backToMainMenu))
         );
-
-        getAccessibleContext().setAccessibleName("Gráfico de Custo");
     }// </editor-fold>//GEN-END:initComponents
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
