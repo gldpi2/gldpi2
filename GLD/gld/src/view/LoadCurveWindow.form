@@ -127,7 +127,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Tempo Real">
+            <TitledBorder title="Dados da Rede El&#xe9;trica - Tempo Real">
               <Font PropertyName="font" name="PT Sans Caption" size="14" style="0"/>
             </TitledBorder>
           </Border>
@@ -153,7 +153,7 @@
                       </Group>
                       <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="potencyFactorLabel" max="32767" attributes="0"/>
+                          <Component id="powerFactorLabel" max="32767" attributes="0"/>
                           <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -210,7 +210,7 @@
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="potencyFactorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="powerFactorLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="tensionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="frequencyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -220,7 +220,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="potencyFactorLabel">
+        <Component class="javax.swing.JLabel" name="powerFactorLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="PT Sans Caption" size="14" style="0"/>
