@@ -115,10 +115,18 @@ public class UpdaterLoadCurveThread implements Runnable {
                 }
 
                 lastMensuration = m;
+
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(UpdaterLoadCurveThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             updateMaxPotency(loadCurveCtrl.getMaxMensuration());
             updateMinPotency(loadCurveCtrl.getMinMensuration());
+
+
         }
 
         while (true) {
