@@ -530,9 +530,17 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
                 outPeakEnergyHumid, valueTranspassed, timestamp);
 
         JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
-
+                
         clean();
-
+        try {
+            this.guidelineList = this.guidelineCtrl.readGuidelineRate();
+            this.table.addGuidelineRateList(this.guidelineList);
+            repaint();
+        } catch (SQLException ex) {
+            Logger.getLogger(GuidelineRateWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+        
         return;
 
 
@@ -566,6 +574,8 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
 
         clean();
 
+        
+        
         return;
     }//GEN-LAST:event_editGuidelineButtonActionPerformed
 

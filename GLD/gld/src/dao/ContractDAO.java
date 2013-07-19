@@ -26,11 +26,11 @@ public class ContractDAO {
 
     public void createContract(Contract contract) {
         
-        String insertContract = "INSERT INTO contract (peak_demand, out_peak_demand, "
+        String insertContract = "INSERT INTO contract (contracted_peak_demand, out_peak_demand, "
             + "humid_season, dry_season) VALUES "
             + "(?,?,?,?)";
         
-        String[] params = new String[3];
+        String[] params = new String[4];
         params[0] = contract.getPeakDemandContracted();
         params[1] = contract.getOutPeakDemandContracted();
         params[2] = contract.getHumidSeason();
@@ -55,7 +55,7 @@ public class ContractDAO {
             Contract contract;
 
             contract = new Contract(rs.getString("contracted_peak_demand"), rs.getString("out_peak_demand"),
-                    rs.getString("humid_season"), rs.getString("dry_humid"), rs.getString("timestamp"));
+                    rs.getString("humid_season"), rs.getString("dry_season"), rs.getString("timestamp"));
 
             listContract.add(contract);
         }
@@ -71,7 +71,7 @@ public class ContractDAO {
         updateContract = "UPDATE contract set contracted_peak_demand = ?, out_peak_demand = ?, "
                 + "humid_season = ?, dry_season = ?, timestamp = ? ";
         
-        String[] params = new String[3];
+        String[] params = new String[4];
         params[0] = contract.getPeakDemandContracted();
         params[1] = contract.getOutPeakDemandContracted();
         params[2] = contract.getHumidSeason();

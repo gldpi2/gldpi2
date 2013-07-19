@@ -35,6 +35,7 @@ public class MainWindow extends javax.swing.JFrame {
     private NewMainMenu pg2;
     private GuidelineRateWindow guideLineWindow;
     private EstimationOnRealLoadWindow loadWindowEst;
+    private ContractWindow contractWindow;
 
     /**
      * Creates new form JanelaPrincipal
@@ -140,7 +141,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 650, Short.MAX_VALUE)
+            .add(0, 654, Short.MAX_VALUE)
         );
 
         raizArquivo.setText("Arquivo");
@@ -159,6 +160,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report.png"))); // NOI18N
         jMenuItem1.setText("Contrato");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         menuRegistros.add(jMenuItem1);
 
         jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/money_exclamation.png"))); // NOI18N
@@ -360,6 +366,14 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_menuEstimativaCustoActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        desktop.removeAll();
+        contractWindow = new ContractWindow(desktop.getHeight(), user);
+        desktop.add(contractWindow);
+        desktop.revalidate();
+        desktop.repaint();
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void closePowerGridMonitorThread() {
         Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "PowerGridMonitorThread parada.");

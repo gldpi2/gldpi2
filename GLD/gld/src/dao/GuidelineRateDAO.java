@@ -83,7 +83,7 @@ public class GuidelineRateDAO {
                 + "out_peak_energy_humid = ?, value_transpassed = ?" 
                 + "WHERE id_rate = ?";
 
-        String[] params = new String[12];
+        String[] params = new String[10];
         params[0] = guidelineRate.getGuidelineRate();
         params[1] = guidelineRate.getCategory();
         params[2] = guidelineRate.getPeakDemand();

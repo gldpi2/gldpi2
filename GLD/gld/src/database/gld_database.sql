@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS user (
     UNIQUE (register)
 );
 
-CREATE TABLE guideline_rate(
+CREATE TABLE IF NOT EXISTS guideline_rate(
 id_rate INT UNSIGNED ZEROFILL AUTO_INCREMENT ,
 guideline_rate VARCHAR( 50 ) NOT NULL ,
 peak_demand FLOAT,
@@ -46,6 +46,7 @@ peak_energy_humid FLOAT,
 out_peak_energy_humid FLOAT,
 value_transpassed FLOAT,
 `timestamp` timestamp DEFAULT CURRENT_TIMESTAMP ,
+category VARCHAR( 50 ) NOT NULL,
 PRIMARY KEY ( id_rate )
 )
 
