@@ -46,14 +46,14 @@ public class CostWindow extends javax.swing.JPanel {
         costChart.criaGrafico();
 
         costChart.criaGrafico();
-        th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), flowLabel,
-                        tensionLabel,potencyLabel));
+//        th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), flowLabel,
+//                        tensionLabel,potencyLabel));
         th.setDaemon(true);
         th.start();
 
         desktop.add(costChart);
         state = 1;
-        
+
         initialVisibleComponents();
     }
 
