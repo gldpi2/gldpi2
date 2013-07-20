@@ -1,5 +1,6 @@
 package view;
 
+import java.util.Date;
 import javax.swing.JOptionPane;
 import model.Login;
 import utils.UpdaterCostThread;
@@ -56,7 +57,7 @@ public class MainMenu extends javax.swing.JPanel {
         loadCurveChart = new LoadCurveChart(panelConsumption.getWidth(), panelConsumption.getHeight());
         loadCurveChart.startGraph(false);
 
-        loadCurveUpdaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getLoadCurve()));
+        loadCurveUpdaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getLoadCurve(), new Date()));
         loadCurveUpdaterThread.setDaemon(true);
         loadCurveUpdaterThread.start();
 

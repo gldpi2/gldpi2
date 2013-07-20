@@ -1,6 +1,7 @@
 package utils;
 
 import controller.LoadCurveCtrl;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -21,6 +22,8 @@ public class UpdaterLoadCurveThread implements Runnable {
 
     ResourceBundle properties = ResourceBundle.getBundle("utils.PropertiesFile");
     private LoadCurveCtrl loadCurveCtrl = new LoadCurveCtrl();
+    private Date date;
+    private boolean run = true;
     private LoadCurve loadCurve;
     private JLabel flowValue;
     private JLabel tensionValue;
@@ -42,11 +45,12 @@ public class UpdaterLoadCurveThread implements Runnable {
      *
      * @param series XYSeries Referência da série apresentada no gráfico.
      */
-    public UpdaterLoadCurveThread(LoadCurve loadCurve) {
+    public UpdaterLoadCurveThread(LoadCurve loadCurve, Date date) {
         this.loadCurve = loadCurve;
+        this.date = date;
     }
 
-    public UpdaterLoadCurveThread(LoadCurve loadCurve,
+    public UpdaterLoadCurveThread(LoadCurve loadCurve, Date date,
             JLabel flowValue, JLabel tensionValue, JLabel potencyValue,
             JLabel powerFactorValue, JLabel frequencyValue,
             JLabel maxPotencyValue, JLabel maxPotencyTime, JLabel maxPotencyDate,
@@ -54,6 +58,7 @@ public class UpdaterLoadCurveThread implements Runnable {
             JLabel sourceLabel,
             JLabel meterLabel, JLabel statusLabel) {
         this.loadCurve = loadCurve;
+        this.date = date;
         this.flowValue = flowValue;
         this.tensionValue = tensionValue;
         this.potencyvalue = potencyValue;
@@ -77,7 +82,9 @@ public class UpdaterLoadCurveThread implements Runnable {
     public void run() {
         Mensuration lastMensuration = null;
 
-        List<Mensuration> mensuration = this.loadCurveCtrl.getMensurationByDay(17, 7, 2013);
+        System.out.println("======== " + date.toString());
+
+        List<Mensuration> mensuration = this.loadCurveCtrl.getMensurationByDay(date.getDay(), date.getMonth(), date.getYear());
 
         final Day today = new Day();
 
@@ -85,7 +92,6 @@ public class UpdaterLoadCurveThread implements Runnable {
         int lastMinuteInserted = -1;
         double averagePotency = 0;
 
-        int i = 0;
         if (mensuration.size() > 0) {
             for (Mensuration m : mensuration) {
                 double currentPotency = m.getPotency();
@@ -145,18 +151,18 @@ public class UpdaterLoadCurveThread implements Runnable {
 
                 lastMensuration = m;
 
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(UpdaterLoadCurveThread.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                try {
+//                    Thread.sleep(10);
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(UpdaterLoadCurveThread.class.getName()).log(Level.SEVERE, null, ex);
+//                }
             }
 
             updateMaxPotency(loadCurveCtrl.getMaxMensuration());
             updateMinPotency(loadCurveCtrl.getMinMensuration());
         }
 
-        while (true) {
+        while (run) {
             Mensuration m = this.loadCurveCtrl.getLastMensuration();
 
             if (lastMensuration == null) {
@@ -290,9 +296,13 @@ public class UpdaterLoadCurveThread implements Runnable {
                 this.statusLabel.setText("Carregando - ( " + String.format("%.2f", current.getTension() / 14) + " % )");
                 this.statusLabel.setIcon(new ImageIcon("src/icons/charging.png"));
             } else {
-                this.statusLabel.setText("Não Carregando");
+                this.statusLabel.setText("Não Carregando - ( " + String.format("%.2f", current.getTension() / 14) + " % )");
                 this.statusLabel.setIcon(new ImageIcon("src/icons/not_charging.png"));
             }
         }
+    }
+
+    public void stopExecution() {
+        run = false;
     }
 }

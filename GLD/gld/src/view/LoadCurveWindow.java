@@ -30,6 +30,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
      */
     private Date[] dates = new Date[2];
     private Thread updaterThread;
+    private UpdaterLoadCurveThread updater;
 
     public LoadCurveWindow(int y, Login user) {
         initComponents();
@@ -44,12 +45,15 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         desktop.removeAll();
         loadChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
 
-        updaterThread = new Thread(new UpdaterLoadCurveThread(loadChart.getLoadCurve(),
+        Date date = new Date();
+
+        updater = new UpdaterLoadCurveThread(loadChart.getLoadCurve(), date,
                 this.flowLabel, this.tensionLabel, this.potencyLabel,
                 this.powerFactorLabel, this.frequencyLabel,
                 this.maxValue, this.maxTime, this.maxDate,
                 this.minValue, this.minTime, this.minDate,
-                this.sourceLabel, this.meterLabel, this.statusLabel));
+                this.sourceLabel, this.meterLabel, this.statusLabel);
+        updaterThread = new Thread(updater);
         updaterThread.setDaemon(true);
         updaterThread.start();
 
@@ -84,6 +88,30 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                     Date newData = calendar.getTime();
                     dateChooserTo.setMinSelectableDate(newData);
                     dateChooserTo.setCalendar(null);
+                }
+            }
+        });
+
+        dateChooserFrom.getDateEditor().addPropertyChangeListener(
+                new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent e) {
+                if ("date".equals(e.getPropertyName())) {
+                    if (e.getNewValue() != null) {
+                        updater.stopExecution();
+                        updater = new UpdaterLoadCurveThread(loadChart.getLoadCurve(), (Date) e.getNewValue(),
+                                flowLabel, tensionLabel, potencyLabel,
+                                powerFactorLabel, frequencyLabel,
+                                maxValue, maxTime, maxDate,
+                                minValue, minTime, minDate,
+                                sourceLabel, meterLabel, statusLabel);
+                        updaterThread = new Thread(updater);
+                        updaterThread.setDaemon(true);
+                        updaterThread.start();
+
+                        System.out.println(e.getPropertyName()
+                                + ": " + (Date) e.getNewValue());
+                    }
                 }
             }
         });

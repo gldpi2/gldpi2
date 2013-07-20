@@ -6,11 +6,11 @@ package view;
 
 import controller.LoadCurveCtrl;
 import java.awt.Color;
+import java.util.Calendar;
+import java.util.Date;
 import model.Login;
 import utils.UpdaterCostThread;
 import utils.UpdaterLoadCurveThread;
-import java.util.Calendar;
-
 import static view.MainWindow.desktop;
 
 /**
@@ -24,12 +24,11 @@ public class NewMainMenu extends javax.swing.JPanel {
     private LoadCurveChart loadCurveChart;
     private Thread updaterThread;
     private MainMenu pg;
-
     /**
      * Most used for controling the last mensuration
      */
     LoadCurveCtrl lcControl;
-    
+
     /**
      * Creates new form NewMainMenu
      */
@@ -42,7 +41,7 @@ public class NewMainMenu extends javax.swing.JPanel {
 
     public void init() {
         lcControl = new LoadCurveCtrl();
-        
+
         //gráfico de custo.
         panelCostm.removeAll();
         costChart = new CostChart(panelCostm.getWidth(), panelCostm.getHeight());
@@ -63,7 +62,7 @@ public class NewMainMenu extends javax.swing.JPanel {
         loadCurveChart = new LoadCurveChart(panelConsumptionm.getWidth(), panelConsumptionm.getHeight());
         loadCurveChart.startGraph(false);
 
-        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getLoadCurve()));
+        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getLoadCurve(), new Date()));
         updaterThread.setDaemon(true);
         updaterThread.start();
 
@@ -75,47 +74,47 @@ public class NewMainMenu extends javax.swing.JPanel {
         this.setTimeTableValue();
         this.setAltSourceValue();
         this.setPowerGridValue();
-        
+
         state = 1;
     }
 
     public void setTimeTableValue() {
         Calendar now = Calendar.getInstance();
         int hour = now.get(Calendar.HOUR_OF_DAY);
-        if(hour >= 18 && hour < 21 ){
+        if (hour >= 18 && hour < 21) {
             timetableValue.setText("Ponta");
             timetableValue.setForeground(Color.red);
-        }else {
+        } else {
             timetableValue.setText("Fora de Ponta");
             timetableValue.setForeground(Color.green);
         }
     }
-    
+
     public void setAltSourceValue() {
         double tension = lcControl.getLastMensuration().getBateryTension();
-        if(tension >= 14.0){
+        if (tension >= 14.0) {
             altSourceValue.setText("Carregado");
             altSourceValue.setForeground(Color.green);
-        }else if(tension < 14 && tension >0){
+        } else if (tension < 14 && tension > 0) {
             altSourceValue.setText("Carregando");
             altSourceValue.setForeground(Color.yellow);
-        }else if(tension <=0  ){
+        } else if (tension <= 0) {
             altSourceValue.setText("Vazio");
             altSourceValue.setForeground(Color.red);
         }
     }
-    
-    public void setPowerGridValue(){
+
+    public void setPowerGridValue() {
         int available = lcControl.getLastMensuration().getEnergyAvailable();
-        if(available == 0){
+        if (available == 0) {
             powerGridValue.setText("Indisponível");
             powerGridValue.setForeground(Color.red);
-        }else if(available == 1){
+        } else if (available == 1) {
             powerGridValue.setText("Disponível");
             powerGridValue.setForeground(Color.green);
         }
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
