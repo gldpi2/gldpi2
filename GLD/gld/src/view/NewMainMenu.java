@@ -24,15 +24,6 @@ public class NewMainMenu extends javax.swing.JPanel {
     private LoadCurveChart loadCurveChart;
     private Thread updaterThread;
     private MainMenu pg;
-    private javax.swing.JLabel FlowValue;
-    private javax.swing.JLabel PotencyValue;
-    private javax.swing.JLabel TensionValue;
-    private javax.swing.JLabel maxPotencyValue;
-    private javax.swing.JLabel minPotencyValue;
-    private javax.swing.JLabel maxPotencyTime;
-    private javax.swing.JLabel minPotencyTime;
-    private javax.swing.JLabel maxCostValue;
-    private javax.swing.JLabel minCostValue;
 
     /**
      * Most used for controling the last mensuration
@@ -52,14 +43,13 @@ public class NewMainMenu extends javax.swing.JPanel {
     public void init() {
         lcControl = new LoadCurveCtrl();
         
-        //teoricamente era pra rodar gráfico de custo.
+        //gráfico de custo.
         panelCostm.removeAll();
         costChart = new CostChart(panelCostm.getWidth(), panelCostm.getHeight());
         costChart.criaGrafico();
 
         costChart.criaGrafico();
-        Thread th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(),
-                this.FlowValue, this.TensionValue, this.PotencyValue));
+        Thread th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries()));
         th.setDaemon(true);
         th.start();
 

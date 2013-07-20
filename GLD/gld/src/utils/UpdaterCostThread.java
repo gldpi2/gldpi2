@@ -3,8 +3,6 @@ package utils;
 import controller.CostCtrl;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import model.Mensuration;
@@ -23,18 +21,24 @@ public class UpdaterCostThread implements Runnable {
     private JLabel flowValue;
     private JLabel tensionValue;
     private JLabel potencyValue;
+    private JLabel countValue;
+    private JLabel kwValue;
+    private double costActual;
 
-    public UpdaterCostThread(TimeSeries series) {
+    public UpdaterCostThread(TimeSeries series, TimeSeries seriesLimit) {
         this.series = series;
+        this.seriesLimit = seriesLimit;
     }
 
     public UpdaterCostThread(TimeSeries series, TimeSeries seriesLimit, JLabel flowValue,
-            JLabel tensionValue, JLabel potencyValue) {
+            JLabel tensionValue, JLabel potencyValue, JLabel countValue, JLabel kwValue) {
         this.series = series;
         this.seriesLimit = seriesLimit;
         this.flowValue = flowValue;
         this.tensionValue = tensionValue;
         this.potencyValue = potencyValue;
+        this.countValue = countValue;
+        this.kwValue = kwValue;
     }
 
     /**
@@ -42,85 +46,60 @@ public class UpdaterCostThread implements Runnable {
      */
     @Override
     public void run() {
-        Mensuration previusMensuration = null;
+        Mensuration lastMensuration = new Mensuration();
         List<Mensuration> mensuration = ctrl.allMensuration();
 
-        if (previusMensuration == null) {
-            previusMensuration = ctrl.verifyMensuration();
-        }
         for (Mensuration m : mensuration) {
-            if (previusMensuration.getIdMensuration() != m.getIdMensuration()) {
+            if (lastMensuration.getIdMensuration() != m.getIdMensuration()) {
+                costActual = calculateCost(m);
                 series.addOrUpdate(m.getMillisecond(), calculateCost(m));
                 seriesLimit.addOrUpdate(m.getMillisecond(), 50);
                 if (this.potencyValue != null) {
-                    try {
-                        updateButton(m, previusMensuration);
-                        
-                    } catch (InterruptedException ex) {
-                        Logger.getLogger(UpdaterCostThread.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    System.out.println("Cost Initial: "+ctrl.initialCount());
+                    updateLabel(m, lastMensuration);
+                    updateCountValue(costActual);
+                    kwValue();
                 }
             }
         }
-        try {
-            Thread.sleep(Integer.parseInt(properties.getString("REFRESH_TIME")));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private void updateButton(Mensuration m, Mensuration previus) throws InterruptedException{
-        updateFlow(m, previus);
-        updateTension(m, previus);
-        updatePotency(m, previus);
-
-        this.potencyValue.revalidate();
-        this.potencyValue.repaint();
-                        
-        this.flowValue.revalidate();
-        this.flowValue.repaint();
-                        
-        this.tensionValue.revalidate();
-        this.tensionValue.repaint();
-        
-        Thread.sleep(Integer.parseInt(properties.getString("REFRESH_TIME")));
-    }
-
+            try {
+                Thread.sleep(900);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+  } 
+    private void updateCountValue(double actual){
+        double count = ctrl.countValue(actual);
+        countValue.setText(String.format("%.2f",count));
+        countValue.revalidate();
+        countValue.repaint();
+    }     
     private double calculateCost(Mensuration m) {
         return m.getPotency() * ctrl.energyValue();
     }
+    
+    private void updateLabel(Mensuration actual, Mensuration last) {
+        updateLabelValue(potencyValue, actual.getPotency(), last.getPotency());
+        updateLabelValue(flowValue, actual.getFlow(), last.getFlow());
+        updateLabelValue(tensionValue, actual.getTension(), last.getTension());
+     }
 
-    private void updateFlow(Mensuration m, Mensuration previus) {
-        this.flowValue.setText(String.format("%.2f", m.getFlow()));
-        if (m.getFlow() > previus.getFlow()) {
-            this.flowValue.setIcon(new ImageIcon("src/icons/arrow_up_small.png"));
+    
+
+    private void updateLabelValue(JLabel label, double actual, double last) {
+       label.setText(String.format("%.2f", actual));
+        if (actual > last) {
+            label.setIcon(new ImageIcon("src/icons/arrow_up_small.png"));
         } else {
-            this.flowValue.setIcon(new ImageIcon("src/icons/arrow_down_small.png"));
+            label.setIcon(new ImageIcon("src/icons/arrow_down_small.png"));
         }
-        //this.flowValue.revalidate();
-        //this.flowValue.repaint();
+        label.revalidate();
+        label.repaint();
     }
 
-    private void updateTension(Mensuration m, Mensuration previus) {
-        this.tensionValue.setText(String.format("%.2f", m.getTension()));
-        if (m.getTension() > previus.getTension()) {
-            this.tensionValue.setIcon(new ImageIcon("src/icons/arrow_up_small.png"));
-        } else {
-            this.tensionValue.setIcon(new ImageIcon("src/icons/arrow_down_small.png"));
-        }
-        //this.tensionValue.revalidate();
-        //this.tensionValue.repaint();
-    }
-
-    private void updatePotency(Mensuration m, Mensuration previus) {
-        this.potencyValue.setText(String.format("%.2f", m.getPotency()));
-        if (m.getTension() > previus.getTension()) {
-            this.potencyValue.setIcon(new ImageIcon("src/icons/arrow_up_small.png"));
-        } else {
-            this.potencyValue.setIcon(new ImageIcon("src/icons/arrow_down_small.png"));
-        }
-        //this.potencyValue.revalidate();
-        //this.potencyValue.repaint();
+    private void kwValue() {
+        ctrl.kWValue();
+        kwValue.revalidate();
+        kwValue.repaint();
     }
 }

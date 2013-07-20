@@ -20,27 +20,28 @@ public class Cost {
     public TimeSeries seriesLimit = new TimeSeries("Limite", Millisecond.class);
     public JFreeChart costChart;
     public ChartPanel myChartPanel;
+    public Mensuration mensuration = new Mensuration();
     
-    private double valueEnergy = 0.0;
+    private double kwValue = 0.0;
     private double costValue;
     private String time;
-    public double maxCost;
-    public double minCost;
-    public Mensuration mensuration = new Mensuration();
+    private double peak;
+    private double outPeak;
+    
     
     /**
      * Método para configurar o valor de energia
-     * @param valueEnergy 
+     * @param kwValue 
      */
-    public void setValueEnergy(double valueEnergy) {
-        this.valueEnergy = valueEnergy;
+    public void setKwValue(double kwValue) {
+        this.kwValue = kwValue;
     }
     /**
      * Método que irá pegar o valor da energia
      * @return valor da energia
      */
-    public double getValueEnergy() {
-        return valueEnergy;
+    public double getKwValue() {
+        return kwValue;
     }
     
     /**
@@ -67,20 +68,20 @@ public class Cost {
         this.time = time;
     }
 
-    public double getMaxCost() {
-        return maxCost;
+    public double getPeak() {
+        return peak;
     }
 
-    public void setMaxCost(double maxCost) {
-        this.maxCost = maxCost;
+    public void setPeak(double peak) {
+        this.peak = peak;
     }
 
-    public double getMinCost() {
-        return minCost;
+    public double getOutPeak() {
+        return outPeak;
     }
 
-    public void setMinCost(double minCost) {
-        this.minCost = minCost;
+    public void setOutPeak(double outPeak) {
+        this.outPeak = outPeak;
     }
     
     public ChartPanel createCostChart(){
@@ -88,12 +89,12 @@ public class Cost {
         final TimeSeriesCollection dataset = new TimeSeriesCollection(series);
         dataset.addSeries(seriesLimit);
    
-        costChart = ChartFactory.createTimeSeriesChart("Gráfico de Custo","Hora", "Valor em Real (R$)",dataset,true,true,false);
+        costChart = ChartFactory.createTimeSeriesChart("Gráfico de Custo","Hora", "Valor em Reais (R$)",dataset,true,true,false);
         
         
         final XYPlot plot = costChart.getXYPlot();
         costChart.setBackgroundPaint(Color.getColor("opaco"));
-        
+        plot.setBackgroundPaint(Color.WHITE);
         ValueAxis xAxis = plot.getDomainAxis();
         //ValueAxis yAxis = plot.getRangeAxis();
         xAxis.setAutoRange(true);

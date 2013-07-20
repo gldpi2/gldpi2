@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Contract;
 import model.Mensuration;
 import utils.DatabaseInterface;
 
@@ -17,6 +18,8 @@ public class CostDAO {
 
     private DatabaseInterface dbInterface = new DatabaseInterface();
     private String timeHour;
+    private double peakContracted;
+    private double OutPeakContracted;
 
     public void setTime(String timeHour) {
         this.timeHour = timeHour;
@@ -83,6 +86,45 @@ public class CostDAO {
         disconectDB();
         return mensuration;
     }
+    
+    public double getPeakDemandContracted(){
+        Contract contract = new Contract();
+        conectDB();
+        
+        int last = dbInterface.getLastId("contract");
+        String sql = "SELECT * FROM contract WHERE id_contract=" +last;
+        ResultSet rs = dbInterface.executeQuery(sql);
+        try {
+            while(rs.next()){
+                contract.setDrySeason(rs.getString("contracted_peak_demand"));
+                peakContracted = Double.parseDouble(contract.getPeakDemandContracted());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        disconectDB();
+        return peakContracted;
+    }
+    
+    public double getOutPeakContracted(){
+        Contract contract = new Contract();
+        conectDB();
+        int last = dbInterface.getLastId("contract");
+        String sql = "SELECT * FROM contract WHERE id_contract=" +last;
+        
+        ResultSet rs = dbInterface.executeQuery(sql);
+        try {
+            while(rs.next()){
+               contract.setOutPeakDemandContracted(rs.getString("out_peak_demand"));
+               OutPeakContracted = Double.parseDouble(contract.getOutPeakDemandContracted());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        disconectDB();
+        return OutPeakContracted;
+    }
+    
 
     private void conectDB() {
         dbInterface.connect();
