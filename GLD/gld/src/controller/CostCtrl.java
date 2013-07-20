@@ -31,7 +31,7 @@ public class CostCtrl {
         return listMensuration;
     }
 
-    public Mensuration verifyMensuration() {
+    public Mensuration lastMensuration() {
         mensuration = cDao.singleMensuration();
 
         return mensuration;
@@ -72,7 +72,7 @@ public class CostCtrl {
         } else {
             cost.setKwValue(VALUE_OFFPEAK);
         }
-        double costValue = cost.getKwValue() * 100;
+        double costValue = cost.getKwValue();
 
 
         return costValue;
@@ -99,6 +99,6 @@ public class CostCtrl {
     }
 
     public double kWValue() {
-        return cost.getKwValue();
+        return cost.getKwValue() * 3600000;
     }
 }

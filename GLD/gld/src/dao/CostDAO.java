@@ -51,12 +51,14 @@ public class CostDAO {
                 mensuration.setFlow(rs.getDouble("flow"));
                 mensuration.setTension(rs.getDouble("tension"));
                 mensuration.setTimestamp(rs.getString("timestamp"));
+                mensuration.setEnergyAvailable(rs.getInt("energy_available"));
+
                 setTime(mensuration.getTimestamp().substring(8, 10));
                 mensurationList.add(mensuration);
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         disconectDB();
 

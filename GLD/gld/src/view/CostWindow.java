@@ -45,7 +45,7 @@ public class CostWindow extends javax.swing.JPanel {
 
         costChart.criaGrafico();
          th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), flowLabel,
-                   tensionLabel,potencyLabel, countLabel, valueKw));
+                   tensionLabel,potencyLabel, countLabel, kwLabel, sourceLabel));
         th.setDaemon(true);
         th.start();
 
@@ -91,11 +91,11 @@ public class CostWindow extends javax.swing.JPanel {
         separador = new javax.swing.JSeparator();
         desktop = new javax.swing.JPanel();
         panelInformations = new javax.swing.JPanel();
-        sourceLabel1 = new javax.swing.JLabel();
+        money = new javax.swing.JLabel();
         valueKw = new javax.swing.JLabel();
         countLabel = new javax.swing.JLabel();
         valueCount = new javax.swing.JLabel();
-        kWValue = new javax.swing.JLabel();
+        kwLabel = new javax.swing.JLabel();
         kWValue1 = new javax.swing.JLabel();
         panelRealTime = new javax.swing.JPanel();
         potencyFactorLabel = new javax.swing.JLabel();
@@ -155,9 +155,9 @@ public class CostWindow extends javax.swing.JPanel {
 
         panelInformations.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
 
-        sourceLabel1.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
-        sourceLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/money-coin.png"))); // NOI18N
-        sourceLabel1.setText("R$");
+        money.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        money.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/money-coin.png"))); // NOI18N
+        money.setText("R$");
 
         valueKw.setFont(new java.awt.Font("PT Sans Caption", 1, 14)); // NOI18N
         valueKw.setText("Valor do kW");
@@ -168,8 +168,8 @@ public class CostWindow extends javax.swing.JPanel {
         valueCount.setFont(new java.awt.Font("PT Sans Caption", 1, 14)); // NOI18N
         valueCount.setText("Valor da Conta");
 
-        kWValue.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
-        kWValue.setText("Atualizando...");
+        kwLabel.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        kwLabel.setText("Atualizando...");
 
         kWValue1.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
         kWValue1.setText("R$");
@@ -185,7 +185,7 @@ public class CostWindow extends javax.swing.JPanel {
                         .add(valueCount)
                         .add(61, 61, 61))
                     .add(panelInformationsLayout.createSequentialGroup()
-                        .add(sourceLabel1)
+                        .add(money)
                         .add(2, 2, 2)
                         .add(countLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(30, 30, 30)))
@@ -193,7 +193,7 @@ public class CostWindow extends javax.swing.JPanel {
                     .add(panelInformationsLayout.createSequentialGroup()
                         .add(kWValue1)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(kWValue, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(kwLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(138, 138, 138))
                     .add(panelInformationsLayout.createSequentialGroup()
                         .add(valueKw)
@@ -209,13 +209,13 @@ public class CostWindow extends javax.swing.JPanel {
                             .add(valueKw))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(kWValue)
+                            .add(kwLabel)
                             .add(kWValue1)))
                     .add(panelInformationsLayout.createSequentialGroup()
                         .add(24, 24, 24)
                         .add(panelInformationsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(countLabel)
-                            .add(sourceLabel1))))
+                            .add(money))))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -552,8 +552,9 @@ public class CostWindow extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel kWValue;
     private javax.swing.JLabel kWValue1;
+    private javax.swing.JLabel kwLabel;
+    private javax.swing.JLabel money;
     private javax.swing.JComboBox monthChooser;
     private javax.swing.JPanel panelCommands;
     private javax.swing.JPanel panelInformations;
@@ -562,7 +563,6 @@ public class CostWindow extends javax.swing.JPanel {
     private javax.swing.JLabel potencyLabel;
     private javax.swing.JSeparator separador;
     private javax.swing.JLabel sourceLabel;
-    private javax.swing.JLabel sourceLabel1;
     private javax.swing.JLabel tensionLabel;
     private javax.swing.JLabel toLabel;
     private javax.swing.JLabel valueCount;

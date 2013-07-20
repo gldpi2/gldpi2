@@ -121,7 +121,7 @@
                           <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="sourceLabel1" min="-2" max="-2" attributes="0"/>
+                          <Component id="money" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                           <Component id="countLabel" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
@@ -131,7 +131,7 @@
                       <Group type="102" attributes="0">
                           <Component id="kWValue1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="kWValue" max="32767" attributes="0"/>
+                          <Component id="kwLabel" max="32767" attributes="0"/>
                           <EmptySpace min="-2" pref="138" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
@@ -153,7 +153,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="kWValue" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="kwLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="kWValue1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -161,7 +161,7 @@
                           <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="countLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="sourceLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="money" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -171,7 +171,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="sourceLabel1">
+        <Component class="javax.swing.JLabel" name="money">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="PT Sans Caption" size="14" style="0"/>
@@ -206,7 +206,7 @@
             <Property name="text" type="java.lang.String" value="Valor da Conta"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="kWValue">
+        <Component class="javax.swing.JLabel" name="kwLabel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="PT Sans Caption" size="14" style="0"/>

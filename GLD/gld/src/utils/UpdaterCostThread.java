@@ -16,6 +16,8 @@ public class UpdaterCostThread implements Runnable {
 
     ResourceBundle properties = ResourceBundle.getBundle("utils.PropertiesFile");
     CostCtrl ctrl = new CostCtrl();
+    Mensuration lastMensuration;
+    Mensuration nextMensuration;
     private TimeSeries series;
     private TimeSeries seriesLimit;
     private JLabel flowValue;
@@ -23,7 +25,9 @@ public class UpdaterCostThread implements Runnable {
     private JLabel potencyValue;
     private JLabel countValue;
     private JLabel kwValue;
+    private JLabel sourceLabel;
     private double costActual;
+    private double count = ctrl.initialCount();
 
     public UpdaterCostThread(TimeSeries series, TimeSeries seriesLimit) {
         this.series = series;
@@ -31,7 +35,7 @@ public class UpdaterCostThread implements Runnable {
     }
 
     public UpdaterCostThread(TimeSeries series, TimeSeries seriesLimit, JLabel flowValue,
-            JLabel tensionValue, JLabel potencyValue, JLabel countValue, JLabel kwValue) {
+            JLabel tensionValue, JLabel potencyValue, JLabel countValue, JLabel kwValue, JLabel source) {
         this.series = series;
         this.seriesLimit = seriesLimit;
         this.flowValue = flowValue;
@@ -39,6 +43,7 @@ public class UpdaterCostThread implements Runnable {
         this.potencyValue = potencyValue;
         this.countValue = countValue;
         this.kwValue = kwValue;
+        this.sourceLabel = source;
     }
 
     /**
@@ -46,19 +51,22 @@ public class UpdaterCostThread implements Runnable {
      */
     @Override
     public void run() {
-        Mensuration lastMensuration = new Mensuration();
+        
         List<Mensuration> mensuration = ctrl.allMensuration();
 
+        lastMensuration = ctrl.lastMensuration();
         for (Mensuration m : mensuration) {
+                    //nextMensuration = mensuration.get(i+1);            
             if (lastMensuration.getIdMensuration() != m.getIdMensuration()) {
                 costActual = calculateCost(m);
-                series.addOrUpdate(m.getMillisecond(), calculateCost(m));
-                seriesLimit.addOrUpdate(m.getMillisecond(), 50);
+                series.addOrUpdate(m.getMillisecond(), costActual);
+                seriesLimit.addOrUpdate(m.getMillisecond(), 0.061);
                 if (this.potencyValue != null) {
-                    System.out.println("Cost Initial: "+ctrl.initialCount());
-                    updateLabel(m, lastMensuration);
-                    updateCountValue(costActual);
-                    kwValue();
+                        updateLabel(m, lastMensuration);
+                        updateCountValue(costActual);
+                        kwValue();
+                        updateSourceAvaible(m);
+                        kwValue.setText(String.format("%.3f",ctrl.kWValue()));
                 }
             }
         }
@@ -69,7 +77,7 @@ public class UpdaterCostThread implements Runnable {
             }
   } 
     private void updateCountValue(double actual){
-        double count = ctrl.countValue(actual);
+        count = ctrl.countValue(actual);
         countValue.setText(String.format("%.2f",count));
         countValue.revalidate();
         countValue.repaint();
@@ -78,17 +86,15 @@ public class UpdaterCostThread implements Runnable {
         return m.getPotency() * ctrl.energyValue();
     }
     
-    private void updateLabel(Mensuration actual, Mensuration last) {
+    private void updateLabel(Mensuration actual, Mensuration last){
         updateLabelValue(potencyValue, actual.getPotency(), last.getPotency());
         updateLabelValue(flowValue, actual.getFlow(), last.getFlow());
         updateLabelValue(tensionValue, actual.getTension(), last.getTension());
+        
      }
-
-    
-
     private void updateLabelValue(JLabel label, double actual, double last) {
        label.setText(String.format("%.2f", actual));
-        if (actual > last) {
+       if (actual > last) {
             label.setIcon(new ImageIcon("src/icons/arrow_up_small.png"));
         } else {
             label.setIcon(new ImageIcon("src/icons/arrow_down_small.png"));
@@ -102,4 +108,14 @@ public class UpdaterCostThread implements Runnable {
         kwValue.revalidate();
         kwValue.repaint();
     }
+    
+    private void updateSourceAvaible(Mensuration m) {
+        if (this.sourceLabel != null) {
+            if (m.getEnergyAvailable() == 1) {
+                this.sourceLabel.setText("Disponível");
+            } else {
+                this.sourceLabel.setText("Indisponível");
+            }
+        }
+    } 
 }
