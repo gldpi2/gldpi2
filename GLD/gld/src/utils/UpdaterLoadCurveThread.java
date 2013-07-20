@@ -34,6 +34,8 @@ public class UpdaterLoadCurveThread implements Runnable {
     private JLabel minPotencyTime;
     private JLabel minPotencyDate;
     private JLabel sourceLabel;
+    private JLabel meterLabel;
+    private JLabel statusLabel;
 
     /**
      * Método construtor da classe UpdaterLoadCurveThread.
@@ -49,7 +51,8 @@ public class UpdaterLoadCurveThread implements Runnable {
             JLabel powerFactorValue, JLabel frequencyValue,
             JLabel maxPotencyValue, JLabel maxPotencyTime, JLabel maxPotencyDate,
             JLabel minPotencyValue, JLabel minPotencyTime, JLabel minPotencyDate,
-            JLabel sourceLabel) {
+            JLabel sourceLabel,
+            JLabel meterLabel, JLabel statusLabel) {
         this.loadCurve = loadCurve;
         this.flowValue = flowValue;
         this.tensionValue = tensionValue;
@@ -63,6 +66,8 @@ public class UpdaterLoadCurveThread implements Runnable {
         this.minPotencyTime = minPotencyTime;
         this.minPotencyDate = minPotencyDate;
         this.sourceLabel = sourceLabel;
+        this.meterLabel = meterLabel;
+        this.statusLabel = statusLabel;
     }
 
     /**
@@ -91,7 +96,8 @@ public class UpdaterLoadCurveThread implements Runnable {
                 }
                 updateMaxPotency(m);
                 updateMinPotency(m);
-                this.updateSourceAvaible(m);
+                this.updateSourceAvailable(m);
+                this.updateStatusLabel(m);
                 //REMOVER!!!! FIM
 
                 if (averagePotency == 0) {
@@ -160,7 +166,8 @@ public class UpdaterLoadCurveThread implements Runnable {
             if (!(lastMensuration.getIdMensuration() == m.getIdMensuration())) {
                 double currentPotency = m.getPotency();
 
-                this.updateSourceAvaible(m);
+                this.updateSourceAvailable(m);
+                this.updateStatusLabel(m);
 
                 if (m.getMinute() % 15 == 0 || lastMinuteInserted != m.getMinute()) {
                     if (!inserted) {
@@ -260,12 +267,31 @@ public class UpdaterLoadCurveThread implements Runnable {
         }
     }
 
-    private void updateSourceAvaible(Mensuration current) {
+    private void updateSourceAvailable(Mensuration current) {
         if (this.sourceLabel != null) {
             if (current.getEnergyAvailable() == 1) {
                 this.sourceLabel.setText("Disponível");
             } else {
                 this.sourceLabel.setText("Indisponível");
+            }
+        }
+    }
+
+    private void updateStatusLabel(Mensuration current) {
+        if (this.statusLabel != null) {
+            double tension = current.getBateryTension();
+            if (tension > 13.5) {
+                this.statusLabel.setText("Carregada - ( 100 % )");
+                this.statusLabel.setIcon(new ImageIcon("src/icons/full.png"));
+            } else if (tension < 0.5) {
+                this.statusLabel.setText("Descarregada - ( 0 % )");
+                this.statusLabel.setIcon(new ImageIcon("src/icons/died.png"));
+            } else if (current.getFlowAeroGenerator() > 0.0 && current.getFlowPanel() > 0.0) {
+                this.statusLabel.setText("Carregando - ( " + String.format("%.2f", current.getTension() / 14) + " % )");
+                this.statusLabel.setIcon(new ImageIcon("src/icons/charging.png"));
+            } else {
+                this.statusLabel.setText("Não Carregando");
+                this.statusLabel.setIcon(new ImageIcon("src/icons/not_charging.png"));
             }
         }
     }
