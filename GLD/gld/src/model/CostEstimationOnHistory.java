@@ -56,7 +56,7 @@ public class CostEstimationOnHistory {
         mensurationRender.setSeriesPaint(2, Color.BLUE);
 
         final DateAxis domainAxis = new DateAxis("Date");
-        domainAxis.setVerticalTickLabels(true);
+        domainAxis.setVerticalTickLabels(false);
         switch(type){
             case LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY:
                 domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.HOUR, 1));
@@ -111,7 +111,7 @@ public class CostEstimationOnHistory {
             final Minute m0 = new Minute(0, new Hour(i, today));
             final Minute m1 = new Minute(0, new Hour(i + 1, today));
             costEstimationOnHistorySerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), measure);             
-            measure += interval.get(i);
+//            measure += interval.get(i);
         }  
         setFinalCost(measure);
         final TimePeriodValuesCollection dataset = new TimePeriodValuesCollection();

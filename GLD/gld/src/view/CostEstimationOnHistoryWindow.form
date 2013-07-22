@@ -394,7 +394,7 @@
         <Component class="javax.swing.JComboBox" name="commandsCombo">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Selecione...&quot;, &quot;Di&#xe1;rio&quot;, &quot;Mensal&quot;, &quot;Per&#xed;odo&quot; })" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Selecione...&quot;, &quot;Di&#xe1;rio&quot;, &quot;Mensal&quot;})" type="code"/>
             </Property>
           </Properties>
           <Events>

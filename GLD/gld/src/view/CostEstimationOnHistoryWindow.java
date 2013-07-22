@@ -59,7 +59,7 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
         DecimalFormat fmt = new DecimalFormat("0.00");
         countLabel2.setText(fmt.format(estimationChart.getFinalCost()));
         
-        th = new Thread(new UpdaterCostThread(estimationChart.getSeries(), estimationChart.limitSeries(), flowLabel,
+        th = new Thread(new UpdaterCostThread(estimationChart.getSeries(), estimationChart.limitSeries(), date, flowLabel,
                    tensionLabel,potencyLabel, countLabel2, kwLabel2, sourceLabel));
         th.setDaemon(true);
         th.start();
@@ -313,7 +313,7 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
 
         panelCommands.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Comandos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
 
-        commandsCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Diário", "Mensal", "Período" }));
+        commandsCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Diário", "Mensal"}));
         commandsCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 commandsComboActionPerformed(evt);
@@ -541,18 +541,18 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
                 yearChooser.setVisible(true);
                 monthChooser.setVisible(true);
                 break;
-            /**case "Período":
-                dateChooserFrom.setVisible(true);
+            case "Período":
+                dateChooserFrom.setVisible(false);
                 dateChooserFrom.setCalendar(null);
                 dateChooserFrom.updateUI();
-                dateChooserTo.setVisible(true);
+                dateChooserTo.setVisible(false);
                 dateChooserTo.setCalendar(null);
                 dateChooserTo.updateUI();
-                toLabel.setVisible(true);
-                fromLabel.setVisible(true);
+                toLabel.setVisible(false);
+                fromLabel.setVisible(false);
                 yearChooser.setVisible(false);
                 monthChooser.setVisible(false);
-                break;**/
+                break;
             default:
                 initialVisibleComponents();
                 break;
