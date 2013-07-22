@@ -88,7 +88,7 @@ public class LoadEstimationOnHistoryDAO {
                 + " ORDER BY  `mensuration`.`timestamp` DESC ";
 
         dbInterface.connect();
-        ResultSet rs = dbInterface.executeQuery(sql);
+        ResultSet rs = dbInterface.executeQuery(sql);                
         while (rs.next()) {
             Mensuration mensuration;
             mensuration = new Mensuration();
@@ -97,7 +97,10 @@ public class LoadEstimationOnHistoryDAO {
             mensuration.setTension(rs.getDouble("tension"));
             mensuration.setTimestamp(rs.getString("timestamp"));
             measurementList.add(mensuration);
-        }
+            
+            System.out.println("ID: " + mensuration.getIdMensuration());            
+        }                
+        
         dbInterface.disconnect();
         return measurementList;
     }
@@ -127,10 +130,10 @@ public class LoadEstimationOnHistoryDAO {
         return measurementList;
     }
 
-    public List<Mensuration> getMensurationADayLastWeek() throws SQLException {
+    public List<Mensuration> getMensurationADayLastWeek(int offset) throws SQLException{
 
         Calendar now = Calendar.getInstance();
-        now.add(Calendar.DATE,-14);
+        now.add(Calendar.DATE,-offset);
                
         List<Mensuration> measurementList;
         measurementList = new ArrayList<>();
