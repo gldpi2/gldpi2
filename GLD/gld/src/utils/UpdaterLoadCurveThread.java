@@ -82,9 +82,10 @@ public class UpdaterLoadCurveThread implements Runnable {
     public void run() {
         Mensuration lastMensuration = null;
 
+        System.out.println("======== " + date.getDate() + " " + (date.getMonth() + 1) + " " + (date.getYear() + 1900));
         System.out.println("======== " + date.toString());
 
-        List<Mensuration> mensuration = this.loadCurveCtrl.getMensurationByDay(date.getDay(), date.getMonth(), date.getYear());
+        List<Mensuration> mensuration = this.loadCurveCtrl.getMensurationByDay(date.getDate(), date.getMonth() + 1, date.getYear() + 1900);
 
         final Day today = new Day();
 
@@ -96,14 +97,15 @@ public class UpdaterLoadCurveThread implements Runnable {
             for (Mensuration m : mensuration) {
                 double currentPotency = m.getPotency();
 
-                //REMOVER!!!! INICIO
                 if (lastMensuration == null) {
                     lastMensuration = m;
                 }
-                updateMaxPotency(m);
-                updateMinPotency(m);
-                this.updateSourceAvailable(m);
-                this.updateStatusLabel(m);
+                //REMOVER!!!! INICIO
+//                updateMaxPotency(m);
+//                updateMinPotency(m);
+//                this.updateSourceAvailable(m);
+//                this.updateStatusLabel(m);
+//                updateAllLabels(m, lastMensuration);
                 //REMOVER!!!! FIM
 
                 if (averagePotency == 0) {
@@ -147,8 +149,6 @@ public class UpdaterLoadCurveThread implements Runnable {
                     loadCurveCtrl.setMinMensuration(m);
                 }
 
-                updateAllLabels(m, lastMensuration);
-
                 lastMensuration = m;
 
 //                try {
@@ -162,14 +162,12 @@ public class UpdaterLoadCurveThread implements Runnable {
             updateMinPotency(loadCurveCtrl.getMinMensuration());
         }
 
+        lastMensuration = this.loadCurveCtrl.getLastMensuration();
         while (run) {
             Mensuration m = this.loadCurveCtrl.getLastMensuration();
 
-            if (lastMensuration == null) {
-                lastMensuration = m;
-            }
-
             if (!(lastMensuration.getIdMensuration() == m.getIdMensuration())) {
+                System.out.println("========== aquiiiiiiiiii");
                 double currentPotency = m.getPotency();
 
                 this.updateSourceAvailable(m);

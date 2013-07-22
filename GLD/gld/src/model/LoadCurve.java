@@ -38,10 +38,11 @@ public class LoadCurve {
     public int state = 0;
     public Mensuration maxMensuration = new Mensuration();
     public Mensuration minMensuration = new Mensuration();
+    public XYDataset mensurationDataSet;
     private boolean verticalTick = false;
 
     public ChartPanel createLoadCurveGraphPanel() {
-        final XYDataset mensurationDataSet = createMensurationDataSet();
+        mensurationDataSet = createMensurationDataSet();
         XYBarRenderer x = new XYBarRenderer();
         XYBarRenderer.setDefaultShadowsVisible(false);
         x.setDrawBarOutline(true);
