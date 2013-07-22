@@ -94,28 +94,29 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="cell_vivoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="passwrod2Label" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="emailLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="outPeakDemandContractedField" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                              <Component id="warningLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="cell_timLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="peakDemandContractedField" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="drySeasonComboBox" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="guidelineRateComboBox" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                          <Component id="createGuidelineButton" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="cell_vivoLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="offPeakDemandLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="emailLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="offPeakDemandField" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                              <Component id="warningLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="peakDemandLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="peakDemandField" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Component id="guidelineRateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="15" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="humidSeasonComboBox" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="27" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="createGuidelineButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -124,28 +125,24 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="passwrod2Label" min="-2" max="-2" attributes="0"/>
+                          <Component id="offPeakDemandLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="outPeakDemandContractedField" min="-2" max="-2" attributes="0"/>
+                          <Component id="offPeakDemandField" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="cell_timLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="peakDemandLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="peakDemandContractedField" min="-2" max="-2" attributes="0"/>
+                          <Component id="peakDemandField" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="drySeasonComboBox" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="humidSeasonComboBox" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                          <Component id="guidelineRateLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="guidelineRateComboBox" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
                           <Component id="cell_vivoLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
                           <Component id="warningLabel" min="-2" pref="34" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="createGuidelineButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="206" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="218" max="-2" attributes="0"/>
                           <Component id="emailLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -153,7 +150,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JLabel" name="passwrod2Label">
+                <Component class="javax.swing.JLabel" name="offPeakDemandLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Demanda Contratada Fora de Ponta*:"/>
                   </Properties>
@@ -162,9 +159,9 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="cell_vivoLabel">
                 </Component>
-                <Component class="javax.swing.JTextField" name="peakDemandContractedField">
+                <Component class="javax.swing.JTextField" name="peakDemandField">
                 </Component>
-                <Component class="javax.swing.JLabel" name="cell_timLabel">
+                <Component class="javax.swing.JLabel" name="peakDemandLabel">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Demanda Contrada em Ponta*:"/>
                   </Properties>
@@ -182,56 +179,21 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="createGuidelineButtonActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JTextField" name="outPeakDemandContractedField">
+                <Component class="javax.swing.JTextField" name="offPeakDemandField">
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel1">
+                <Component class="javax.swing.JLabel" name="guidelineRateLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="In&#xed;cio do Per&#xed;odo Seco*:"/>
+                    <Property name="text" type="java.lang.String" value="Enquadramento Tarif&#xe1;rio*:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="drySeasonComboBox">
+                <Component class="javax.swing.JComboBox" name="guidelineRateComboBox">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="13">
-                        <StringItem index="0" value="Selecione o m&#xea;s"/>
-                        <StringItem index="1" value="Janeiro"/>
-                        <StringItem index="2" value="Fevereiro"/>
-                        <StringItem index="3" value="Mar&#xe7;o"/>
-                        <StringItem index="4" value="Abril"/>
-                        <StringItem index="5" value="Maio"/>
-                        <StringItem index="6" value="Junho"/>
-                        <StringItem index="7" value="Julho"/>
-                        <StringItem index="8" value="Agosto"/>
-                        <StringItem index="9" value="Setembro"/>
-                        <StringItem index="10" value="Outubro"/>
-                        <StringItem index="11" value="Novembro"/>
-                        <StringItem index="12" value="Dezembro"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel2">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="In&#xed;cio do Per&#xed;odo &#xda;mido*:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="humidSeasonComboBox">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="13">
-                        <StringItem index="0" value="Selecione o m&#xea;s"/>
-                        <StringItem index="1" value="Janeiro"/>
-                        <StringItem index="2" value="Fevereiro"/>
-                        <StringItem index="3" value="Mar&#xe7;o"/>
-                        <StringItem index="4" value="Abril"/>
-                        <StringItem index="5" value="Maio"/>
-                        <StringItem index="6" value="Junho"/>
-                        <StringItem index="7" value="Julho"/>
-                        <StringItem index="8" value="Agosto"/>
-                        <StringItem index="9" value="Setembro"/>
-                        <StringItem index="10" value="Outubro"/>
-                        <StringItem index="11" value="Novembro"/>
-                        <StringItem index="12" value="Dezembro"/>
+                      <StringArray count="4">
+                        <StringItem index="0" value="Item 1"/>
+                        <StringItem index="1" value="Item 2"/>
+                        <StringItem index="2" value="Item 3"/>
+                        <StringItem index="3" value="Item 4"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -250,25 +212,26 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
+                      <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="editGuidelineButton" min="-2" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="warningLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="passwrod2Label2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="outPeakDemandContractedFieldEdition" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                                  <Component id="cell_timLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="peakDemandContractedFieldEdition" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
-                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="drySeasonComboBoxEdition" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="guidelineRateComboBoxEdition" alignment="0" pref="292" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="editGuidelineButton" min="-2" max="-2" attributes="0"/>
+                                          <Component id="warningLabel1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="offPeakDemandLabelEdition" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="offPeakDemandFieldEdition" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                      <Component id="peakDemandLabelEdition" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="peakDemandFieldEdition" alignment="0" min="-2" pref="85" max="-2" attributes="0"/>
+                                      <Component id="guidelineRateLabelEdition" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="humidSeasonComboBoxEdition" alignment="0" min="-2" pref="161" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="27" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -276,22 +239,18 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="passwrod2Label2" min="-2" max="-2" attributes="0"/>
+                          <Component id="offPeakDemandLabelEdition" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="outPeakDemandContractedFieldEdition" min="-2" max="-2" attributes="0"/>
+                          <Component id="offPeakDemandFieldEdition" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="cell_timLabel2" min="-2" max="-2" attributes="0"/>
+                          <Component id="peakDemandLabelEdition" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="peakDemandContractedFieldEdition" min="-2" max="-2" attributes="0"/>
+                          <Component id="peakDemandFieldEdition" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="drySeasonComboBoxEdition" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="humidSeasonComboBoxEdition" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="203" max="32767" attributes="0"/>
+                          <Component id="guidelineRateLabelEdition" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="guidelineRateComboBoxEdition" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="261" max="32767" attributes="0"/>
                           <Component id="warningLabel1" min="-2" pref="34" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="editGuidelineButton" min="-2" max="-2" attributes="0"/>
@@ -314,71 +273,36 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editGuidelineButtonActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JLabel" name="passwrod2Label2">
+                <Component class="javax.swing.JLabel" name="offPeakDemandLabelEdition">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Demanda Contratada Fora de Ponta*:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="outPeakDemandContractedFieldEdition">
+                <Component class="javax.swing.JTextField" name="offPeakDemandFieldEdition">
                 </Component>
-                <Component class="javax.swing.JLabel" name="cell_timLabel2">
+                <Component class="javax.swing.JLabel" name="peakDemandLabelEdition">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Demanda Contrada em Ponta*:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="peakDemandContractedFieldEdition">
+                <Component class="javax.swing.JTextField" name="peakDemandFieldEdition">
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel3">
+                <Component class="javax.swing.JLabel" name="guidelineRateLabelEdition">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="In&#xed;cio do Per&#xed;odo Seco*:"/>
+                    <Property name="text" type="java.lang.String" value="Enquadramento Tarif&#xe1;rio*:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="drySeasonComboBoxEdition">
+                <Component class="javax.swing.JComboBox" name="guidelineRateComboBoxEdition">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="13">
-                        <StringItem index="0" value="Selecione o m&#xea;s"/>
-                        <StringItem index="1" value="Janeiro"/>
-                        <StringItem index="2" value="Fevereiro"/>
-                        <StringItem index="3" value="Mar&#xe7;o"/>
-                        <StringItem index="4" value="Abril"/>
-                        <StringItem index="5" value="Maio"/>
-                        <StringItem index="6" value="Junho"/>
-                        <StringItem index="7" value="Julho"/>
-                        <StringItem index="8" value="Agosto"/>
-                        <StringItem index="9" value="Setembro"/>
-                        <StringItem index="10" value="Outubro"/>
-                        <StringItem index="11" value="Novembro"/>
-                        <StringItem index="12" value="Dezembro"/>
+                      <StringArray count="1">
+                        <StringItem index="0" value="Selecione o enquadramento tarif&#xe1;rio"/>
                       </StringArray>
                     </Property>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel4">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="In&#xed;cio do Per&#xed;odo &#xda;mido*:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="humidSeasonComboBoxEdition">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="13">
-                        <StringItem index="0" value="Selecione o m&#xea;s"/>
-                        <StringItem index="1" value="Janeiro"/>
-                        <StringItem index="2" value="Fevereiro"/>
-                        <StringItem index="3" value="Mar&#xe7;o"/>
-                        <StringItem index="4" value="Abril"/>
-                        <StringItem index="5" value="Maio"/>
-                        <StringItem index="6" value="Junho"/>
-                        <StringItem index="7" value="Julho"/>
-                        <StringItem index="8" value="Agosto"/>
-                        <StringItem index="9" value="Setembro"/>
-                        <StringItem index="10" value="Outubro"/>
-                        <StringItem index="11" value="Novembro"/>
-                        <StringItem index="12" value="Dezembro"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guidelineRateComboBoxEditionActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -403,7 +327,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" alignment="0" pref="585" max="32767" attributes="0"/>
+                  <Component id="jScrollPane1" alignment="0" pref="581" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>

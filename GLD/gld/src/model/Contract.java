@@ -11,21 +11,17 @@ package model;
 public class Contract {
 
     private int idContract;
-    private String peakDemandContracted = null;
-    private String outPeakDemandContracted = null;
-    private String humidSeason = null;
-    private String drySeason = null;
+    private int idRate;
+    private String peakDemand = null;
+    private String offPeakDemand = null;
     private String timestamp = null;
     private int year;
     private int month;
     private int day;
 
-    public Contract(String peakDemandContracted, String outPeakDemandContracted, String humidSeason,
-            String drySeason, String timestamp) {
-        this.peakDemandContracted = peakDemandContracted;
-        this.outPeakDemandContracted = outPeakDemandContracted;
-        this.humidSeason = humidSeason;
-        this.drySeason = drySeason;
+    public Contract(String peakDemand, String offPeakDemand, String timestamp) {
+        this.peakDemand = peakDemand;
+        this.offPeakDemand = offPeakDemand;
         this.timestamp = timestamp;
     }
 
@@ -40,36 +36,28 @@ public class Contract {
         this.idContract = idContract;
     }
 
-    public String getPeakDemandContracted() {
-        return peakDemandContracted;
+    public int getIdRate() {
+        return idRate;
     }
 
-    public void setPeakDemandContracted(String peakDemandContracted) {
-        this.peakDemandContracted = peakDemandContracted;
+    public void setIdRate(int idRate) {
+        this.idRate = idRate;
     }
 
-    public String getOutPeakDemandContracted() {
-        return outPeakDemandContracted;
+    public String getPeakDemand() {
+        return peakDemand;
     }
 
-    public void setOutPeakDemandContracted(String outPeakDemandContracted) {
-        this.outPeakDemandContracted = outPeakDemandContracted;
+    public void setPeakDemand(String peakDemand) {
+        this.peakDemand = peakDemand;
     }
 
-    public String getHumidSeason() {
-        return humidSeason;
+    public String getOffPeakDemand() {
+        return offPeakDemand;
     }
 
-    public void setHumidSeason(String humidSeason) {
-        this.humidSeason = humidSeason;
-    }
-
-    public String getDrySeason() {
-        return drySeason;
-    }
-
-    public void setDrySeason(String drySeason) {
-        this.drySeason = drySeason;
+    public void setOffPeakDemand(String offPeakDemand) {
+        this.offPeakDemand = offPeakDemand;
     }
 
     public String getTimestamp() {
