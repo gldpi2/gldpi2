@@ -99,18 +99,25 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                 if ("date".equals(e.getPropertyName())) {
                     if (e.getNewValue() != null) {
                         updater.stopExecution();
+
+                        desktop.removeAll();
+                        loadChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
+
                         updater = new UpdaterLoadCurveThread(loadChart.getLoadCurve(), (Date) e.getNewValue(),
                                 flowLabel, tensionLabel, potencyLabel,
                                 powerFactorLabel, frequencyLabel,
                                 maxValue, maxTime, maxDate,
                                 minValue, minTime, minDate,
                                 sourceLabel, meterLabel, statusLabel);
+
                         updaterThread = new Thread(updater);
                         updaterThread.setDaemon(true);
                         updaterThread.start();
 
-                        System.out.println(e.getPropertyName()
-                                + ": " + (Date) e.getNewValue());
+                        loadChart.startGraph(true);
+
+                        desktop.add(loadChart);
+                        state = 1;
                     }
                 }
             }
