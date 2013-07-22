@@ -4,8 +4,11 @@
  */
 package view;
 
+import controller.ConsumptionMonthCtrl;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import model.ConsumptionMonth;
 import model.Login;
 
 /**
@@ -16,6 +19,7 @@ public class ContractStudy extends javax.swing.JPanel {
 
     private NewMainMenu newMenu;
     private Login loggedUser;
+    private List<ConsumptionMonth> allConsumptionMonths;
 
     /**
      * Creates new form ContractStudy
@@ -24,6 +28,13 @@ public class ContractStudy extends javax.swing.JPanel {
         initComponents();
         setSize(1024, y);
         loggedUser = user;
+
+        loadConsumptions();
+    }
+
+    private void loadConsumptions() {
+        ConsumptionMonthCtrl csCtrl = new ConsumptionMonthCtrl();
+        allConsumptionMonths = csCtrl.getAllConsumptions();
     }
 
     /**
