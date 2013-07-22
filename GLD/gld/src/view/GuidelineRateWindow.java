@@ -27,17 +27,16 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
     private List<GuidelineRate> guidelineList;
     private GuidelineRateTableModel table;
     private int selectedRow = 0;
-    
 
     /**
      * Creates new form GuidelineRateWindow
      */
     public GuidelineRateWindow(int y, Login user) {
         userLogged = user;
-        
+
         this.guidelineCtrl = new GuidelineRateCtrl();
         this.table = new GuidelineRateTableModel();
-        
+
         try {
             this.guidelineList = this.guidelineCtrl.readGuidelineRate();
             this.table.addGuidelineRateList(this.guidelineList);
@@ -46,20 +45,81 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
         }
         //jTable1.setValueAt(table, y, y);
         initComponents();
+        initialVisibleComponents();
         setSize(1024, y);
-    
+
+    }
+
+    public void initialVisibleComponents() {
+        maxLimitLabel.setVisible(false);
+        maxLimitLabelEdition.setVisible(false);
+        maxLimitComboBox.setVisible(false);
+        maxLimitComboBoxEdition.setVisible(false);
+        categoryLabel.setVisible(false);
+        categoryLabelEdition.setVisible(false);
+        categoryTextField.setVisible(false);
+        categoryTextFieldEdition.setVisible(false);
+        icmsLabel.setVisible(false);
+        icmsLabelEdition.setVisible(false);
+        icmsTextField.setVisible(false);
+        icmsTextFieldEdition.setVisible(false);
+        peakDemandLabel.setVisible(false);
+        peakDemandLabelEdition.setVisible(false);
+        peakDemandField.setVisible(false);
+        peakDemandFieldEdition.setVisible(false);
+        offPeakDemandLabel.setVisible(false);
+        offPeakDemandLabelEdition.setVisible(false);
+        offPeakDemandField.setVisible(false);
+        offPeakDemandFieldEdition.setVisible(false);
+        consumptionDryOffPeakLabel.setVisible(false);
+        consumptionDryOffPeakLabelEdition.setVisible(false);
+        consumptionDryOffPeakField.setVisible(false);
+        consumptionDryOffPeakFieldEdition.setVisible(false);
+        consumptionDryPeakLabel.setVisible(false);
+        consumptionDryPeakLabelEdition.setVisible(false);
+        consumptionDryPeakField.setVisible(false);
+        consumptionDryPeakFieldEdition.setVisible(false);
+        consumptionHumidOffPeakLabel.setVisible(false);
+        consumptionHumidOffPeakLabelEdition.setVisible(false);
+        consumptionHumidOffPeakField.setVisible(false);
+        consumptionHumidOffPeakFieldEdition.setVisible(false);
+        consumptionHumidPeakLabel.setVisible(false);
+        consumptionHumidPeakLabelEdition.setVisible(false);
+        consumptionHumidPeakField.setVisible(false);
+        consumptionHumidPeakFieldEdition.setVisible(false);
+        transpassedOffPeakLabel.setVisible(false);
+        transpassedOffPeakLabelEdition.setVisible(false);
+        transpassedOffPeakTextField.setVisible(false);
+        transpassedOffPeakTextFieldEdition.setVisible(false);
+        transpassedPeakLabel.setVisible(false);
+        transpassedPeakLabelEdition.setVisible(false);
+        transpassedPeakField.setVisible(false);
+        transpassedPeakFieldEdition.setVisible(false);
+        consumptionLabel.setVisible(false);
+        consumptionLabelEdition.setVisible(false);
+        consumptionTextField.setVisible(false);
+        consumptionTextFieldEdition.setVisible(false);
+        demandLabel.setVisible(false);
+        demandLabelEdition.setVisible(false);
+        demandTextField.setVisible(false);
+        demandTextFieldEdition.setVisible(false);
     }
 
     private void clean() {
         guidelineComboBox.setSelectedIndex(0);
-        categoryComboBox.setSelectedIndex(0);
+        maxLimitComboBox.setSelectedIndex(0);
+        categoryTextField.setText("");
+        icmsTextField.setText("");
         peakDemandField.setText("");
-        outPeakDemandField.setText("");
-        peakEnergyDryField.setText("");
-        outPeakEnergyDryField.setText("");
-        peakEnergyHumidField.setText("");
-        outPeakEnergyHumidField.setText("");
-        valueTranspassedField.setText("");
+        offPeakDemandField.setText("");
+        consumptionHumidPeakField.setText("");
+        consumptionDryPeakField.setText("");
+        consumptionHumidOffPeakField.setText("");
+        consumptionDryOffPeakField.setText("");
+        transpassedPeakField.setText("");
+        transpassedOffPeakTextField.setText("");
+        consumptionTextField.setText("");
+        demandTextField.setText("");
     }
 
     /**
@@ -76,49 +136,65 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
         insertPanel = new javax.swing.JPanel();
         guidelineComboBox = new javax.swing.JComboBox();
         guidelineRateLabel = new javax.swing.JLabel();
-        categoryComboBox = new javax.swing.JComboBox();
         categoryLabel = new javax.swing.JLabel();
-        outPeakLabel = new javax.swing.JLabel();
-        outPeakDemandLabel = new javax.swing.JLabel();
-        outPeakEnergyDryLabel = new javax.swing.JLabel();
-        outPeakEnergyDryField = new javax.swing.JTextField();
-        cell_oiLabel = new javax.swing.JLabel();
-        peakLabel = new javax.swing.JLabel();
-        outPeakEnergyHumidField = new javax.swing.JTextField();
+        icmsLabel = new javax.swing.JLabel();
+        peakDemandLabel = new javax.swing.JLabel();
+        consumptionDryPeakLabel = new javax.swing.JLabel();
+        consumptionDryPeakField = new javax.swing.JTextField();
+        consumptionDryOffPeakLabel = new javax.swing.JLabel();
+        transpassedOffPeakLabel = new javax.swing.JLabel();
+        consumptionDryOffPeakField = new javax.swing.JTextField();
         peakDemandField = new javax.swing.JTextField();
-        cell_timLabel = new javax.swing.JLabel();
-        cell_claroLabel = new javax.swing.JLabel();
-        peakEnergyDryField = new javax.swing.JTextField();
-        peakEnergyHumidField = new javax.swing.JTextField();
-        profileLabel = new javax.swing.JLabel();
+        offPeakDemandLabel = new javax.swing.JLabel();
+        consumptionHumidPeakLabel = new javax.swing.JLabel();
+        consumptionHumidPeakField = new javax.swing.JTextField();
+        consumptionHumidOffPeakField = new javax.swing.JTextField();
+        consumptionHumidOffPeakLabel = new javax.swing.JLabel();
         warningLabel = new javax.swing.JLabel();
         createGuidelineButton = new javax.swing.JButton();
-        outPeakDemandField = new javax.swing.JTextField();
-        profileLabel1 = new javax.swing.JLabel();
-        valueTranspassedField = new javax.swing.JTextField();
+        offPeakDemandField = new javax.swing.JTextField();
+        transpassedPeakLabel = new javax.swing.JLabel();
+        transpassedPeakField = new javax.swing.JTextField();
+        maxLimitLabel = new javax.swing.JLabel();
+        maxLimitComboBox = new javax.swing.JComboBox();
+        icmsTextField = new javax.swing.JTextField();
+        categoryTextField = new javax.swing.JTextField();
+        demandLabel = new javax.swing.JLabel();
+        consumptionLabel = new javax.swing.JLabel();
+        demandTextField = new javax.swing.JTextField();
+        consumptionTextField = new javax.swing.JTextField();
+        transpassedOffPeakTextField = new javax.swing.JTextField();
         editPanel = new javax.swing.JPanel();
-        guidelineComboBoxEdition = new javax.swing.JComboBox();
-        nameLabel1 = new javax.swing.JLabel();
-        categoryComboBoxEdition = new javax.swing.JComboBox();
-        registerLabel1 = new javax.swing.JLabel();
-        passwordLabel1 = new javax.swing.JLabel();
-        passwrod2Label1 = new javax.swing.JLabel();
-        emailLabel1 = new javax.swing.JLabel();
-        outPeakEnergyDryFieldEdition = new javax.swing.JTextField();
-        cell_oiLabel1 = new javax.swing.JLabel();
-        cell_vivoLabel1 = new javax.swing.JLabel();
-        outPeakEnergyHumidFieldEdition = new javax.swing.JTextField();
-        peakDemandFieldEdition = new javax.swing.JTextField();
-        cell_timLabel1 = new javax.swing.JLabel();
-        cell_claroLabel1 = new javax.swing.JLabel();
-        peakEnergyDryFieldEdition = new javax.swing.JTextField();
-        peakEnergyHumidFieldEdition = new javax.swing.JTextField();
-        profileLabel2 = new javax.swing.JLabel();
         warningLabel1 = new javax.swing.JLabel();
         editGuidelineButton = new javax.swing.JButton();
-        outPeakDemandFieldEdition = new javax.swing.JTextField();
-        profileLabel3 = new javax.swing.JLabel();
-        valueTranspassedFieldEdition = new javax.swing.JTextField();
+        guidelineRateLabelEdition = new javax.swing.JLabel();
+        guidelineComboBoxEdition = new javax.swing.JComboBox();
+        maxLimitLabelEdition = new javax.swing.JLabel();
+        maxLimitComboBoxEdition = new javax.swing.JComboBox();
+        categoryLabelEdition = new javax.swing.JLabel();
+        categoryTextFieldEdition = new javax.swing.JTextField();
+        icmsLabelEdition = new javax.swing.JLabel();
+        icmsTextFieldEdition = new javax.swing.JTextField();
+        peakDemandLabelEdition = new javax.swing.JLabel();
+        peakDemandFieldEdition = new javax.swing.JTextField();
+        offPeakDemandLabelEdition = new javax.swing.JLabel();
+        offPeakDemandFieldEdition = new javax.swing.JTextField();
+        consumptionDryPeakLabelEdition = new javax.swing.JLabel();
+        consumptionDryPeakFieldEdition = new javax.swing.JTextField();
+        consumptionDryOffPeakLabelEdition = new javax.swing.JLabel();
+        consumptionDryOffPeakFieldEdition = new javax.swing.JTextField();
+        consumptionHumidPeakLabelEdition = new javax.swing.JLabel();
+        consumptionHumidPeakFieldEdition = new javax.swing.JTextField();
+        consumptionHumidOffPeakLabelEdition = new javax.swing.JLabel();
+        consumptionHumidOffPeakFieldEdition = new javax.swing.JTextField();
+        transpassedPeakLabelEdition = new javax.swing.JLabel();
+        transpassedPeakFieldEdition = new javax.swing.JTextField();
+        transpassedOffPeakLabelEdition = new javax.swing.JLabel();
+        transpassedOffPeakTextFieldEdition = new javax.swing.JTextField();
+        demandLabelEdition = new javax.swing.JLabel();
+        demandTextFieldEdition = new javax.swing.JTextField();
+        consumptionLabelEdition = new javax.swing.JLabel();
+        consumptionTextFieldEdition = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
         readPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -128,34 +204,32 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro de Enquadramento Tarifário", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 0, 24))); // NOI18N
 
         guidelineComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a Tarifa", "Convencional", "Horo-Sazonal Azul", "Horo-Sazonal Verde" }));
+        guidelineComboBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                guidelineComboBoxItemStateChanged(evt);
+            }
+        });
 
         guidelineRateLabel.setText("Tipo de Tarifa*:");
         guidelineRateLabel.setName(""); // NOI18N
 
-        categoryComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a Categoria", "A2 - Comercial/Industrial", "A2 - Poder Público", "A2 - Saneamento (redução de 15%)", "A3a - (30 a 44 kV)", "A3a - Saneamento (redução de 15%)", "A3a - Comercial/Industrial", "A4 - Comercial/Industrial", "A4 - Poder Público", "A4 - Saneamento (redução de 15%)", "A4 - Rural (redução de 10%)", "A4 - Madrugada (redução de 80%)", "A4 - Cooperativa (redução de 50%)", "A4 - Residencial", "AS - Comercial/Industrial", "AS - Poder Público" }));
-        categoryComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                categoryComboBoxActionPerformed(evt);
-            }
-        });
-
         categoryLabel.setText("Categoria*:");
 
-        outPeakLabel.setText("Fora de Ponta:");
+        icmsLabel.setText("ICMS*:");
 
-        outPeakDemandLabel.setText("Custo Demanda*:");
+        peakDemandLabel.setText("Demanda em Ponta*:");
 
-        outPeakEnergyDryLabel.setText("Custo Energia Seca*:");
+        consumptionDryPeakLabel.setText("Consumo em Ponta Seca*:");
 
-        cell_oiLabel.setText("Custo Energia Úmida*:");
+        consumptionDryOffPeakLabel.setText("Consumo Fora de Ponta Seca*:");
 
-        peakLabel.setText("Ponta");
+        transpassedOffPeakLabel.setText("Ultrapassado Fora de Ponta*:");
 
-        cell_timLabel.setText("Custo Demanda*:");
+        offPeakDemandLabel.setText("Demanda Fora de Ponta*:");
 
-        cell_claroLabel.setText("Custo Energia Seca*:");
+        consumptionHumidPeakLabel.setText("Consumo em Ponta Úmida*:");
 
-        profileLabel.setText("Custo Energia Úmida*:");
+        consumptionHumidOffPeakLabel.setText("Custo Energia Úmida*:");
 
         warningLabel.setText("<html>Os campos assinalados com asterisco (*) <br>são de preencimento obrigatório</html>");
 
@@ -166,7 +240,26 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
             }
         });
 
-        profileLabel1.setText("Valor Ultrapassado*:");
+        offPeakDemandField.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                offPeakDemandFieldFocusLost(evt);
+            }
+        });
+
+        transpassedPeakLabel.setText("Ultrapassado na Ponta*:");
+
+        maxLimitLabel.setText("Limite*:");
+
+        maxLimitComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o limite máximo", "Até 200", "De 201 até 500" }));
+        maxLimitComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maxLimitComboBoxActionPerformed(evt);
+            }
+        });
+
+        demandLabel.setText("Demanda*:");
+
+        consumptionLabel.setText("Consumo*:");
 
         javax.swing.GroupLayout insertPanelLayout = new javax.swing.GroupLayout(insertPanel);
         insertPanel.setLayout(insertPanelLayout);
@@ -180,46 +273,56 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
                     .addGroup(insertPanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(categoryComboBox, 0, 336, Short.MAX_VALUE)
                             .addGroup(insertPanelLayout.createSequentialGroup()
-                                .addComponent(outPeakDemandLabel)
+                                .addComponent(consumptionDryPeakLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(outPeakDemandField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(consumptionDryPeakField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(insertPanelLayout.createSequentialGroup()
-                                .addComponent(outPeakEnergyDryLabel)
+                                .addComponent(consumptionDryOffPeakLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(outPeakEnergyDryField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(insertPanelLayout.createSequentialGroup()
-                                .addComponent(cell_oiLabel)
+                                .addComponent(consumptionDryOffPeakField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, insertPanelLayout.createSequentialGroup()
+                                .addComponent(icmsLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(outPeakEnergyHumidField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(icmsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(insertPanelLayout.createSequentialGroup()
-                                .addComponent(cell_timLabel)
+                                .addComponent(peakDemandLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(peakDemandField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(insertPanelLayout.createSequentialGroup()
-                                .addComponent(cell_claroLabel)
+                                .addComponent(offPeakDemandLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(peakEnergyDryField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(offPeakDemandField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(insertPanelLayout.createSequentialGroup()
+                                .addComponent(consumptionHumidPeakLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(consumptionHumidPeakField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(insertPanelLayout.createSequentialGroup()
+                                .addComponent(consumptionHumidOffPeakLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(consumptionHumidOffPeakField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, insertPanelLayout.createSequentialGroup()
                                 .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(peakLabel)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, insertPanelLayout.createSequentialGroup()
-                                        .addComponent(outPeakLabel)
-                                        .addGap(177, 177, 177))
-                                    .addComponent(categoryLabel)
-                                    .addComponent(guidelineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(guidelineRateLabel)
-                                    .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(insertPanelLayout.createSequentialGroup()
-                                .addComponent(profileLabel)
+                                    .addComponent(transpassedPeakLabel)
+                                    .addComponent(transpassedOffPeakLabel)
+                                    .addComponent(consumptionLabel))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(peakEnergyHumidField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(transpassedOffPeakTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(consumptionTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(transpassedPeakField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(insertPanelLayout.createSequentialGroup()
-                                .addComponent(profileLabel1)
+                                .addComponent(demandLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(valueTranspassedField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(demandTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(categoryTextField)
+                            .addComponent(guidelineRateLabel)
+                            .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(maxLimitLabel)
+                            .addComponent(categoryLabel)
+                            .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(guidelineComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(maxLimitComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         insertPanelLayout.setVerticalGroup(
@@ -230,79 +333,65 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(guidelineComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(maxLimitLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(maxLimitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(categoryLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(categoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(outPeakLabel)
+                .addComponent(categoryTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(outPeakDemandField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(outPeakDemandLabel))
+                    .addComponent(icmsLabel)
+                    .addComponent(icmsTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(outPeakEnergyDryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(outPeakEnergyDryLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cell_oiLabel)
-                    .addComponent(outPeakEnergyHumidField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(peakLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(peakDemandField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cell_timLabel))
+                    .addComponent(peakDemandLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cell_claroLabel)
-                    .addComponent(peakEnergyDryField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(offPeakDemandLabel)
+                    .addComponent(offPeakDemandField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(profileLabel)
-                    .addComponent(peakEnergyHumidField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(consumptionDryPeakField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(consumptionDryPeakLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(profileLabel1)
-                    .addComponent(valueTranspassedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                    .addComponent(consumptionDryOffPeakLabel)
+                    .addComponent(consumptionDryOffPeakField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(consumptionHumidPeakLabel)
+                    .addComponent(consumptionHumidPeakField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(consumptionHumidOffPeakLabel)
+                    .addComponent(consumptionHumidOffPeakField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(transpassedPeakLabel)
+                    .addComponent(transpassedPeakField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(transpassedOffPeakLabel)
+                    .addComponent(transpassedOffPeakTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(demandLabel)
+                    .addComponent(demandTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(consumptionLabel)
+                    .addComponent(consumptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(createGuidelineButton)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Inserir", insertPanel);
-
-        guidelineComboBoxEdition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a Tarifa", "Convencional", "Horo-Sazonal Azul", "Horo-Sazonal Verde" }));
-
-        nameLabel1.setText("Tipo de Tarifa*:");
-        nameLabel1.setName(""); // NOI18N
-
-        categoryComboBoxEdition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a Categoria", "A2 - Comercial/Industrial", "A2 - Poder Público", "A2 - Saneamento (redução de 15%)", "A3a - (30 a 44 kV)", "A3a - Saneamento (redução de 15%)", "A3a - Comercial/Industrial", "A4 - Comercial/Industrial", "A4 - Poder Público", "A4 - Saneamento (redução de 15%)", "A4 - Rural (redução de 10%)", "A4 - Madrugada (redução de 80%)", "A4 - Cooperativa (redução de 50%)", "A4 - Residencial", "AS - Comercial/Industrial", "AS - Poder Público" }));
-        categoryComboBoxEdition.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                categoryComboBoxEditionActionPerformed(evt);
-            }
-        });
-
-        registerLabel1.setText("Categoria*:");
-
-        passwordLabel1.setText("Fora de Ponta:");
-
-        passwrod2Label1.setText("Custo Demanda*:");
-
-        emailLabel1.setText("Custo Energia Seca*:");
-
-        cell_oiLabel1.setText("Custo Energia Úmida*:");
-
-        cell_vivoLabel1.setText("Ponta");
-
-        cell_timLabel1.setText("Custo Demanda*:");
-
-        cell_claroLabel1.setText("Custo Energia Seca*:");
-
-        profileLabel2.setText("Custo Energia Úmida*:");
 
         warningLabel1.setText("<html>Os campos assinalados com asterisco (*) <br>são de preencimento obrigatório</html>");
 
@@ -313,7 +402,54 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
             }
         });
 
-        profileLabel3.setText("Valor Ultrapassado*:");
+        guidelineRateLabelEdition.setText("Tipo de Tarifa*:");
+        guidelineRateLabelEdition.setName(""); // NOI18N
+
+        guidelineComboBoxEdition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a Tarifa", "Convencional", "Horo-Sazonal Azul", "Horo-Sazonal Verde" }));
+        guidelineComboBoxEdition.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                guidelineComboBoxEditionItemStateChanged(evt);
+            }
+        });
+
+        maxLimitLabelEdition.setText("Limite*:");
+
+        maxLimitComboBoxEdition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o limite máximo", "Até 200 kWh", "De 201 até 500 kWh" }));
+        maxLimitComboBoxEdition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                maxLimitComboBoxEditionActionPerformed(evt);
+            }
+        });
+
+        categoryLabelEdition.setText("Categoria*:");
+
+        icmsLabelEdition.setText("ICMS*:");
+
+        peakDemandLabelEdition.setText("Demanda em Ponta*:");
+
+        offPeakDemandLabelEdition.setText("Demanda Fora de Ponta*:");
+
+        offPeakDemandFieldEdition.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                offPeakDemandFieldEditionFocusLost(evt);
+            }
+        });
+
+        consumptionDryPeakLabelEdition.setText("Consumo em Ponta Seca*:");
+
+        consumptionDryOffPeakLabelEdition.setText("Consumo Fora de Ponta Seca*:");
+
+        consumptionHumidPeakLabelEdition.setText("Consumo em Ponta Úmida*:");
+
+        consumptionHumidOffPeakLabelEdition.setText("Custo Energia Úmida*:");
+
+        transpassedPeakLabelEdition.setText("Ultrapassado na Ponta*:");
+
+        transpassedOffPeakLabelEdition.setText("Ultrapassado Fora de Ponta*:");
+
+        demandLabelEdition.setText("Demanda*:");
+
+        consumptionLabelEdition.setText("Consumo*:");
 
         javax.swing.GroupLayout editPanelLayout = new javax.swing.GroupLayout(editPanel);
         editPanel.setLayout(editPanelLayout);
@@ -322,93 +458,124 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
             .addGroup(editPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(categoryComboBoxEdition, 0, 336, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editPanelLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(editGuidelineButton))
                     .addGroup(editPanelLayout.createSequentialGroup()
-                        .addComponent(passwrod2Label1)
+                        .addComponent(consumptionDryPeakLabelEdition)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(outPeakDemandFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(consumptionDryPeakFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(editPanelLayout.createSequentialGroup()
-                        .addComponent(emailLabel1)
+                        .addComponent(consumptionDryOffPeakLabelEdition)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(outPeakEnergyDryFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(editPanelLayout.createSequentialGroup()
-                        .addComponent(cell_oiLabel1)
+                        .addComponent(consumptionDryOffPeakFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editPanelLayout.createSequentialGroup()
+                        .addComponent(icmsLabelEdition)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(outPeakEnergyHumidFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(icmsTextFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(editPanelLayout.createSequentialGroup()
-                        .addComponent(cell_timLabel1)
+                        .addComponent(peakDemandLabelEdition)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(peakDemandFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(editPanelLayout.createSequentialGroup()
-                        .addComponent(cell_claroLabel1)
+                        .addComponent(offPeakDemandLabelEdition)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(peakEnergyDryFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(offPeakDemandFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(editPanelLayout.createSequentialGroup()
-                        .addComponent(profileLabel2)
+                        .addComponent(consumptionHumidPeakLabelEdition)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(peakEnergyHumidFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(consumptionHumidPeakFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(editPanelLayout.createSequentialGroup()
+                        .addComponent(consumptionHumidOffPeakLabelEdition)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(consumptionHumidOffPeakFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editPanelLayout.createSequentialGroup()
+                        .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(transpassedPeakLabelEdition)
+                            .addComponent(transpassedOffPeakLabelEdition)
+                            .addComponent(consumptionLabelEdition))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(transpassedOffPeakTextFieldEdition, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(consumptionTextFieldEdition, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(transpassedPeakFieldEdition, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(editPanelLayout.createSequentialGroup()
+                        .addComponent(demandLabelEdition)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(demandTextFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(categoryTextFieldEdition)
                     .addGroup(editPanelLayout.createSequentialGroup()
                         .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nameLabel1)
-                            .addComponent(cell_vivoLabel1)
-                            .addComponent(passwordLabel1)
-                            .addComponent(registerLabel1)
-                            .addComponent(guidelineComboBoxEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(warningLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(editPanelLayout.createSequentialGroup()
-                        .addComponent(profileLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(valueTranspassedFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editPanelLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(editGuidelineButton)))
+                            .addComponent(warningLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(guidelineRateLabelEdition)
+                            .addComponent(maxLimitLabelEdition)
+                            .addComponent(categoryLabelEdition)
+                            .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(guidelineComboBoxEdition, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(maxLimitComboBoxEdition, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         editPanelLayout.setVerticalGroup(
             editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(nameLabel1)
+                .addComponent(guidelineRateLabelEdition)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(guidelineComboBoxEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(registerLabel1)
+                .addComponent(maxLimitLabelEdition)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(categoryComboBoxEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(maxLimitComboBoxEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(passwordLabel1)
+                .addComponent(categoryLabelEdition)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(categoryTextFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(passwrod2Label1)
-                    .addComponent(outPeakDemandFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(icmsLabelEdition)
+                    .addComponent(icmsTextFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(peakDemandFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(peakDemandLabelEdition))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(emailLabel1)
-                    .addComponent(outPeakEnergyDryFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(offPeakDemandLabelEdition)
+                    .addComponent(offPeakDemandFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cell_oiLabel1)
-                    .addComponent(outPeakEnergyHumidFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(cell_vivoLabel1)
+                    .addComponent(consumptionDryPeakFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(consumptionDryPeakLabelEdition))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cell_timLabel1)
-                    .addComponent(peakDemandFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(consumptionDryOffPeakLabelEdition)
+                    .addComponent(consumptionDryOffPeakFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cell_claroLabel1)
-                    .addComponent(peakEnergyDryFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(consumptionHumidPeakLabelEdition)
+                    .addComponent(consumptionHumidPeakFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(profileLabel2)
-                    .addComponent(peakEnergyHumidFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(consumptionHumidOffPeakLabelEdition)
+                    .addComponent(consumptionHumidOffPeakFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(profileLabel3)
-                    .addComponent(valueTranspassedFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                    .addComponent(transpassedPeakLabelEdition)
+                    .addComponent(transpassedPeakFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(transpassedOffPeakLabelEdition)
+                    .addComponent(transpassedOffPeakTextFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(demandLabelEdition)
+                    .addComponent(demandTextFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(consumptionLabelEdition)
+                    .addComponent(consumptionTextFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(warningLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(editGuidelineButton)
@@ -507,31 +674,61 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
-    private void categoryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryComboBoxActionPerformed
-    }//GEN-LAST:event_categoryComboBoxActionPerformed
-
     private void createGuidelineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createGuidelineButtonActionPerformed
+//        String guidelineRate = (String) guidelineComboBox.getSelectedItem();
+//        String category = (String) categoryTextField.getText();
+//        String peakDemand = peakDemandField.getText();
+//        String outPeakDemand = offPeakDemandField.getText();
+//        String peakEnergyDry = consumptionHumidPeakField.getText();
+//        String outPeakEnergyDry = consumptionDryPeakField.getText();
+//        String peakEnergyHumid = consumptionHumidOffPeakField.getText();
+//        String outPeakEnergyHumid = consumptionDryOffPeakField.getText();
+//        String valueTranspassed = transpassedPeakField.getText();
+//        String timestamp = "";
+
         String guidelineRate = (String) guidelineComboBox.getSelectedItem();
-        String category = (String) categoryComboBox.getSelectedItem();
+        String category = categoryTextField.getText();
+        String demand = categoryTextField.getText();
         String peakDemand = peakDemandField.getText();
-        String outPeakDemand = outPeakDemandField.getText();
-        String peakEnergyDry = peakEnergyDryField.getText();
-        String outPeakEnergyDry = outPeakEnergyDryField.getText();
-        String peakEnergyHumid = peakEnergyHumidField.getText();
-        String outPeakEnergyHumid = outPeakEnergyHumidField.getText();
-        String valueTranspassed = valueTranspassedField.getText();
+        String offPeakDemand = offPeakDemandField.getText();
+        String consumption = consumptionTextField.getText();
+        String consumptionDryPeak = consumptionDryPeakField.getText();
+        String consumptionDryOffPeak = consumptionDryOffPeakField.getText();
+        String consumptionHumidPeak = consumptionHumidPeakField.getText();
+        String consumptionHumidOffPeak = consumptionHumidOffPeakField.getText();
+        String normalDemand = peakDemandField.getText();
+        String transpassedPeak = transpassedPeakField.getText();
+        String transpassedOffPeak = transpassedOffPeakTextField.getText();
+        String maxLimit = (String) maxLimitComboBox.getSelectedItem();
+        String icms = icmsTextField.getText();
         String timestamp = "";
 
         //@TODO Criar validate
-        //valite()
+        //validate()
+        if(categoryTextField.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "O campo Categoria deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+            return;
+        } 
+//else{
+//        }
+//        if (maxLimit == "Até 200 kWh"){
+//            maxLimitComboBox.getModel().setSelectedItem("c200");
+//        }else if(maxLimit == "De 201 até 500 kWh"){
+//            maxLimitComboBox.getModel().setSelectedItem("c500");
+//        } 
+//        else if(maxLimit == "Acima de 501 kWh"){
+//            maxLimitComboBox.getModel().setSelectedItem("h500");
+//        } 
 
-        guidelineCtrl.createGuidelineRate(guidelineRate, category, peakDemand,
-                outPeakDemand, peakEnergyDry, outPeakEnergyDry, peakEnergyHumid,
-                outPeakEnergyHumid, valueTranspassed, timestamp);
+        guidelineCtrl.createGuidelineRate(guidelineRate, category, demand, peakDemand,
+                offPeakDemand, consumption, consumptionDryPeak, consumptionDryOffPeak,
+                consumptionHumidPeak, consumptionHumidOffPeak, transpassedPeak, transpassedOffPeak,
+                maxLimit, icms, timestamp);
 
         JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
-                
+
         clean();
+        table.limpar();
         try {
             this.guidelineList = this.guidelineCtrl.readGuidelineRate();
             this.table.addGuidelineRateList(this.guidelineList);
@@ -539,98 +736,316 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
         } catch (SQLException ex) {
             Logger.getLogger(GuidelineRateWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-        
+
+
         return;
 
 
     }//GEN-LAST:event_createGuidelineButtonActionPerformed
 
-    private void categoryComboBoxEditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryComboBoxEditionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_categoryComboBoxEditionActionPerformed
-
     private void editGuidelineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editGuidelineButtonActionPerformed
 
         String guidelineRate = (String) guidelineComboBoxEdition.getSelectedItem();
-        String category = (String) categoryComboBoxEdition.getSelectedItem();
+        String category = categoryTextFieldEdition.getText();
+        String demand = categoryTextFieldEdition.getText();
         String peakDemand = peakDemandFieldEdition.getText();
-        String outPeakDemand = outPeakDemandFieldEdition.getText();
-        String peakEnergyDry = peakEnergyDryFieldEdition.getText();
-        String outPeakEnergyDry = outPeakEnergyDryFieldEdition.getText();
-        String peakEnergyHumid = peakEnergyHumidFieldEdition.getText();
-        String outPeakEnergyHumid = outPeakEnergyHumidFieldEdition.getText();
-        String valueTranspassed = valueTranspassedFieldEdition.getText();
+        String offPeakDemand = offPeakDemandFieldEdition.getText();
+        String consumption = consumptionTextFieldEdition.getText();
+        String consumptionDryPeak = consumptionDryPeakFieldEdition.getText();
+        String consumptionDryOffPeak = consumptionDryOffPeakFieldEdition.getText();
+        String consumptionHumidPeak = consumptionHumidPeakFieldEdition.getText();
+        String consumptionHumidOffPeak = consumptionHumidOffPeakFieldEdition.getText();
+        String normalDemand = peakDemandFieldEdition.getText();
+        String transpassedPeak = transpassedPeakFieldEdition.getText();
+        String transpassedOffPeak = transpassedOffPeakTextFieldEdition.getText();
+        String maxLimit = (String) maxLimitComboBox.getSelectedItem();
+        String icms = icmsTextField.getText();
         String timestamp = "";
 
         //@TODO Criar validate
         //valite()
-
-        guidelineCtrl.createGuidelineRate(guidelineRate, category, peakDemand,
-                outPeakDemand, peakEnergyDry, outPeakEnergyDry, peakEnergyHumid,
-                outPeakEnergyHumid, valueTranspassed, timestamp);
+        
+        guidelineCtrl.createGuidelineRate(guidelineRate, category, demand, peakDemand,
+                offPeakDemand, consumption, consumptionDryPeak, consumptionDryOffPeak,
+                consumptionHumidPeak, consumptionHumidOffPeak, transpassedPeak, transpassedOffPeak,
+                maxLimit, icms, timestamp);
 
         JOptionPane.showMessageDialog(null, "Edit realizado com sucesso!");
 
         clean();
+        table.limpar();
+        try {
+            this.guidelineList = this.guidelineCtrl.readGuidelineRate();
+            this.table.addGuidelineRateList(this.guidelineList);
+            repaint();
+        } catch (SQLException ex) {
+            Logger.getLogger(GuidelineRateWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        
-        
         return;
     }//GEN-LAST:event_editGuidelineButtonActionPerformed
 
+    private void guidelineComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_guidelineComboBoxItemStateChanged
+        String guidelineRate = (String) guidelineComboBox.getSelectedItem().toString();
+
+        switch (guidelineRate) {
+            case ("Horo-Sazonal Azul"):
+                initialVisibleComponents();
+                maxLimitLabel.setVisible(true);
+                maxLimitComboBox.setVisible(true);
+                categoryLabel.setVisible(true);
+                categoryTextField.setVisible(true);
+                icmsLabel.setVisible(true);
+                icmsTextField.setVisible(true);
+                peakDemandLabel.setVisible(true);
+                peakDemandField.setVisible(true);
+                offPeakDemandLabel.setVisible(true);
+                offPeakDemandField.setVisible(true);
+                consumptionDryOffPeakLabel.setVisible(true);
+                consumptionDryOffPeakField.setVisible(true);
+                consumptionDryPeakLabel.setVisible(true);
+                consumptionDryPeakField.setVisible(true);
+                consumptionHumidOffPeakLabel.setVisible(true);
+                consumptionHumidOffPeakField.setVisible(true);
+                consumptionHumidPeakLabel.setVisible(true);
+                consumptionHumidPeakField.setVisible(true);
+                transpassedOffPeakLabel.setVisible(true);
+                transpassedOffPeakTextField.setVisible(true);
+                transpassedPeakLabel.setVisible(true);
+                transpassedPeakField.setVisible(true);
+                break;
+            case ("Horo-Sazonal Verde"):
+                initialVisibleComponents();
+                maxLimitLabel.setVisible(true);
+                maxLimitComboBox.setVisible(true);
+                categoryLabel.setVisible(true);
+                categoryTextField.setVisible(true);
+                icmsLabel.setVisible(true);
+                icmsTextField.setVisible(true);
+                offPeakDemandLabel.setVisible(true);
+                offPeakDemandField.setVisible(true);
+                consumptionDryOffPeakLabel.setVisible(true);
+                consumptionDryOffPeakField.setVisible(true);
+                consumptionDryPeakLabel.setVisible(true);
+                consumptionDryPeakField.setVisible(true);
+                consumptionHumidOffPeakLabel.setVisible(true);
+                consumptionHumidOffPeakField.setVisible(true);
+                consumptionHumidPeakLabel.setVisible(true);
+                consumptionHumidPeakField.setVisible(true);
+                transpassedOffPeakLabel.setVisible(true);
+                transpassedOffPeakTextField.setVisible(true);
+                break;
+            case ("Convencional"):
+                initialVisibleComponents();
+                maxLimitLabel.setVisible(true);
+                maxLimitComboBox.setVisible(true);
+                categoryLabel.setVisible(true);
+                categoryTextField.setVisible(true);
+                icmsLabel.setVisible(true);
+                icmsTextField.setVisible(true);
+                demandLabel.setVisible(true);
+                demandTextField.setVisible(true);
+                consumptionLabel.setVisible(true);
+                consumptionTextField.setVisible(true);
+                break;
+            default:
+                initialVisibleComponents();
+                break;
+
+        }
+
+        if (guidelineRate.equals("Horo-Sazonal Azul")) {
+            maxLimitComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Selecione o limite máximo", "Acima de 501 kWh"
+            }));
+        } else if (guidelineRate.equals("Horo-Sazonal Verde")) {
+            offPeakDemandLabel.setText("Demanda Normal*:");
+            transpassedOffPeakLabel.setText("Demanda Ultrapassada*:");
+            maxLimitComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Selecione o limite máximo", "Acima de 501 kWh"
+            }));
+        }
+
+    }//GEN-LAST:event_guidelineComboBoxItemStateChanged
+
+    private void offPeakDemandFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_offPeakDemandFieldFocusLost
+        // TODO add your handling code here:
+        System.out.println("Teste");
+    }//GEN-LAST:event_offPeakDemandFieldFocusLost
+
+    private void guidelineComboBoxEditionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_guidelineComboBoxEditionItemStateChanged
+        String guidelineRateEdition = (String) guidelineComboBoxEdition.getSelectedItem().toString();
+
+        switch (guidelineRateEdition) {
+            case ("Horo-Sazonal Azul"):
+                initialVisibleComponents();
+                maxLimitLabelEdition.setVisible(true);
+                maxLimitComboBoxEdition.setVisible(true);
+                categoryLabelEdition.setVisible(true);
+                categoryTextFieldEdition.setVisible(true);
+                icmsLabelEdition.setVisible(true);
+                icmsTextFieldEdition.setVisible(true);
+                peakDemandLabelEdition.setVisible(true);
+                peakDemandFieldEdition.setVisible(true);
+                offPeakDemandLabelEdition.setVisible(true);
+                offPeakDemandFieldEdition.setVisible(true);
+                consumptionDryOffPeakLabelEdition.setVisible(true);
+                consumptionDryOffPeakFieldEdition.setVisible(true);
+                consumptionDryPeakLabelEdition.setVisible(true);
+                consumptionDryPeakFieldEdition.setVisible(true);
+                consumptionHumidOffPeakLabelEdition.setVisible(true);
+                consumptionHumidOffPeakFieldEdition.setVisible(true);
+                consumptionHumidPeakLabelEdition.setVisible(true);
+                consumptionHumidPeakFieldEdition.setVisible(true);
+                transpassedOffPeakLabelEdition.setVisible(true);
+                transpassedOffPeakTextFieldEdition.setVisible(true);
+                transpassedPeakLabelEdition.setVisible(true);
+                transpassedPeakFieldEdition.setVisible(true);
+                break;
+            case ("Horo-Sazonal Verde"):
+                initialVisibleComponents();
+                maxLimitLabelEdition.setVisible(true);
+                maxLimitComboBoxEdition.setVisible(true);
+                categoryLabelEdition.setVisible(true);
+                categoryTextFieldEdition.setVisible(true);
+                icmsLabelEdition.setVisible(true);
+                icmsTextFieldEdition.setVisible(true);
+                offPeakDemandLabelEdition.setVisible(true);
+                offPeakDemandFieldEdition.setVisible(true);
+                consumptionDryOffPeakLabelEdition.setVisible(true);
+                consumptionDryOffPeakFieldEdition.setVisible(true);
+                consumptionDryPeakLabelEdition.setVisible(true);
+                consumptionDryPeakFieldEdition.setVisible(true);
+                consumptionHumidOffPeakLabelEdition.setVisible(true);
+                consumptionHumidOffPeakFieldEdition.setVisible(true);
+                consumptionHumidPeakLabelEdition.setVisible(true);
+                consumptionHumidPeakFieldEdition.setVisible(true);
+                transpassedOffPeakLabelEdition.setVisible(true);
+                transpassedOffPeakTextFieldEdition.setVisible(true);
+                break;
+            case ("Convencional"):
+                initialVisibleComponents();
+                maxLimitLabelEdition.setVisible(true);
+                maxLimitComboBoxEdition.setVisible(true);
+                categoryLabelEdition.setVisible(true);
+                categoryTextFieldEdition.setVisible(true);
+                icmsLabelEdition.setVisible(true);
+                icmsTextFieldEdition.setVisible(true);
+                demandLabelEdition.setVisible(true);
+                demandTextFieldEdition.setVisible(true);
+                consumptionLabelEdition.setVisible(true);
+                consumptionTextFieldEdition.setVisible(true);
+                break;
+            default:
+                initialVisibleComponents();
+                break;
+
+        }
+
+        if (guidelineRateEdition.equals("Horo-Sazonal Azul")) {
+            maxLimitComboBoxEdition.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Selecione o limite máximo", "Acima de 501 kWh"
+            }));
+        } else if (guidelineRateEdition.equals("Horo-Sazonal Verde")) {
+            offPeakDemandLabelEdition.setText("Demanda Normal*:");
+            transpassedOffPeakLabelEdition.setText("Demanda Ultrapassada*:");
+            maxLimitComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Selecione o limite máximo", "Acima de 501 kWh"
+            }));
+        }
+    }//GEN-LAST:event_guidelineComboBoxEditionItemStateChanged
+
+    private void offPeakDemandFieldEditionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_offPeakDemandFieldEditionFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_offPeakDemandFieldEditionFocusLost
+
+    private void maxLimitComboBoxEditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxLimitComboBoxEditionActionPerformed
+//        if (maxLimitComboBox.getSelectedItem().toString().equals("Até 200 kWh")){
+//            maxLimitComboBox.getModel().setSelectedItem("c200");
+//        }else if(maxLimitComboBox.getSelectedItem().toString().equals("De 201 até 500 kWh")){
+//            maxLimitComboBox.getModel().setSelectedItem("c500");
+//        } 
+//        else if(maxLimitComboBox.getSelectedItem().toString().equals("Acima de 501 kWh")){
+//            maxLimitComboBox.getModel().setSelectedItem("h500");
+//        } 
+        
+        //switch()
+    }//GEN-LAST:event_maxLimitComboBoxEditionActionPerformed
+
+    private void maxLimitComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxLimitComboBoxActionPerformed
+        if (maxLimitComboBox.getSelectedItem().toString().equals("Até 200 kWh")) {
+            maxLimitComboBox.getModel().setSelectedItem("c200");
+        } else if (maxLimitComboBox.getSelectedItem().toString().equals("De 201 até 500 kWh")) {
+            maxLimitComboBox.getModel().setSelectedItem("c500");
+        } else if (maxLimitComboBox.getSelectedItem().toString().equals("Acima de 501 kWh")) {
+            maxLimitComboBox.getModel().setSelectedItem("h500");
+        }
+    }//GEN-LAST:event_maxLimitComboBoxActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMainMenu;
-    private javax.swing.JComboBox categoryComboBox;
-    private javax.swing.JComboBox categoryComboBoxEdition;
     private javax.swing.JLabel categoryLabel;
-    private javax.swing.JLabel cell_claroLabel;
-    private javax.swing.JLabel cell_claroLabel1;
-    private javax.swing.JLabel cell_oiLabel;
-    private javax.swing.JLabel cell_oiLabel1;
-    private javax.swing.JLabel cell_timLabel;
-    private javax.swing.JLabel cell_timLabel1;
-    private javax.swing.JLabel cell_vivoLabel1;
+    private javax.swing.JLabel categoryLabelEdition;
+    private javax.swing.JTextField categoryTextField;
+    private javax.swing.JTextField categoryTextFieldEdition;
+    private javax.swing.JTextField consumptionDryOffPeakField;
+    private javax.swing.JTextField consumptionDryOffPeakFieldEdition;
+    private javax.swing.JLabel consumptionDryOffPeakLabel;
+    private javax.swing.JLabel consumptionDryOffPeakLabelEdition;
+    private javax.swing.JTextField consumptionDryPeakField;
+    private javax.swing.JTextField consumptionDryPeakFieldEdition;
+    private javax.swing.JLabel consumptionDryPeakLabel;
+    private javax.swing.JLabel consumptionDryPeakLabelEdition;
+    private javax.swing.JTextField consumptionHumidOffPeakField;
+    private javax.swing.JTextField consumptionHumidOffPeakFieldEdition;
+    private javax.swing.JLabel consumptionHumidOffPeakLabel;
+    private javax.swing.JLabel consumptionHumidOffPeakLabelEdition;
+    private javax.swing.JTextField consumptionHumidPeakField;
+    private javax.swing.JTextField consumptionHumidPeakFieldEdition;
+    private javax.swing.JLabel consumptionHumidPeakLabel;
+    private javax.swing.JLabel consumptionHumidPeakLabelEdition;
+    private javax.swing.JLabel consumptionLabel;
+    private javax.swing.JLabel consumptionLabelEdition;
+    private javax.swing.JTextField consumptionTextField;
+    private javax.swing.JTextField consumptionTextFieldEdition;
     private javax.swing.JButton createGuidelineButton;
+    private javax.swing.JLabel demandLabel;
+    private javax.swing.JLabel demandLabelEdition;
+    private javax.swing.JTextField demandTextField;
+    private javax.swing.JTextField demandTextFieldEdition;
     private javax.swing.JButton editGuidelineButton;
     private javax.swing.JPanel editPanel;
-    private javax.swing.JLabel emailLabel1;
-    private javax.swing.JComboBox guidelineComboBox;
-    private javax.swing.JComboBox guidelineComboBoxEdition;
+    public static javax.swing.JComboBox guidelineComboBox;
+    public static javax.swing.JComboBox guidelineComboBoxEdition;
     private javax.swing.JLabel guidelineRateLabel;
+    private javax.swing.JLabel guidelineRateLabelEdition;
+    private javax.swing.JLabel icmsLabel;
+    private javax.swing.JLabel icmsLabelEdition;
+    private javax.swing.JTextField icmsTextField;
+    private javax.swing.JTextField icmsTextFieldEdition;
     private javax.swing.JPanel insertPanel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel nameLabel1;
-    private javax.swing.JTextField outPeakDemandField;
-    private javax.swing.JTextField outPeakDemandFieldEdition;
-    private javax.swing.JLabel outPeakDemandLabel;
-    private javax.swing.JTextField outPeakEnergyDryField;
-    private javax.swing.JTextField outPeakEnergyDryFieldEdition;
-    private javax.swing.JLabel outPeakEnergyDryLabel;
-    private javax.swing.JTextField outPeakEnergyHumidField;
-    private javax.swing.JTextField outPeakEnergyHumidFieldEdition;
-    private javax.swing.JLabel outPeakLabel;
-    private javax.swing.JLabel passwordLabel1;
-    private javax.swing.JLabel passwrod2Label1;
+    private javax.swing.JComboBox maxLimitComboBox;
+    private javax.swing.JComboBox maxLimitComboBoxEdition;
+    private javax.swing.JLabel maxLimitLabel;
+    private javax.swing.JLabel maxLimitLabelEdition;
+    private javax.swing.JTextField offPeakDemandField;
+    private javax.swing.JTextField offPeakDemandFieldEdition;
+    private javax.swing.JLabel offPeakDemandLabel;
+    private javax.swing.JLabel offPeakDemandLabelEdition;
     private javax.swing.JTextField peakDemandField;
     private javax.swing.JTextField peakDemandFieldEdition;
-    private javax.swing.JTextField peakEnergyDryField;
-    private javax.swing.JTextField peakEnergyDryFieldEdition;
-    private javax.swing.JTextField peakEnergyHumidField;
-    private javax.swing.JTextField peakEnergyHumidFieldEdition;
-    private javax.swing.JLabel peakLabel;
-    private javax.swing.JLabel profileLabel;
-    private javax.swing.JLabel profileLabel1;
-    private javax.swing.JLabel profileLabel2;
-    private javax.swing.JLabel profileLabel3;
+    private javax.swing.JLabel peakDemandLabel;
+    private javax.swing.JLabel peakDemandLabelEdition;
     private javax.swing.JPanel readPanel;
-    private javax.swing.JLabel registerLabel1;
-    private javax.swing.JTextField valueTranspassedField;
-    private javax.swing.JTextField valueTranspassedFieldEdition;
+    private javax.swing.JLabel transpassedOffPeakLabel;
+    private javax.swing.JLabel transpassedOffPeakLabelEdition;
+    private javax.swing.JTextField transpassedOffPeakTextField;
+    private javax.swing.JTextField transpassedOffPeakTextFieldEdition;
+    private javax.swing.JTextField transpassedPeakField;
+    private javax.swing.JTextField transpassedPeakFieldEdition;
+    private javax.swing.JLabel transpassedPeakLabel;
+    private javax.swing.JLabel transpassedPeakLabelEdition;
     private javax.swing.JLabel warningLabel;
     private javax.swing.JLabel warningLabel1;
     // End of variables declaration//GEN-END:variables

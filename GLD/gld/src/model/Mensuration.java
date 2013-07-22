@@ -22,7 +22,7 @@ public class Mensuration {
     private int energyAvailable;
     private String timestamp;
     private int year;
-    private int mounth;
+    private int month;
     private int day;
     private int hour;
     private int minute;
@@ -68,13 +68,13 @@ public class Mensuration {
         timestamp = timestamp.replace(" ", "");
 
         year = Integer.parseInt(timestamp.substring(0, 4));
-        mounth = Integer.parseInt(timestamp.substring(4, 6));
+        month = Integer.parseInt(timestamp.substring(4, 6));
         day = Integer.parseInt(timestamp.substring(6, 8));
         hour = Integer.parseInt(timestamp.substring(8, 10));
         minute = Integer.parseInt(timestamp.substring(10, 12));
         second = Integer.parseInt(timestamp.substring(12, 14));
 
-        Date time = new Date(year, mounth, day, hour, minute, second);
+        Date time = new Date(year, month, day, hour, minute, second);
 
         this.millisecond = new Millisecond(time);
         this.timestamp = timestamp;
@@ -146,8 +146,8 @@ public class Mensuration {
         return this.day;
     }
 
-    public int getMounth() {
-        return this.mounth;
+    public int getMonth() {
+        return this.month;
     }
 
     public int getYear() {
@@ -219,6 +219,6 @@ public class Mensuration {
     }
 
     public String getDate() {
-        return "" + this.day + "/" + this.mounth + "/" + this.year;
+        return "" + this.day + "/" + this.month + "/" + this.year;
     }
 }

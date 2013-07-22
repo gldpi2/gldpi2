@@ -26,15 +26,14 @@ public class ContractDAO {
 
     public void createContract(Contract contract) {
         
-        String insertContract = "INSERT INTO contract (contracted_peak_demand, out_peak_demand, "
-            + "humid_season, dry_season) VALUES "
+        String insertContract = "INSERT INTO contract (peak_demand, off_peak_demand"
+            + ") VALUES "
             + "(?,?,?,?)";
         
-        String[] params = new String[4];
-        params[0] = contract.getPeakDemandContracted();
-        params[1] = contract.getOutPeakDemandContracted();
-        params[2] = contract.getHumidSeason();
-        params[3] = contract.getDrySeason();
+        String[] params = new String[2];
+        params[0] = contract.getPeakDemand();
+        params[1] = contract.getOffPeakDemand();
+        
 
         dbint.connect();
 
@@ -55,7 +54,7 @@ public class ContractDAO {
             Contract contract;
 
             contract = new Contract(rs.getString("contracted_peak_demand"), rs.getString("out_peak_demand"),
-                    rs.getString("humid_season"), rs.getString("dry_season"), rs.getString("timestamp"));
+                     rs.getString("timestamp"));
 
             listContract.add(contract);
         }
@@ -68,14 +67,13 @@ public class ContractDAO {
     public void updateContract(Contract contract) {
         String updateContract = "SELECT id_contract FROM contract";
         
-        updateContract = "UPDATE contract set contracted_peak_demand = ?, out_peak_demand = ?, "
-                + "humid_season = ?, dry_season = ?, timestamp = ? ";
+        updateContract = "UPDATE contract set peak_demand = ?, off_peak_demand = ?, "
+                + "timestamp = ? ";
         
         String[] params = new String[4];
-        params[0] = contract.getPeakDemandContracted();
-        params[1] = contract.getOutPeakDemandContracted();
-        params[2] = contract.getHumidSeason();
-        params[3] = contract.getDrySeason();
+        params[0] = contract.getPeakDemand();
+        params[1] = contract.getOffPeakDemand();
+
 
         dbint.connect();
 

@@ -55,8 +55,8 @@ public class LoadCurve {
         mensurationRender.setSeriesPaint(2, Color.BLUE);
 
         final DateAxis domainAxis = new DateAxis("Hora");
-        domainAxis.setVerticalTickLabels(this.verticalTick);
-        domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.HOUR, 1));
+        domainAxis.setVerticalTickLabels(true);
+        domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.MONTH, 1));
         domainAxis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
         domainAxis.setLowerMargin(0.01);
         domainAxis.setUpperMargin(0.01);
