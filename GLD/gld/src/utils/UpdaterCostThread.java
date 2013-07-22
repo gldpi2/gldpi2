@@ -30,6 +30,7 @@ public class UpdaterCostThread implements Runnable {
     private double costActual;
     private Date date;
     private double count = ctrl.initialCount();
+    private boolean run = true;
 
     public UpdaterCostThread(TimeSeries series, TimeSeries seriesLimit, Date date) {
         this.series = series;
@@ -49,15 +50,12 @@ public class UpdaterCostThread implements Runnable {
         this.kwValue = kwValue;
         this.sourceLabel = source;
     }
-
-    /**
-     *
-     */
+    
     @Override
     public void run() {
         
         //List<Mensuration> mensuration = ctrl.allMensuration();
-        List<Mensuration> mensuration = ctrl.mensurationsByDay(date.getDate(), date.getMonth(), date.getYear());
+        List<Mensuration> mensuration = ctrl.mensurationsByDay(date.getDate(), date.getMonth() + 1, date.getYear() + 1900);
 
         lastMensuration = ctrl.lastMensuration();
         for (Mensuration m : mensuration) {
@@ -71,14 +69,10 @@ public class UpdaterCostThread implements Runnable {
                         kwValue();
                         updateSourceAvaible(m);
                         kwValue.setText(String.format("%.3f",ctrl.kWValue()));
+                    
                 }
             }
         }
-            try {
-                Thread.sleep(900);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
   } 
     private void updateCountValue(double actual){
         count = ctrl.countValue(actual);
@@ -122,4 +116,8 @@ public class UpdaterCostThread implements Runnable {
             }
         }
     } 
+    
+    public void stopExecution (){
+        run = false;
+    }
 }

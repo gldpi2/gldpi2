@@ -16,7 +16,7 @@ import org.jfree.data.time.TimeSeriesCollection;
  */
 public class Cost {
 
-    public TimeSeries series;
+    public TimeSeries series = new TimeSeries("R$/kW");
     public TimeSeries seriesLimit = new TimeSeries("Limite", Millisecond.class);
     public JFreeChart costChart;
     public ChartPanel myChartPanel;
@@ -85,8 +85,7 @@ public class Cost {
     }
     
     public ChartPanel createCostChart(){
-        series = new TimeSeries("R$/kWh", Millisecond.class);
-        final TimeSeriesCollection dataset = new TimeSeriesCollection(series);
+         final TimeSeriesCollection dataset = new TimeSeriesCollection(series);
         dataset.addSeries(seriesLimit);
    
         costChart = ChartFactory.createTimeSeriesChart("Gráfico de Custo","Hora", "Valor em Reais (R$)",dataset,true,true,false);
