@@ -13,8 +13,8 @@ import org.jfree.data.time.TimeSeries;
  */
 public class CostCtrl {
 
-    private final static double PEAK = 0.3260544 / 3600000;
-    private final static double VALUE_OFFPEAK = 0.2079277 / 3600000;
+    private final static double PEAK = 0.3260544 /3600;
+    private final static double VALUE_OFFPEAK = 0.2079277 / 3600;
     private final static double DEMANDPEAK = 19.65;
     private final static double DEMANDOFFPEAK = 5.22;
     private CostDAO cDao = new CostDAO();
@@ -99,6 +99,6 @@ public class CostCtrl {
     }
 
     public double kWValue() {
-        return cost.getKwValue() * 3600000;
+        return cost.getKwValue() * 3600;
     }
 }
