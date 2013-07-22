@@ -77,6 +77,26 @@ public class CostCtrl {
 
         return costValue;
     }
+    
+    /**
+     * Método para cálculo da hora/kWh para determinada mensuration
+     *
+     * @param hora a ser resolvida
+     * @return custo atual.
+     */
+    public double energyValue(int h) {
+
+        /**
+         * Método que verifica a hora do banco de dados e coloca o valor do kWh
+         * de acordo com o documento da CEB (Companhia Energética de Brasília)
+         * Hora de ponta é entre 18 e 21 e o restante tem valor menor
+         */
+        if (hour >= 18 && hour < 21) {
+            return PEAK;
+        } else {
+            return VALUE_OFFPEAK;
+        }
+    }
 
     public void setMensuration(Mensuration mensuration) {
         cost.mensuration = mensuration;
