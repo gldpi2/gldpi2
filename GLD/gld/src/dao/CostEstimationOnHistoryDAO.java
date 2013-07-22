@@ -9,18 +9,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.sound.midi.Soundbank;
 import model.Mensuration;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 import utils.DatabaseInterface;
 
 /**
  *
  * @author Fernando
  */
-public class LoadEstimationOnHistoryDAO {
+public class CostEstimationOnHistoryDAO {
     
     private final int NUMBER_REG_WEEK = 604800;
     private final int NUMBER_REG_DAY = 86400;
@@ -130,10 +126,11 @@ public class LoadEstimationOnHistoryDAO {
         return measurementList;
     }
 
-    public List<Mensuration> getMensurationADayLastWeek(int offset) throws SQLException{
+    public List<Mensuration> getMensurationADayLastWeek(int offset) throws SQLException {
 
         Calendar now = Calendar.getInstance();
-        now.add(Calendar.DATE,-offset);
+        //now.add(Calendar.DATE,-offset);
+        now.add(Calendar.DATE,-4);
                
         List<Mensuration> measurementList;
         measurementList = new ArrayList<>();
@@ -162,7 +159,7 @@ public class LoadEstimationOnHistoryDAO {
         return measurementList;
     }
     
-    public List<Mensuration> getMensurationLast30Days() throws SQLException {
+    public List<Mensuration> getMensurationLast30Days(int offset) throws SQLException {
 
         Calendar now = Calendar.getInstance();
                
