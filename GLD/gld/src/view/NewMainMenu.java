@@ -47,9 +47,9 @@ public class NewMainMenu extends javax.swing.JPanel {
         panelCostm.removeAll();
         costChart = new CostChart(panelCostm.getWidth(), panelCostm.getHeight());
         costChart.criaGrafico();
-
-        costChart.criaGrafico();
-        updaterCostCurve = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries()));
+        
+        Date date = new Date();
+        updaterCostCurve = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(),date));
         updaterCostCurve.setDaemon(true);
         updaterCostCurve.start();
 
