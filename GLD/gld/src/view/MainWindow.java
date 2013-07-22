@@ -37,10 +37,8 @@ public class MainWindow extends javax.swing.JFrame {
     private GuidelineRateWindow guideLineWindow;
     private EstimationOnRealLoadWindow loadWindowEst;
     private ContractWindow contractWindow;
+    private ContractStudy contractStudy;
 
-    /**
-     * Creates new form JanelaPrincipal
-     */
     public MainWindow(Login usuario) {
         initComponents();
         initPowerGridMonitor();
@@ -345,7 +343,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_menuVoltarMenuPrincipalActionPerformed
 
     private void menuEstudoContratualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEstudoContratualActionPerformed
-        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+        desktop.removeAll();
+        contractStudy = new ContractStudy(desktop.getHeight(), user);
+        desktop.add(contractStudy);
+        desktop.revalidate();
+        desktop.repaint();
     }//GEN-LAST:event_menuEstudoContratualActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
