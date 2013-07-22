@@ -82,9 +82,7 @@ public class UpdaterLoadCurveThread implements Runnable {
     public void run() {
         Mensuration lastMensuration = null;
 
-        System.out.println("======== " + date.toString());
-
-        List<Mensuration> mensuration = this.loadCurveCtrl.getMensurationByDay(date.getDay(), date.getMonth(), date.getYear());
+        List<Mensuration> mensuration = this.loadCurveCtrl.getMensurationByDay(date.getDate(), date.getMonth() + 1, date.getYear() + 1900);
 
         final Day today = new Day();
 
@@ -96,14 +94,15 @@ public class UpdaterLoadCurveThread implements Runnable {
             for (Mensuration m : mensuration) {
                 double currentPotency = m.getPotency();
 
-                //REMOVER!!!! INICIO
                 if (lastMensuration == null) {
                     lastMensuration = m;
                 }
+                //REMOVER!!!! INICIO
                 updateMaxPotency(m);
                 updateMinPotency(m);
                 this.updateSourceAvailable(m);
                 this.updateStatusLabel(m);
+                updateAllLabels(m, lastMensuration);
                 //REMOVER!!!! FIM
 
                 if (averagePotency == 0) {
@@ -147,27 +146,22 @@ public class UpdaterLoadCurveThread implements Runnable {
                     loadCurveCtrl.setMinMensuration(m);
                 }
 
-                updateAllLabels(m, lastMensuration);
-
                 lastMensuration = m;
 
-//                try {
-//                    Thread.sleep(10);
-//                } catch (InterruptedException ex) {
-//                    Logger.getLogger(UpdaterLoadCurveThread.class.getName()).log(Level.SEVERE, null, ex);
-//                }
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(UpdaterLoadCurveThread.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
 
             updateMaxPotency(loadCurveCtrl.getMaxMensuration());
             updateMinPotency(loadCurveCtrl.getMinMensuration());
         }
 
+        lastMensuration = this.loadCurveCtrl.getLastMensuration();
         while (run) {
             Mensuration m = this.loadCurveCtrl.getLastMensuration();
-
-            if (lastMensuration == null) {
-                lastMensuration = m;
-            }
 
             if (!(lastMensuration.getIdMensuration() == m.getIdMensuration())) {
                 double currentPotency = m.getPotency();
@@ -286,7 +280,7 @@ public class UpdaterLoadCurveThread implements Runnable {
     private void updateStatusLabel(Mensuration current) {
         if (this.statusLabel != null) {
             double tension = current.getBateryTension();
-            if (tension > 13.5) {
+            if (tension > 14.5) {
                 this.statusLabel.setText("Carregada - ( 100 % )");
                 this.statusLabel.setIcon(new ImageIcon("src/icons/full.png"));
             } else if (tension < 0.5) {

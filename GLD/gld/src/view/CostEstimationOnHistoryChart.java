@@ -1,5 +1,6 @@
 package view;
 
+import controller.CostEstimationOnHistoryCtrl;
 import controller.LoadEstimationOnHistoryCtrl;
 import org.jfree.chart.ChartPanel;
 import org.jfree.data.time.TimeSeries;
@@ -8,36 +9,42 @@ import org.jfree.data.time.TimeSeries;
  *
  * @author Fernando
  */
-public class LoadEstimationOnHistoryChart extends javax.swing.JPanel {
+public class CostEstimationOnHistoryChart extends javax.swing.JPanel {
 
-    public LoadEstimationOnHistoryCtrl loadEstimationOnHistoryCtrl = new LoadEstimationOnHistoryCtrl();
+    public CostEstimationOnHistoryCtrl costEstimationOnHistoryCtrl = new CostEstimationOnHistoryCtrl();
 
     /**
      * Creates new form CharPanel
      */
-    public LoadEstimationOnHistoryChart(int x, int y) {
+    public CostEstimationOnHistoryChart(int x, int y) {
         initComponents();
         setSize(x, y);
     }
 
     public void startGraph(int interval, int offset) {
-        ChartPanel panel = loadEstimationOnHistoryCtrl.createLoadEstimationOnHistoryGraphPanel(interval, offset);
+        ChartPanel panel = null;        
+        panel = costEstimationOnHistoryCtrl.createCostEstimationOnHistoryGraphPanel(interval, offset);
+        //panel = costEstimationOnHistoryCtrl.createCostEstimationOnHistoryGraphPanel(CostEstimationOnHistoryCtrl.INTERVAL_MONTH, 0);
         panel.setSize(this.getWidth(), this.getHeight());
         panel.setVisible(true);
         this.removeAll();
         this.add(panel);
         this.revalidate();
         this.repaint();
-        loadEstimationOnHistoryCtrl.setState(1);
+        costEstimationOnHistoryCtrl.setState(1);
     }
 
     public TimeSeries getSeries() {
-        return this.loadEstimationOnHistoryCtrl.getSeries();
+        return costEstimationOnHistoryCtrl.getAllSeries();
+    }
+    
+    public TimeSeries limitSeries(){
+        return costEstimationOnHistoryCtrl.limitSeries();
     }
 
     public void changeSize(int x, int y) {
-        if (loadEstimationOnHistoryCtrl.getState() != 0) {
-            loadEstimationOnHistoryCtrl.setSize(x, y);
+        if (costEstimationOnHistoryCtrl.getState() != 0) {
+            costEstimationOnHistoryCtrl.setSize(x, y);
             this.setSize(x, y);
         }
     }
@@ -64,4 +71,8 @@ public class LoadEstimationOnHistoryChart extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
+
+    double getFinalCost() {
+        return costEstimationOnHistoryCtrl.getFinalCost();
+    }
 }

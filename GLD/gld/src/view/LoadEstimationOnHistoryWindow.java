@@ -7,7 +7,6 @@ package view;
 import controller.LoadEstimationOnHistoryCtrl;
 import model.LoadEstimationOnHistory;
 import model.Login;
-import utils.UpdaterCostThread;
 
 /**
  *
@@ -37,7 +36,7 @@ public class LoadEstimationOnHistoryWindow extends javax.swing.JPanel {
         desktop.removeAll();
         estimationHistory = new LoadEstimationOnHistoryChart(desktop.getWidth(), desktop.getHeight());
         int last_day = LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY;
-        estimationHistory.startGraph(LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY);
+        estimationHistory.startGraph(LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY,0);
 
         LoadEstimationOnHistory est = new LoadEstimationOnHistory();
 
@@ -231,9 +230,9 @@ public class LoadEstimationOnHistoryWindow extends javax.swing.JPanel {
         if (event.equals("")) {
             return;
         } else if (event.equals("Dia")) {
-            estimationHistory.startGraph(LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY);
+            estimationHistory.startGraph(LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY,0);
         } else if (event.equals("Mês")) {
-            estimationHistory.startGraph(LoadEstimationOnHistoryCtrl.INTERVAL_MONTH);
+            estimationHistory.startGraph(LoadEstimationOnHistoryCtrl.INTERVAL_MONTH,0);
         } else if (event.equals("Ano")) {
             //estimationHistory.startGraph(LoadEstimationOnHistoryCtrl.);
         }

@@ -46,7 +46,7 @@ public class LoadEstimationOnHistoryCtrl {
 
     }
 
-    public ChartPanel createLoadEstimationOnHistoryGraphPanel(int interval) {
+    public ChartPanel createLoadEstimationOnHistoryGraphPanel(int interval, int offset) {
         List<Mensuration> data;
         Vector<Double> ret = new Vector<>();
         try {
@@ -56,7 +56,7 @@ public class LoadEstimationOnHistoryCtrl {
                     break;
                 case INTERVAL_LAST_DAY:
                     //Estimativa conforme o último dia da semana passada (ex: terça passada)
-                    data = dao.getMensurationADayLastWeek();
+                    data = dao.getMensurationADayLastWeek(offset);
                     ret = this.getPertByHour(data);
                     break;
                 case INTERVAL_LAST_24_HOURS:

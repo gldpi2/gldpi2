@@ -4,7 +4,6 @@
  */
 package view;
 
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -23,7 +22,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static LoadCurveWindow loadWindow;
     public static CostWindow NewCostWindow;
     public static LoadEstimationOnHistoryWindow eohWindow;
-    public static EstimationOnRealCostWindow eorCostWindow;
+    public static old__EstimationOnRealCostWindow eorCostWindow;
     public static EstimationOnRealLoadWindow eorLoadWindow;
     public static UserWindow userWindow;
     public static EstimationCurveMenu estimationCurveMenu;
@@ -32,15 +31,13 @@ public class MainWindow extends javax.swing.JFrame {
     private PowerGridMonitor powerGridMonitor;
     private Thread monitorThread;
     private int state = 0;
-    private MainMenu pg;
-    private NewMainMenu pg2;
+    private MainMenu mainMenu;
+    public static NewMainMenu newMainMenu;
     private GuidelineRateWindow guideLineWindow;
-    private EstimationOnRealLoadWindow loadWindowEst;
+    private CostEstimationOnHistoryWindow loadWindowEst;
     private ContractWindow contractWindow;
+    private ContractStudy contractStudy;
 
-    /**
-     * Creates new form JanelaPrincipal
-     */
     public MainWindow(Login usuario) {
         initComponents();
         initPowerGridMonitor();
@@ -65,8 +62,8 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void init() {
         desktop.removeAll();
-        pg = new MainMenu(user);
-        desktop.add(pg);
+        mainMenu = new MainMenu(user);
+        desktop.add(mainMenu);
         desktop.revalidate();
         desktop.repaint();
 
@@ -75,8 +72,8 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void initNewMenu() {
         desktop.removeAll();
-        pg2 = new NewMainMenu(user);
-        desktop.add(pg2);
+        newMainMenu = new NewMainMenu(user);
+        desktop.add(newMainMenu);
         desktop.revalidate();
         desktop.repaint();
 
@@ -84,13 +81,12 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void initPowerGridMonitor() {
-        Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "Inicializando PowerGridMonitorThread");
-
-        powerGridMonitor = new PowerGridMonitor();
-
-        monitorThread = new Thread(powerGridMonitor);
-
-        monitorThread.start();
+        if (powerGridMonitor == null) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "Inicializando PowerGridMonitorThread");
+            powerGridMonitor = new PowerGridMonitor();
+            monitorThread = new Thread(powerGridMonitor);
+            monitorThread.start();
+        }
     }
 
     /**
@@ -130,6 +126,15 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        desktop.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                desktopComponentAdded(evt);
+            }
+            public void componentRemoved(java.awt.event.ContainerEvent evt) {
+                desktopComponentRemoved(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout desktopLayout = new org.jdesktop.layout.GroupLayout(desktop);
         desktop.setLayout(desktopLayout);
         desktopLayout.setHorizontalGroup(
@@ -138,7 +143,7 @@ public class MainWindow extends javax.swing.JFrame {
         );
         desktopLayout.setVerticalGroup(
             desktopLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 654, Short.MAX_VALUE)
+            .add(0, 658, Short.MAX_VALUE)
         );
 
         raizArquivo.setText("Arquivo");
@@ -345,7 +350,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_menuVoltarMenuPrincipalActionPerformed
 
     private void menuEstudoContratualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEstudoContratualActionPerformed
-        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+        desktop.removeAll();
+        contractStudy = new ContractStudy(desktop.getHeight(), user);
+        desktop.add(contractStudy);
+        desktop.revalidate();
+        desktop.repaint();
     }//GEN-LAST:event_menuEstudoContratualActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -358,7 +367,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuEstimativaCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEstimativaCustoActionPerformed
         desktop.removeAll();
-        loadWindowEst = new EstimationOnRealLoadWindow(desktop.getHeight(), user);
+        loadWindowEst = new CostEstimationOnHistoryWindow(desktop.getHeight(), user);
         desktop.add(loadWindowEst);
         desktop.revalidate();
         desktop.repaint();
@@ -371,6 +380,24 @@ public class MainWindow extends javax.swing.JFrame {
         desktop.revalidate();
         desktop.repaint();
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void desktopComponentRemoved(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_desktopComponentRemoved
+        if (newMainMenu != null) {
+            newMainMenu.updateLoadCurve.stopExecution();
+            newMainMenu.updaterLoadCurveThread.stop();
+            newMainMenu.updaterCostCurve.stop();
+            newMainMenu = null;
+        }
+
+        if (loadWindow != null) {
+            loadWindow.updater.stopExecution();
+            loadWindow.updaterThread.stop();
+            loadWindow = null;
+        }
+    }//GEN-LAST:event_desktopComponentRemoved
+
+    private void desktopComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_desktopComponentAdded
+    }//GEN-LAST:event_desktopComponentAdded
 
     private void closePowerGridMonitorThread() {
         Logger.getLogger(MainWindow.class.getName()).log(Level.INFO, "PowerGridMonitorThread parada.");

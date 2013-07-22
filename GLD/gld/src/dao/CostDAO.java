@@ -80,6 +80,7 @@ public class CostDAO {
                 mensuration.setFlow(rs.getDouble("flow"));
                 mensuration.setTension(rs.getDouble("tension"));
                 mensuration.setTimestamp(rs.getString("timestamp"));
+                mensuration.setEnergyAvailable(rs.getInt("energy_available"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -88,6 +89,39 @@ public class CostDAO {
         disconectDB();
         return mensuration;
     }
+    
+     public List<Mensuration> getMensurationByDay(int day, int mounth, int year) {
+        List<Mensuration> measurementList;
+        measurementList = new ArrayList<>();
+
+        String sql = "SELECT * FROM `mensuration` "
+                + "WHERE timestamp >= \"" + year + "-" + mounth + "-" + day + " 00:00:00\""
+                + " AND timestamp <= \"" + year + "-" + mounth + "-" + day + " 23:59:59\"";
+
+        conectDB();
+        ResultSet rs = dbInterface.executeQuery(sql);
+        try {
+            while (rs.next()) {
+                Mensuration mensuration;
+
+                mensuration = new Mensuration();
+                mensuration.setIdMensuration(rs.getInt("id_mensuration"));
+                mensuration.setFlow(rs.getDouble("flow"));
+                mensuration.setTension(rs.getDouble("tension"));
+                mensuration.setTimestamp(rs.getString("timestamp"));
+                mensuration.setEnergyAvailable(rs.getInt("energy_available"));
+
+                measurementList.add(mensuration);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoadCurveDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        disconectDB();
+
+        return measurementList;
+    }
+    
     
     public double getPeakDemandContracted(){
         Contract contract = new Contract();

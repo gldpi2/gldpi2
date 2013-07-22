@@ -43,9 +43,13 @@ public class CostWindow extends javax.swing.JPanel {
         desktop.removeAll();
         costChart = new CostChart(desktop.getWidth(), desktop.getHeight());
 
+        Date date = new Date();
+        
         costChart.criaGrafico();
-         th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), flowLabel,
-                   tensionLabel,potencyLabel, countLabel, kwLabel, sourceLabel));
+        /* th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), flowLabel,
+                   tensionLabel,potencyLabel, countLabel, kwLabel, sourceLabel));*/
+        th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), date, flowLabel, tensionLabel, potencyLabel,
+                        countLabel, kWValue1, money));
         th.setDaemon(true);
         th.start();
 

@@ -1,6 +1,7 @@
 package utils;
 
 import controller.CostCtrl;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
@@ -27,17 +28,20 @@ public class UpdaterCostThread implements Runnable {
     private JLabel kwValue;
     private JLabel sourceLabel;
     private double costActual;
+    private Date date;
     private double count = ctrl.initialCount();
 
-    public UpdaterCostThread(TimeSeries series, TimeSeries seriesLimit) {
+    public UpdaterCostThread(TimeSeries series, TimeSeries seriesLimit, Date date) {
         this.series = series;
         this.seriesLimit = seriesLimit;
+        this.date = date;
     }
 
-    public UpdaterCostThread(TimeSeries series, TimeSeries seriesLimit, JLabel flowValue,
+    public UpdaterCostThread(TimeSeries series, TimeSeries seriesLimit,Date date, JLabel flowValue,
             JLabel tensionValue, JLabel potencyValue, JLabel countValue, JLabel kwValue, JLabel source) {
         this.series = series;
         this.seriesLimit = seriesLimit;
+        this.date = date;
         this.flowValue = flowValue;
         this.tensionValue = tensionValue;
         this.potencyValue = potencyValue;
@@ -52,11 +56,11 @@ public class UpdaterCostThread implements Runnable {
     @Override
     public void run() {
         
-        List<Mensuration> mensuration = ctrl.allMensuration();
+        //List<Mensuration> mensuration = ctrl.allMensuration();
+        List<Mensuration> mensuration = ctrl.mensurationsByDay(date.getDate(), date.getMonth(), date.getYear());
 
         lastMensuration = ctrl.lastMensuration();
         for (Mensuration m : mensuration) {
-                    //nextMensuration = mensuration.get(i+1);            
             if (lastMensuration.getIdMensuration() != m.getIdMensuration()) {
                 costActual = calculateCost(m);
                 series.addOrUpdate(m.getMillisecond(), costActual);
