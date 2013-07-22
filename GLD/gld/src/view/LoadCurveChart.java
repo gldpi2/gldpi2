@@ -32,6 +32,7 @@ public class LoadCurveChart extends javax.swing.JPanel {
     }
 
     public LoadCurve getLoadCurve() {
+        //this.loadCurveCtrl = new LoadCurveCtrl();
         return this.loadCurveCtrl.getLoadCurve();
     }
 

@@ -130,7 +130,7 @@ public class CostEstimationOnHistoryDAO {
 
         Calendar now = Calendar.getInstance();
         //now.add(Calendar.DATE,-offset);
-        now.add(Calendar.DATE,-4);
+        now.add(Calendar.DATE,-7+offset);
                
         List<Mensuration> measurementList;
         measurementList = new ArrayList<>();

@@ -66,7 +66,12 @@ public class CostCtrl {
          * de acordo com o documento da CEB (Companhia Energética de Brasília)
          * Hora de ponta é entre 18 e 21 e o restante tem valor menor
          */
-        hour = Double.parseDouble(cDao.getTime());
+        
+        try{
+            hour = Double.parseDouble(cDao.getTime());
+        } catch (NullPointerException e){
+            
+        }
         if (hour >= 18 && hour < 21) {
             cost.setKwValue(PEAK);
         } else {
@@ -120,5 +125,9 @@ public class CostCtrl {
 
     public double kWValue() {
         return cost.getKwValue() * 3600;
+    }
+    
+    public List<Mensuration> mensurationsByDay(int day, int mounth, int year){
+        return cDao.getMensurationByDay(day, mounth, year);
     }
 }
