@@ -16,6 +16,7 @@ import org.jfree.chart.renderer.xy.XYBarRenderer;
 import org.jfree.chart.renderer.xy.XYItemRenderer;
 import org.jfree.data.time.Day;
 import org.jfree.data.time.Hour;
+import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.Minute;
 import org.jfree.data.time.SimpleTimePeriod;
 import org.jfree.data.time.TimePeriodValues;
@@ -34,6 +35,7 @@ public class CostEstimationOnHistory {
     private ValueAxis xAxis;
     public ValueAxis yAxis;
     public TimeSeries series;
+    public TimeSeries seriesLimit = new TimeSeries("Limite", Millisecond.class);
     public int state = 0;
     public Mensuration maxMensuration = new Mensuration();
     public Mensuration minMensuration = new Mensuration();                

@@ -1,5 +1,6 @@
 package view;
 
+import controller.CostCtrl;
 import controller.CostEstimationOnHistoryCtrl;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -11,6 +12,7 @@ import javax.swing.JOptionPane;
 import model.Login;
 import org.jfree.data.time.Day;
 import utils.DatabaseInterface;
+import utils.UpdaterCostThread;
 
 /**
  *
@@ -22,6 +24,7 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
     private int month;
     private int year;
     private CostEstimationOnHistoryChart estimationChart;
+    private Thread th;
     private NewMainMenu newMenu;
     private Login userLogged;
     private Day today = new Day();
@@ -49,13 +52,19 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
         int last_day = CostEstimationOnHistoryCtrl.INTERVAL_LAST_DAY;
         estimationChart.startGraph(CostEstimationOnHistoryCtrl.INTERVAL_LAST_DAY,0);
 
-        initialVisibleComponents();
-        setMaxAndMinDates();
+        //setMaxAndMinDates();
         desktop.add(estimationChart);
         state = 1;
 
         DecimalFormat fmt = new DecimalFormat("0.00");
         countLabel2.setText(fmt.format(estimationChart.getFinalCost()));
+        
+        th = new Thread(new UpdaterCostThread(estimationChart.getSeries(), estimationChart.limitSeries(), flowLabel,
+                   tensionLabel,potencyLabel, countLabel2, kwLabel2, sourceLabel));
+        th.setDaemon(true);
+        th.start();
+        
+        initialVisibleComponents();
     }
 
     private void initialVisibleComponents() {
@@ -81,6 +90,7 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
                     Date newData = calendar.getTime();
                     dateChooserTo.setMinSelectableDate(newData);
                     dateChooserTo.setCalendar(null);
+                                        
                 }
             }
         });
@@ -115,12 +125,12 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
             }
         });
     }
-
+/**
     private void setMaxAndMinDates() {
         dbInterface.connect();
         //dates = dbInterface.getMaxAndMinDates();
         dbInterface.disconnect();
-    }
+    }*/
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -531,7 +541,7 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
                 yearChooser.setVisible(true);
                 monthChooser.setVisible(true);
                 break;
-            case "Período":
+            /**case "Período":
                 dateChooserFrom.setVisible(true);
                 dateChooserFrom.setCalendar(null);
                 dateChooserFrom.updateUI();
@@ -542,7 +552,7 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
                 fromLabel.setVisible(true);
                 yearChooser.setVisible(false);
                 monthChooser.setVisible(false);
-                break;
+                break;**/
             default:
                 initialVisibleComponents();
                 break;
