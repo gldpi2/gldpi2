@@ -34,7 +34,11 @@ public class CostEstimationOnHistoryChart extends javax.swing.JPanel {
     }
 
     public TimeSeries getSeries() {
-        return this.costEstimationOnHistoryCtrl.getSeries();
+        return costEstimationOnHistoryCtrl.getAllSeries();
+    }
+    
+    public TimeSeries limitSeries(){
+        return costEstimationOnHistoryCtrl.limitSeries();
     }
 
     public void changeSize(int x, int y) {

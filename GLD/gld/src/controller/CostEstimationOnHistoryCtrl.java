@@ -14,9 +14,9 @@ import javax.swing.JOptionPane;
 import model.CostEstimationOnHistory;
 import model.Mensuration;
 import org.jfree.chart.ChartPanel;
+import org.jfree.data.time.Millisecond;
 import org.jfree.data.time.TimeSeries;
 import view.CostEstimationOnHistoryFailInfo;
-
 /**
  *
  * @author Matheus
@@ -26,6 +26,8 @@ public class CostEstimationOnHistoryCtrl {
     private CostEstimationOnHistory costEstimationOnHistory;
     private CostEstimationOnHistoryDAO dao;
     private CostCtrl costControl;
+    public TimeSeries series;
+    public TimeSeries seriesLimit = new TimeSeries("Limite", Millisecond.class);
     //TODO, NOT IMPLEMENTED YET
     public static final int INTERVAL_HOUR = 1;
     public static final int INTERVAL_LAST_60_MIM = 1;
@@ -103,12 +105,16 @@ public class CostEstimationOnHistoryCtrl {
         this.costEstimationOnHistory.chartPanel.setSize(x, y);
     }
 
-    public TimeSeries getSeries() {
-        return this.costEstimationOnHistory.series;
-    }
-
     public int getState() {
         return this.costEstimationOnHistory.state;
+    }
+    
+    public TimeSeries getAllSeries() {
+        return costEstimationOnHistory.series;
+    }
+
+    public TimeSeries limitSeries() {
+        return costEstimationOnHistory.seriesLimit;
     }
 
     /**
