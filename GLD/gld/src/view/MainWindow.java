@@ -23,7 +23,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static LoadCurveWindow loadWindow;
     public static CostWindow NewCostWindow;
     public static LoadEstimationOnHistoryWindow eohWindow;
-    public static EstimationOnRealCostWindow eorCostWindow;
+    public static old__EstimationOnRealCostWindow eorCostWindow;
     public static EstimationOnRealLoadWindow eorLoadWindow;
     public static UserWindow userWindow;
     public static EstimationCurveMenu estimationCurveMenu;
@@ -35,12 +35,10 @@ public class MainWindow extends javax.swing.JFrame {
     private MainMenu pg;
     private NewMainMenu pg2;
     private GuidelineRateWindow guideLineWindow;
-    private EstimationOnRealLoadWindow loadWindowEst;
+    private CostEstimationOnHistoryWindow loadWindowEst;
     private ContractWindow contractWindow;
+    private ContractStudy contractStudy;
 
-    /**
-     * Creates new form JanelaPrincipal
-     */
     public MainWindow(Login usuario) {
         initComponents();
         initPowerGridMonitor();
@@ -345,7 +343,11 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_menuVoltarMenuPrincipalActionPerformed
 
     private void menuEstudoContratualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEstudoContratualActionPerformed
-        JOptionPane.showMessageDialog(rootPane, "Em desenvolvimento!", "Em Breve", JOptionPane.PLAIN_MESSAGE);
+        desktop.removeAll();
+        contractStudy = new ContractStudy(desktop.getHeight(), user);
+        desktop.add(contractStudy);
+        desktop.revalidate();
+        desktop.repaint();
     }//GEN-LAST:event_menuEstudoContratualActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
@@ -358,7 +360,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuEstimativaCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEstimativaCustoActionPerformed
         desktop.removeAll();
-        loadWindowEst = new EstimationOnRealLoadWindow(desktop.getHeight(), user);
+        loadWindowEst = new CostEstimationOnHistoryWindow(desktop.getHeight(), user);
         desktop.add(loadWindowEst);
         desktop.revalidate();
         desktop.repaint();

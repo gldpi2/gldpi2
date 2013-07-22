@@ -13,8 +13,8 @@ import org.jfree.data.time.TimeSeries;
  */
 public class CostCtrl {
 
-    private final static double PEAK = 0.3260544 / 3600000;
-    private final static double VALUE_OFFPEAK = 0.2079277 / 3600000;
+    private final static double PEAK = 0.3260544 /3600;
+    private final static double VALUE_OFFPEAK = 0.2079277 / 3600;
     private final static double DEMANDPEAK = 19.65;
     private final static double DEMANDOFFPEAK = 5.22;
     private CostDAO cDao = new CostDAO();
@@ -77,6 +77,26 @@ public class CostCtrl {
 
         return costValue;
     }
+    
+    /**
+     * Método para cálculo da hora/kWh para determinada mensuration
+     *
+     * @param hora a ser resolvida
+     * @return custo atual.
+     */
+    public double energyValue(int h) {
+
+        /**
+         * Método que verifica a hora do banco de dados e coloca o valor do kWh
+         * de acordo com o documento da CEB (Companhia Energética de Brasília)
+         * Hora de ponta é entre 18 e 21 e o restante tem valor menor
+         */
+        if (hour >= 18 && hour < 21) {
+            return PEAK;
+        } else {
+            return VALUE_OFFPEAK;
+        }
+    }
 
     public void setMensuration(Mensuration mensuration) {
         cost.mensuration = mensuration;
@@ -99,6 +119,6 @@ public class CostCtrl {
     }
 
     public double kWValue() {
-        return cost.getKwValue() * 3600000;
+        return cost.getKwValue() * 3600;
     }
 }

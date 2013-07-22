@@ -4,8 +4,9 @@ import controller.LoginCtrl;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -34,7 +35,7 @@ public class LoginWindow extends javax.swing.JFrame {
         passwordField = new javax.swing.JPasswordField();
         jSeparator1 = new javax.swing.JSeparator();
         buttonEntrar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        changeDatabaseButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -67,12 +68,12 @@ public class LoginWindow extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/database_connect.png"))); // NOI18N
-        jButton1.setText("Base de Dados");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        changeDatabaseButton.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        changeDatabaseButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/database_connect.png"))); // NOI18N
+        changeDatabaseButton.setText("Base de Dados");
+        changeDatabaseButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                changeDatabaseButtonActionPerformed(evt);
             }
         });
 
@@ -95,7 +96,7 @@ public class LoginWindow extends javax.swing.JFrame {
                         .add(0, 0, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, desktopLoginLayout.createSequentialGroup()
                         .add(0, 0, Short.MAX_VALUE)
-                        .add(jButton1)
+                        .add(changeDatabaseButton)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(buttonEntrar)))
                 .addContainerGap())
@@ -116,7 +117,7 @@ public class LoginWindow extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(desktopLoginLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(buttonEntrar)
-                    .add(jButton1))
+                    .add(changeDatabaseButton))
                 .add(0, 0, 0))
         );
 
@@ -139,7 +140,6 @@ public class LoginWindow extends javax.swing.JFrame {
         loginCtrl.setLogin(registerField.getText(), passwordField.getText());
 
         DatabaseInterface dbInterface = new DatabaseInterface();
-
 
         dbInterface.connect();
 
@@ -181,44 +181,49 @@ public class LoginWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowClosing
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void changeDatabaseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeDatabaseButtonActionPerformed
         Object[] options = {"Sim", "Não"};
-        String host = (String) JOptionPane.showInputDialog(null,
-                "Entre com o HOST do banco de dados: ",
-                "HOST",
-                JOptionPane.QUESTION_MESSAGE,
-                new ImageIcon("src/icons/database_connect.png"),
-                null,
-                null);
 
-        Properties dbProperties = new Properties();
-        FileWriter writer;
+        try {
+            String host = (String) JOptionPane.showInputDialog(null,
+                    "Entre com o HOST do banco de dados: ",
+                    "HOST",
+                    JOptionPane.QUESTION_MESSAGE,
+                    new ImageIcon("src/icons/database_connect.png"),
+                    null,
+                    null);
 
-        if (!host.equals("")) {
-            try {
-                dbProperties.load(new FileInputStream("src/utils/PropertiesFile.properties"));
-            } catch (IOException e) {
-                e.printStackTrace();
+            Properties dbProperties = new Properties();
+            FileWriter writer;
+
+            if (!host.equals("")) {
+                try {
+                    dbProperties.load(new FileInputStream("src/utils/PropertiesFile.properties"));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                dbProperties.setProperty("HOST", host);
+
+                try {
+                    writer = new FileWriter("src/utils/PropertiesFile.properties");
+                    dbProperties.store(writer, null);
+                    writer.flush();
+                    writer.close();
+                    JOptionPane.showMessageDialog(null,
+                            "O sistema será fechado para que as configurações sejam aplicadas!\nReinicie o sistema para começar a usar!",
+                            "Banco de Dados Configurado",
+                            JOptionPane.INFORMATION_MESSAGE,
+                            new ImageIcon("src/icons/cross.png"));
+                    System.exit(0);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-
-            dbProperties.setProperty("HOST", host);
-
-            try {
-                writer = new FileWriter("src/utils/PropertiesFile.properties");
-                dbProperties.store(writer, null);
-                writer.flush();
-                writer.close();
-                JOptionPane.showMessageDialog(null,
-                        "O sistema será fechado para que as configurações sejam aplicadas!\nReinicie o sistema para começar a usar!",
-                        "Banco de Dados Configurado",
-                        JOptionPane.INFORMATION_MESSAGE,
-                        new ImageIcon("src/icons/cross.png"));
-                System.exit(0);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (NullPointerException e) {
+            Logger.getLogger(LoginWindow.class.getName()).log(Level.WARNING, "Usuário cancelou a seleção!");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_changeDatabaseButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,8 +261,8 @@ public class LoginWindow extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonEntrar;
+    private javax.swing.JButton changeDatabaseButton;
     private javax.swing.JPanel desktopLogin;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JSeparator jSeparator1;
