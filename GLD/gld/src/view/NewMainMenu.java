@@ -22,7 +22,8 @@ public class NewMainMenu extends javax.swing.JPanel {
     int i = 0, state = 0;
     private CostChart costChart;
     private LoadCurveChart loadCurveChart;
-    private Thread updaterThread;
+    public UpdaterLoadCurveThread updateLoadCurve;
+    public Thread updaterLoadCurveThread, updaterCostCurve;
     private MainMenu pg;
     /**
      * Most used for controling the last mensuration
@@ -48,9 +49,9 @@ public class NewMainMenu extends javax.swing.JPanel {
         costChart.criaGrafico();
 
         costChart.criaGrafico();
-        Thread th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries()));
-        th.setDaemon(true);
-        th.start();
+        updaterCostCurve = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries()));
+        updaterCostCurve.setDaemon(true);
+        updaterCostCurve.start();
 
         desktop.add(costChart);
         panelCostm.add(costChart);
@@ -62,9 +63,10 @@ public class NewMainMenu extends javax.swing.JPanel {
         loadCurveChart = new LoadCurveChart(panelConsumptionm.getWidth(), panelConsumptionm.getHeight());
         loadCurveChart.startGraph(false);
 
-        updaterThread = new Thread(new UpdaterLoadCurveThread(loadCurveChart.getLoadCurve(), new Date()));
-        updaterThread.setDaemon(true);
-        updaterThread.start();
+        updateLoadCurve = new UpdaterLoadCurveThread(loadCurveChart.getLoadCurve(), new Date());
+        updaterLoadCurveThread = new Thread(updateLoadCurve);
+        updaterLoadCurveThread.setDaemon(true);
+        updaterLoadCurveThread.start();
 
         desktop.add(loadCurveChart);
         panelConsumptionm.add(loadCurveChart);

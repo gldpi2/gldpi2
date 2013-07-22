@@ -82,9 +82,6 @@ public class UpdaterLoadCurveThread implements Runnable {
     public void run() {
         Mensuration lastMensuration = null;
 
-        System.out.println("======== " + date.getDate() + " " + (date.getMonth() + 1) + " " + (date.getYear() + 1900));
-        System.out.println("======== " + date.toString());
-
         List<Mensuration> mensuration = this.loadCurveCtrl.getMensurationByDay(date.getDate(), date.getMonth() + 1, date.getYear() + 1900);
 
         final Day today = new Day();
@@ -167,7 +164,6 @@ public class UpdaterLoadCurveThread implements Runnable {
             Mensuration m = this.loadCurveCtrl.getLastMensuration();
 
             if (!(lastMensuration.getIdMensuration() == m.getIdMensuration())) {
-                System.out.println("========== aquiiiiiiiiii");
                 double currentPotency = m.getPotency();
 
                 this.updateSourceAvailable(m);

@@ -29,8 +29,8 @@ public class LoadCurveWindow extends javax.swing.JPanel {
      * 0 - data minima selecionavel / 1 - data maxima selecionavel
      */
     private Date[] dates = new Date[2];
-    private Thread updaterThread;
-    private UpdaterLoadCurveThread updater;
+    public Thread updaterThread;
+    public UpdaterLoadCurveThread updater;
 
     public LoadCurveWindow(int y, Login user) {
         initComponents();
