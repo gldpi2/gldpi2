@@ -95,6 +95,8 @@ public class Cost {
         final XYPlot plot = costChart.getXYPlot();
         costChart.setBackgroundPaint(Color.getColor("opaco"));
         plot.setBackgroundPaint(Color.WHITE);
+        plot.setDomainGridlinePaint(Color.BLACK);
+        plot.setRangeGridlinePaint(Color.BLACK);
         ValueAxis xAxis = plot.getDomainAxis();
         //ValueAxis yAxis = plot.getRangeAxis();
         xAxis.setAutoRange(true);
