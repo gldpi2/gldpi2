@@ -132,8 +132,8 @@ public class CostDAO {
         ResultSet rs = dbInterface.executeQuery(sql);
         try {
             while(rs.next()){
-                contract.setDrySeason(rs.getString("contracted_peak_demand"));
-                peakContracted = Double.parseDouble(contract.getPeakDemandContracted());
+                contract.setPeakDemand(rs.getString("peak_demand"));
+                peakContracted = Double.parseDouble(contract.getPeakDemand());
             }
         } catch (SQLException ex) {
             Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -151,8 +151,8 @@ public class CostDAO {
         ResultSet rs = dbInterface.executeQuery(sql);
         try {
             while(rs.next()){
-               contract.setOutPeakDemandContracted(rs.getString("out_peak_demand"));
-               OutPeakContracted = Double.parseDouble(contract.getOutPeakDemandContracted());
+               contract.setOffPeakDemand(rs.getString("off_peak_demand"));
+               OutPeakContracted = Double.parseDouble(contract.getOffPeakDemand());
             }
         } catch (SQLException ex) {
             Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);

@@ -26,34 +26,31 @@ public class GuidelineRateTableModel extends AbstractTableModel {
     public GuidelineRateTableModel(List<GuidelineRate> guidelineList) {
         linhas = new ArrayList<>(guidelineList);
     }
-    
     /*
-    private String[] colunas = new String[]{"ID", "Tipo", "Categoria",
-        "Demanda na ponta", "Demanda fora de ponta", "Ener seca de ponta",
-        "Ener seca fora de ponta", "Ener umida de ponta", "Ener umida fora de ponta",
-        "Valor ultrapassao", "Data"};
-    private static final int idGuidelineRate = 0;
-    private static final int guidelineRate = 1;
-    private static final int category = 2;
-    private static final int peakDemand = 3;
-    private static final int outPeakDemand = 4;
-    private static final int peakEnergyDry = 5;
-    private static final int outPeakEnergyDry = 6;
-    private static final int peakEnergyHumid = 7;
-    private static final int outPeakEnergyHumid = 8;
-    private static final int valueTranspassed = 9;
-    private static final int timestamp = 10;
-    */
-    
-    private String[] colunas = new String[]{"ID", "Tipo", "Categoria",
-                                               "Data", /*"Registrado por"*/};
-    
-    private static final int idGuidelineRate = 0;
-    private static final int guidelineRate = 1;
+     private String[] colunas = new String[]{"ID", "Tipo", "Categoria",
+     "Demanda na ponta", "Demanda fora de ponta", "Ener seca de ponta",
+     "Ener seca fora de ponta", "Ener umida de ponta", "Ener umida fora de ponta",
+     "Valor ultrapassao", "Data"};
+     private static final int idGuidelineRate = 0;
+     private static final int guidelineRate = 1;
+     private static final int category = 2;
+     private static final int peakDemand = 3;
+     private static final int outPeakDemand = 4;
+     private static final int peakEnergyDry = 5;
+     private static final int outPeakEnergyDry = 6;
+     private static final int peakEnergyHumid = 7;
+     private static final int outPeakEnergyHumid = 8;
+     private static final int valueTranspassed = 9;
+     private static final int timestamp = 10;
+     */
+    private String[] colunas = new String[]{/*"ID",*/"Tipo", "Limite",
+        "Categoria", "Data"};
+    //private static final int idGuidelineRate = 0;
+    private static final int guidelineRate = 0;
+    private static final int maxLimit = 1;
     private static final int category = 2;
     private static final int timestamp = 3;
-    //private static final int user = 4;
-    
+
     @Override
     public int getRowCount() {
         return linhas.size();
@@ -87,48 +84,50 @@ public class GuidelineRateTableModel extends AbstractTableModel {
 //    private static final int timestamp = 10;
 
         /*
+         switch (columnIndex) {
+         case idGuidelineRate:
+         return guideline.getIdGuidelineRate();
+         case guidelineRate:
+         return guideline.getGuidelineRate();
+         case category:
+         return guideline.getCategory();
+         case peakDemand:
+         return guideline.getPeakDemand();
+         case outPeakDemand:
+         return guideline.getOutPeakDemand();
+         case peakEnergyDry:
+         return guideline.getPeakEnergyDry();
+         case outPeakEnergyDry:
+         return guideline.getOutPeakEnergyDry();
+         case peakEnergyHumid:
+         return guideline.getPeakEnergyHumid();
+         case outPeakEnergyHumid:
+         return guideline.getOutPeakEnergyHumid();
+         case valueTranspassed:
+         return guideline.getValueTranspassed();
+         case timestamp:
+         return guideline.getTimestamp();
+         default:
+         throw new IndexOutOfBoundsException("columnIndex out of bounds!");
+         }*/
+
         switch (columnIndex) {
-            case idGuidelineRate:
-                return guideline.getIdGuidelineRate();
+//            case idGuidelineRate:
+//                return guideline.getIdGuidelineRate();
             case guidelineRate:
                 return guideline.getGuidelineRate();
-            case category:
-                return guideline.getCategory();
-            case peakDemand:
-                return guideline.getPeakDemand();
-            case outPeakDemand:
-                return guideline.getOutPeakDemand();
-            case peakEnergyDry:
-                return guideline.getPeakEnergyDry();
-            case outPeakEnergyDry:
-                return guideline.getOutPeakEnergyDry();
-            case peakEnergyHumid:
-                return guideline.getPeakEnergyHumid();
-            case outPeakEnergyHumid:
-                return guideline.getOutPeakEnergyHumid();
-            case valueTranspassed:
-                return guideline.getValueTranspassed();
-            case timestamp:
-                return guideline.getTimestamp();
-            default:
-                throw new IndexOutOfBoundsException("columnIndex out of bounds!");
-        }*/
-        
-        switch (columnIndex) {
-            case idGuidelineRate:
-                return guideline.getIdGuidelineRate();
-            case guidelineRate:
-                return guideline.getGuidelineRate();
+            case maxLimit:
+                return guideline.getMaxLimit();
             case category:
                 return guideline.getCategory();
             case timestamp:
                 return guideline.getTimestamp();
             //case user:
-                //return user.
+            //return user.
             default:
                 throw new IndexOutOfBoundsException("columnIndex out of bounds!");
         }
-        
+
     }
 
     @Override
@@ -136,49 +135,52 @@ public class GuidelineRateTableModel extends AbstractTableModel {
         GuidelineRate g = linhas.get(rowIndex);
 
         /*
+         switch (columnIndex) {
+         case idGuidelineRate:
+         g.setIdGuidelineRate((int) aValue);
+         break;
+         case guidelineRate:
+         g.setGuidelineRate((String) aValue);
+         break;
+         case category:
+         g.setCategory((String) aValue);
+         break;
+         case peakDemand:
+         g.setPeakDemand((String) aValue);
+         break;
+         case outPeakDemand:
+         g.setOutPeakDemand((String) aValue);
+         break;
+         case peakEnergyDry:
+         g.setPeakEnergyDry((String) aValue);
+         break;
+         case outPeakEnergyDry:
+         g.setOutPeakEnergyDry((String) aValue);
+         break;
+         case peakEnergyHumid:
+         g.setPeakEnergyHumid((String) aValue);
+         break;
+         case outPeakEnergyHumid:
+         g.setOutPeakEnergyHumid((String) aValue);
+         break;
+         case valueTranspassed:
+         g.setValueTranspassed((String) aValue);
+         case timestamp:
+         g.setTimestamp((String) aValue);
+         break;
+         default:
+         throw new IndexOutOfBoundsException("columnIndex out of bounds!");
+         }*/
+
         switch (columnIndex) {
-            case idGuidelineRate:
-                g.setIdGuidelineRate((int) aValue);
-                break;
+//            case idGuidelineRate:
+//                g.setIdGuidelineRate((int) aValue);
+//                break;
             case guidelineRate:
                 g.setGuidelineRate((String) aValue);
                 break;
-            case category:
-                g.setCategory((String) aValue);
-                break;
-            case peakDemand:
-                g.setPeakDemand((String) aValue);
-                break;
-            case outPeakDemand:
-                g.setOutPeakDemand((String) aValue);
-                break;
-            case peakEnergyDry:
-                g.setPeakEnergyDry((String) aValue);
-                break;
-            case outPeakEnergyDry:
-                g.setOutPeakEnergyDry((String) aValue);
-                break;
-            case peakEnergyHumid:
-                g.setPeakEnergyHumid((String) aValue);
-                break;
-            case outPeakEnergyHumid:
-                g.setOutPeakEnergyHumid((String) aValue);
-                break;
-            case valueTranspassed:
-                g.setValueTranspassed((String) aValue);
-            case timestamp:
-                g.setTimestamp((String) aValue);
-                break;
-            default:
-                throw new IndexOutOfBoundsException("columnIndex out of bounds!");
-        }*/
-        
-        switch (columnIndex) {
-            case idGuidelineRate:
-                g.setIdGuidelineRate((int) aValue);
-                break;
-            case guidelineRate:
-                g.setGuidelineRate((String) aValue);
+            case maxLimit:
+                g.setMaxLimit((String) aValue);
                 break;
             case category:
                 g.setCategory((String) aValue);

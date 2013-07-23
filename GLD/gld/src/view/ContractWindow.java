@@ -52,10 +52,9 @@ public class ContractWindow extends javax.swing.JPanel {
     }
 
     private void clean() {
-        outPeakDemandContractedField.setText("");
-        peakDemandContractedField.setText("");
-        drySeasonComboBox.setSelectedIndex(0);
-        humidSeasonComboBox.setSelectedIndex(0);
+        offPeakDemandField.setText("");
+        peakDemandField.setText("");
+        guidelineRateComboBox.setSelectedIndex(0);
     }
 
     /**
@@ -70,29 +69,25 @@ public class ContractWindow extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         insertPanel = new javax.swing.JPanel();
-        passwrod2Label = new javax.swing.JLabel();
+        offPeakDemandLabel = new javax.swing.JLabel();
         emailLabel = new javax.swing.JLabel();
         cell_vivoLabel = new javax.swing.JLabel();
-        peakDemandContractedField = new javax.swing.JTextField();
-        cell_timLabel = new javax.swing.JLabel();
+        peakDemandField = new javax.swing.JTextField();
+        peakDemandLabel = new javax.swing.JLabel();
         warningLabel = new javax.swing.JLabel();
         createGuidelineButton = new javax.swing.JButton();
-        outPeakDemandContractedField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        drySeasonComboBox = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
-        humidSeasonComboBox = new javax.swing.JComboBox();
+        offPeakDemandField = new javax.swing.JTextField();
+        guidelineRateLabel = new javax.swing.JLabel();
+        guidelineRateComboBox = new javax.swing.JComboBox();
         editPanel = new javax.swing.JPanel();
         warningLabel1 = new javax.swing.JLabel();
         editGuidelineButton = new javax.swing.JButton();
-        passwrod2Label2 = new javax.swing.JLabel();
-        outPeakDemandContractedFieldEdition = new javax.swing.JTextField();
-        cell_timLabel2 = new javax.swing.JLabel();
-        peakDemandContractedFieldEdition = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        drySeasonComboBoxEdition = new javax.swing.JComboBox();
-        jLabel4 = new javax.swing.JLabel();
-        humidSeasonComboBoxEdition = new javax.swing.JComboBox();
+        offPeakDemandLabelEdition = new javax.swing.JLabel();
+        offPeakDemandFieldEdition = new javax.swing.JTextField();
+        peakDemandLabelEdition = new javax.swing.JLabel();
+        peakDemandFieldEdition = new javax.swing.JTextField();
+        guidelineRateLabelEdition = new javax.swing.JLabel();
+        guidelineRateComboBoxEdition = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
         readPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -101,9 +96,9 @@ public class ContractWindow extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Cadastro Contrato", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 0, 24))); // NOI18N
 
-        passwrod2Label.setText("Demanda Contratada Fora de Ponta*:");
+        offPeakDemandLabel.setText("Demanda Contratada Fora de Ponta*:");
 
-        cell_timLabel.setText("Demanda Contrada em Ponta*:");
+        peakDemandLabel.setText("Demanda Contrada em Ponta*:");
 
         warningLabel.setText("<html>Os campos assinalados com asterisco (*) <br>são de preencimento obrigatório</html>");
 
@@ -114,13 +109,9 @@ public class ContractWindow extends javax.swing.JPanel {
             }
         });
 
-        jLabel1.setText("Início do Período Seco*:");
+        guidelineRateLabel.setText("Enquadramento Tarifário*:");
 
-        drySeasonComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o mês", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
-
-        jLabel2.setText("Início do Período Úmido*:");
-
-        humidSeasonComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o mês", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+        guidelineRateComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout insertPanelLayout = new javax.swing.GroupLayout(insertPanel);
         insertPanel.setLayout(insertPanelLayout);
@@ -129,50 +120,45 @@ public class ContractWindow extends javax.swing.JPanel {
             .addGroup(insertPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cell_vivoLabel)
-                    .addComponent(passwrod2Label)
-                    .addComponent(emailLabel)
-                    .addComponent(outPeakDemandContractedField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cell_timLabel)
-                    .addComponent(peakDemandContractedField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(drySeasonComboBox, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(humidSeasonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, insertPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(createGuidelineButton)
+                    .addComponent(guidelineRateComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(insertPanelLayout.createSequentialGroup()
+                        .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(createGuidelineButton)
+                                .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(cell_vivoLabel)
+                                    .addComponent(offPeakDemandLabel)
+                                    .addComponent(emailLabel)
+                                    .addComponent(offPeakDemandField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(peakDemandLabel)
+                                    .addComponent(peakDemandField, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(guidelineRateLabel))
+                        .addGap(0, 15, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         insertPanelLayout.setVerticalGroup(
             insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(insertPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(passwrod2Label)
+                .addComponent(offPeakDemandLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outPeakDemandContractedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(offPeakDemandField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(cell_timLabel)
+                .addComponent(peakDemandLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(peakDemandContractedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(peakDemandField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(drySeasonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(humidSeasonComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(22, 22, 22)
+                .addComponent(guidelineRateLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(guidelineRateComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(84, 84, 84)
                 .addComponent(cell_vivoLabel)
-                .addGap(191, 191, 191)
+                .addGap(179, 179, 179)
                 .addComponent(warningLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(createGuidelineButton)
-                .addGap(206, 206, 206)
+                .addGap(218, 218, 218)
                 .addComponent(emailLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -188,17 +174,18 @@ public class ContractWindow extends javax.swing.JPanel {
             }
         });
 
-        passwrod2Label2.setText("Demanda Contratada Fora de Ponta*:");
+        offPeakDemandLabelEdition.setText("Demanda Contratada Fora de Ponta*:");
 
-        cell_timLabel2.setText("Demanda Contrada em Ponta*:");
+        peakDemandLabelEdition.setText("Demanda Contrada em Ponta*:");
 
-        jLabel3.setText("Início do Período Seco*:");
+        guidelineRateLabelEdition.setText("Enquadramento Tarifário*:");
 
-        drySeasonComboBoxEdition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o mês", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
-
-        jLabel4.setText("Início do Período Úmido*:");
-
-        humidSeasonComboBoxEdition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o mês", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+        guidelineRateComboBoxEdition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o enquadramento tarifário" }));
+        guidelineRateComboBoxEdition.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guidelineRateComboBoxEditionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout editPanelLayout = new javax.swing.GroupLayout(editPanel);
         editPanel.setLayout(editPanelLayout);
@@ -206,41 +193,37 @@ public class ContractWindow extends javax.swing.JPanel {
             editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(editPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(editGuidelineButton)
-                    .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(warningLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(passwrod2Label2)
-                        .addComponent(outPeakDemandContractedFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cell_timLabel2)
-                        .addComponent(peakDemandContractedFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)
-                        .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(drySeasonComboBoxEdition, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addComponent(humidSeasonComboBoxEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(guidelineRateComboBoxEdition, 0, 292, Short.MAX_VALUE)
+                    .addGroup(editPanelLayout.createSequentialGroup()
+                        .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(editGuidelineButton)
+                                .addComponent(warningLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(offPeakDemandLabelEdition)
+                            .addComponent(offPeakDemandFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(peakDemandLabelEdition)
+                            .addComponent(peakDemandFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(guidelineRateLabelEdition))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         editPanelLayout.setVerticalGroup(
             editPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(passwrod2Label2)
+                .addComponent(offPeakDemandLabelEdition)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(outPeakDemandContractedFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(offPeakDemandFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(cell_timLabel2)
+                .addComponent(peakDemandLabelEdition)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(peakDemandContractedFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(peakDemandFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(drySeasonComboBoxEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(humidSeasonComboBoxEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                .addComponent(guidelineRateLabelEdition)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(guidelineRateComboBoxEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
                 .addComponent(warningLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(editGuidelineButton)
@@ -262,7 +245,7 @@ public class ContractWindow extends javax.swing.JPanel {
         );
         readPanelLayout.setVerticalGroup(
             readPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 587, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
         );
 
         backToMainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/house_go.png"))); // NOI18N
@@ -342,17 +325,14 @@ public class ContractWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
     private void editGuidelineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editGuidelineButtonActionPerformed
-        String outPeakDemandContracted = outPeakDemandContractedFieldEdition.getText();
-        String peakDemandContracted = peakDemandContractedFieldEdition.getText();
-        String drySeason = String.valueOf(drySeasonComboBoxEdition.getSelectedIndex());
-        String humidSeason = String.valueOf(humidSeasonComboBoxEdition.getSelectedIndex());
+        String offPeakDemand = offPeakDemandFieldEdition.getText();
+        String peakDemand = peakDemandFieldEdition.getText();
         String timestamp = "";
 
         //@TODO Criar validate
         //valite()
 
-        contractCtrl.createContract(peakDemandContracted, outPeakDemandContracted,
-                humidSeason, drySeason, timestamp);
+        contractCtrl.createContract(peakDemand, offPeakDemand, timestamp);
 
         JOptionPane.showMessageDialog(null, "Edit realizado com sucesso!");
 
@@ -362,17 +342,16 @@ public class ContractWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_editGuidelineButtonActionPerformed
 
     private void createGuidelineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createGuidelineButtonActionPerformed
-        String outPeakDemandContracted = outPeakDemandContractedField.getText();
-        String peakDemandContracted = peakDemandContractedField.getText();
-        String drySeason = String.valueOf(drySeasonComboBox.getSelectedIndex());
-        String humidSeason = String.valueOf(humidSeasonComboBox.getSelectedIndex());
+        String offPeakDemand = offPeakDemandField.getText();
+        String peakDemand = peakDemandField.getText();
+        String guidelineRate = (String) guidelineRateComboBox.getSelectedItem();
         String timestamp = "";
 
         //@TODO Criar validate
         //valite()
 
-        contractCtrl.createContract(peakDemandContracted, outPeakDemandContracted,
-                humidSeason, drySeason, timestamp);
+        contractCtrl.createContract(peakDemand, offPeakDemand,
+                 timestamp);
 
         JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
 
@@ -388,35 +367,36 @@ public class ContractWindow extends javax.swing.JPanel {
         return;
 
     }//GEN-LAST:event_createGuidelineButtonActionPerformed
+
+    private void guidelineRateComboBoxEditionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guidelineRateComboBoxEditionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_guidelineRateComboBoxEditionActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMainMenu;
-    private javax.swing.JLabel cell_timLabel;
-    private javax.swing.JLabel cell_timLabel2;
     private javax.swing.JLabel cell_vivoLabel;
     private javax.swing.JButton createGuidelineButton;
-    private javax.swing.JComboBox drySeasonComboBox;
-    private javax.swing.JComboBox drySeasonComboBoxEdition;
     private javax.swing.JButton editGuidelineButton;
     private javax.swing.JPanel editPanel;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JComboBox humidSeasonComboBox;
-    private javax.swing.JComboBox humidSeasonComboBoxEdition;
+    private javax.swing.JComboBox guidelineRateComboBox;
+    private javax.swing.JComboBox guidelineRateComboBoxEdition;
+    private javax.swing.JLabel guidelineRateLabel;
+    private javax.swing.JLabel guidelineRateLabelEdition;
     private javax.swing.JPanel insertPanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField outPeakDemandContractedField;
-    private javax.swing.JTextField outPeakDemandContractedFieldEdition;
-    private javax.swing.JLabel passwrod2Label;
-    private javax.swing.JLabel passwrod2Label2;
-    private javax.swing.JTextField peakDemandContractedField;
-    private javax.swing.JTextField peakDemandContractedFieldEdition;
+    private javax.swing.JTextField offPeakDemandField;
+    private javax.swing.JTextField offPeakDemandFieldEdition;
+    private javax.swing.JLabel offPeakDemandLabel;
+    private javax.swing.JLabel offPeakDemandLabelEdition;
+    private javax.swing.JTextField peakDemandField;
+    private javax.swing.JTextField peakDemandFieldEdition;
+    private javax.swing.JLabel peakDemandLabel;
+    private javax.swing.JLabel peakDemandLabelEdition;
     private javax.swing.JPanel readPanel;
     private javax.swing.JLabel warningLabel;
     private javax.swing.JLabel warningLabel1;

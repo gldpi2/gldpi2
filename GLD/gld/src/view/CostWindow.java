@@ -8,6 +8,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Login;
 import org.jfree.data.time.Day;
+import utils.DatabaseInterface;
 import utils.UpdaterCostThread;
 
 /**
@@ -21,10 +22,11 @@ public class CostWindow extends javax.swing.JPanel {
     private int year;
     int i = 0;
     private CostChart costChart;
-    private Thread th;
+    private Thread costThread;
     private NewMainMenu newMenu;
     private Login userLogged;
     private Day today = new Day();
+    private DatabaseInterface dbInterface = new DatabaseInterface();
     /*
      * 0 - data minima selecionavel / 1 - data maxima selecionavel
      */
@@ -48,11 +50,12 @@ public class CostWindow extends javax.swing.JPanel {
         costChart.criaGrafico();
         /* th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), flowLabel,
                    tensionLabel,potencyLabel, countLabel, kwLabel, sourceLabel));*/
-        th = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), date, flowLabel, tensionLabel, potencyLabel,
-                        countLabel, kWValue1, money));
-        th.setDaemon(true);
-        th.start();
+        costThread = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), date, flowLabel, tensionLabel, potencyLabel,
+                countLabel, kwLabel, sourceLabel));
+        costThread.setDaemon(true);
+        costThread.start();
 
+        setMaxAndMinDates();
         desktop.add(costChart);
         state = 1;
         
@@ -85,6 +88,35 @@ public class CostWindow extends javax.swing.JPanel {
                 }
             }
         });
+
+        dateChooserFrom.getDateEditor().addPropertyChangeListener(
+                new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                if ("date".equals(evt.getPropertyName())) {
+                    if (evt.getNewValue() != null) {
+                        costThread.stop();
+                        desktop.removeAll();
+                        costChart = new CostChart(desktop.getWidth(), desktop.getHeight());
+                        
+                        Thread costThread1 = new Thread(new UpdaterCostThread(costChart.getSeries(), costChart.limitSeries(), (Date) evt.getNewValue(), flowLabel,
+                                tensionLabel, potencyLabel,countLabel, kwLabel, sourceLabel));
+                        costThread1.setDaemon(true);
+                        costThread1.start();
+
+                        costChart.criaGrafico();
+                        desktop.add(costChart);
+                        state = 1;
+    }
+                }
+            }
+        });
+    }
+
+    private void setMaxAndMinDates() {
+        dbInterface.connect();
+        dates = dbInterface.getMaxAndMinDates();
+        dbInterface.disconnect();
     }
 
     @SuppressWarnings("unchecked")
@@ -466,6 +498,7 @@ public class CostWindow extends javax.swing.JPanel {
             MainWindow.desktop.add(newMenu);
             MainWindow.desktop.revalidate();
             MainWindow.desktop.repaint();
+            costThread.stop();
         }
     }//GEN-LAST:event_backToMainMenuActionPerformed
 
