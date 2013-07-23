@@ -34,9 +34,8 @@ public class ContractWindow extends javax.swing.JPanel {
     private List<Contract> contractList;
     private ContractTableModel table;
     private int selectedRow = 0;
-    public static List<String> guidelineRateNames;
-    private List<Integer> guidelineRateIds;
     public static Contract contractEdit;
+    private List<GuidelineRate> guidelineRateList;
 
     /**
      * Creates new form ContractWindow
@@ -57,14 +56,13 @@ public class ContractWindow extends javax.swing.JPanel {
         initComponents();
         setSize(1024, y);
 
+        //guidelineRateList = new ArrayList<>();
         try {
-            //local.readGuidelineRate().toArray()
             GuidelineRateDAO local = new GuidelineRateDAO();
-            guidelineRateIds = new ArrayList<>();
-            guidelineRateNames = new ArrayList<>();
+            List<String> guidelineRateNames = new ArrayList<>();
+            guidelineRateList = local.readGuidelineRate();
             for (GuidelineRate item : local.readGuidelineRate()) {
                 guidelineRateNames.add(item.getGuidelineRate());
-                guidelineRateIds.add(item.getIdGuidelineRate());
             }
             guidelineRateComboBox.setModel(new DefaultComboBoxModel(guidelineRateNames.toArray()));
             guidelineRateComboBoxEdition.setModel(new DefaultComboBoxModel(guidelineRateNames.toArray()));
@@ -265,6 +263,11 @@ public class ContractWindow extends javax.swing.JPanel {
         });
 
         jTable1.setModel(table);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout readPanelLayout = new javax.swing.GroupLayout(readPanel);
@@ -358,7 +361,7 @@ public class ContractWindow extends javax.swing.JPanel {
         String offPeakDemand = offPeakDemandFieldEdition.getText();
         String peakDemand = peakDemandFieldEdition.getText();
         int guidelineRate = guidelineRateComboBoxEdition.getSelectedIndex();
-        int idRate = guidelineRateIds.get(guidelineRate);
+        int idRate = guidelineRateList.get(guidelineRate).getIdGuidelineRate();
         String timestamp = "";
 
         //@TODO Criar validate
@@ -394,7 +397,7 @@ public class ContractWindow extends javax.swing.JPanel {
         String offPeakDemand = offPeakDemandField.getText();
         String peakDemand = peakDemandField.getText();
         int guidelineRate = guidelineRateComboBox.getSelectedIndex();
-        int idRate = guidelineRateIds.get(guidelineRate);
+        int idRate = guidelineRateList.get(guidelineRate).getIdGuidelineRate();
         String timestamp = "";
 
         //@TODO Criar validate
@@ -439,13 +442,20 @@ public class ContractWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_guidelineRateComboBoxEditionActionPerformed
 
     private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
-        int selectedItemIndex = jTable1.getSelectedRow();
+
+    }//GEN-LAST:event_jScrollPane1MouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+               int selectedItemIndex = jTable1.getSelectedRow();
         ContractTableModel model = (ContractTableModel) jTable1.getModel();
         contractEdit = model.getContract(selectedItemIndex);
         
-        ContractFrameInfo contractInfo = new ContractFrameInfo();
+        int guidelineRate = guidelineRateComboBox.getSelectedIndex();
+        GuidelineRate gui = guidelineRateList.get(guidelineRate);
+        
+        ContractFrameInfo contractInfo = new ContractFrameInfo(gui);
         contractInfo.setVisible(true);
-    }//GEN-LAST:event_jScrollPane1MouseClicked
+    }//GEN-LAST:event_jTable1MouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMainMenu;
