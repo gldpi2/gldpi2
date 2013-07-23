@@ -43,13 +43,12 @@ public class GuidelineRateTableModel extends AbstractTableModel {
      private static final int valueTranspassed = 9;
      private static final int timestamp = 10;
      */
-    private String[] colunas = new String[]{/*"ID",*/"Tipo", "Limite",
+    private String[] colunas = new String[]{/*"ID",*/"Tipo",
         "Categoria", "Data"};
     //private static final int idGuidelineRate = 0;
     private static final int guidelineRate = 0;
-    private static final int maxLimit = 1;
-    private static final int category = 2;
-    private static final int timestamp = 3;
+    private static final int category = 1;
+    private static final int timestamp = 2;
 
     @Override
     public int getRowCount() {
@@ -116,8 +115,6 @@ public class GuidelineRateTableModel extends AbstractTableModel {
 //                return guideline.getIdGuidelineRate();
             case guidelineRate:
                 return guideline.getGuidelineRate();
-            case maxLimit:
-                return guideline.getMaxLimit();
             case category:
                 return guideline.getCategory();
             case timestamp:
@@ -178,9 +175,6 @@ public class GuidelineRateTableModel extends AbstractTableModel {
 //                break;
             case guidelineRate:
                 g.setGuidelineRate((String) aValue);
-                break;
-            case maxLimit:
-                g.setMaxLimit((String) aValue);
                 break;
             case category:
                 g.setCategory((String) aValue);

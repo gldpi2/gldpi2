@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="jPanel1" alignment="0" max="32767" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Container class="javax.swing.JPanel" name="jPanel1">
+      <Properties>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder title="Detalhes Enquadramento Tarif&#xe1;rio">
+              <Font PropertyName="font" name="Bitstream Charter" size="18" style="0"/>
+            </TitledBorder>
+          </Border>
+        </Property>
+      </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
+                  <Component id="guidelineRateLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="212" max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="categoryShowLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="categoryDataLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="transpassedDemandShowLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="transpassedDemandDataLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="peakDemandShowLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="peakDemandDataLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="offPeakDemandShowLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="offPeakDemandDataLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="consumptionDryPeakShowLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="consumptionDryPeakDataLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="consumptionOffPeakDemandShowLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="consumptionOffPeakDemandDataLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="consumptionHumidPeakShowLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="consumptionHumidPeakDataLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="consumptionHumidOffPeakShowLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="consumptionHumidOffPeakDataLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="transpassedPeakShowLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="transpassedPeakDataLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="transpassedOffPeakShowLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="153" max="32767" attributes="0"/>
+                          <Component id="transpassedOffPeakDataLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="normalDemandShowLabel" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="normalDemandDataLabel" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="guidelineRateLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="categoryShowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="categoryDataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="peakDemandShowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="peakDemandDataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="offPeakDemandShowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="offPeakDemandDataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="consumptionDryPeakShowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="consumptionDryPeakDataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="consumptionOffPeakDemandShowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="consumptionOffPeakDemandDataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="consumptionHumidPeakShowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="consumptionHumidPeakDataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="consumptionHumidOffPeakShowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="consumptionHumidOffPeakDataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="transpassedPeakShowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="transpassedPeakDataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="transpassedOffPeakShowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="transpassedOffPeakDataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="normalDemandShowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="normalDemandDataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="transpassedDemandShowLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="transpassedDemandDataLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace pref="96" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="guidelineRateLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizando..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="categoryShowLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Categoria:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="peakDemandShowLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Demanda em Ponta:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="offPeakDemandShowLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Demanda Fora de Ponta:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="consumptionDryPeakShowLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Consumo em Ponta Seca:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="consumptionOffPeakDemandShowLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Consumo Fora de Ponta Seca:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="consumptionHumidPeakShowLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Consumo em Ponta &#xda;mida:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="consumptionHumidOffPeakShowLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Consumo Fora de Ponta &#xda;mida:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="transpassedPeakShowLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Demanda Ultrapassada na Ponta:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="transpassedOffPeakShowLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Demanda Ultrapassada Fora de Ponta:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="normalDemandShowLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Demanda Normal:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="transpassedDemandShowLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Demanda Ultrapassada:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="categoryDataLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizando..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="peakDemandDataLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizando..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="offPeakDemandDataLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizando..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="consumptionDryPeakDataLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizando..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="consumptionOffPeakDemandDataLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizando..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="consumptionHumidPeakDataLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizando..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="consumptionHumidOffPeakDataLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizando..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="transpassedPeakDataLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizando..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="transpassedOffPeakDataLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizando..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="normalDemandDataLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizando..."/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="transpassedDemandDataLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizando..."/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+  </SubComponents>
+</Form>

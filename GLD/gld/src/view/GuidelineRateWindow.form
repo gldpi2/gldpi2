@@ -76,6 +76,9 @@
       </Layout>
       <SubComponents>
         <Container class="javax.swing.JTabbedPane" name="jTabbedPane1">
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTabbedPane1MouseClicked"/>
+          </Events>
 
           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
           <SubComponents>
@@ -98,7 +101,7 @@
                                   <Component id="createGuidelineButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="consumptionDryPeakLabel" min="-2" max="-2" attributes="0"/>
@@ -135,37 +138,35 @@
                                           <EmptySpace max="32767" attributes="0"/>
                                           <Component id="consumptionHumidOffPeakField" min="-2" pref="85" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="categoryTextField" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="guidelineRateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="warningLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="categoryLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="guidelineComboBox" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="transpassedPeakLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                               <Component id="transpassedOffPeakLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="consumptionLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="transpassedDemandLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              <Component id="normalDemandLabel" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace max="32767" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="transpassedOffPeakTextField" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
-                                              <Component id="consumptionTextField" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
-                                              <Component id="transpassedPeakField" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                              <Component id="normalDemandTextField" pref="85" max="32767" attributes="0"/>
+                                              <Component id="transpassedDemandTextField" max="32767" attributes="0"/>
+                                              <Component id="transpassedOffPeakTextField" alignment="0" pref="85" max="32767" attributes="0"/>
+                                              <Component id="transpassedPeakField" alignment="0" pref="85" max="32767" attributes="0"/>
                                           </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="demandLabel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace max="32767" attributes="0"/>
-                                          <Component id="demandTextField" min="-2" pref="85" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Component id="categoryTextField" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="guidelineRateLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="warningLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="maxLimitLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="categoryLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="guidelineComboBox" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="maxLimitComboBox" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -176,11 +177,7 @@
                           <Component id="guidelineRateLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="guidelineComboBox" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                          <Component id="maxLimitLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="maxLimitComboBox" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="categoryLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="categoryTextField" min="-2" max="-2" attributes="0"/>
@@ -219,7 +216,17 @@
                               <Component id="consumptionHumidOffPeakLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="consumptionHumidOffPeakField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="normalDemandLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="normalDemandTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="transpassedDemandLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="transpassedDemandTextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="transpassedPeakLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="transpassedPeakField" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -229,17 +236,7 @@
                               <Component id="transpassedOffPeakLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="transpassedOffPeakTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="demandLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="demandTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="consumptionLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="consumptionTextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="33" max="32767" attributes="0"/>
+                          <EmptySpace pref="107" max="32767" attributes="0"/>
                           <Component id="warningLabel" min="-2" pref="34" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
                           <Component id="createGuidelineButton" min="-2" max="-2" attributes="0"/>
@@ -252,11 +249,10 @@
                 <Component class="javax.swing.JComboBox" name="guidelineComboBox">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
+                      <StringArray count="3">
                         <StringItem index="0" value="Selecione a Tarifa"/>
-                        <StringItem index="1" value="Convencional"/>
-                        <StringItem index="2" value="Horo-Sazonal Azul"/>
-                        <StringItem index="3" value="Horo-Sazonal Verde"/>
+                        <StringItem index="1" value="Horo-Sazonal Azul"/>
+                        <StringItem index="2" value="Horo-Sazonal Verde"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -353,44 +349,25 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="transpassedPeakField">
                 </Component>
-                <Component class="javax.swing.JLabel" name="maxLimitLabel">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Limite*:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="maxLimitComboBox">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
-                        <StringItem index="0" value="Selecione o limite m&#xe1;ximo"/>
-                        <StringItem index="1" value="At&#xe9; 200"/>
-                        <StringItem index="2" value="De 201 at&#xe9; 500"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="maxLimitComboBoxActionPerformed"/>
-                  </Events>
-                </Component>
                 <Component class="javax.swing.JTextField" name="icmsTextField">
                 </Component>
                 <Component class="javax.swing.JTextField" name="categoryTextField">
                 </Component>
-                <Component class="javax.swing.JLabel" name="demandLabel">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Demanda*:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="consumptionLabel">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Consumo*:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="demandTextField">
-                </Component>
-                <Component class="javax.swing.JTextField" name="consumptionTextField">
-                </Component>
                 <Component class="javax.swing.JTextField" name="transpassedOffPeakTextField">
+                </Component>
+                <Component class="javax.swing.JLabel" name="normalDemandLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Demanda Normal*:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="transpassedDemandLabel">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Demanda Ultrapassada*:"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="normalDemandTextField">
+                </Component>
+                <Component class="javax.swing.JTextField" name="transpassedDemandTextField">
                 </Component>
               </SubComponents>
             </Container>
@@ -409,10 +386,6 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  <Component id="editGuidelineButton" min="-2" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="consumptionDryPeakLabelEdition" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -452,33 +425,37 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="transpassedPeakLabelEdition" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="transpassedOffPeakLabelEdition" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="consumptionLabelEdition" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="transpassedOffPeakTextFieldEdition" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
-                                      <Component id="consumptionTextFieldEdition" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
                                       <Component id="transpassedPeakFieldEdition" alignment="1" min="-2" pref="85" max="-2" attributes="0"/>
                                   </Group>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="demandLabelEdition" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="demandTextFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
                               </Group>
                               <Component id="categoryTextFieldEdition" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="warningLabel1" min="-2" max="-2" attributes="0"/>
                                       <Component id="guidelineRateLabelEdition" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="maxLimitLabelEdition" alignment="0" min="-2" max="-2" attributes="0"/>
                                       <Component id="categoryLabelEdition" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                          <Component id="guidelineComboBoxEdition" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="maxLimitComboBoxEdition" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="guidelineComboBoxEdition" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="editGuidelineButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="transpassedDemandLabelEdition" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="normalDemandLabelEdition" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Component id="normalDemandTextFieldEdition" pref="85" max="32767" attributes="0"/>
+                                      <Component id="transpassedDemandTextFieldEdition" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
@@ -492,11 +469,7 @@
                           <Component id="guidelineRateLabelEdition" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="guidelineComboBoxEdition" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                          <Component id="maxLimitLabelEdition" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" max="-2" attributes="0"/>
-                          <Component id="maxLimitComboBoxEdition" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="categoryLabelEdition" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
                           <Component id="categoryTextFieldEdition" min="-2" max="-2" attributes="0"/>
@@ -535,7 +508,17 @@
                               <Component id="consumptionHumidOffPeakLabelEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="consumptionHumidOffPeakFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="normalDemandLabelEdition" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="normalDemandTextFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="transpassedDemandLabelEdition" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="transpassedDemandTextFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="transpassedPeakLabelEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="transpassedPeakFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -545,17 +528,7 @@
                               <Component id="transpassedOffPeakLabelEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="transpassedOffPeakTextFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="demandLabelEdition" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="demandTextFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="consumptionLabelEdition" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="consumptionTextFieldEdition" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="27" max="32767" attributes="0"/>
+                          <EmptySpace pref="101" max="32767" attributes="0"/>
                           <Component id="warningLabel1" min="-2" pref="34" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="editGuidelineButton" min="-2" max="-2" attributes="0"/>
@@ -601,25 +574,6 @@
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
                   </AuxValues>
-                </Component>
-                <Component class="javax.swing.JLabel" name="maxLimitLabelEdition">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Limite*:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="maxLimitComboBoxEdition">
-                  <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="3">
-                        <StringItem index="0" value="Selecione o limite m&#xe1;ximo"/>
-                        <StringItem index="1" value="At&#xe9; 200 kWh"/>
-                        <StringItem index="2" value="De 201 at&#xe9; 500 kWh"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="maxLimitComboBoxEditionActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="categoryLabelEdition">
                   <Properties>
@@ -694,19 +648,19 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="transpassedOffPeakTextFieldEdition">
                 </Component>
-                <Component class="javax.swing.JLabel" name="demandLabelEdition">
+                <Component class="javax.swing.JTextField" name="transpassedDemandTextFieldEdition">
+                </Component>
+                <Component class="javax.swing.JLabel" name="normalDemandLabelEdition">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Demanda*:"/>
+                    <Property name="text" type="java.lang.String" value="Demanda Normal*:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="demandTextFieldEdition">
+                <Component class="javax.swing.JTextField" name="normalDemandTextFieldEdition">
                 </Component>
-                <Component class="javax.swing.JLabel" name="consumptionLabelEdition">
+                <Component class="javax.swing.JLabel" name="transpassedDemandLabelEdition">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Consumo*:"/>
+                    <Property name="text" type="java.lang.String" value="Demanda Ultrapassada*:"/>
                   </Properties>
-                </Component>
-                <Component class="javax.swing.JTextField" name="consumptionTextFieldEdition">
                 </Component>
               </SubComponents>
             </Container>
@@ -746,6 +700,9 @@
                       <Connection code="table" type="code"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable1MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

@@ -2,6 +2,7 @@ package model;
 
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
@@ -55,9 +56,56 @@ public class LoadCurve {
         mensurationRender.setSeriesPaint(2, Color.BLUE);
 
         final DateAxis domainAxis = new DateAxis("Hora");
-        domainAxis.setVerticalTickLabels(true);
-        domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.MONTH, 1));
+        domainAxis.setVerticalTickLabels(false);
+        domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.HOUR, 1));
         domainAxis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
+        domainAxis.setLowerMargin(0.01);
+        domainAxis.setUpperMargin(0.01);
+
+        final ValueAxis rangeAxis = new NumberAxis("Potência (kW)");
+
+        final XYPlot plot = new XYPlot(mensurationDataSet, domainAxis, rangeAxis, mensurationRender);
+
+        final XYDataset alertDataSet = createAlertDataSet();
+        final StandardXYItemRenderer alertRender = new StandardXYItemRenderer(StandardXYItemRenderer.SHAPES_AND_LINES);
+        //alertRender.setShapesFilled(true);
+
+        plot.setDataset(1, alertDataSet);
+        plot.setRenderer(1, alertRender);
+
+        final XYDataset contractDataSet = createContractDataSet();
+        final StandardXYItemRenderer contractRender = new StandardXYItemRenderer(StandardXYItemRenderer.SHAPES_AND_LINES);
+        //contractRender.setShapesFilled(true);
+
+        plot.setDataset(2, contractDataSet);
+        plot.setRenderer(2, contractRender);
+
+        final JFreeChart chartCurve = new JFreeChart("Curva de Carga", plot);
+        chartPanel = new ChartPanel(chartCurve);
+        chartPanel.setMouseZoomable(true, false);
+
+        return this.chartPanel;
+    }
+
+    public ChartPanel createMontlyLoadCurvePanel() {
+        mensurationDataSet = createMensurationDataSet();
+        XYBarRenderer x = new XYBarRenderer();
+        XYBarRenderer.setDefaultShadowsVisible(false);
+        x.setDrawBarOutline(true);
+        x.setMargin(0.2);
+
+        final XYItemRenderer mensurationRender = x;
+
+        mensurationRender.setSeriesPaint(0, Color.GREEN);
+        mensurationRender.setSeriesPaint(1, Color.RED);
+        mensurationRender.setSeriesPaint(2, Color.BLUE);
+
+        final DateAxis domainAxis = new DateAxis("Hora");
+        domainAxis.setVerticalTickLabels(false);
+        domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.DAY, 1));
+        domainAxis.setDateFormatOverride(new SimpleDateFormat("dd"));
+        domainAxis.setRange(new Date("07/01/2013"), new Date("07/31/2013"));
+
         domainAxis.setLowerMargin(0.01);
         domainAxis.setUpperMargin(0.01);
 

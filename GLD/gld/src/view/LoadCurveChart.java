@@ -31,6 +31,17 @@ public class LoadCurveChart extends javax.swing.JPanel {
         loadCurveCtrl.setState(1);
     }
 
+    public void startMontlyGraph() {
+        ChartPanel panel = loadCurveCtrl.createMontlyLoadCurveGraphPanel();
+        panel.setSize(this.getWidth(), this.getHeight());
+        panel.setVisible(true);
+        this.removeAll();
+        this.add(panel);
+        this.revalidate();
+        this.repaint();
+        loadCurveCtrl.setState(1);
+    }
+
     public LoadCurve getLoadCurve() {
         //this.loadCurveCtrl = new LoadCurveCtrl();
         return this.loadCurveCtrl.getLoadCurve();

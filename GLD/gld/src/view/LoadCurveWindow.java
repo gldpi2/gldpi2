@@ -25,6 +25,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
     private Login userLogged;
     private Day today = new Day();
     private DatabaseInterface dbInterface = new DatabaseInterface();
+    private int changed = 0;
     /*
      * 0 - data minima selecionavel / 1 - data maxima selecionavel
      */
@@ -606,7 +607,34 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         if (selected.equals("Mensal")) {
             if (selectedYear >= dates[0].getYear() || selectedYear <= dates[1].getYear()) {
                 if (selectedMonth <= dates[0].getMonth() || selectedMonth >= dates[1].getMonth()) {
-                    System.out.println("\n\nTESTE!!!\n\n");
+                    if (changed == 0) {
+                        changed = 1;
+                    } else {
+                        changed = 0;
+
+                        updater.stopExecution();
+
+                        System.out.println("========== " + monthChooser.getSelectedIndex());
+
+                        desktop.removeAll();
+                        loadChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
+
+                        updater = new UpdaterLoadCurveThread(loadChart.getLoadCurve(), new Date("07/17/2013"),
+                                flowLabel, tensionLabel, potencyLabel,
+                                powerFactorLabel, frequencyLabel,
+                                maxValue, maxTime, maxDate,
+                                minValue, minTime, minDate,
+                                sourceLabel, meterLabel, statusLabel);
+
+                        updaterThread = new Thread(updater);
+                        updaterThread.setDaemon(true);
+                        updaterThread.start();
+
+                        loadChart.startMontlyGraph();
+
+                        desktop.add(loadChart);
+                        state = 1;
+                    }
                 }
             }
         }
