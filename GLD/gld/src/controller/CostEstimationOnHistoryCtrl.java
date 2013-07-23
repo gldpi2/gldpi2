@@ -135,7 +135,7 @@ public class CostEstimationOnHistoryCtrl {
         if(data.size() < 24){
             throw new NotEnoughDataException();
         }
-        
+         
         Vector<Double> ret = new Vector<>();
         int regPerHour = data.size() / 24;
         //Para cada hora
