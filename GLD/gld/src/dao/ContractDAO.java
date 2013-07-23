@@ -8,7 +8,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Contract;
+import utils.Communication;
 import utils.DatabaseInterface;
 
 /**
@@ -40,6 +43,13 @@ public class ContractDAO {
         dbint.insert(insertContract, params);
 
         dbint.disconnect();
+        
+        try {
+            Communication.UDPClient.sendData("iddofilhadaPUTA", 9876, contract.getPeakDemand(), contract.getOffPeakDemand());
+        } catch (Exception ex) {
+            Logger.getLogger(ContractDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
 
     public List<Contract> readContract() throws SQLException {

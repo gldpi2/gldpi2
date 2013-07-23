@@ -17,26 +17,26 @@ public class GuidelineRateCtrl {
 
     GuidelineRateDAO dao = new GuidelineRateDAO();
 
-    public void createGuidelineRate(String guidelineRate, String category, String demand, String peakDemand, 
-            String offPeakDemand, String consumption, String consumptionDryPeak, String consumptionDryOffPeak,
-            String consumptionHumidPeak, String consumptionHumidOffPeak, String transpassedPeak, String transpassedOffPeak, 
-            String maxLimit, String icms, String timestamp) {
+    public void createGuidelineRate(String guidelineRate, String category, String peakDemand, 
+            String offPeakDemand, String consumptionDryPeak, String consumptionDryOffPeak,
+            String consumptionHumidPeak, String consumptionHumidOffPeak, String normalDemand,
+            String transpassedDemand, String transpassedPeak, String transpassedOffPeak, 
+            String icms, String timestamp) {
 
         GuidelineRate guideline = new GuidelineRate();
 
         guideline.setGuidelineRate(guidelineRate);
         guideline.setCategory(category);
-        guideline.setDemand(demand);
         guideline.setPeakDemand(peakDemand);
         guideline.setOffPeakDemand(offPeakDemand);
-        guideline.setConsumption(consumption);
         guideline.setConsumptionDryPeak(consumptionDryPeak);
         guideline.setConsumptionDryOffPeak(consumptionDryOffPeak);
         guideline.setConsumptionHumidPeak(consumptionHumidPeak);
         guideline.setConsumptionHumidOffPeak(consumptionHumidOffPeak);
+        guideline.setNormalDemand(normalDemand);
+        guideline.setTranspassedDemand(transpassedDemand);
         guideline.setTranspassedPeak(transpassedPeak);
         guideline.setTranspassedOffPeak(transpassedOffPeak);
-        guideline.setMaxLimit(maxLimit);
         guideline.setIcms(icms);
 
         //guideline.setTimestamp(timestamp);
@@ -44,28 +44,27 @@ public class GuidelineRateCtrl {
         dao.createGuidelineRate(guideline);
     }
 
-    public void updateGuidelineRate(String guidelineRate, String category, String demand, String peakDemand, 
-            String offPeakDemand, String consumption, String consumptionDryPeak, String consumptionDryOffPeak,
-            String consumptionHumidPeak, String consumptionHumidOffPeak, String transpassedPeak, String transpassedOffPeak, 
-            String maxLimit, String icms, String timestamp) {
+    public void updateGuidelineRate(String guidelineRate, String category, String peakDemand, 
+            String offPeakDemand, String consumptionDryPeak, String consumptionDryOffPeak,
+            String consumptionHumidPeak, String consumptionHumidOffPeak, String normalDemand,
+            String transpassedDemand, String transpassedPeak, String transpassedOffPeak, 
+            String icms, String timestamp) {
 
         GuidelineRate guideline = new GuidelineRate();
 
         guideline.setGuidelineRate(guidelineRate);
         guideline.setCategory(category);
-        guideline.setDemand(demand);
         guideline.setPeakDemand(peakDemand);
         guideline.setOffPeakDemand(offPeakDemand);
-        guideline.setConsumption(consumption);
         guideline.setConsumptionDryPeak(consumptionDryPeak);
         guideline.setConsumptionDryOffPeak(consumptionDryOffPeak);
         guideline.setConsumptionHumidPeak(consumptionHumidPeak);
         guideline.setConsumptionHumidOffPeak(consumptionHumidOffPeak);
+        guideline.setNormalDemand(normalDemand);
+        guideline.setTranspassedDemand(transpassedDemand);
         guideline.setTranspassedPeak(transpassedPeak);
         guideline.setTranspassedOffPeak(transpassedOffPeak);
-        guideline.setMaxLimit(maxLimit);
         guideline.setIcms(icms);
-
         dao.updateGuidelineRate(guideline);
     }
     
