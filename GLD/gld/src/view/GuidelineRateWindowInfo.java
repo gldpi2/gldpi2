@@ -4,6 +4,8 @@
  */
 package view;
 
+import model.GuidelineRate;
+
 /**
  *
  * @author gld-pi2
@@ -15,6 +17,12 @@ public class GuidelineRateWindowInfo extends javax.swing.JPanel {
      */
     public GuidelineRateWindowInfo() {
         initComponents();
+   //     setLocationRelativeTo(null);
+    }
+
+    GuidelineRateWindowInfo(GuidelineRate guidelineEdit) {
+         //To change body of generated methods, choose Tools | Templates.
+        
     }
     
     public void initialVisibleComponents(){

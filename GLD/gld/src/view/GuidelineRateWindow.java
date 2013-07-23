@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.GuidelineRate;
@@ -27,8 +28,8 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
     private List<GuidelineRate> guidelineList;
     private GuidelineRateTableModel table;
     private int selectedRow = 0;
-    
     private GuidelineRate guidelineEdit;
+    private GuidelineRateWindowInfo guideInfo;
 
     /**
      * Creates new form GuidelineRateWindow
@@ -663,7 +664,6 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
 
         String guidelineRate = (String) guidelineComboBox.getSelectedItem();
         String category = categoryTextField.getText();
-        String demand = categoryTextField.getText();
         String peakDemand = peakDemandField.getText();
         String offPeakDemand = offPeakDemandField.getText();
         String consumptionDryPeak = consumptionDryPeakField.getText();
@@ -671,7 +671,7 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
         String consumptionHumidPeak = consumptionHumidPeakField.getText();
         String consumptionHumidOffPeak = consumptionHumidOffPeakField.getText();
         String normalDemand = normalDemandTextField.getText();
-        String transpassedDemand = transpassedDemandTextField.getText();                
+        String transpassedDemand = transpassedDemandTextField.getText();
         String transpassedPeak = transpassedPeakField.getText();
         String transpassedOffPeak = transpassedOffPeakTextField.getText();
         String icms = icmsTextField.getText();
@@ -679,14 +679,149 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
 
         //@TODO Criar validate
         //validate()
-        if (guidelineComboBox.getSelectedItem().toString().equals("Selecione a Tarifa")){
+        if (guidelineComboBox.getSelectedItem().toString().equals("Selecione a Tarifa")) {
             JOptionPane.showMessageDialog(null, "Escolha um tipo de tarifa", "Escolha uma opção", JOptionPane.WARNING_MESSAGE);
             return;
         }
-        
-        if(categoryTextField.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "O campo Categoria deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
-            return;
+
+        if (guidelineComboBox.getSelectedItem().toString().equals("Horo-Sazonal Azul")) {
+            if (categoryTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Categoria deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (icmsTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo ICMS deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!icmsTextField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo ICMS apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (peakDemandField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Demanda em Ponta deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!peakDemandField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Demanda em Ponta apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (offPeakDemandField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Demanda Fora de Ponta deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!offPeakDemandField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Demanda Fora Ponta apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionDryPeakField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo em Ponta Seca deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionDryPeakField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo em Ponta Seca apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionDryOffPeakField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo Fora de Ponta Seca deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionDryOffPeakField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo Fora de Ponta Seca apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionHumidPeakField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo em Ponta Úmida deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionHumidPeakField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo em Ponta Úmida apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionHumidOffPeakField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo Fora de Ponta Úmida deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionHumidOffPeakField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo Fora Ponta Úmida apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (transpassedPeakField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Ultrapassado na Ponta deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!transpassedPeakField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Ultrapassado na Ponta apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (transpassedOffPeakTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Ultrapassado Fora de Ponta deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!transpassedOffPeakTextField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Ultrapassado Fora de Ponta apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } else if(guidelineComboBox.getSelectedItem().toString().equals("Horo-Sazonal Verde")){
+                        if (categoryTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Categoria deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (icmsTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo ICMS deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!icmsTextField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo ICMS apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionDryPeakField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo em Ponta Seca deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionDryPeakField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo em Ponta Seca apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionDryOffPeakField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo Fora de Ponta Seca deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionDryOffPeakField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo Fora de Ponta Seca apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionHumidPeakField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo em Ponta Úmida deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionHumidPeakField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo em Ponta Úmida apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionHumidOffPeakField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo Fora de Ponta Úmida deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionHumidOffPeakField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo Fora Ponta Úmida apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (normalDemandTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Demanda Normal deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!normalDemandTextField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Demanda Normal apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (transpassedDemandTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Demanda Ultrapassada deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!transpassedDemandTextField.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Demanda Ultrapassada apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
         }
 
         guidelineCtrl.createGuidelineRate(guidelineRate, category, peakDemand,
@@ -734,6 +869,151 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
         //@TODO Criar validate
         //valite()
         
+        if (guidelineComboBoxEdition.getSelectedItem().toString().equals("Selecione a Tarifa")) {
+            JOptionPane.showMessageDialog(null, "Escolha um tipo de tarifa", "Escolha uma opção", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (guidelineComboBoxEdition.getSelectedItem().toString().equals("Horo-Sazonal Azul")) {
+            if (categoryTextFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Categoria deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (icmsTextFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo ICMS deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!icmsTextFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo ICMS apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (peakDemandFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Demanda em Ponta deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!peakDemandFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Demanda em Ponta apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (offPeakDemandFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Demanda Fora de Ponta deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!offPeakDemandFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Demanda Fora Ponta apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionDryPeakFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo em Ponta Seca deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionDryPeakFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo em Ponta Seca apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionDryOffPeakFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo Fora de Ponta Seca deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionDryOffPeakFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo Fora de Ponta Seca apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionHumidPeakFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo em Ponta Úmida deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionHumidPeakFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo em Ponta Úmida apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionHumidOffPeakFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo Fora de Ponta Úmida deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionHumidOffPeakFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo Fora Ponta Úmida apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (transpassedPeakFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Ultrapassado na Ponta deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!transpassedPeakFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Ultrapassado na Ponta apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (transpassedOffPeakTextFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Ultrapassado Fora de Ponta deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!transpassedOffPeakTextFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Ultrapassado Fora de Ponta apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        } else if(guidelineComboBoxEdition.getSelectedItem().toString().equals("Horo-Sazonal Verde")){
+                        if (categoryTextFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Categoria deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (icmsTextFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo ICMS deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!icmsTextFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo ICMS apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionDryPeakFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo em Ponta Seca deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionDryPeakFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo em Ponta Seca apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionDryOffPeakFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo Fora de Ponta Seca deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionDryOffPeakFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo Fora de Ponta Seca apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionHumidPeakFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo em Ponta Úmida deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionHumidPeakFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo em Ponta Úmida apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (consumptionHumidOffPeakFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Consumo Fora de Ponta Úmida deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!consumptionHumidOffPeakFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Consumo Fora Ponta Úmida apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (normalDemandTextFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Demanda Normal deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!normalDemandTextFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Demanda Normal apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            if (transpassedDemandTextFieldEdition.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "O campo Demanda Ultrapassada deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+                return;
+            } else if (!transpassedDemandTextFieldEdition.getText().matches("[0-9.]+")) {
+                JOptionPane.showMessageDialog(null, "Preencha o campo Demanda Ultrapassada apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+        }
+
         guidelineCtrl.createGuidelineRate(guidelineRate, category, peakDemand,
                 offPeakDemand, consumptionDryPeak, consumptionDryOffPeak,
                 consumptionHumidPeak, consumptionHumidOffPeak, normalDemand,
@@ -875,22 +1155,23 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
         int selectedItemIndex = jTable1.getSelectedRow();
         GuidelineRateTableModel model = (GuidelineRateTableModel) jTable1.getModel();
         guidelineEdit = model.getGuidelineRate(selectedItemIndex);
-        
-        icmsTextFieldEdition.setText(guidelineEdit.getIcms());
-        peakDemandFieldEdition.setText(guidelineEdit.getPeakDemand());
-        
-        
-       // guidelineCtrl.up
+
+        GuidelineRateWindowInfo guideInfo = new GuidelineRateWindowInfo(guidelineEdit);
+
+        //     icmsTextFieldEdition.setText(guidelineEdit.getIcms());
+        //     peakDemandFieldEdition.setText(guidelineEdit.getPeakDemand());
+
+
+        // guidelineCtrl.up
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-        if( jTabbedPane1.getSelectedComponent() != insertPanel){
+        if (jTabbedPane1.getSelectedComponent() != insertPanel) {
             JOptionPane.showMessageDialog(null, "Atenção: Os campos só devem ser editados caso haja "
-                + "cadastro errôneo,\n caso contrário deve ser inserido um novo enquadramento!",
-                "Atenção!", JOptionPane.WARNING_MESSAGE);
+                    + "cadastro errôneo,\n caso contrário deve ser inserido um novo enquadramento!",
+                    "Atenção!", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jTabbedPane1MouseClicked
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMainMenu;
     private javax.swing.JLabel categoryLabel;
