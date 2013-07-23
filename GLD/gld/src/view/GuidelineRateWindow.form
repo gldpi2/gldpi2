@@ -321,7 +321,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="consumptionHumidOffPeakLabel">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Custo Energia &#xda;mida*:"/>
+                    <Property name="text" type="java.lang.String" value="Consumo Fora de Ponta &#xda;mida*:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="warningLabel">
@@ -393,7 +393,7 @@
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="consumptionDryOffPeakLabelEdition" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="22" max="32767" attributes="0"/>
                                   <Component id="consumptionDryOffPeakFieldEdition" min="-2" pref="85" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">

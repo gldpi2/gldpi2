@@ -5,17 +5,22 @@
 package view;
 
 import controller.ContractCtrl;
+import dao.GuidelineRateDAO;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Contract;
 import model.ContractTableModel;
+import model.GuidelineRate;
 
 import model.Login;
+import utils.Communication;
 
 /**
  *
@@ -29,6 +34,9 @@ public class ContractWindow extends javax.swing.JPanel {
     private List<Contract> contractList;
     private ContractTableModel table;
     private int selectedRow = 0;
+    public static List<String> guidelineRateNames;
+    private List<Integer> guidelineRateIds;
+    public static Contract contractEdit;
 
     /**
      * Creates new form ContractWindow
@@ -48,6 +56,22 @@ public class ContractWindow extends javax.swing.JPanel {
         //jTable1.setValueAt(table, y, y);
         initComponents();
         setSize(1024, y);
+
+        try {
+            //local.readGuidelineRate().toArray()
+            GuidelineRateDAO local = new GuidelineRateDAO();
+            guidelineRateIds = new ArrayList<>();
+            guidelineRateNames = new ArrayList<>();
+            for (GuidelineRate item : local.readGuidelineRate()) {
+                guidelineRateNames.add(item.getGuidelineRate());
+                guidelineRateIds.add(item.getIdGuidelineRate());
+            }
+            guidelineRateComboBox.setModel(new DefaultComboBoxModel(guidelineRateNames.toArray()));
+            guidelineRateComboBoxEdition.setModel(new DefaultComboBoxModel(guidelineRateNames.toArray()));
+        } catch (SQLException ex) {
+            Logger.getLogger(ContractWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
 
     }
 
@@ -111,7 +135,7 @@ public class ContractWindow extends javax.swing.JPanel {
 
         guidelineRateLabel.setText("Enquadramento Tarifário*:");
 
-        guidelineRateComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        guidelineRateComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione o enquadramento tarifário" }));
 
         javax.swing.GroupLayout insertPanelLayout = new javax.swing.GroupLayout(insertPanel);
         insertPanel.setLayout(insertPanelLayout);
@@ -120,7 +144,7 @@ public class ContractWindow extends javax.swing.JPanel {
             .addGroup(insertPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(guidelineRateComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(guidelineRateComboBox, 0, 0, Short.MAX_VALUE)
                     .addGroup(insertPanelLayout.createSequentialGroup()
                         .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(insertPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -223,7 +247,7 @@ public class ContractWindow extends javax.swing.JPanel {
                 .addComponent(guidelineRateLabelEdition)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(guidelineRateComboBoxEdition, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
                 .addComponent(warningLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(editGuidelineButton)
@@ -233,6 +257,12 @@ public class ContractWindow extends javax.swing.JPanel {
         jTabbedPane1.addTab("Editar", editPanel);
 
         readPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastros Registrados"));
+
+        jScrollPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPane1MouseClicked(evt);
+            }
+        });
 
         jTable1.setModel(table);
         jScrollPane1.setViewportView(jTable1);
@@ -245,7 +275,7 @@ public class ContractWindow extends javax.swing.JPanel {
         );
         readPanelLayout.setVerticalGroup(
             readPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
         );
 
         backToMainMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/house_go.png"))); // NOI18N
@@ -327,16 +357,35 @@ public class ContractWindow extends javax.swing.JPanel {
     private void editGuidelineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editGuidelineButtonActionPerformed
         String offPeakDemand = offPeakDemandFieldEdition.getText();
         String peakDemand = peakDemandFieldEdition.getText();
+        int guidelineRate = guidelineRateComboBoxEdition.getSelectedIndex();
+        int idRate = guidelineRateIds.get(guidelineRate);
         String timestamp = "";
 
         //@TODO Criar validate
         //valite()
+        if (offPeakDemandFieldEdition.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O campo Demanda Contratada Fora de Ponta deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (!offPeakDemandFieldEdition.getText().matches("[0-9.]+")) {
+            JOptionPane.showMessageDialog(null, "Preencha o campo Demanda Contratada Fora de Ponta apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-        contractCtrl.createContract(peakDemand, offPeakDemand, timestamp);
+        if (peakDemandFieldEdition.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O campo Demanda Contratada em Ponta deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (!peakDemandFieldEdition.getText().matches("[0-9.]+")) {
+            JOptionPane.showMessageDialog(null, "Preencha o campo Demanda Contratada em Ponta apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        contractCtrl.createContract(peakDemand, offPeakDemand, idRate, timestamp);
 
         JOptionPane.showMessageDialog(null, "Edit realizado com sucesso!");
 
         clean();
+
+        //Communication.UDPClient.sendData(, 9786, timestamp, idRate, peakDemand, offPeakDemand);
 
         return;
     }//GEN-LAST:event_editGuidelineButtonActionPerformed
@@ -344,26 +393,43 @@ public class ContractWindow extends javax.swing.JPanel {
     private void createGuidelineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createGuidelineButtonActionPerformed
         String offPeakDemand = offPeakDemandField.getText();
         String peakDemand = peakDemandField.getText();
-        String guidelineRate = (String) guidelineRateComboBox.getSelectedItem();
+        int guidelineRate = guidelineRateComboBox.getSelectedIndex();
+        int idRate = guidelineRateIds.get(guidelineRate);
         String timestamp = "";
 
         //@TODO Criar validate
         //valite()
+        if (offPeakDemandField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O campo Demanda Contratada Fora de Ponta deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (!offPeakDemandField.getText().matches("[0-9.]+")) {
+            JOptionPane.showMessageDialog(null, "Preencha o campo Demanda Contratada Fora de Ponta apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-        contractCtrl.createContract(peakDemand, offPeakDemand,
-                 timestamp);
+        if (peakDemandField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O campo Demanda Contratada em Ponta deve ser preenchido", "Campo Vazio", JOptionPane.WARNING_MESSAGE);
+            return;
+        } else if (!peakDemandField.getText().matches("[0-9.]+")) {
+            JOptionPane.showMessageDialog(null, "Preencha o campo Demanda Contratada em Ponta apenas com números", "Campo Inválido", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        contractCtrl.createContract(peakDemand, offPeakDemand, idRate,
+                timestamp);
 
         JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!");
 
         clean();
-        
-         try {
+
+        try {
             this.contractList = this.contractCtrl.readContract();
             this.table.addContractList(this.contractList);
         } catch (SQLException ex) {
             Logger.getLogger(ContractWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        //Communication.UDPClient.sendData(, 9786, timestamp, idRate, peakDemand, offPeakDemand);
         return;
 
     }//GEN-LAST:event_createGuidelineButtonActionPerformed
@@ -372,6 +438,15 @@ public class ContractWindow extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_guidelineRateComboBoxEditionActionPerformed
 
+    private void jScrollPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPane1MouseClicked
+        int selectedItemIndex = jTable1.getSelectedRow();
+        ContractTableModel model = (ContractTableModel) jTable1.getModel();
+        contractEdit = model.getContract(selectedItemIndex);
+        
+        ContractFrameInfo contractInfo = new ContractFrameInfo();
+        contractInfo.setVisible(true);
+    }//GEN-LAST:event_jScrollPane1MouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMainMenu;
     private javax.swing.JLabel cell_vivoLabel;
@@ -379,7 +454,7 @@ public class ContractWindow extends javax.swing.JPanel {
     private javax.swing.JButton editGuidelineButton;
     private javax.swing.JPanel editPanel;
     private javax.swing.JLabel emailLabel;
-    private javax.swing.JComboBox guidelineRateComboBox;
+    public static javax.swing.JComboBox guidelineRateComboBox;
     private javax.swing.JComboBox guidelineRateComboBoxEdition;
     private javax.swing.JLabel guidelineRateLabel;
     private javax.swing.JLabel guidelineRateLabelEdition;

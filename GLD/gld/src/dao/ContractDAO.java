@@ -29,13 +29,14 @@ public class ContractDAO {
 
     public void createContract(Contract contract) {
         
-        String insertContract = "INSERT INTO contract (peak_demand, off_peak_demand"
+        String insertContract = "INSERT INTO contract (peak_demand, off_peak_demand, id_rate"
             + ") VALUES "
-            + "(?,?,?,?)";
+            + "(?,?,?)";
         
-        String[] params = new String[2];
+        String[] params = new String[3];
         params[0] = contract.getPeakDemand();
         params[1] = contract.getOffPeakDemand();
+        params[2] = String.valueOf((contract.getIdRate()));
         
 
         dbint.connect();
@@ -44,11 +45,11 @@ public class ContractDAO {
 
         dbint.disconnect();
         
-        try {
-            Communication.UDPClient.sendData("iddofilhadaPUTA", 9876, contract.getPeakDemand(), contract.getOffPeakDemand());
-        } catch (Exception ex) {
-            Logger.getLogger(ContractDAO.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            Communication.UDPClient.sendData("idContrato", 9876, contract.getPeakDemand(), contract.getOffPeakDemand());
+//        } catch (Exception ex) {
+//            Logger.getLogger(ContractDAO.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
     }
 
@@ -63,8 +64,8 @@ public class ContractDAO {
         while (rs.next()) {
             Contract contract;
 
-            contract = new Contract(rs.getString("contracted_peak_demand"), rs.getString("out_peak_demand"),
-                     rs.getString("timestamp"));
+            contract = new Contract(rs.getString("peak_demand"), rs.getString("off_peak_demand"),
+                     rs.getInt("id_rate"), rs.getString("timestamp"));
 
             listContract.add(contract);
         }
@@ -77,12 +78,13 @@ public class ContractDAO {
     public void updateContract(Contract contract) {
         String updateContract = "SELECT id_contract FROM contract";
         
-        updateContract = "UPDATE contract set peak_demand = ?, off_peak_demand = ?, "
+        updateContract = "UPDATE contract set peak_demand = ?, off_peak_demand = ?, id_rate = ?, "
                 + "timestamp = ? ";
         
-        String[] params = new String[4];
+        String[] params = new String[3];
         params[0] = contract.getPeakDemand();
         params[1] = contract.getOffPeakDemand();
+        params[2] = String.valueOf(contract.getIdRate());
 
 
         dbint.connect();

@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import model.GuidelineRate;
 import model.GuidelineRateTableModel;
@@ -28,7 +29,7 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
     private List<GuidelineRate> guidelineList;
     private GuidelineRateTableModel table;
     private int selectedRow = 0;
-    private GuidelineRate guidelineEdit;
+    public static GuidelineRate guidelineEdit;
     private GuidelineRateWindowInfo guideInfo;
 
     /**
@@ -229,7 +230,7 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
 
         consumptionHumidPeakLabel.setText("Consumo em Ponta Úmida*:");
 
-        consumptionHumidOffPeakLabel.setText("Custo Energia Úmida*:");
+        consumptionHumidOffPeakLabel.setText("Consumo Fora de Ponta Úmida*:");
 
         warningLabel.setText("<html>Os campos assinalados com asterisco (*) <br>são de preencimento obrigatório</html>");
 
@@ -440,7 +441,7 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
                         .addComponent(consumptionDryPeakFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(editPanelLayout.createSequentialGroup()
                         .addComponent(consumptionDryOffPeakLabelEdition)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                         .addComponent(consumptionDryOffPeakFieldEdition, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, editPanelLayout.createSequentialGroup()
                         .addComponent(icmsLabelEdition)
@@ -1156,8 +1157,8 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
         GuidelineRateTableModel model = (GuidelineRateTableModel) jTable1.getModel();
         guidelineEdit = model.getGuidelineRate(selectedItemIndex);
 
-        GuidelineRateWindowInfo guideInfo = new GuidelineRateWindowInfo(guidelineEdit);
-
+        GuidelineRateFrameInfo guideInfo = new GuidelineRateFrameInfo();
+        guideInfo.setVisible(true);
         //     icmsTextFieldEdition.setText(guidelineEdit.getIcms());
         //     peakDemandFieldEdition.setText(guidelineEdit.getPeakDemand());
 

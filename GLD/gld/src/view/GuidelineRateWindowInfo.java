@@ -26,6 +26,7 @@ public class GuidelineRateWindowInfo extends javax.swing.JPanel {
     }
     
     public void initialVisibleComponents(){
+        /**
         categoryDataLabel.setVisible(false);
         categoryShowLabel.setVisible(false);
         consumptionDryPeakDataLabel.setVisible(false);
@@ -49,6 +50,7 @@ public class GuidelineRateWindowInfo extends javax.swing.JPanel {
         transpassedOffPeakShowLabel.setVisible(false);
         transpassedPeakDataLabel.setVisible(false);
         transpassedPeakShowLabel.setVisible(false);
+        */ 
     }
 
     /**
@@ -60,6 +62,7 @@ public class GuidelineRateWindowInfo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFrame1 = new javax.swing.JFrame();
         jPanel1 = new javax.swing.JPanel();
         guidelineRateLabel = new javax.swing.JLabel();
         categoryShowLabel = new javax.swing.JLabel();
@@ -84,6 +87,17 @@ public class GuidelineRateWindowInfo extends javax.swing.JPanel {
         transpassedOffPeakDataLabel = new javax.swing.JLabel();
         normalDemandDataLabel = new javax.swing.JLabel();
         transpassedDemandDataLabel = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
+        jFrame1.getContentPane().setLayout(jFrame1Layout);
+        jFrame1Layout.setHorizontalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jFrame1Layout.setVerticalGroup(
+            jFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalhes Enquadramento Tarifário", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 0, 18))); // NOI18N
 
@@ -246,11 +260,11 @@ public class GuidelineRateWindowInfo extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 545, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 537, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -265,6 +279,7 @@ public class GuidelineRateWindowInfo extends javax.swing.JPanel {
     private javax.swing.JLabel consumptionOffPeakDemandDataLabel;
     private javax.swing.JLabel consumptionOffPeakDemandShowLabel;
     private javax.swing.JLabel guidelineRateLabel;
+    private javax.swing.JFrame jFrame1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel normalDemandDataLabel;
     private javax.swing.JLabel normalDemandShowLabel;

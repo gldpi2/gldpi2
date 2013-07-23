@@ -124,9 +124,10 @@ public class DatabaseInterface {
 
         try {
             if (this.isConnected()) {
-                st = this.conn.prepareStatement(sql, key);
+                st = this.conn.prepareStatement(sql);
 
                 for (int i = 1; i <= params.length; i++) {
+                    System.out.println(params[i-1]);
                     st.setString(i, params[i - 1]);
                 }
 
@@ -139,7 +140,7 @@ public class DatabaseInterface {
             }
         } catch (MySQLIntegrityConstraintViolationException ex) {
             Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, "insert() não realizado. Erro na constraint do insert. "
-                    + "(provavel: referencia PK não existe.)", ex.getErrorCode());
+                    + "(provavel: referencia PK não existe.) MSG: " + ex.getMessage(), ex.getErrorCode());
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseInterface.class.getName()).log(Level.SEVERE, "insert() não realizado.", ex);
         }

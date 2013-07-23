@@ -19,9 +19,10 @@ public class Contract {
     private int month;
     private int day;
 
-    public Contract(String peakDemand, String offPeakDemand, String timestamp) {
+    public Contract(String peakDemand, String offPeakDemand, int idRate, String timestamp) {
         this.peakDemand = peakDemand;
         this.offPeakDemand = offPeakDemand;
+        this.idRate = idRate;
         this.timestamp = timestamp;
     }
 

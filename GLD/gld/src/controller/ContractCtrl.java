@@ -17,24 +17,26 @@ public class ContractCtrl {
 
     ContractDAO dao = new ContractDAO();
 
-    public void createContract(String peakDemand, String offPeakDemand,
+    public void createContract(String peakDemand, String offPeakDemand, int idRate,
             String timestamp) {
 
         Contract contract = new Contract();
 
         contract.setPeakDemand(peakDemand);
         contract.setOffPeakDemand(offPeakDemand);
+        contract.setIdRate(idRate);
         
         dao.createContract(contract);
     }
     
-    public void updateContract(String peakDemand, String offPeakDemand,
+    public void updateContract(String peakDemand, String offPeakDemand, int idRate,
              String timestamp){
     
         Contract contract = new Contract();
 
         contract.setPeakDemand(peakDemand);
         contract.setOffPeakDemand(offPeakDemand);
+        contract.setIdRate(idRate);
         
         dao.updateContract(contract);
     }

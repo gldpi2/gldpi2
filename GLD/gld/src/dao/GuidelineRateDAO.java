@@ -127,6 +127,7 @@ public class GuidelineRateDAO {
 //                    rs.getString("icms"), rs.getString("timestamp"));
             
             guidelineRate = new GuidelineRate();
+            guidelineRate.setIdGuidelineRate(Integer.parseInt(rs.getString("id_rate")));
             guidelineRate.setGuidelineRate(rs.getString("guideline_rate"));
             guidelineRate.setCategory(rs.getString("category"));
             guidelineRate.setPeakDemand(rs.getString("peak_demand"));
