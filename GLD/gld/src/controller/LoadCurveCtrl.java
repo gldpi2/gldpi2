@@ -36,6 +36,10 @@ public class LoadCurveCtrl {
         return loadCurve.createLoadCurveGraphPanel();
     }
 
+    public ChartPanel createMontlyLoadCurveGraphPanel() {
+        return loadCurve.createMontlyLoadCurvePanel();
+    }
+
     public Mensuration getMaxMensuration() {
         return this.loadCurve.maxMensuration;
     }

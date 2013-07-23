@@ -98,11 +98,11 @@ public class UpdaterLoadCurveThread implements Runnable {
                     lastMensuration = m;
                 }
                 //REMOVER!!!! INICIO
-                updateMaxPotency(m);
-                updateMinPotency(m);
-                this.updateSourceAvailable(m);
-                this.updateStatusLabel(m);
-                updateAllLabels(m, lastMensuration);
+//                updateMaxPotency(m);
+//                updateMinPotency(m);
+//                this.updateSourceAvailable(m);
+//                this.updateStatusLabel(m);
+//                updateAllLabels(m, lastMensuration);
                 //REMOVER!!!! FIM
 
                 if (averagePotency == 0) {
@@ -148,11 +148,11 @@ public class UpdaterLoadCurveThread implements Runnable {
 
                 lastMensuration = m;
 
-                try {
-                    Thread.sleep(10);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(UpdaterLoadCurveThread.class.getName()).log(Level.SEVERE, null, ex);
-                }
+//                try {
+//                    Thread.sleep(10);
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(UpdaterLoadCurveThread.class.getName()).log(Level.SEVERE, null, ex);
+//                }
             }
 
             updateMaxPotency(loadCurveCtrl.getMaxMensuration());
