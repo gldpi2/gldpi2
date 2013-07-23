@@ -54,7 +54,7 @@ public class CostEstimationOnHistoryCtrl {
         this.costControl = new CostCtrl();
     }
 
-    public ChartPanel createCostEstimationOnHistoryGraphPanel(int interval, int offset) {
+    public ChartPanel createCostEstimationOnHistoryGraphPanel(int interval, int offset) throws Exception {
         List<Mensuration> data;
         Vector<Double> ret_fail ;
         Vector<Double> ret = new Vector<>();

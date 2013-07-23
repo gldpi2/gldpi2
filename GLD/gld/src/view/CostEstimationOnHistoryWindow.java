@@ -50,21 +50,21 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
 
         estimationChart = new CostEstimationOnHistoryChart(desktop.getWidth(), desktop.getHeight());
         int last_day = CostEstimationOnHistoryCtrl.INTERVAL_LAST_DAY;
-        estimationChart.startGraph(CostEstimationOnHistoryCtrl.INTERVAL_LAST_DAY,0);
-
+        
         //setMaxAndMinDates();
         desktop.add(estimationChart);
         state = 1;
 
         DecimalFormat fmt = new DecimalFormat("0.00");
         countLabel2.setText(fmt.format(estimationChart.getFinalCost()));
-        
+
         th = new Thread(new UpdaterCostThread(estimationChart.getSeries(), estimationChart.limitSeries(), date, flowLabel,
-                   tensionLabel,potencyLabel, countLabel2, kwLabel2, sourceLabel));
+                tensionLabel, potencyLabel, countLabel2, kwLabel2, sourceLabel));
         th.setDaemon(true);
         th.start();
-        
+
         initialVisibleComponents();
+        estimationChart.startGraph(CostEstimationOnHistoryCtrl.INTERVAL_LAST_DAY, 0);
     }
 
     private void initialVisibleComponents() {
@@ -90,7 +90,7 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
                     Date newData = calendar.getTime();
                     dateChooserTo.setMinSelectableDate(newData);
                     dateChooserTo.setCalendar(null);
-                                        
+
                 }
             }
         });
@@ -109,29 +109,41 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
                             return;
                         }
 
-                        Calendar today  = Calendar.getInstance();
+                        Calendar today = Calendar.getInstance();
                         Calendar target = Calendar.getInstance();
                         target.setTime(dateChooserFrom.getDate());
-                        
+
                         long milsecs1 = today.getTimeInMillis();
                         long milsecs2 = target.getTimeInMillis();
                         long diff = milsecs2 - milsecs1;
-                        
+
                         long ddays = diff / (24 * 60 * 60 * 1000);
 
-                        estimationChart.startGraph(CostEstimationOnHistoryCtrl.INTERVAL_LAST_DAY, (int)ddays );
+                        estimationChart.startGraph(CostEstimationOnHistoryCtrl.INTERVAL_LAST_DAY, (int) ddays);
                     }
                 }
             }
         });
-    }
-/**
-    private void setMaxAndMinDates() {
-        dbInterface.connect();
-        //dates = dbInterface.getMaxAndMinDates();
-        dbInterface.disconnect();
-    }*/
 
+        /*
+         monthChooser.getEditor().addPropertyChangeListener(
+         new PropertyChangeListener() {
+         @Override
+         public void propertyChange(PropertyChangeEvent e) {
+         if("month".equals(e.getPropertyName())){
+         if(e.getNewValue() !=null){
+         Calendar calendario = Calendar.getInstance();
+         }
+         }
+         }
+         });
+         */
+    }
+
+    /**
+     * private void setMaxAndMinDates() { dbInterface.connect(); //dates =
+     * dbInterface.getMaxAndMinDates(); dbInterface.disconnect(); }
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -325,11 +337,21 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
         toLabel.setText("Até:");
 
         yearChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2013", "2014", "2015", "2016"}));
+        yearChooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                yearChooserPropertyChange(evt);
+            }
+        });
 
-        monthChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
+        monthChooser.setModel(new javax.swing.DefaultComboBoxModel(new String[] {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro" }));
         monthChooser.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 monthChooserItemStateChanged(evt);
+            }
+        });
+        monthChooser.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                monthChooserPropertyChange(evt);
             }
         });
 
@@ -560,18 +582,19 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
     }//GEN-LAST:event_commandsComboActionPerformed
 
     private void monthChooserItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_monthChooserItemStateChanged
-        String selected = commandsCombo.getSelectedItem().toString();
-        int selectedMonth = monthChooser.getSelectedIndex();
-        int selectedYear = Integer.parseInt(yearChooser.getSelectedItem().toString());
-
-        if (selected.equals("Mensal")) {
-            if (selectedYear >= dates[0].getYear() || selectedYear <= dates[1].getYear()) {
-                if (selectedMonth <= dates[0].getMonth() || selectedMonth >= dates[1].getMonth()) {
-                    System.out.println("\n\nTESTE!!!\n\n");
-                }
-            }
+       if(monthChooser.isVisible()){
+            estimationChart.startGraph(CostEstimationOnHistoryCtrl.INTERVAL_MONTH, (int) 0);
         }
     }//GEN-LAST:event_monthChooserItemStateChanged
+
+    private void yearChooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_yearChooserPropertyChange
+    }//GEN-LAST:event_yearChooserPropertyChange
+
+    private void monthChooserPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_monthChooserPropertyChange
+
+        
+    }//GEN-LAST:event_monthChooserPropertyChange
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMainMenu;
     private javax.swing.JComboBox commandsCombo;

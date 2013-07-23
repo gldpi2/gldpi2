@@ -129,8 +129,26 @@ public class CostEstimationOnHistoryDAO {
     public List<Mensuration> getMensurationADayLastWeek(int offset) throws SQLException {
 
         Calendar now = Calendar.getInstance();
-        //now.add(Calendar.DATE,-offset);
-        now.add(Calendar.DATE,-7+offset);
+        
+        // Para semana passada
+        //now.add(Calendar.DATE,-6 );
+        
+        int timenow = now.getTime().getDay();
+        now.add(Calendar.DATE, + offset );
+        int timethem = now.getTime().getDay();
+        
+        now.add(Calendar.DATE, - offset );
+        
+        if( timenow > timethem ) {
+            now.add(Calendar.DATE, -6+(timenow - timethem +1));
+        } else if ( timethem > timenow ) {
+            now.add(Calendar.DATE, -6+(timethem - timenow ));
+        } else {
+             now.add(Calendar.DATE, -6);
+        }
+        
+        //Para variar como semana passada do offset;
+        //now.add(Calendar.DATE,-6+offset);
                
         List<Mensuration> measurementList;
         measurementList = new ArrayList<>();
@@ -162,10 +180,10 @@ public class CostEstimationOnHistoryDAO {
     public List<Mensuration> getMensurationLast30Days(int offset) throws SQLException {
 
         Calendar now = Calendar.getInstance();
-               
+       
         List<Mensuration> measurementList;
         measurementList = new ArrayList<>();
-        now.add(Calendar.DATE,-30);
+        now.add(Calendar.DATE,-30+offset);
         
         String sql = "SELECT * "
                 + " FROM mensuration "
