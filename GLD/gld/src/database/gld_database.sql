@@ -35,27 +35,35 @@ CREATE TABLE IF NOT EXISTS user (
     UNIQUE (register)
 );
 
-CREATE TABLE IF NOT EXISTS guideline_rate(
-id_rate INT UNSIGNED ZEROFILL AUTO_INCREMENT ,
-guideline_rate VARCHAR( 50 ) NOT NULL ,
-peak_demand FLOAT,
-out_peak_demand FLOAT,
-peak_energy_dry FLOAT,
-out_peak_energy_dry FLOAT,
-peak_energy_humid FLOAT,
-out_peak_energy_humid FLOAT,
-value_transpassed FLOAT,
-`timestamp` timestamp DEFAULT CURRENT_TIMESTAMP ,
-category VARCHAR( 50 ) NOT NULL,
-PRIMARY KEY ( id_rate )
+CREATE TABLE IF NOT EXISTS guideline_rate (
+  id_rate int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
+  guideline_rate varchar(50) NOT NULL,
+  demand float DEFAULT NULL,
+  peak_demand float DEFAULT NULL,
+  off_peak_demand float DEFAULT NULL,
+  consumption float DEFAULT NULL,
+  comsumption_dry_peak float DEFAULT NULL,
+  consumption_dry_off_peak float DEFAULT NULL,
+  consumption_humid_peak float DEFAULT NULL,
+  consumption_humid_off_peak float DEFAULT NULL,
+  transpassed_off_peak float DEFAULT NULL,
+  transpassed_peak float DEFAULT NULL,
+  timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  category varchar(50) DEFAULT NULL,
+  limit varchar(10) DEFAULT NULL,
+  icms float DEFAULT NULL,
+  PRIMARY KEY (id_rate)
 )
 
 CREATE TABLE IF NOT EXISTS contract (
   id_contract int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
-  contracted_peak_demand float DEFAULT NULL,
-  humid_season varchar(10) DEFAULT NULL,
-  dry_season varchar(10) DEFAULT NULL,
-  out_peak_demand float DEFAULT NULL,
+  id_rate int(10) unsigned zerofill NOT NULL,
+  peak_demand float DEFAULT NULL,
+  off_peak_demand float DEFAULT NULL,
   timestamp timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id_contract)
+  PRIMARY KEY (id_contract),
+  KEY id_rate (id_rate)
 )
+
+ALTER TABLE contract
+  ADD CONSTRAINT fk_id_rate FOREIGN KEY (id_rate) REFERENCES guideline_rate (id_rate) ON DELETE CASCADE ON UPDATE CASCADE;

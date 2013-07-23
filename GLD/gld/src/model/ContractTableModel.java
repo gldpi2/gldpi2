@@ -46,16 +46,12 @@ public class ContractTableModel extends AbstractTableModel {
     */
     
     private String[] colunas = new String[]{"ID", "Demanda Contratada Fora de Ponta", "Demanda Contratada em Ponta",
-                                            "Período Seca", "Período Úmido",
-                                               "Data", /*"Registrado por"*/};
+                                            "Data"};
     
     private static final int idContract = 0;
-    private static final int outPeakDemandContracted = 1;
-    private static final int peakDemandContracted = 2;
-    private static final int drySeason = 3;
-    private static final int humidSeason = 4;
-    private static final int timestamp = 5;
-    //private static final int user = 6;
+    private static final int offPeakDemand = 1;
+    private static final int peakDemand = 2;
+    private static final int timestamp = 3;
     
     @Override
     public int getRowCount() {
@@ -120,14 +116,10 @@ public class ContractTableModel extends AbstractTableModel {
         switch (columnIndex) {
             case idContract:
                 return contract.getIdContract();
-            case outPeakDemandContracted:
-                return contract.getOutPeakDemandContracted();
-            case peakDemandContracted:
-                return contract.getPeakDemandContracted();
-            case drySeason:
-                return contract.getDrySeason();
-            case humidSeason:
-                return contract.getHumidSeason();
+            case offPeakDemand:
+                return contract.getOffPeakDemand();
+            case peakDemand:
+                return contract.getPeakDemand();
             case timestamp:
                 return contract.getTimestamp();
             //case user:
@@ -184,16 +176,12 @@ public class ContractTableModel extends AbstractTableModel {
             case idContract:
                 c.setIdContract((int) aValue);
                 break;
-            case outPeakDemandContracted:
-                c.setOutPeakDemandContracted((String) aValue);
+            case offPeakDemand:
+                c.setOffPeakDemand((String) aValue);
                 break;
-            case peakDemandContracted:
-                c.setPeakDemandContracted((String) aValue);
+            case peakDemand:
+                c.setPeakDemand((String) aValue);
                 break;
-            case drySeason:
-                c.setDrySeason((String) aValue);
-            case humidSeason:
-                c.setHumidSeason((String) aValue);
             case timestamp:
                 c.setTimestamp((String) aValue);
                 break;

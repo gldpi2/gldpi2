@@ -155,7 +155,7 @@ public class CostEstimationOnHistoryCtrl {
                 average += data.get(index).getFlow();
             }
             average /= regPerHour;
-            ret.add(this.pert(greater, minor, average) * 60 * costControl.energyValue(tempMensuration.getHour()) * 1000 );
+            ret.add(this.pert(greater, minor, average) * 60 * costControl.metodoNovo(tempMensuration.getHour()) * 1000 );
         }
         return ret;
     }

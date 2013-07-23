@@ -17,28 +17,24 @@ public class ContractCtrl {
 
     ContractDAO dao = new ContractDAO();
 
-    public void createContract(String peakDemandContracted, String outPeakDemandContracted,
-            String humidSeason, String drySeason, String timestamp) {
+    public void createContract(String peakDemand, String offPeakDemand,
+            String timestamp) {
 
         Contract contract = new Contract();
 
-        contract.setPeakDemandContracted(peakDemandContracted);
-        contract.setOutPeakDemandContracted(outPeakDemandContracted);
-        contract.setHumidSeason(humidSeason);
-        contract.setDrySeason(drySeason);
+        contract.setPeakDemand(peakDemand);
+        contract.setOffPeakDemand(offPeakDemand);
         
         dao.createContract(contract);
     }
     
-    public void updateContract(String peakDemandContracted, String outPeakDemandContracted,
-            String humidSeason, String drySeason, String timestamp){
+    public void updateContract(String peakDemand, String offPeakDemand,
+             String timestamp){
     
         Contract contract = new Contract();
 
-        contract.setPeakDemandContracted(peakDemandContracted);
-        contract.setOutPeakDemandContracted(outPeakDemandContracted);
-        contract.setHumidSeason(humidSeason);
-        contract.setDrySeason(drySeason);
+        contract.setPeakDemand(peakDemand);
+        contract.setOffPeakDemand(offPeakDemand);
         
         dao.updateContract(contract);
     }
