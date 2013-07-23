@@ -1,8 +1,10 @@
 package model;
 
+import controller.CostEstimationOnHistoryCtrl;
 import controller.LoadEstimationOnHistoryCtrl;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Vector;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -23,6 +25,7 @@ import org.jfree.data.time.TimePeriodValues;
 import org.jfree.data.time.TimePeriodValuesCollection;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.xy.XYDataset;
+import sun.util.calendar.LocalGregorianCalendar.Date;
 
 /**
  *
@@ -38,11 +41,11 @@ public class CostEstimationOnHistory {
     public TimeSeries seriesLimit = new TimeSeries("Limite", Millisecond.class);
     public int state = 0;
     public Mensuration maxMensuration = new Mensuration();
-    public Mensuration minMensuration = new Mensuration();                
+    public Mensuration minMensuration = new Mensuration();
     private double finalCost;
 
-    public ChartPanel createLoadEstimationOnHistoryGraphPanel(Vector<Double> interval,int type) {
-        
+    public ChartPanel createLoadEstimationOnHistoryGraphPanel(Vector<Double> interval, int type) throws Exception {
+
         final XYDataset mensurationDataSet = createMensurationDataSet(interval, type);
         XYBarRenderer x = new XYBarRenderer();
         XYBarRenderer.setDefaultShadowsVisible(false);
@@ -51,13 +54,22 @@ public class CostEstimationOnHistory {
 
         final XYItemRenderer mensurationRender = x;
 
-        mensurationRender.setSeriesPaint(0, new Color(0, 255, 0, 255));
+        switch (type) {
+            case CostEstimationOnHistoryCtrl.INTERVAL_MONTH:
+                mensurationRender.setSeriesPaint(0, new Color(0, 125, 125, 255));
+                break;
+            case CostEstimationOnHistoryCtrl.INTERVAL_LAST_DAY:
+                mensurationRender.setSeriesPaint(0, new Color(0, 255, 0, 255));
+                break;
+            default:
+                throw new Exception("Erro ao construir o cor do chart");
+        }
         mensurationRender.setSeriesPaint(1, Color.RED);
         mensurationRender.setSeriesPaint(2, Color.BLUE);
 
         final DateAxis domainAxis = new DateAxis("Date");
         domainAxis.setVerticalTickLabels(false);
-        switch(type){
+        switch (type) {
             case LoadEstimationOnHistoryCtrl.INTERVAL_LAST_DAY:
                 domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.HOUR, 1));
                 domainAxis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
@@ -65,12 +77,13 @@ public class CostEstimationOnHistory {
             case LoadEstimationOnHistoryCtrl.INTERVAL_MONTH:
                 domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.DAY, 1));
                 domainAxis.setDateFormatOverride(new SimpleDateFormat("dd/MM"));
+                //domainAxis.setRange(Date "07/01/2013", Date "07/31/2013");
                 break;
             default:
                 domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.HOUR, 1));
                 domainAxis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
                 break;
-                
+
         }
         domainAxis.setLowerMargin(0.01);
         domainAxis.setUpperMargin(0.01);
@@ -88,7 +101,19 @@ public class CostEstimationOnHistory {
 
         plot.setRenderer(2, contractRender);
 
-        final JFreeChart chartCurve = new JFreeChart("Estimativa de Curva de Carga", plot);
+        JFreeChart chartCurve = null;
+
+        switch (type) {
+            case CostEstimationOnHistoryCtrl.INTERVAL_MONTH:
+                chartCurve = new JFreeChart("Estimativa de Curva de Custos Mensal ", plot);
+                break;
+            case CostEstimationOnHistoryCtrl.INTERVAL_LAST_DAY:
+                chartCurve = new JFreeChart("Estimativa de Curva de Custos Diários", plot);
+                break;
+            default:
+                throw new Exception("Erro ao construir o nome do chart");
+        }
+
         chartPanel = new ChartPanel(chartCurve);
         chartPanel.setMouseZoomable(true, false);
 
@@ -100,19 +125,31 @@ public class CostEstimationOnHistory {
      *
      * @return the dataset.
      */
-    public XYDataset createMensurationDataSet(Vector<Double> interval,int type) {
+    public XYDataset createMensurationDataSet(Vector<Double> interval, int type) throws Exception {
+
         //final TimePeriodValues offPeakSerie = new TimePeriodValues("Fora de Ponta");
         //final TimePeriodValues peakSerie = new TimePeriodValues("Ponta");
         final TimePeriodValues costEstimationOnHistorySerie = new TimePeriodValues("Estimativa");
 
         final Day today = new Day();
         double measure = interval.get(0);
-        for (int i = 0; i < type ; i++) {
+        for (int i = 0; i < type; i++) {
             final Minute m0 = new Minute(0, new Hour(i, today));
             final Minute m1 = new Minute(0, new Hour(i + 1, today));
-            costEstimationOnHistorySerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), measure);             
+            switch (type) {
+                case CostEstimationOnHistoryCtrl.INTERVAL_MONTH:
+                    measure += interval.get(i);
+                    costEstimationOnHistorySerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), measure);
+                    break;
+                case CostEstimationOnHistoryCtrl.INTERVAL_LAST_DAY:
+                    costEstimationOnHistorySerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), measure);
+                    break;
+                default:
+                    throw new Exception("Erro ao construir os dados do chart");
+            }
+            costEstimationOnHistorySerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), measure);
 //            measure += interval.get(i);
-        }  
+        }
         setFinalCost(measure);
         final TimePeriodValuesCollection dataset = new TimePeriodValuesCollection();
 
@@ -124,9 +161,8 @@ public class CostEstimationOnHistory {
     public void setFinalCost(double value) {
         this.finalCost = value;
     }
-    
+
     public double getFinalCost() {
         return this.finalCost;
     }
-
 }

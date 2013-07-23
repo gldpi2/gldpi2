@@ -1,7 +1,6 @@
 package view;
 
 import controller.CostEstimationOnHistoryCtrl;
-import controller.LoadEstimationOnHistoryCtrl;
 import org.jfree.chart.ChartPanel;
 import org.jfree.data.time.TimeSeries;
 
@@ -24,7 +23,6 @@ public class CostEstimationOnHistoryChart extends javax.swing.JPanel {
     public void startGraph(int interval, int offset) {
         ChartPanel panel = null;        
         panel = costEstimationOnHistoryCtrl.createCostEstimationOnHistoryGraphPanel(interval, offset);
-        //panel = costEstimationOnHistoryCtrl.createCostEstimationOnHistoryGraphPanel(CostEstimationOnHistoryCtrl.INTERVAL_MONTH, 0);
         panel.setSize(this.getWidth(), this.getHeight());
         panel.setVisible(true);
         this.removeAll();

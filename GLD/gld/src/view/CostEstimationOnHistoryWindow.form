@@ -421,15 +421,19 @@
               <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;2013&quot;, &quot;2014&quot;, &quot;2015&quot;, &quot;2016&quot;})" type="code"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="yearChooserPropertyChange"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JComboBox" name="monthChooser">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Janeiro&quot;, &quot;Fevereiro&quot;, &quot;Mar&#xe7;o&quot;, &quot;Abril&quot;, &quot;Maio&quot;, &quot;Junho&quot;, &quot;Julho&quot;, &quot;Agosto&quot;, &quot;Setembro&quot;, &quot;Outubro&quot;, &quot;Novembro&quot;, &quot;Dezembro&quot; })" type="code"/>
+              <Connection code="new javax.swing.DefaultComboBoxModel(new String[] {&quot;Janeiro&quot;, &quot;Fevereiro&quot;, &quot;Mar&#xe7;o&quot;, &quot;Abril&quot;, &quot;Maio&quot;, &quot;Junho&quot;, &quot;Julho&quot;, &quot;Agosto&quot;, &quot;Setembro&quot;, &quot;Outubro&quot;, &quot;Novembro&quot;, &quot;Dezembro&quot; })" type="code"/>
             </Property>
           </Properties>
           <Events>
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="monthChooserItemStateChanged"/>
+            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="monthChooserPropertyChange"/>
           </Events>
         </Component>
       </SubComponents>

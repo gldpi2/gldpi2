@@ -54,7 +54,7 @@ public class CostEstimationOnHistoryCtrl {
         this.costControl = new CostCtrl();
     }
 
-    public ChartPanel createCostEstimationOnHistoryGraphPanel(int interval, int offset) {
+    public ChartPanel createCostEstimationOnHistoryGraphPanel(int interval, int offset) throws Exception {
         List<Mensuration> data;
         Vector<Double> ret_fail ;
         Vector<Double> ret = new Vector<>();
@@ -135,7 +135,7 @@ public class CostEstimationOnHistoryCtrl {
         if(data.size() < 24){
             throw new NotEnoughDataException();
         }
-        
+         
         Vector<Double> ret = new Vector<>();
         int regPerHour = data.size() / 24;
         //Para cada hora
