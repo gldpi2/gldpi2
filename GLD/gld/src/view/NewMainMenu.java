@@ -76,7 +76,8 @@ public class NewMainMenu extends javax.swing.JPanel {
         this.setTimeTableValue();
         this.setAltSourceValue();
         this.setPowerGridValue();
-
+        this. setSeasonTableValue();
+        
         state = 1;
     }
 
@@ -91,6 +92,18 @@ public class NewMainMenu extends javax.swing.JPanel {
             timetableValue.setForeground(Color.green);
         }
     }
+    
+    public void setSeasonTableValue(){
+        Calendar now = Calendar.getInstance();
+        int month = now.get(Calendar.MONTH);
+        if (month <= 4 && month == 12) {
+            seasonValue.setText("Úmido");
+            seasonValue.setForeground(Color.blue);
+        } else {
+            seasonValue.setText("Seco");
+            seasonValue.setForeground(Color.red);
+        }
+    }
 
     public void setAltSourceValue() {
         double tension = lcControl.getLastMensuration().getBateryTension();
@@ -99,7 +112,7 @@ public class NewMainMenu extends javax.swing.JPanel {
             altSourceValue.setForeground(Color.green);
         } else if (tension < 14 && tension > 0) {
             altSourceValue.setText("Carregando");
-            altSourceValue.setForeground(Color.yellow);
+            altSourceValue.setForeground(Color.orange);
         } else if (tension <= 0) {
             altSourceValue.setText("Vazio");
             altSourceValue.setForeground(Color.red);
@@ -139,7 +152,7 @@ public class NewMainMenu extends javax.swing.JPanel {
         timetableLabel = new javax.swing.JLabel();
         timetableValue = new javax.swing.JLabel();
         periodLabel = new javax.swing.JLabel();
-        periodValue = new javax.swing.JLabel();
+        seasonValue = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "GLD", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Bitstream Charter", 1, 24))); // NOI18N
@@ -164,7 +177,7 @@ public class NewMainMenu extends javax.swing.JPanel {
         );
         panelCostmLayout.setVerticalGroup(
             panelCostmLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 556, Short.MAX_VALUE)
+            .addGap(0, 555, Short.MAX_VALUE)
         );
 
         panelConsumptionm.setBorder(javax.swing.BorderFactory.createTitledBorder("Grafico de Carga"));
@@ -210,8 +223,8 @@ public class NewMainMenu extends javax.swing.JPanel {
         periodLabel.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
         periodLabel.setText("Período:");
 
-        periodValue.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
-        periodValue.setText("jLabel3");
+        seasonValue.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        seasonValue.setText("jLabel3");
 
         javax.swing.GroupLayout sysHibridDiv0Layout = new javax.swing.GroupLayout(sysHibridDiv0);
         sysHibridDiv0.setLayout(sysHibridDiv0Layout);
@@ -225,7 +238,7 @@ public class NewMainMenu extends javax.swing.JPanel {
                         .addComponent(powerGridValue))
                     .addGroup(sysHibridDiv0Layout.createSequentialGroup()
                         .addComponent(altSourceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                         .addComponent(altSourceValue))
                     .addGroup(sysHibridDiv0Layout.createSequentialGroup()
                         .addComponent(timetableLabel)
@@ -234,7 +247,7 @@ public class NewMainMenu extends javax.swing.JPanel {
                     .addGroup(sysHibridDiv0Layout.createSequentialGroup()
                         .addComponent(periodLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(periodValue)))
+                        .addComponent(seasonValue)))
                 .addContainerGap())
         );
         sysHibridDiv0Layout.setVerticalGroup(
@@ -255,8 +268,8 @@ public class NewMainMenu extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(sysHibridDiv0Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(periodLabel)
-                    .addComponent(periodValue))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(seasonValue))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelHibridSystemLayout = new javax.swing.GroupLayout(panelHibridSystem);
@@ -346,9 +359,9 @@ public class NewMainMenu extends javax.swing.JPanel {
     private javax.swing.JPanel panelCostm;
     private javax.swing.JPanel panelHibridSystem;
     private javax.swing.JLabel periodLabel;
-    private javax.swing.JLabel periodValue;
     private javax.swing.JLabel powerGridLabel;
     private javax.swing.JLabel powerGridValue;
+    private javax.swing.JLabel seasonValue;
     private javax.swing.JPanel sysHibridDiv0;
     private javax.swing.JLabel timetableLabel;
     private javax.swing.JLabel timetableValue;

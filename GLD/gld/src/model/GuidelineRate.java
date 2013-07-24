@@ -106,7 +106,8 @@ public class GuidelineRate {
         month = (timestamp.substring(4, 6));
         day = (timestamp.substring(6, 8));
 
-        return year + " - " + month + " - " + day + " - "; 
+        return day + "/" + month + "/" + year; 
+        //return year + " - " + month + " - " + day + " - "; 
     }
     
     public int getIdGuidelineRate() {

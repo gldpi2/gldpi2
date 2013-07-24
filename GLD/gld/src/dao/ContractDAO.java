@@ -64,8 +64,11 @@ public class ContractDAO {
         while (rs.next()) {
             Contract contract;
 
-            contract = new Contract(rs.getString("peak_demand"), rs.getString("off_peak_demand"),
-                     rs.getInt("id_rate"), rs.getString("timestamp"));
+            contract = new Contract();
+            contract.setPeakDemand(rs.getString("peak_demand")); 
+            contract.setOffPeakDemand(rs.getString("off_peak_demand"));
+            contract.setIdRate(rs.getInt("id_rate"));
+            contract.setCoolTimestamp(rs.getString("timestamp"));
 
             listContract.add(contract);
         }
