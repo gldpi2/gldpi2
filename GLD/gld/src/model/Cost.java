@@ -26,18 +26,18 @@ public class Cost {
     private double costValue;
     private String time;
     private double peak;
-    private double outPeak;
+    private double offPeak;
     
     
     /**
-     * Método para configurar o valor de energia
+     * Método para configurar o valor do kw
      * @param kwValue 
      */
     public void setKwValue(double kwValue) {
         this.kwValue = kwValue;
     }
     /**
-     * Método que irá pegar o valor da energia
+     * Método que irá pegar o valor do kw
      * @return valor da energia
      */
     public double getKwValue() {
@@ -77,11 +77,11 @@ public class Cost {
     }
 
     public double getOutPeak() {
-        return outPeak;
+        return offPeak;
     }
 
     public void setOutPeak(double outPeak) {
-        this.outPeak = outPeak;
+        this.offPeak = outPeak;
     }
     
     public ChartPanel createCostChart(){

@@ -21,7 +21,7 @@ public class CostCtrl {
     private Mensuration mensuration = new Mensuration();
     private List<Mensuration> listMensuration;
     private Cost cost = new Cost();
-    private double hour;
+    private int hour;
     private double initial;
     private double countValue = initialCount();
 
@@ -59,14 +59,14 @@ public class CostCtrl {
      * @param flow corrente no momento atual
      * @return custo atual.
      */
-    public double energyValue() {
+    public double energyValue(Mensuration mensuration) {
 
         /**
          * Método que verifica a hora do banco de dados e coloca o valor do kWh
          * de acordo com o documento da CEB (Companhia Energética de Brasília)
          * Hora de ponta é entre 18 e 21 e o restante tem valor menor
          */
-        hour = Double.parseDouble(mensuration.getTimestamp().substring(8, 10));
+        hour = Integer.parseInt(mensuration.getTimestamp().substring(8, 10));
         
         if (hour >= 18 && hour < 21) {
             cost.setKwValue(PEAK);

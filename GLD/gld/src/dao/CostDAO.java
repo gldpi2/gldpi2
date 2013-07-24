@@ -17,23 +17,23 @@ import utils.DatabaseInterface;
 public class CostDAO {
 
     private DatabaseInterface dbInterface = new DatabaseInterface();
-    private String timeHour;
+    private String Hour;
     private double peakContracted;
-    private double OutPeakContracted;
+    private double OffPeakContracted;
 
-    public void setTime(String timeHour) {
-        this.timeHour = timeHour;
+    public void setHour(String hour) {
+        this.Hour = hour;
     }
 
-    public String getTime() {
-        return timeHour;
+    public String getHour() {
+        return Hour;
     }
+
     /**
      * Método que irá pegar as mediçõe através da DAO e aqui irá fazer o cálculo
      * do custo
      *
      * @return vetor de custo já calculados
-     * @throws Exceção de SQL, pois se não houver conexão ou dados, irá falhar.
      */
     public List<Mensuration> allMeasurements() {
         List<Mensuration> mensurationList = new ArrayList<>();
@@ -52,8 +52,7 @@ public class CostDAO {
                 mensuration.setTension(rs.getDouble("tension"));
                 mensuration.setTimestamp(rs.getString("timestamp"));
                 mensuration.setEnergyAvailable(rs.getInt("energy_available"));
-
-                setTime(mensuration.getTimestamp().substring(8, 10));
+                setHour(mensuration.getTimestamp().substring(8, 10));
                 mensurationList.add(mensuration);
             }
 
@@ -68,19 +67,19 @@ public class CostDAO {
     public Mensuration singleMensuration() {
         Mensuration mensuration = new Mensuration();
         conectDB();
-        
+
         int last = dbInterface.getLastId("mensuration");
         String sql = "SELECT * FROM mensuration WHERE id_mensuration =" + last;
         ResultSet rs = dbInterface.executeQuery(sql);
 
         try {
             if (rs.next()) {
-
                 mensuration.setIdMensuration(rs.getInt("id_mensuration"));
                 mensuration.setFlow(rs.getDouble("flow"));
                 mensuration.setTension(rs.getDouble("tension"));
                 mensuration.setTimestamp(rs.getString("timestamp"));
                 mensuration.setEnergyAvailable(rs.getInt("energy_available"));
+                //setHour(mensuration.getTimestamp().substring(8, 10));
             }
         } catch (SQLException ex) {
             Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -89,8 +88,8 @@ public class CostDAO {
         disconectDB();
         return mensuration;
     }
-    
-     public List<Mensuration> getMensurationByDay(int day, int mounth, int year) {
+
+    public List<Mensuration> getMensurationByDay(int day, int mounth, int year) {
         List<Mensuration> measurementList;
         measurementList = new ArrayList<>();
 
@@ -103,14 +102,13 @@ public class CostDAO {
         try {
             while (rs.next()) {
                 Mensuration mensuration;
-
                 mensuration = new Mensuration();
                 mensuration.setIdMensuration(rs.getInt("id_mensuration"));
                 mensuration.setFlow(rs.getDouble("flow"));
                 mensuration.setTension(rs.getDouble("tension"));
                 mensuration.setTimestamp(rs.getString("timestamp"));
                 mensuration.setEnergyAvailable(rs.getInt("energy_available"));
-
+                setHour(mensuration.getTimestamp().substring(8, 10));
                 measurementList.add(mensuration);
             }
         } catch (SQLException ex) {
@@ -121,17 +119,16 @@ public class CostDAO {
 
         return measurementList;
     }
-    
-    
-    public double getPeakDemandContracted(){
+
+    public double getPeakDemandContracted() {
         Contract contract = new Contract();
         conectDB();
-        
+
         int last = dbInterface.getLastId("contract");
-        String sql = "SELECT * FROM contract WHERE id_contract=" +last;
+        String sql = "SELECT * FROM contract WHERE id_contract=" + last;
         ResultSet rs = dbInterface.executeQuery(sql);
         try {
-            while(rs.next()){
+            while (rs.next()) {
                 contract.setPeakDemand(rs.getString("peak_demand"));
                 peakContracted = Double.parseDouble(contract.getPeakDemand());
             }
@@ -141,26 +138,25 @@ public class CostDAO {
         disconectDB();
         return peakContracted;
     }
-    
-    public double getOutPeakContracted(){
+
+    public double getOutPeakContracted() {
         Contract contract = new Contract();
         conectDB();
         int last = dbInterface.getLastId("contract");
-        String sql = "SELECT * FROM contract WHERE id_contract=" +last;
-        
+        String sql = "SELECT * FROM contract WHERE id_contract=" + last;
+
         ResultSet rs = dbInterface.executeQuery(sql);
         try {
-            while(rs.next()){
-               contract.setOffPeakDemand(rs.getString("off_peak_demand"));
-               OutPeakContracted = Double.parseDouble(contract.getOffPeakDemand());
+            while (rs.next()) {
+                contract.setOffPeakDemand(rs.getString("off_peak_demand"));
+                OffPeakContracted = Double.parseDouble(contract.getOffPeakDemand());
             }
         } catch (SQLException ex) {
             Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         disconectDB();
-        return OutPeakContracted;
+        return OffPeakContracted;
     }
-    
 
     private void conectDB() {
         dbInterface.connect();
