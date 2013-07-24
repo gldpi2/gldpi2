@@ -7,6 +7,8 @@ import java.beans.PropertyChangeListener;
 import java.text.DecimalFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Login;
@@ -34,7 +36,7 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
      */
     private Date[] dates = new Date[2];
 
-    public CostEstimationOnHistoryWindow(int y, Login user) {
+    public CostEstimationOnHistoryWindow(int y, Login user) throws Exception {
         initComponents();
         month = today.getMonth() - 1;
         year = today.getYear() - 2013;
@@ -43,7 +45,7 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
         init();
     }
 
-    private void init() {
+    private void init() throws Exception {
         desktop.removeAll();
 
         Date date = new Date();
@@ -118,8 +120,11 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
                         long diff = milsecs2 - milsecs1;
 
                         long ddays = diff / (24 * 60 * 60 * 1000);
-
-                        estimationChart.startGraph(CostEstimationOnHistoryCtrl.INTERVAL_LAST_DAY, (int) ddays);
+                        try {
+                            estimationChart.startGraph(CostEstimationOnHistoryCtrl.INTERVAL_LAST_DAY, (int) ddays);
+                        } catch (Exception ex) {
+                            Logger.getLogger(CostEstimationOnHistoryWindow.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }
@@ -583,7 +588,11 @@ public class CostEstimationOnHistoryWindow extends javax.swing.JPanel {
 
     private void monthChooserItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_monthChooserItemStateChanged
        if(monthChooser.isVisible()){
-            estimationChart.startGraph(CostEstimationOnHistoryCtrl.INTERVAL_MONTH, (int) 0);
+           try {
+               estimationChart.startGraph(CostEstimationOnHistoryCtrl.INTERVAL_MONTH, (int) 0);
+           } catch (Exception ex) {
+               Logger.getLogger(CostEstimationOnHistoryWindow.class.getName()).log(Level.SEVERE, null, ex);
+           }
         }
     }//GEN-LAST:event_monthChooserItemStateChanged
 
