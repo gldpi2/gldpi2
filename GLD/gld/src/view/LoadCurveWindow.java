@@ -4,10 +4,15 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import model.Login;
+import model.Mensuration;
 import org.jfree.data.time.Day;
+import org.jfree.data.time.Hour;
+import org.jfree.data.time.Minute;
+import org.jfree.data.time.SimpleTimePeriod;
 import utils.DatabaseInterface;
 import utils.UpdaterLoadCurveThread;
 
@@ -173,7 +178,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         yearChooser = new javax.swing.JComboBox();
         monthChooser = new javax.swing.JComboBox();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gráfico de Curva de Carga", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 24))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Perfil do Consumidor", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 24))); // NOI18N
         setMaximumSize(new java.awt.Dimension(1024, 720));
         setMinimumSize(new java.awt.Dimension(1024, 720));
         addComponentListener(new java.awt.event.ComponentAdapter() {
@@ -617,6 +622,62 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                         loadChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
 
                         loadChart.startMontlyGraph();
+
+                        List<Mensuration> mensuration = loadChart.loadCurveCtrl.getMensurationByMonth(monthChooser.getSelectedIndex() + 1, Integer.parseInt(yearChooser.getSelectedItem().toString()));
+
+                        today = new Day();
+
+                        boolean inserted = false;
+                        int lastMinuteInserted = -1;
+                        double averagePotency = 0;
+
+                        if (mensuration.size() > 0) {
+                            for (Mensuration m : mensuration) {
+                                double currentPotency = m.getPotency();
+
+                                if (averagePotency == 0) {
+                                    averagePotency = m.getPotency();
+                                }
+
+                                if (((m.getHour() * 60) + m.getMinute()) % 360 == 0) {
+                                    if (!inserted || lastMinuteInserted != m.getMinute()) {
+                                        today = new Day(m.getDay(), m.getMonth(), m.getYear());
+                                        final Minute m0 = new Minute(m.getMinute(), new Hour(m.getHour(), today));
+                                        final Minute m1 = new Minute(m.getMinute() + 360, new Hour(m.getHour(), today));
+
+                                        averagePotency = (averagePotency + currentPotency) / 2;
+
+                                        if (m.getHour() >= 18 && m.getHour() < 21) {
+                                            loadChart.getLoadCurve().peakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), averagePotency);
+                                        } else {
+                                            loadChart.getLoadCurve().offPeakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), averagePotency);
+                                        }
+
+                                        lastMinuteInserted = m.getMinute();
+                                        inserted = true;
+                                        averagePotency = 0;
+                                    }
+
+                                    if (averagePotency == 0) {
+                                        averagePotency = m.getPotency();
+                                    } else {
+                                        averagePotency = (currentPotency + averagePotency) / 2;
+                                    }
+
+                                } else {
+                                    inserted = false;
+                                    averagePotency = (currentPotency + averagePotency) / 2;
+                                }
+
+                                if (currentPotency > loadChart.loadCurveCtrl.getMaxMensuration().getPotency()) {
+                                    loadChart.loadCurveCtrl.setMaxMensuration(m);
+                                }
+
+                                if (currentPotency < loadChart.loadCurveCtrl.getMinMensuration().getPotency() || loadChart.loadCurveCtrl.getMinMensuration().getPotency() == 0) {
+                                    loadChart.loadCurveCtrl.setMinMensuration(m);
+                                }
+                            }
+                        }
 
                         desktop.add(loadChart);
                         desktop.repaint();

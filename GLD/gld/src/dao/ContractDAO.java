@@ -65,6 +65,11 @@ public class ContractDAO {
             contract.setIdRate(rs.getInt("id_rate"));
             contract.setCoolTimestamp(rs.getString("timestamp"));
 
+            contract = new Contract();
+            contract.setPeakDemand(rs.getString("peak_demand"));
+            contract.setOffPeakDemand(rs.getString("off_peak_demand"));
+            contract.setIdRate(rs.getInt("id_rate"));
+            contract.setCoolTimestamp(rs.getString("timestamp"));
 
             listContract.add(contract);
         }
