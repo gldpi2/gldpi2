@@ -105,13 +105,13 @@
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jPanel1" max="32767" attributes="0"/>
-                      <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
+                      <Component id="jPanel5" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jPanel2" min="-2" pref="97" max="-2" attributes="0"/>
+                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                  <Component id="jPanel3" min="-2" pref="97" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
                   <Component id="backToMainMenu" min="-2" max="-2" attributes="0"/>
@@ -185,7 +185,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/icons/report_edit.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Gerar Rel&#xe1;torio"/>
+            <Property name="text" type="java.lang.String" value="Gerar Estudo"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
@@ -260,6 +260,7 @@
                               <Component id="currentOffPeakDemand" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -365,7 +366,7 @@
                               <Component id="costBlueMax" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="47" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
@@ -458,7 +459,7 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -631,119 +632,91 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="peakGreenMax" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="offPeakGreenMax" min="-2" max="-2" attributes="0"/>
+                              <Component id="peakGreenContract" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel30" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="costGreenMax" min="-2" max="-2" attributes="0"/>
+                              <Component id="costGreenContract" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="47" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="costGreenAvg" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="offPeakGreenAvg" min="-2" max="-2" attributes="0"/>
+                              <Component id="costGreenMax" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="peakGreenAvg" min="-2" max="-2" attributes="0"/>
+                              <Component id="peakGreenMax" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="costGreenMed" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="offPeakGreenMed" min="-2" max="-2" attributes="0"/>
+                              <Component id="costGreenMaxAvg" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="peakGreenMed" min="-2" max="-2" attributes="0"/>
+                              <Component id="peakGreenMaxAvg" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="peakGreenMax" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="offPeakGreenMax" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel30" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="costGreenMax" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="peakGreenMed" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel41" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="offPeakGreenMed" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="peakGreenMaxAvg" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="costGreenMed" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="costGreenMaxAvg" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="peakGreenAvg" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel27" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="peakGreenContract" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel30" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="costGreenContract" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="offPeakGreenAvg" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel36" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="costGreenAvg" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel32" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="peakGreenMax" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel36" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="costGreenMax" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="peakGreenMax">
+            <Component class="javax.swing.JLabel" name="peakGreenContract">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PT Sans Caption" size="12" style="0"/>
@@ -756,23 +729,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PT Sans Caption" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Demanda Ponta (M&#xe1;xima):"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel28">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="PT Sans Caption" size="12" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Demanda Fora de Ponta (M&#xe1;xima):"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="offPeakGreenMax">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="PT Sans Caption" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Atualizando..."/>
+                <Property name="text" type="java.lang.String" value="Demanda (Contratada):"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel30">
@@ -780,10 +737,10 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PT Sans Caption" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Custo Anual para M&#xe1;ximo:"/>
+                <Property name="text" type="java.lang.String" value="Custo Anual para Contratada:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="costGreenMax">
+            <Component class="javax.swing.JLabel" name="costGreenContract">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PT Sans Caption" size="12" style="0"/>
@@ -796,26 +753,10 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PT Sans Caption" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Demanda Ponta (M&#xe9;dia):"/>
+                <Property name="text" type="java.lang.String" value="Demanda (M&#xe1;xima):"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="peakGreenAvg">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="PT Sans Caption" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Atualizando..."/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel34">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="PT Sans Caption" size="12" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Demanda Fora de Ponta (M&#xe9;dia):"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="offPeakGreenAvg">
+            <Component class="javax.swing.JLabel" name="peakGreenMax">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PT Sans Caption" size="12" style="0"/>
@@ -828,10 +769,10 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PT Sans Caption" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Custo Anual para M&#xe9;dia:"/>
+                <Property name="text" type="java.lang.String" value="Custo Anual para M&#xe1;xima:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="costGreenAvg">
+            <Component class="javax.swing.JLabel" name="costGreenMax">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PT Sans Caption" size="12" style="0"/>
@@ -844,31 +785,15 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PT Sans Caption" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Demanda Ponta (Mediana):"/>
+                <Property name="text" type="java.lang.String" value="Demanda (Maior M&#xe9;dia):"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="peakGreenMed">
+            <Component class="javax.swing.JLabel" name="peakGreenMaxAvg">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PT Sans Caption" size="12" style="0"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Atualizando..."/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="offPeakGreenMed">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="PT Sans Caption" size="12" style="0"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Atualizando..."/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel41">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="PT Sans Caption" size="12" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Demanda Fora de Ponta (Mediana):"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel42">
@@ -876,10 +801,10 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PT Sans Caption" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Custo Anual para Mediana:"/>
+                <Property name="text" type="java.lang.String" value="Custo Anual para Maior M&#xe9;dia:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="costGreenMed">
+            <Component class="javax.swing.JLabel" name="costGreenMaxAvg">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="PT Sans Caption" size="12" style="0"/>
@@ -958,6 +883,7 @@
                               <Component id="futureOffPeakDemand" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

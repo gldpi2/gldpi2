@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Contract;
-import utils.Communication;
 import utils.DatabaseInterface;
 
 /**
@@ -21,36 +20,28 @@ import utils.DatabaseInterface;
 public class ContractDAO {
 
     private DatabaseInterface dbint = new DatabaseInterface();
-    
     public static final String searchContract = "SELECT * FROM contract";
 
     public ContractDAO() {
     }
 
     public void createContract(Contract contract) {
-        
+
         String insertContract = "INSERT INTO contract (peak_demand, off_peak_demand, id_rate"
-            + ") VALUES "
-            + "(?,?,?)";
-        
+                + ") VALUES "
+                + "(?,?,?)";
+
         String[] params = new String[3];
         params[0] = contract.getPeakDemand();
         params[1] = contract.getOffPeakDemand();
         params[2] = String.valueOf((contract.getIdRate()));
-        
+
 
         dbint.connect();
 
         dbint.insert(insertContract, params);
 
         dbint.disconnect();
-        
-//        try {
-//            Communication.UDPClient.sendData("idContrato", 9876, contract.getPeakDemand(), contract.getOffPeakDemand());
-//        } catch (Exception ex) {
-//            Logger.getLogger(ContractDAO.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        
     }
 
     public List<Contract> readContract() throws SQLException {
@@ -65,7 +56,7 @@ public class ContractDAO {
             Contract contract;
 
             contract = new Contract(rs.getString("peak_demand"), rs.getString("off_peak_demand"),
-                     rs.getInt("id_rate"), rs.getString("timestamp"));
+                    rs.getInt("id_rate"), rs.getString("timestamp"));
 
             listContract.add(contract);
         }
@@ -77,10 +68,10 @@ public class ContractDAO {
 
     public void updateContract(Contract contract) {
         String updateContract = "SELECT id_contract FROM contract";
-        
+
         updateContract = "UPDATE contract set peak_demand = ?, off_peak_demand = ?, id_rate = ?, "
                 + "timestamp = ? ";
-        
+
         String[] params = new String[3];
         params[0] = contract.getPeakDemand();
         params[1] = contract.getOffPeakDemand();
@@ -94,9 +85,27 @@ public class ContractDAO {
         dbint.disconnect();
     }
 
-    public void createContract(List<Contract> contract) {
-    }
+    public Contract getLastContract() {
+        Contract c = new Contract();
+        int last;
 
-    public void updateContract(List<Contract> contract) {
+        dbint.connect();
+        last = dbint.getLastId("contract");
+        String sql = "SELECT * FROM contract WHERE id_contract = '" + last + "'";
+
+        ResultSet rs = dbint.executeQuery(sql);
+        try {
+            while (rs.next()) {
+                c.setIdRate(rs.getInt("id_rate"));
+                c.setPeakDemand(rs.getString("peak_demand"));
+                c.setOffPeakDemand(rs.getString("off_peak_demand"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConsumptionMonthDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        dbint.disconnect();
+
+        return c;
     }
 }

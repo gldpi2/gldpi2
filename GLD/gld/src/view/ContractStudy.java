@@ -5,6 +5,7 @@
 package view;
 
 import controller.ConsumptionMonthCtrl;
+import controller.ContractCtrl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +14,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import model.ConsumptionMonth;
+import model.Contract;
 import model.Login;
+import utils.DatabaseInterface;
 
 /**
  *
@@ -26,6 +29,7 @@ public class ContractStudy extends javax.swing.JPanel {
     private List<ConsumptionMonth> allConsumptionMonths;
     private Map<Integer, String> months = new HashMap<>();
     private double futureExtraDemand;
+    private DatabaseInterface dbInterface = new DatabaseInterface();
 
     /**
      * Creates new form ContractStudy
@@ -53,6 +57,7 @@ public class ContractStudy extends javax.swing.JPanel {
     }
 
     private void generateContractStudy() {
+        fillCurrentContract();
     }
 
     private double calculateAverage() {
@@ -105,6 +110,13 @@ public class ContractStudy extends javax.swing.JPanel {
             }
             return true;
         }
+    }
+
+    private void fillCurrentContract() {
+        ContractCtrl cont = new ContractCtrl();
+
+        currentPeakDemand.setText(cont.getCurrentContract().getPeakDemand());
+        currentOffPeakDemand.setText(cont.getCurrentContract().getOffPeakDemand());
     }
 
     private void fillMonthsMap() {
@@ -170,24 +182,18 @@ public class ContractStudy extends javax.swing.JPanel {
         jLabel24 = new javax.swing.JLabel();
         costBlueMed = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        peakGreenMax = new javax.swing.JLabel();
+        peakGreenContract = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
-        offPeakGreenMax = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
-        costGreenMax = new javax.swing.JLabel();
+        costGreenContract = new javax.swing.JLabel();
         jLabel32 = new javax.swing.JLabel();
-        peakGreenAvg = new javax.swing.JLabel();
-        jLabel34 = new javax.swing.JLabel();
-        offPeakGreenAvg = new javax.swing.JLabel();
+        peakGreenMax = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
-        costGreenAvg = new javax.swing.JLabel();
+        costGreenMax = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
-        peakGreenMed = new javax.swing.JLabel();
-        offPeakGreenMed = new javax.swing.JLabel();
-        jLabel41 = new javax.swing.JLabel();
+        peakGreenMaxAvg = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
-        costGreenMed = new javax.swing.JLabel();
+        costGreenMaxAvg = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel49 = new javax.swing.JLabel();
         jLabel50 = new javax.swing.JLabel();
@@ -256,7 +262,7 @@ public class ContractStudy extends javax.swing.JPanel {
         jLabel2.setText("Expensão Prevista para Demanda:");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report_edit.png"))); // NOI18N
-        jButton1.setText("Gerar Relátorio");
+        jButton1.setText("Gerar Estudo");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -334,7 +340,8 @@ public class ContractStudy extends javax.swing.JPanel {
                         .add(jLabel6))
                     .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(jLabel4)
-                        .add(currentOffPeakDemand))))
+                        .add(currentOffPeakDemand)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Horo-sazonal Azul", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14), new java.awt.Color(51, 51, 255))); // NOI18N
@@ -412,7 +419,7 @@ public class ContractStudy extends javax.swing.JPanel {
                         .add(jLabel10)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(costBlueMax)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 47, Short.MAX_VALUE)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel16)
@@ -482,64 +489,46 @@ public class ContractStudy extends javax.swing.JPanel {
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel16)
                             .add(costBlueAvg))))
-                .add(0, 0, Short.MAX_VALUE))
+                .add(0, 6, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Horo-sazonal Verde", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14), new java.awt.Color(51, 153, 0))); // NOI18N
 
+        peakGreenContract.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        peakGreenContract.setText("Atualizando...");
+
+        jLabel27.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel27.setText("Demanda (Contratada):");
+
+        jLabel30.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel30.setText("Custo Anual para Contratada:");
+
+        costGreenContract.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        costGreenContract.setText("Atualizando...");
+
+        jLabel32.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel32.setText("Demanda (Máxima):");
+
         peakGreenMax.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
         peakGreenMax.setText("Atualizando...");
 
-        jLabel27.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel27.setText("Demanda Ponta (Máxima):");
-
-        jLabel28.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel28.setText("Demanda Fora de Ponta (Máxima):");
-
-        offPeakGreenMax.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
-        offPeakGreenMax.setText("Atualizando...");
-
-        jLabel30.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel30.setText("Custo Anual para Máximo:");
+        jLabel36.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel36.setText("Custo Anual para Máxima:");
 
         costGreenMax.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
         costGreenMax.setText("Atualizando...");
 
-        jLabel32.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel32.setText("Demanda Ponta (Média):");
-
-        peakGreenAvg.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
-        peakGreenAvg.setText("Atualizando...");
-
-        jLabel34.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel34.setText("Demanda Fora de Ponta (Média):");
-
-        offPeakGreenAvg.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
-        offPeakGreenAvg.setText("Atualizando...");
-
-        jLabel36.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel36.setText("Custo Anual para Média:");
-
-        costGreenAvg.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
-        costGreenAvg.setText("Atualizando...");
-
         jLabel38.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel38.setText("Demanda Ponta (Mediana):");
+        jLabel38.setText("Demanda (Maior Média):");
 
-        peakGreenMed.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
-        peakGreenMed.setText("Atualizando...");
-
-        offPeakGreenMed.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
-        offPeakGreenMed.setText("Atualizando...");
-
-        jLabel41.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel41.setText("Demanda Fora de Ponta (Mediana):");
+        peakGreenMaxAvg.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        peakGreenMaxAvg.setText("Atualizando...");
 
         jLabel42.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel42.setText("Custo Anual para Mediana:");
+        jLabel42.setText("Custo Anual para Maior Média:");
 
-        costGreenMed.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
-        costGreenMed.setText("Atualizando...");
+        costGreenMaxAvg.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        costGreenMaxAvg.setText("Atualizando...");
 
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -551,86 +540,63 @@ public class ContractStudy extends javax.swing.JPanel {
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel27)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(peakGreenMax))
-                    .add(jPanel3Layout.createSequentialGroup()
-                        .add(jLabel28)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(offPeakGreenMax))
+                        .add(peakGreenContract))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel30)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(costGreenMax)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 47, Short.MAX_VALUE)
+                        .add(costGreenContract)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel36)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(costGreenAvg))
-                    .add(jPanel3Layout.createSequentialGroup()
-                        .add(jLabel34)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(offPeakGreenAvg))
+                        .add(costGreenMax))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel32)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(peakGreenAvg)))
-                .add(47, 47, 47)
+                        .add(peakGreenMax)))
+                .add(80, 80, 80)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel42)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(costGreenMed))
-                    .add(jPanel3Layout.createSequentialGroup()
-                        .add(jLabel41)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(offPeakGreenMed))
+                        .add(costGreenMaxAvg))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel38)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(peakGreenMed)))
-                .add(20, 20, 20))
+                        .add(peakGreenMaxAvg)))
+                .add(47, 47, 47))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel27)
-                            .add(peakGreenMax))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel28)
-                            .add(offPeakGreenMax))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel30)
-                            .add(costGreenMax)))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                    .add(jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel38)
-                            .add(peakGreenMed))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel41)
-                            .add(offPeakGreenMed))
+                            .add(peakGreenMaxAvg))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel42)
-                            .add(costGreenMed)))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel32)
-                            .add(peakGreenAvg))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel34)
-                            .add(offPeakGreenAvg))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel36)
-                            .add(costGreenAvg))))
-                .add(0, 0, Short.MAX_VALUE))
+                            .add(costGreenMaxAvg)))
+                    .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(jLabel27)
+                                .add(peakGreenContract))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(jLabel30)
+                                .add(costGreenContract)))
+                        .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(jLabel32)
+                                .add(peakGreenMax))
+                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(jLabel36)
+                                .add(costGreenMax)))))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Novo Contrato Proposto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 1, 14))); // NOI18N
@@ -704,7 +670,8 @@ public class ContractStudy extends javax.swing.JPanel {
                         .add(jLabel52))
                     .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                         .add(jLabel51)
-                        .add(futureOffPeakDemand))))
+                        .add(futureOffPeakDemand)))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
@@ -753,12 +720,12 @@ public class ContractStudy extends javax.swing.JPanel {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 97, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(12, 12, 12)
-                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 97, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(backToMainMenu))
@@ -829,9 +796,9 @@ public class ContractStudy extends javax.swing.JPanel {
     private javax.swing.JLabel costBlueAvg;
     private javax.swing.JLabel costBlueMax;
     private javax.swing.JLabel costBlueMed;
-    private javax.swing.JLabel costGreenAvg;
+    private javax.swing.JLabel costGreenContract;
     private javax.swing.JLabel costGreenMax;
-    private javax.swing.JLabel costGreenMed;
+    private javax.swing.JLabel costGreenMaxAvg;
     private javax.swing.JLabel currentCost;
     private javax.swing.JLabel currentGuideline;
     private javax.swing.JLabel currentOffPeakDemand;
@@ -852,15 +819,12 @@ public class ContractStudy extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
@@ -880,15 +844,12 @@ public class ContractStudy extends javax.swing.JPanel {
     private javax.swing.JLabel offPeakBlueAvg;
     private javax.swing.JLabel offPeakBlueMax;
     private javax.swing.JLabel offPeakBlueMed;
-    private javax.swing.JLabel offPeakGreenAvg;
-    private javax.swing.JLabel offPeakGreenMax;
-    private javax.swing.JLabel offPeakGreenMed;
     private javax.swing.JLabel peakBlueAvg;
     private javax.swing.JLabel peakBlueMax;
     private javax.swing.JLabel peakBlueMed;
-    private javax.swing.JLabel peakGreenAvg;
+    private javax.swing.JLabel peakGreenContract;
     private javax.swing.JLabel peakGreenMax;
-    private javax.swing.JLabel peakGreenMed;
+    private javax.swing.JLabel peakGreenMaxAvg;
     private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }

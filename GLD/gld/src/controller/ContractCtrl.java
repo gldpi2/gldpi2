@@ -25,23 +25,27 @@ public class ContractCtrl {
         contract.setPeakDemand(peakDemand);
         contract.setOffPeakDemand(offPeakDemand);
         contract.setIdRate(idRate);
-        
+
         dao.createContract(contract);
     }
-    
+
     public void updateContract(String peakDemand, String offPeakDemand, int idRate,
-             String timestamp){
-    
+            String timestamp) {
+
         Contract contract = new Contract();
 
         contract.setPeakDemand(peakDemand);
         contract.setOffPeakDemand(offPeakDemand);
         contract.setIdRate(idRate);
-        
+
         dao.updateContract(contract);
     }
-    
-    public List<Contract> readContract() throws SQLException{
+
+    public List<Contract> readContract() throws SQLException {
         return dao.readContract();
+    }
+
+    public Contract getCurrentContract() {
+        return dao.getLastContract();
     }
 }
