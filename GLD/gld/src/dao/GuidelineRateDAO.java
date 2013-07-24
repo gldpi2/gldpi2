@@ -28,31 +28,7 @@ public class GuidelineRateDAO {
 
     public void createGuidelineRate(GuidelineRate guidelineRate) {
 
-        
-//        String insertGuidelineRate = "INSERT INTO guideline_rate (guideline_rate, category, demand, peak_demand, off_peak_demand, consumption, consumption_dry_peak, "
-//                + "consumption_dry_off_peak, consumption_humid_peak, consumption_humid_off_peak, normal_demand, transpassed_peak, transpassed_off_peak, max_limit, icms) VALUES "
-//                + "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-//
-//        String[] params = new String[15];
-//        params[0] = guidelineRate.getGuidelineRate();
-//        params[1] = guidelineRate.getCategory();
-//        params[2] = guidelineRate.getDemand();
-//        params[3] = guidelineRate.getPeakDemand();
-//        params[4] = guidelineRate.getOffPeakDemand();
-//        params[5] = guidelineRate.getConsumption();
-//        params[6] = guidelineRate.getConsumptionDryPeak();
-//        params[7] = guidelineRate.getConsumptionDryOffPeak();
-//        params[8] = guidelineRate.getConsumptionHumidPeak();
-//        params[9] = guidelineRate.getConsumptionHumidOffPeak();
-//        params[10] = guidelineRate.getNormalDemand();
-//        params[11] = guidelineRate.getTranspassedPeak();
-//        params[12] = guidelineRate.getTranspassedOffPeak();
-//        params[13] = guidelineRate.getMaxLimit();
-//        params[14] = guidelineRate.getIcms();
-        
-        /*if(GuidelineRateWindow.guidelineComboBox.getSelectedItem().toString().equals("Horo-Sazonal Azul")){
-        
-        }else */if (GuidelineRateWindow.guidelineComboBox.getSelectedItem().toString().equals("Horo-Sazonal Azul")){
+        if (GuidelineRateWindow.guidelineComboBox.getSelectedItem().toString().equals("Horo-Sazonal Azul")){
             String insertGuidelineRate = "INSERT INTO guideline_rate (guideline_rate, category, peak_demand, off_peak_demand, consumption_dry_peak, "
                     + "consumption_dry_off_peak, consumption_humid_peak, consumption_humid_off_peak, transpassed_peak, transpassed_off_peak, icms) VALUES "
                     + "(?,?,?,?,?,?,?,?,?,?,?)";
@@ -99,14 +75,7 @@ public class GuidelineRateDAO {
             dbint.disconnect();
         
         }
-        
-        
 
-//        dbint.connect();
-//
-//        dbint.insert(insertGuidelineRate, params);
-//
-//        dbint.disconnect();
     }
 
     public List<GuidelineRate> readGuidelineRate() throws SQLException {
