@@ -17,10 +17,10 @@ public class GuidelineRateCtrl {
 
     GuidelineRateDAO dao = new GuidelineRateDAO();
 
-    public void createGuidelineRate(String guidelineRate, String category, String peakDemand, 
+    public void createGuidelineRate(String guidelineRate, String category, String peakDemand,
             String offPeakDemand, String consumptionDryPeak, String consumptionDryOffPeak,
             String consumptionHumidPeak, String consumptionHumidOffPeak, String normalDemand,
-            String transpassedDemand, String transpassedPeak, String transpassedOffPeak, 
+            String transpassedDemand, String transpassedPeak, String transpassedOffPeak,
             String icms, String timestamp) {
 
         GuidelineRate guideline = new GuidelineRate();
@@ -44,10 +44,10 @@ public class GuidelineRateCtrl {
         dao.createGuidelineRate(guideline);
     }
 
-    public void updateGuidelineRate(String guidelineRate, String category, String peakDemand, 
+    public void updateGuidelineRate(String guidelineRate, String category, String peakDemand,
             String offPeakDemand, String consumptionDryPeak, String consumptionDryOffPeak,
             String consumptionHumidPeak, String consumptionHumidOffPeak, String normalDemand,
-            String transpassedDemand, String transpassedPeak, String transpassedOffPeak, 
+            String transpassedDemand, String transpassedPeak, String transpassedOffPeak,
             String icms, String timestamp) {
 
         GuidelineRate guideline = new GuidelineRate();
@@ -67,8 +67,12 @@ public class GuidelineRateCtrl {
         guideline.setIcms(icms);
         dao.updateGuidelineRate(guideline);
     }
-    
-     public List<GuidelineRate> readGuidelineRate() throws SQLException{
-         return dao.readGuidelineRate();
-     }
+
+    public List<GuidelineRate> readGuidelineRate() throws SQLException {
+        return dao.readGuidelineRate();
+    }
+
+    public GuidelineRate getGuideline(int id_guideline) {
+        return dao.getGuidelineRate(id_guideline);
+    }
 }
