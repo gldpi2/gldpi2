@@ -121,6 +121,8 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                         updaterThread.start();
 
                         loadChart.startGraph(true);
+                        desktop.revalidate();
+                        desktop.repaint();
 
                         desktop.add(loadChart);
                         state = 1;
@@ -433,7 +435,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
 
         panelCommands.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Comandos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
 
-        commandsCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Diário", "Mensal", "Período" }));
+        commandsCombo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "Diário", "Mensal"}));
         commandsCombo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 commandsComboActionPerformed(evt);
@@ -560,6 +562,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
             MainWindow.desktop.revalidate();
             MainWindow.desktop.repaint();
 
+            updater.stopExecution();
             updaterThread.stop();
         }
     }//GEN-LAST:event_backToMainMenuActionPerformed
@@ -631,12 +634,18 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                         int lastMinuteInserted = -1;
                         double averagePotency = 0;
 
+                        double generatedPotency = 0;
+
                         if (mensuration.size() > 0) {
                             for (Mensuration m : mensuration) {
                                 double currentPotency = m.getPotency();
 
                                 if (averagePotency == 0) {
                                     averagePotency = m.getPotency();
+                                }
+
+                                if (m.getActiveSystem() == 1) {
+                                    generatedPotency = (generatedPotency + m.getBateryLoad()) / 2;
                                 }
 
                                 if (((m.getHour() * 60) + m.getMinute()) % 360 == 0) {
@@ -653,6 +662,9 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                                             loadChart.getLoadCurve().offPeakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), averagePotency);
                                         }
 
+                                        loadChart.getLoadCurve().alternativeSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), averagePotency + generatedPotency);
+                                        generatedPotency = 0;
+
                                         lastMinuteInserted = m.getMinute();
                                         inserted = true;
                                         averagePotency = 0;
@@ -663,7 +675,6 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                                     } else {
                                         averagePotency = (currentPotency + averagePotency) / 2;
                                     }
-
                                 } else {
                                     inserted = false;
                                     averagePotency = (currentPotency + averagePotency) / 2;

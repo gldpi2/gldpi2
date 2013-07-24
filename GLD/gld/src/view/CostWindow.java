@@ -521,18 +521,20 @@ public class CostWindow extends javax.swing.JPanel {
                 break;
             case "Mensal":
                 initialVisibleComponents();
-                yearChooser.setVisible(true);
-                monthChooser.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Em desenvolvimento");
+                yearChooser.setVisible(false);
+                monthChooser.setVisible(false);
                 break;
             case "Período":
-                dateChooserFrom.setVisible(true);
+                JOptionPane.showMessageDialog(null, "Em desenvolvimento");
+                dateChooserFrom.setVisible(false);
                 dateChooserFrom.setCalendar(null);
                 dateChooserFrom.updateUI();
-                dateChooserTo.setVisible(true);
+                dateChooserTo.setVisible(false);
                 dateChooserTo.setCalendar(null);
                 dateChooserTo.updateUI();
-                toLabel.setVisible(true);
-                fromLabel.setVisible(true);
+                toLabel.setVisible(false);
+                fromLabel.setVisible(false);
                 yearChooser.setVisible(false);
                 monthChooser.setVisible(false);
                 break;

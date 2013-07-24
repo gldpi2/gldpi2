@@ -1,8 +1,13 @@
 package model;
 
+import dao.CostDAO;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.DateAxis;
@@ -21,6 +26,7 @@ import org.jfree.data.time.TimePeriodValues;
 import org.jfree.data.time.TimePeriodValuesCollection;
 import org.jfree.data.time.TimeSeries;
 import org.jfree.data.xy.XYDataset;
+import utils.DatabaseInterface;
 
 /**
  *
@@ -159,14 +165,63 @@ public class LoadCurve {
         final Day today = new Day();
 
         final Minute m0 = new Minute(0, new Hour(0, today));
-        final Minute m1 = new Minute(0, new Hour(0, today));
-        final Minute m2 = new Minute(0, new Hour(48, today));
-        s1.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), 0.95);
-        s1.add(new SimpleTimePeriod(m1.getStart(), m2.getEnd()), 0.95);
+        final Minute m1 = new Minute(0, new Hour(18, today));
+        final Minute m2 = new Minute(0, new Hour(21, today));
+        final Minute m3 = new Minute(0, new Hour(24, today));
+        s1.add(new SimpleTimePeriod(m0.getStart(), m0.getEnd()), getOutPeakContracted());
+        s1.add(new SimpleTimePeriod(m1.getStart(), m1.getEnd()), getOutPeakContracted());
+        s1.add(new SimpleTimePeriod(m1.getStart(), m1.getEnd()), getPeakDemandContracted());
+        s1.add(new SimpleTimePeriod(m2.getStart(), m2.getEnd()), getPeakDemandContracted());
+        s1.add(new SimpleTimePeriod(m2.getStart(), m2.getEnd()), getOutPeakContracted());
+        s1.add(new SimpleTimePeriod(m3.getStart(), m3.getEnd()), getOutPeakContracted());
 
         final TimePeriodValuesCollection dataset = new TimePeriodValuesCollection();
         dataset.addSeries(s1);
 
         return dataset;
+    }
+
+    public double getPeakDemandContracted() {
+        DatabaseInterface dbInterface = new DatabaseInterface();
+        Contract contract = new Contract();
+        dbInterface.connect();
+
+        double peakContracted = 0;
+
+        int last = dbInterface.getLastId("contract");
+        String sql = "SELECT * FROM contract WHERE id_contract=" + last;
+        ResultSet rs = dbInterface.executeQuery(sql);
+        try {
+            while (rs.next()) {
+                contract.setPeakDemand(rs.getString("peak_demand"));
+                peakContracted = Double.parseDouble(contract.getPeakDemand());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dbInterface.disconnect();
+        return peakContracted;
+    }
+
+    public double getOutPeakContracted() {
+        DatabaseInterface dbInterface = new DatabaseInterface();
+        Contract contract = new Contract();
+        dbInterface.connect();
+        int last = dbInterface.getLastId("contract");
+        String sql = "SELECT * FROM contract WHERE id_contract=" + last;
+
+        double offPeakContracted = 0;
+
+        ResultSet rs = dbInterface.executeQuery(sql);
+        try {
+            while (rs.next()) {
+                contract.setOffPeakDemand(rs.getString("off_peak_demand"));
+                offPeakContracted = Double.parseDouble(contract.getOffPeakDemand());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dbInterface.disconnect();
+        return offPeakContracted;
     }
 }

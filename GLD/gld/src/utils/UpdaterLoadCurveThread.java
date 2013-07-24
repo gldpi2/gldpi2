@@ -98,13 +98,6 @@ public class UpdaterLoadCurveThread implements Runnable {
                 if (lastMensuration == null) {
                     lastMensuration = m;
                 }
-                //REMOVER!!!! INICIO
-//                updateMaxPotency(m);
-//                updateMinPotency(m);
-//                this.updateSourceAvailable(m);
-//                this.updateStatusLabel(m);
-//                updateAllLabels(m, lastMensuration);
-                //REMOVER!!!! FIM
 
                 if (averagePotency == 0) {
                     averagePotency = m.getPotency();
@@ -132,6 +125,7 @@ public class UpdaterLoadCurveThread implements Runnable {
                         lastMinuteInserted = m.getMinute();
                         inserted = true;
                         averagePotency = 0;
+                        generatedPotency = 0;
                     }
 
                     if (averagePotency == 0) {
@@ -154,12 +148,6 @@ public class UpdaterLoadCurveThread implements Runnable {
                 }
 
                 lastMensuration = m;
-
-//                try {
-//                    Thread.sleep(10);
-//                } catch (InterruptedException ex) {
-//                    Logger.getLogger(UpdaterLoadCurveThread.class.getName()).log(Level.SEVERE, null, ex);
-//                }
             }
 
             updateMaxPotency(loadCurveCtrl.getMaxMensuration());
@@ -176,6 +164,10 @@ public class UpdaterLoadCurveThread implements Runnable {
                 this.updateSourceAvailable(m);
                 this.updateStatusLabel(m);
 
+                if (m.getActiveSystem() == 1) {
+                    generatedPotency = (generatedPotency + m.getBateryLoad()) / 2;
+                }
+
                 if (m.getMinute() % 15 == 0 || lastMinuteInserted != m.getMinute()) {
                     if (!inserted) {
                         final Minute m0 = new Minute(m.getMinute(), new Hour(m.getHour(), today));
@@ -189,8 +181,11 @@ public class UpdaterLoadCurveThread implements Runnable {
                             loadCurve.offPeakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), averagePotency);
                         }
 
+                        loadCurve.alternativeSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), averagePotency + generatedPotency);
+
                         inserted = true;
                         averagePotency = 0;
+                        generatedPotency = 0;
                     }
                     averagePotency += currentPotency;
                 } else {

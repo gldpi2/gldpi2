@@ -40,7 +40,7 @@ public class CostDAO {
 
 
         String sql = "SELECT * FROM mensuration";
-        conectDB();
+        connectDB();
 
         ResultSet rs = dbInterface.executeQuery(sql);
         try {
@@ -59,14 +59,14 @@ public class CostDAO {
         } catch (SQLException ex) {
             Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        disconectDB();
+        disconnectDB();
 
         return mensurationList;
     }
 
     public Mensuration singleMensuration() {
         Mensuration mensuration = new Mensuration();
-        conectDB();
+        connectDB();
 
         int last = dbInterface.getLastId("mensuration");
         String sql = "SELECT * FROM mensuration WHERE id_mensuration =" + last;
@@ -85,7 +85,7 @@ public class CostDAO {
             Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        disconectDB();
+        disconnectDB();
         return mensuration;
     }
 
@@ -97,7 +97,7 @@ public class CostDAO {
                 + "WHERE timestamp >= \"" + year + "-" + mounth + "-" + day + " 00:00:00\""
                 + " AND timestamp <= \"" + year + "-" + mounth + "-" + day + " 23:59:59\"";
 
-        conectDB();
+        connectDB();
         ResultSet rs = dbInterface.executeQuery(sql);
         try {
             while (rs.next()) {
@@ -115,14 +115,14 @@ public class CostDAO {
             Logger.getLogger(LoadCurveDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        disconectDB();
+        disconnectDB();
 
         return measurementList;
     }
 
     public double getPeakDemandContracted() {
         Contract contract = new Contract();
-        conectDB();
+        connectDB();
 
         int last = dbInterface.getLastId("contract");
         String sql = "SELECT * FROM contract WHERE id_contract=" + last;
@@ -135,13 +135,13 @@ public class CostDAO {
         } catch (SQLException ex) {
             Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        disconectDB();
+        disconnectDB();
         return peakContracted;
     }
 
     public double getOutPeakContracted() {
         Contract contract = new Contract();
-        conectDB();
+        connectDB();
         int last = dbInterface.getLastId("contract");
         String sql = "SELECT * FROM contract WHERE id_contract=" + last;
 
@@ -154,15 +154,15 @@ public class CostDAO {
         } catch (SQLException ex) {
             Logger.getLogger(CostDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        disconectDB();
+        disconnectDB();
         return OffPeakContracted;
     }
 
-    private void conectDB() {
+    private void connectDB() {
         dbInterface.connect();
     }
 
-    private void disconectDB() {
+    private void disconnectDB() {
         dbInterface.disconnect();
     }
 }

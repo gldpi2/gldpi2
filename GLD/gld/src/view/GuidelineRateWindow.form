@@ -560,11 +560,10 @@
                 <Component class="javax.swing.JComboBox" name="guidelineComboBoxEdition">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
+                      <StringArray count="3">
                         <StringItem index="0" value="Selecione a Tarifa"/>
-                        <StringItem index="1" value="Convencional"/>
-                        <StringItem index="2" value="Horo-Sazonal Azul"/>
-                        <StringItem index="3" value="Horo-Sazonal Verde"/>
+                        <StringItem index="1" value="Horo-Sazonal Azul"/>
+                        <StringItem index="2" value="Horo-Sazonal Verde"/>
                       </StringArray>
                     </Property>
                   </Properties>
