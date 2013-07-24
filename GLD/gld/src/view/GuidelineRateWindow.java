@@ -391,7 +391,7 @@ public class GuidelineRateWindow extends javax.swing.JPanel {
         guidelineRateLabelEdition.setText("Tipo de Tarifa*:");
         guidelineRateLabelEdition.setName(""); // NOI18N
 
-        guidelineComboBoxEdition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a Tarifa", "Convencional", "Horo-Sazonal Azul", "Horo-Sazonal Verde" }));
+        guidelineComboBoxEdition.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a Tarifa", "Horo-Sazonal Azul", "Horo-Sazonal Verde" }));
         guidelineComboBoxEdition.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 guidelineComboBoxEditionItemStateChanged(evt);
