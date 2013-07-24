@@ -4,7 +4,7 @@
   <Properties>
     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
       <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-        <TitledBorder justification="1" title="Gr&#xe1;fico de Curva de Carga">
+        <TitledBorder justification="1" title="Perfil do Consumidor">
           <Font PropertyName="font" name="PT Sans Caption" size="24" style="0"/>
         </TitledBorder>
       </Border>

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import java.util.logging.Level;
@@ -50,9 +46,6 @@ public class MainWindow extends javax.swing.JFrame {
             separadorArquivo.setVisible(false);
         }
 
-        //this.init();
-
-        //descomentar caso queira chamar essa main menu
         this.initNewMenu();
     }
 
@@ -346,7 +339,21 @@ public class MainWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_menuSobreActionPerformed
 
     private void menuVoltarMenuPrincipalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuVoltarMenuPrincipalActionPerformed
-        initNewMenu();
+        int i;
+
+        Object[] options = {"Sim", "Não"};
+        i = JOptionPane.showOptionDialog(null,
+                "Deseja realmente Voltar ao Menu Principal?",
+                "Voltar ao Menu Principal",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                new ImageIcon("src/icons/house_go.png"),
+                options,
+                options[1]);
+
+        if (i == JOptionPane.YES_OPTION) {
+            initNewMenu();
+        }
     }//GEN-LAST:event_menuVoltarMenuPrincipalActionPerformed
 
     private void menuEstudoContratualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEstudoContratualActionPerformed
