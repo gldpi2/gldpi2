@@ -41,6 +41,7 @@ public class LoadCurve {
     public Mensuration minMensuration = new Mensuration();
     public XYDataset mensurationDataSet;
     private boolean verticalTick = false;
+    private DateAxis domainAxis;
 
     public ChartPanel createLoadCurveGraphPanel() {
         mensurationDataSet = createMensurationDataSet();
@@ -55,8 +56,8 @@ public class LoadCurve {
         mensurationRender.setSeriesPaint(1, Color.RED);
         mensurationRender.setSeriesPaint(2, Color.BLUE);
 
-        final DateAxis domainAxis = new DateAxis("Hora");
-        domainAxis.setVerticalTickLabels(false);
+        domainAxis = new DateAxis("Hora");
+        domainAxis.setVerticalTickLabels(true);
         domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.HOUR, 1));
         domainAxis.setDateFormatOverride(new SimpleDateFormat("HH:mm"));
         domainAxis.setLowerMargin(0.01);
@@ -100,8 +101,8 @@ public class LoadCurve {
         mensurationRender.setSeriesPaint(1, Color.RED);
         mensurationRender.setSeriesPaint(2, Color.BLUE);
 
-        final DateAxis domainAxis = new DateAxis("Hora");
-        domainAxis.setVerticalTickLabels(false);
+        domainAxis = new DateAxis("Dias");
+        domainAxis.setVerticalTickLabels(true);
         domainAxis.setTickUnit(new DateTickUnit(DateTickUnit.DAY, 1));
         domainAxis.setDateFormatOverride(new SimpleDateFormat("dd"));
         domainAxis.setRange(new Date("07/01/2013"), new Date("07/31/2013"));

@@ -28,6 +28,10 @@ public class LoadCurveCtrl {
         return loadCurveDAO.getMensurationByDay(day, mounth, year);
     }
 
+    public List<Mensuration> getMensurationByMonth(int mounth, int year) {
+        return loadCurveDAO.getMensurationByMonth(mounth, year);
+    }
+
     public Mensuration getLastMensuration() {
         return loadCurveDAO.getLastMensuration();
     }

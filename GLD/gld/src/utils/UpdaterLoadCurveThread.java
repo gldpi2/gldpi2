@@ -280,17 +280,17 @@ public class UpdaterLoadCurveThread implements Runnable {
     private void updateStatusLabel(Mensuration current) {
         if (this.statusLabel != null) {
             double tension = current.getBateryTension();
-            if (tension > 14.5) {
+            if (tension > 13.5) {
                 this.statusLabel.setText("Carregada - ( 100 % )");
                 this.statusLabel.setIcon(new ImageIcon("src/icons/full.png"));
-            } else if (tension < 0.5) {
+            } else if (tension < 11.0) {
                 this.statusLabel.setText("Descarregada - ( 0 % )");
                 this.statusLabel.setIcon(new ImageIcon("src/icons/died.png"));
             } else if (current.getFlowAeroGenerator() > 0.0 && current.getFlowPanel() > 0.0) {
-                this.statusLabel.setText("Carregando - ( " + String.format("%.2f", current.getTension() / 14) + " % )");
+                this.statusLabel.setText("Carregando - ( " + String.format("%.2f", current.getTension() / 13.8) + " % )");
                 this.statusLabel.setIcon(new ImageIcon("src/icons/charging.png"));
             } else {
-                this.statusLabel.setText("Não Carregando - ( " + String.format("%.2f", current.getTension() / 14) + " % )");
+                this.statusLabel.setText("Não Carregando - ( " + String.format("%.2f", current.getTension() / 13.8) + " % )");
                 this.statusLabel.setIcon(new ImageIcon("src/icons/not_charging.png"));
             }
         }
