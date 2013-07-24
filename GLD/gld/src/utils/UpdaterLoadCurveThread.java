@@ -89,6 +89,7 @@ public class UpdaterLoadCurveThread implements Runnable {
         boolean inserted = false;
         int lastMinuteInserted = -1;
         double averagePotency = 0;
+        double generatedPotency = 0;
 
         if (mensuration.size() > 0) {
             for (Mensuration m : mensuration) {
@@ -109,6 +110,10 @@ public class UpdaterLoadCurveThread implements Runnable {
                     averagePotency = m.getPotency();
                 }
 
+                if (m.getActiveSystem() == 1) {
+                    generatedPotency = (generatedPotency + m.getBateryLoad()) / 2;
+                }
+
                 if (m.getMinute() % 15 == 0) {
                     if (!inserted || lastMinuteInserted != m.getMinute()) {
                         final Minute m0 = new Minute(m.getMinute(), new Hour(m.getHour(), today));
@@ -121,6 +126,8 @@ public class UpdaterLoadCurveThread implements Runnable {
                         } else {
                             loadCurve.offPeakSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), averagePotency);
                         }
+
+                        loadCurve.alternativeSerie.add(new SimpleTimePeriod(m0.getStart(), m1.getStart()), averagePotency + generatedPotency);
 
                         lastMinuteInserted = m.getMinute();
                         inserted = true;

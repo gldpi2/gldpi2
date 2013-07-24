@@ -69,21 +69,19 @@ public class LoadCurve {
 
         final XYDataset alertDataSet = createAlertDataSet();
         final StandardXYItemRenderer alertRender = new StandardXYItemRenderer(StandardXYItemRenderer.SHAPES_AND_LINES);
-        //alertRender.setShapesFilled(true);
 
         plot.setDataset(1, alertDataSet);
         plot.setRenderer(1, alertRender);
 
         final XYDataset contractDataSet = createContractDataSet();
         final StandardXYItemRenderer contractRender = new StandardXYItemRenderer(StandardXYItemRenderer.SHAPES_AND_LINES);
-        //contractRender.setShapesFilled(true);
 
         plot.setDataset(2, contractDataSet);
         plot.setRenderer(2, contractRender);
 
-        final JFreeChart chartCurve = new JFreeChart("Curva de Carga", plot);
+        final JFreeChart chartCurve = new JFreeChart("Perfil do Consumidor", plot);
         chartPanel = new ChartPanel(chartCurve);
-        chartPanel.setMouseZoomable(true, false);
+        chartPanel.setMouseZoomable(false, false);
 
         return this.chartPanel;
     }
@@ -114,9 +112,9 @@ public class LoadCurve {
 
         final XYPlot plot = new XYPlot(mensurationDataSet, domainAxis, rangeAxis, mensurationRender);
 
-        final JFreeChart chartCurve = new JFreeChart("Curva de Carga", plot);
+        final JFreeChart chartCurve = new JFreeChart("Perfil do Consumidor", plot);
         chartPanel = new ChartPanel(chartCurve);
-        chartPanel.setMouseZoomable(true, false);
+        chartPanel.setMouseZoomable(false, false);
 
         return this.chartPanel;
     }

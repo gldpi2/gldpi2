@@ -178,7 +178,7 @@ public class LoadCurveWindow extends javax.swing.JPanel {
         yearChooser = new javax.swing.JComboBox();
         monthChooser = new javax.swing.JComboBox();
 
-        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gráfico de Curva de Carga", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 24))); // NOI18N
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Perfil do Consumidor", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 24))); // NOI18N
         setMaximumSize(new java.awt.Dimension(1024, 720));
         setMinimumSize(new java.awt.Dimension(1024, 720));
         addComponentListener(new java.awt.event.ComponentAdapter() {
