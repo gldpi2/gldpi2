@@ -611,28 +611,16 @@ public class LoadCurveWindow extends javax.swing.JPanel {
                         changed = 1;
                     } else {
                         changed = 0;
-
-                        updater.stopExecution();
-
                         System.out.println("========== " + monthChooser.getSelectedIndex());
 
                         desktop.removeAll();
                         loadChart = new LoadCurveChart(desktop.getWidth(), desktop.getHeight());
 
-                        updater = new UpdaterLoadCurveThread(loadChart.getLoadCurve(), new Date("07/17/2013"),
-                                flowLabel, tensionLabel, potencyLabel,
-                                powerFactorLabel, frequencyLabel,
-                                maxValue, maxTime, maxDate,
-                                minValue, minTime, minDate,
-                                sourceLabel, meterLabel, statusLabel);
-
-                        updaterThread = new Thread(updater);
-                        updaterThread.setDaemon(true);
-                        updaterThread.start();
-
                         loadChart.startMontlyGraph();
 
                         desktop.add(loadChart);
+                        desktop.repaint();
+                        desktop.revalidate();
                         state = 1;
                     }
                 }
