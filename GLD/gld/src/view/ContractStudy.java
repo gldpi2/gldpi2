@@ -1,22 +1,21 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package view;
 
 import controller.ConsumptionMonthCtrl;
 import controller.ContractCtrl;
 import controller.GuidelineRateCtrl;
+import java.sql.SQLException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import model.ConsumptionMonth;
+import model.GuidelineRate;
 import model.Login;
-import utils.DatabaseInterface;
 
 /**
  *
@@ -29,7 +28,14 @@ public class ContractStudy extends javax.swing.JPanel {
     private List<ConsumptionMonth> allConsumptionMonths;
     private Map<Integer, String> months = new HashMap<>();
     private double futureExtraDemand;
-    private DatabaseInterface dbInterface = new DatabaseInterface();
+    private double maxPeak, maxOffPeak;
+    private double medianPeak, medianOffPeak;
+    private double avgPeak, avgOffPeak;
+    private double contractedBiggest, demandBiggest, averageBiggest;
+    private List<GuidelineRate> gdLine;
+    private double costAvgBlue, costMaxBlue, costMedBlue, cost;
+    private double costMaxCtrGreen, costMaxGreen, costMaxMedGreen;
+    private boolean changed = false;
 
     /**
      * Creates new form ContractStudy
@@ -54,22 +60,207 @@ public class ContractStudy extends javax.swing.JPanel {
         for (int i = 0; i < csCtrl.getYears().size(); i++) {
             comboYears.addItem(csCtrl.getYears().get(i));
         }
+
+        GuidelineRateCtrl gdCtrl = new GuidelineRateCtrl();
+        try {
+            gdLine = gdCtrl.readGuidelineRate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        label.setVisible(false);
+        extraDemand.setVisible(false);
     }
 
     private void generateContractStudy() {
         fillCurrentContract();
+        calculateAverage();
+        getMaxValue();
+        calculateMedian();
+
+        peakBlueAvg.setText("" + String.format("%.2f", avgPeak));
+        offPeakBlueAvg.setText("" + String.format("%.2f", avgOffPeak));
+        peakBlueMax.setText("" + String.format("%.2f", maxPeak));
+        offPeakBlueMax.setText("" + String.format("%.2f", maxOffPeak));
+        peakGreenMax.setText("" + String.format("%.2f", demandBiggest));
+        peakGreenMaxAvg.setText("" + String.format("%.2f", averageBiggest));
+        peakBlueMed.setText("" + String.format("%.2f", medianPeak));
+        offPeakBlueMed.setText("" + String.format("%.2f", medianOffPeak));
+
+        horoSazonalAzul();
+
+        costBlueAvg.setText("" + String.format("%.2f", costAvgBlue));
+        costBlueMax.setText("" + String.format("%.2f", costMaxBlue));
+        costBlueMed.setText("" + String.format("%.2f", costMedBlue));
+        currentCost.setText("" + String.format("%.2f", cost));
+
+        horoSazonalVerde();
+
+        costGreenContract.setText("" + String.format("%.2f", costMaxCtrGreen));
+        costGreenMax.setText("" + String.format("%.2f", costMaxGreen));
+        costGreenMaxAvg.setText("" + String.format("%.2f", costMaxMedGreen));
     }
 
-    private double calculateAverage() {
-        return 0.0;
+    private void horoSazonalAzul() {
+        for (int i = 0; i < 12; i++) {
+            if (allConsumptionMonths.get(i).getPeakDemand() > avgPeak) {
+                costAvgBlue += allConsumptionMonths.get(i).getPeakDemand() * Double.parseDouble(gdLine.get(0).getPeakDemand());
+            } else {
+                costAvgBlue += avgPeak * Double.parseDouble(gdLine.get(0).getPeakDemand());
+            }
+
+            if (allConsumptionMonths.get(i).getOffPeakDemand() > avgOffPeak) {
+                costAvgBlue += allConsumptionMonths.get(i).getOffPeakDemand() * Double.parseDouble(gdLine.get(0).getOffPeakDemand());
+            } else {
+                costAvgBlue += avgOffPeak * Double.parseDouble(gdLine.get(0).getOffPeakDemand());
+            }
+
+            costAvgBlue += (allConsumptionMonths.get(i).getOffPeakConsumption() * Double.parseDouble(gdLine.get(0).getConsumptionDryOffPeak())) + (allConsumptionMonths.get(i).getPeakConsumption()) * Double.parseDouble(gdLine.get(0).getConsumptionDryPeak());
+
+            if (allConsumptionMonths.get(i).getPeakDemand() > maxPeak) {
+                costMaxBlue += allConsumptionMonths.get(i).getPeakDemand() * Double.parseDouble(gdLine.get(0).getPeakDemand());
+            } else {
+                costMaxBlue += maxPeak * Double.parseDouble(gdLine.get(0).getPeakDemand());
+            }
+
+            if (allConsumptionMonths.get(i).getOffPeakDemand() > maxOffPeak) {
+                costMaxBlue += allConsumptionMonths.get(i).getOffPeakDemand() * Double.parseDouble(gdLine.get(0).getOffPeakDemand());
+            } else {
+                costMaxBlue += maxOffPeak * Double.parseDouble(gdLine.get(0).getOffPeakDemand());
+            }
+
+            costMaxBlue += (allConsumptionMonths.get(i).getOffPeakConsumption() * Double.parseDouble(gdLine.get(0).getConsumptionDryOffPeak())) + (allConsumptionMonths.get(i).getPeakConsumption()) * Double.parseDouble(gdLine.get(0).getConsumptionDryPeak());
+
+            if (allConsumptionMonths.get(i).getPeakDemand() > medianPeak) {
+                costMedBlue += allConsumptionMonths.get(i).getPeakDemand() * Double.parseDouble(gdLine.get(0).getPeakDemand());
+            } else {
+                costMedBlue += medianPeak * Double.parseDouble(gdLine.get(0).getPeakDemand());
+            }
+
+            if (allConsumptionMonths.get(i).getOffPeakDemand() > medianOffPeak) {
+                costMedBlue += allConsumptionMonths.get(i).getOffPeakDemand() * Double.parseDouble(gdLine.get(0).getOffPeakDemand());
+            } else {
+                costMedBlue += medianOffPeak * Double.parseDouble(gdLine.get(0).getOffPeakDemand());
+            }
+
+            costMedBlue += (allConsumptionMonths.get(i).getOffPeakConsumption() * Double.parseDouble(gdLine.get(0).getConsumptionDryOffPeak())) + (allConsumptionMonths.get(i).getPeakConsumption()) * Double.parseDouble(gdLine.get(0).getConsumptionDryPeak());
+
+            if (allConsumptionMonths.get(i).getPeakDemand() > Double.parseDouble(currentPeakDemand.getText())) {
+                cost += allConsumptionMonths.get(i).getPeakDemand() * Double.parseDouble(gdLine.get(0).getPeakDemand());
+            } else {
+                cost += Double.parseDouble(currentPeakDemand.getText()) * Double.parseDouble(gdLine.get(0).getPeakDemand());
+            }
+
+            if (allConsumptionMonths.get(i).getOffPeakDemand() > Double.parseDouble(currentOffPeakDemand.getText())) {
+                cost += allConsumptionMonths.get(i).getOffPeakDemand() * Double.parseDouble(gdLine.get(0).getOffPeakDemand());
+            } else {
+                cost += Double.parseDouble(currentOffPeakDemand.getText()) * Double.parseDouble(gdLine.get(0).getOffPeakDemand());
+            }
+
+            cost += (allConsumptionMonths.get(i).getOffPeakConsumption() * Double.parseDouble(gdLine.get(0).getConsumptionDryOffPeak())) + (allConsumptionMonths.get(i).getPeakConsumption()) * Double.parseDouble(gdLine.get(0).getConsumptionDryPeak());
+
+        }
     }
 
-    private double calculateMedian() {
-        return 0.0;
+    private void horoSazonalVerde() {
+        for (int i = 0; i < 12; i++) {
+            if (allConsumptionMonths.get(i).getPeakDemand() > contractedBiggest) {
+                costMaxCtrGreen += allConsumptionMonths.get(i).getPeakDemand() * Double.parseDouble(gdLine.get(1).getNormalDemand());
+            } else {
+                costMaxCtrGreen += contractedBiggest * Double.parseDouble(gdLine.get(1).getNormalDemand());
+            }
+
+            if (allConsumptionMonths.get(i).getOffPeakDemand() > contractedBiggest) {
+                costMaxCtrGreen += allConsumptionMonths.get(i).getOffPeakDemand() * Double.parseDouble(gdLine.get(1).getNormalDemand());
+            } else {
+                costMaxCtrGreen += contractedBiggest * Double.parseDouble(gdLine.get(1).getNormalDemand());
+            }
+
+            costMaxCtrGreen += (allConsumptionMonths.get(i).getOffPeakConsumption() * Double.parseDouble(gdLine.get(1).getConsumptionDryOffPeak())) + (allConsumptionMonths.get(i).getPeakConsumption()) * Double.parseDouble(gdLine.get(1).getConsumptionDryPeak());
+
+            if (allConsumptionMonths.get(i).getPeakDemand() > demandBiggest) {
+                costMaxGreen += allConsumptionMonths.get(i).getPeakDemand() * Double.parseDouble(gdLine.get(1).getNormalDemand());
+            } else {
+                costMaxGreen += demandBiggest * Double.parseDouble(gdLine.get(1).getNormalDemand());
+            }
+
+            if (allConsumptionMonths.get(i).getOffPeakDemand() > demandBiggest) {
+                costMaxGreen += allConsumptionMonths.get(i).getOffPeakDemand() * Double.parseDouble(gdLine.get(1).getNormalDemand());
+            } else {
+                costMaxGreen += demandBiggest * Double.parseDouble(gdLine.get(1).getNormalDemand());
+            }
+
+            costMaxGreen += (allConsumptionMonths.get(i).getOffPeakConsumption() * Double.parseDouble(gdLine.get(1).getConsumptionDryOffPeak())) + (allConsumptionMonths.get(i).getPeakConsumption()) * Double.parseDouble(gdLine.get(1).getConsumptionDryPeak());
+
+            if (allConsumptionMonths.get(i).getPeakDemand() > averageBiggest) {
+                costMaxMedGreen += allConsumptionMonths.get(i).getPeakDemand() * Double.parseDouble(gdLine.get(1).getNormalDemand());
+            } else {
+                costMaxMedGreen += averageBiggest * Double.parseDouble(gdLine.get(1).getNormalDemand());
+            }
+
+            if (allConsumptionMonths.get(i).getOffPeakDemand() > averageBiggest) {
+                costMaxMedGreen += allConsumptionMonths.get(i).getOffPeakDemand() * Double.parseDouble(gdLine.get(1).getNormalDemand());
+            } else {
+                costMaxMedGreen += averageBiggest * Double.parseDouble(gdLine.get(1).getNormalDemand());
+            }
+
+            costMaxMedGreen += (allConsumptionMonths.get(i).getOffPeakConsumption() * Double.parseDouble(gdLine.get(1).getConsumptionDryOffPeak())) + (allConsumptionMonths.get(i).getPeakConsumption()) * Double.parseDouble(gdLine.get(1).getConsumptionDryPeak());
+
+        }
     }
 
-    private double getMaxValue() {
-        return 0.0;
+    private void calculateAverage() {
+        double sumPeak = 0.0, sumOffPeak = 0.0;
+
+        for (int i = 0; i < 12; i++) {
+            sumPeak += allConsumptionMonths.get(i).getPeakDemand();
+            sumOffPeak += allConsumptionMonths.get(i).getOffPeakDemand();
+        }
+
+        avgPeak = sumPeak / 12.0;
+        avgOffPeak = sumOffPeak / 12.0;
+
+        if (avgPeak > avgOffPeak) {
+            averageBiggest = avgPeak;
+        } else {
+            averageBiggest = avgOffPeak;
+        }
+    }
+
+    private void calculateMedian() {
+        Vector<Double> peaks = new Vector<>();
+        Vector<Double> offPeaks = new Vector<>();
+
+        for (int i = 0; i < 12; i++) {
+            peaks.add(allConsumptionMonths.get(i).getPeakDemand());
+            offPeaks.add(allConsumptionMonths.get(i).getOffPeakDemand());
+        }
+
+        Collections.sort(peaks);
+        Collections.sort(offPeaks);
+
+        medianPeak = (peaks.get(5) + peaks.get(6)) / 2.0;
+        medianOffPeak = (offPeaks.get(5) + offPeaks.get(6)) / 2.0;
+    }
+
+    private void getMaxValue() {
+        maxPeak = -999999.0;
+        maxOffPeak = -999999.0;
+
+        for (int i = 0; i < 12; i++) {
+            if (allConsumptionMonths.get(i).getPeakDemand() > maxPeak) {
+                maxPeak = allConsumptionMonths.get(i).getPeakDemand();
+            }
+            if (allConsumptionMonths.get(i).getOffPeakDemand() > maxOffPeak) {
+                maxOffPeak = allConsumptionMonths.get(i).getOffPeakDemand();
+            }
+        }
+
+        if (maxPeak > maxOffPeak) {
+            demandBiggest = maxPeak;
+        } else {
+            demandBiggest = maxOffPeak;
+        }
     }
 
     private void fillTable(int year) {
@@ -105,6 +296,7 @@ public class ContractStudy extends javax.swing.JPanel {
         } else {
             try {
                 double d = Double.parseDouble(value);
+                futureExtraDemand = d;
             } catch (NumberFormatException e) {
                 return false;
             }
@@ -119,6 +311,14 @@ public class ContractStudy extends javax.swing.JPanel {
         currentPeakDemand.setText(cont.getCurrentContract().getPeakDemand());
         currentOffPeakDemand.setText(cont.getCurrentContract().getOffPeakDemand());
         currentGuideline.setText(gdCtrl.getGuideline(cont.getCurrentContract().getIdRate()).getGuidelineRate());
+
+        if (Integer.parseInt(cont.getCurrentContract().getPeakDemand()) > Integer.parseInt(cont.getCurrentContract().getOffPeakDemand())) {
+            contractedBiggest = Integer.parseInt(cont.getCurrentContract().getPeakDemand());
+        } else {
+            contractedBiggest = Integer.parseInt(cont.getCurrentContract().getOffPeakDemand());
+        }
+
+        peakGreenContract.setText("" + contractedBiggest);
     }
 
     private void fillMonthsMap() {
@@ -152,7 +352,7 @@ public class ContractStudy extends javax.swing.JPanel {
         comboYears = new javax.swing.JComboBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        label = new javax.swing.JLabel();
         extraDemand = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -196,15 +396,6 @@ public class ContractStudy extends javax.swing.JPanel {
         peakGreenMaxAvg = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         costGreenMaxAvg = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel49 = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
-        jLabel51 = new javax.swing.JLabel();
-        futureGuideline = new javax.swing.JLabel();
-        futurePeakDemand = new javax.swing.JLabel();
-        futureOffPeakDemand = new javax.swing.JLabel();
-        jLabel52 = new javax.swing.JLabel();
-        futureCost = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1024, 720));
         setMinimumSize(new java.awt.Dimension(1024, 720));
@@ -224,7 +415,7 @@ public class ContractStudy extends javax.swing.JPanel {
 
         comboYears.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "2012", "2013", "2014" }));
 
-        tabela.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        tabela.setFont(new java.awt.Font("PT Sans Caption", 0, 13)); // NOI18N
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -261,7 +452,7 @@ public class ContractStudy extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabela);
 
-        jLabel2.setText("Expensão Prevista para Demanda:");
+        label.setText("Expansão Prevista para Demanda:");
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report_edit.png"))); // NOI18N
         jButton1.setText("Gerar Estudo");
@@ -271,7 +462,7 @@ public class ContractStudy extends javax.swing.JPanel {
             }
         });
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contratol Atual", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contrato Atual", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
         jLabel3.setText("Enquadramento Tarifário:");
@@ -410,32 +601,32 @@ public class ContractStudy extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(jLabel8)
+                        .add(jLabel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(peakBlueMax))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel9)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(offPeakBlueMax))
+                        .add(offPeakBlueMax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel10)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(costBlueMax)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 47, Short.MAX_VALUE)
+                        .add(costBlueMax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(48, 48, 48)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel16)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(costBlueAvg))
+                        .add(costBlueAvg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel15)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(offPeakBlueAvg))
+                        .add(offPeakBlueAvg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel14)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(peakBlueAvg)))
-                .add(47, 47, 47)
+                        .add(peakBlueAvg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(46, 46, 46)
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jLabel24)
@@ -500,7 +691,7 @@ public class ContractStudy extends javax.swing.JPanel {
         peakGreenContract.setText("Atualizando...");
 
         jLabel27.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel27.setText("Demanda (Contratada):");
+        jLabel27.setText("Demanda (Maior Contratada):");
 
         jLabel30.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
         jLabel30.setText("Custo Anual para Contratada:");
@@ -542,31 +733,32 @@ public class ContractStudy extends javax.swing.JPanel {
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel27)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(peakGreenContract))
+                        .add(peakGreenContract, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel30)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(costGreenContract)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(costGreenContract, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(80, 80, 80)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel36)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(costGreenMax))
+                        .add(costGreenMax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel32)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(peakGreenMax)))
+                        .add(peakGreenMax, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .add(80, 80, 80)
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel3Layout.createSequentialGroup()
-                        .add(jLabel42)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 179, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(costGreenMaxAvg))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel38)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(peakGreenMaxAvg)))
+                        .add(peakGreenMaxAvg, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .add(47, 47, 47))
         );
         jPanel3Layout.setVerticalGroup(
@@ -601,108 +793,30 @@ public class ContractStudy extends javax.swing.JPanel {
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Novo Contrato Proposto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 1, 14))); // NOI18N
-
-        jLabel49.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel49.setText("Enquadramento Tarifário:");
-
-        jLabel50.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel50.setText("Demanda Ponta:");
-
-        jLabel51.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel51.setText("Demanda Fora de Ponta:");
-
-        futureGuideline.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
-        futureGuideline.setText("Atualizando...");
-
-        futurePeakDemand.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
-        futurePeakDemand.setText("Atualizando...");
-
-        futureOffPeakDemand.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
-        futureOffPeakDemand.setText("Atualizando...");
-
-        jLabel52.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
-        jLabel52.setText("Custo Anual:");
-
-        futureCost.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
-        futureCost.setText("Atualizando...");
-
-        org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel5Layout.createSequentialGroup()
-                        .add(jLabel51)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(futureOffPeakDemand)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jLabel52)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(futureCost))
-                    .add(jPanel5Layout.createSequentialGroup()
-                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel5Layout.createSequentialGroup()
-                                .add(jLabel49)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(futureGuideline))
-                            .add(jPanel5Layout.createSequentialGroup()
-                                .add(jLabel50)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(futurePeakDemand)))
-                        .add(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel5Layout.createSequentialGroup()
-                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel49)
-                    .add(futureGuideline))
-                .add(12, 12, 12)
-                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel50)
-                    .add(futurePeakDemand))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(futureCost)
-                        .add(jLabel52))
-                    .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                        .add(jLabel51)
-                        .add(futureOffPeakDemand)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jPanel4Layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
-                        .add(backToMainMenu))
                     .add(jSeparator1)
-                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel4Layout.createSequentialGroup()
                         .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(0, 574, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel4Layout.createSequentialGroup()
                         .add(jLabel1)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(comboYears, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 135, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
-                        .add(jLabel2)
+                        .add(label)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(extraDemand, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jButton1))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jScrollPane1)
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(backToMainMenu))
                 .add(0, 0, 0))
         );
         jPanel4Layout.setVerticalGroup(
@@ -711,15 +825,13 @@ public class ContractStudy extends javax.swing.JPanel {
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel1)
                     .add(comboYears, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel2)
+                    .add(label)
                     .add(extraDemand, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButton1))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 212, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(12, 12, 12)
@@ -763,7 +875,10 @@ public class ContractStudy extends javax.swing.JPanel {
                     futureExtraDemand = 0.0;
                 }
                 fillTable(Integer.parseInt(comboYears.getSelectedItem().toString()));
-                generateContractStudy();
+                if (changed == false) {
+                    generateContractStudy();
+                    changed = true;
+                }
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -803,17 +918,12 @@ public class ContractStudy extends javax.swing.JPanel {
     private javax.swing.JLabel currentOffPeakDemand;
     private javax.swing.JLabel currentPeakDemand;
     private javax.swing.JTextField extraDemand;
-    private javax.swing.JLabel futureCost;
-    private javax.swing.JLabel futureGuideline;
-    private javax.swing.JLabel futureOffPeakDemand;
-    private javax.swing.JLabel futurePeakDemand;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
@@ -825,11 +935,7 @@ public class ContractStudy extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel42;
-    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -837,9 +943,9 @@ public class ContractStudy extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel label;
     private javax.swing.JLabel offPeakBlueAvg;
     private javax.swing.JLabel offPeakBlueMax;
     private javax.swing.JLabel offPeakBlueMed;
