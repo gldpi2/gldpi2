@@ -18,8 +18,12 @@ public class ConsumptionMonthCtrl {
         this.consumptionMonthDAO = new ConsumptionMonthDAO();
     }
 
-    public List<ConsumptionMonth> getAllConsumptions() {
-        return consumptionMonthDAO.getAllConsumptionMonth();
+    public List<ConsumptionMonth> getAllConsumptions(int year) {
+        return consumptionMonthDAO.getAllConsumptionMonth(year);
+    }
+
+    public List<Integer> getYears() {
+        return consumptionMonthDAO.getAllYears();
     }
 
     public String printConsumptions() {

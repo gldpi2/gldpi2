@@ -367,7 +367,11 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void menuEstimativaCustoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuEstimativaCustoActionPerformed
         desktop.removeAll();
-        loadWindowEst = new CostEstimationOnHistoryWindow(desktop.getHeight(), user);
+        try {
+            loadWindowEst = new CostEstimationOnHistoryWindow(desktop.getHeight(), user);
+        } catch (Exception ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
         desktop.add(loadWindowEst);
         desktop.revalidate();
         desktop.repaint();

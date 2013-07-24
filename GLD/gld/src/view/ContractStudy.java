@@ -5,9 +5,13 @@
 package view;
 
 import controller.ConsumptionMonthCtrl;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
 import model.ConsumptionMonth;
 import model.Login;
 
@@ -20,6 +24,8 @@ public class ContractStudy extends javax.swing.JPanel {
     private NewMainMenu newMenu;
     private Login loggedUser;
     private List<ConsumptionMonth> allConsumptionMonths;
+    private Map<Integer, String> months = new HashMap<>();
+    private double futureExtraDemand;
 
     /**
      * Creates new form ContractStudy
@@ -28,13 +34,80 @@ public class ContractStudy extends javax.swing.JPanel {
         initComponents();
         setSize(1024, y);
         loggedUser = user;
+        fillMonthsMap();
 
-        loadConsumptions();
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        tabela.setDefaultRenderer(Double.class, centerRenderer);
+        tabela.getTableHeader().setReorderingAllowed(false);
+        tabela.getTableHeader().setResizingAllowed(false);
+//        tabela.disable();
+
+        ConsumptionMonthCtrl csCtrl = new ConsumptionMonthCtrl();
+
+        comboYears.removeAllItems();
+        comboYears.addItem("Selecione...");
+        for (int i = 0; i < csCtrl.getYears().size(); i++) {
+            comboYears.addItem(csCtrl.getYears().get(i));
+        }
     }
 
-    private void loadConsumptions() {
+    private void generateContractStudy() {
+    }
+
+    private void fillTable(int year) {
         ConsumptionMonthCtrl csCtrl = new ConsumptionMonthCtrl();
-        allConsumptionMonths = csCtrl.getAllConsumptions();
+        allConsumptionMonths = csCtrl.getAllConsumptions(year);
+
+        for (int i = 0; i < 12; i++) {
+            tabela.getModel().setValueAt(months.get(allConsumptionMonths.get(i).getMonth()) + "/" + year, i, 0);
+            tabela.getModel().setValueAt(allConsumptionMonths.get(i).getPeakDemand(), i, 1);
+            tabela.getModel().setValueAt(allConsumptionMonths.get(i).getOffPeakDemand(), i, 2);
+            tabela.getModel().setValueAt(allConsumptionMonths.get(i).getPeakConsumption(), i, 3);
+            tabela.getModel().setValueAt(allConsumptionMonths.get(i).getOffPeakConsumption(), i, 4);
+            tabela.getModel().setValueAt(allConsumptionMonths.get(i).getPeakExtra(), i, 5);
+            tabela.getModel().setValueAt(allConsumptionMonths.get(i).getOffPeakExtra(), i, 6);
+
+            switch (allConsumptionMonths.get(i).getDryOrHumid()) {
+                case -1:
+                    tabela.getModel().setValueAt("Não se aplica", i, 7);
+                    break;
+                case 0:
+                    tabela.getModel().setValueAt("Seco", i, 7);
+                    break;
+                case 1:
+                    tabela.getModel().setValueAt("Úmido", i, 7);
+                    break;
+            }
+        }
+    }
+
+    private boolean isValidNumber(String value) {
+        if (value.isEmpty()) {
+            return true;
+        } else {
+            try {
+                double d = Double.parseDouble(value);
+            } catch (NumberFormatException e) {
+                return false;
+            }
+            return true;
+        }
+    }
+
+    private void fillMonthsMap() {
+        months.put(1, "Janeiro");
+        months.put(2, "Fevereiro");
+        months.put(3, "Março");
+        months.put(4, "Abril");
+        months.put(5, "Maio");
+        months.put(6, "Junho");
+        months.put(7, "Julho");
+        months.put(8, "Agosto");
+        months.put(9, "Setembro");
+        months.put(10, "Outubro");
+        months.put(11, "Novembro");
+        months.put(12, "Dezembro");
     }
 
     /**
@@ -49,6 +122,69 @@ public class ContractStudy extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         backToMainMenu = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        comboYears = new javax.swing.JComboBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabela = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        extraDemand = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        enquadramentoAtual = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        currentPeakDemand = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        currentOffPeakDemand = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        currentCost = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel34 = new javax.swing.JLabel();
+        jLabel35 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
+        jLabel40 = new javax.swing.JLabel();
+        jLabel41 = new javax.swing.JLabel();
+        jLabel42 = new javax.swing.JLabel();
+        jLabel43 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        enquadramentoAtual2 = new javax.swing.JLabel();
+        currentPeakDemand2 = new javax.swing.JLabel();
+        currentOffPeakDemand2 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jLabel53 = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(1024, 720));
         setMinimumSize(new java.awt.Dimension(1024, 720));
@@ -64,21 +200,555 @@ public class ContractStudy extends javax.swing.JPanel {
             }
         });
 
+        jLabel1.setText("Ano:");
+
+        comboYears.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione...", "2012", "2013", "2014" }));
+
+        tabela.setFont(new java.awt.Font("PT Sans Caption", 0, 14)); // NOI18N
+        tabela.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Mês/Ano", "Demanda Ponta", "Demanda Fora", "Consumo Ponta", "Consumo Fora", "Ultrapassado Ponta", "Ultrapassado Fora", "Tipo Mês"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabela);
+
+        jLabel2.setText("Expensão Prevista para Demanda:");
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/report_edit.png"))); // NOI18N
+        jButton1.setText("Gerar Relátorio");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contratol Atual", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14))); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel3.setText("Enquadramento Tarifário:");
+
+        enquadramentoAtual.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        enquadramentoAtual.setText("Atualizando...");
+
+        jLabel5.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel5.setText("Demanda Ponta:");
+
+        currentPeakDemand.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        currentPeakDemand.setText("Atualizando...");
+
+        jLabel4.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel4.setText("Demanda Fora de Ponta:");
+
+        currentOffPeakDemand.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        currentOffPeakDemand.setText("Atualizando...");
+
+        jLabel6.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel6.setText("Custo Anual:");
+
+        currentCost.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        currentCost.setText("Atualizando...");
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jLabel4)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(currentOffPeakDemand)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 62, Short.MAX_VALUE)
+                        .add(jLabel6)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(currentCost))
+                    .add(jPanel1Layout.createSequentialGroup()
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(jLabel3)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(enquadramentoAtual))
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(jLabel5)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(currentPeakDemand)))
+                        .add(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel3)
+                    .add(enquadramentoAtual))
+                .add(12, 12, 12)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel5)
+                    .add(currentPeakDemand))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(currentCost)
+                        .add(jLabel6))
+                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel4)
+                        .add(currentOffPeakDemand))))
+        );
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Horo-sazonal Azul", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14), new java.awt.Color(51, 51, 255))); // NOI18N
+
+        jLabel8.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel8.setText("Demanda Ponta (Máxima):");
+
+        jLabel9.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel9.setText("Demanda Fora de Ponta (Máxima):");
+
+        jLabel10.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel10.setText("Custo Anual para Máximo:");
+
+        jLabel11.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel11.setText("Atualizando...");
+
+        jLabel12.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel12.setText("Atualizando...");
+
+        jLabel13.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel13.setText("Atualizando...");
+
+        jLabel14.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel14.setText("Demanda Ponta (Média):");
+
+        jLabel15.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel15.setText("Demanda Fora de Ponta (Média):");
+
+        jLabel16.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel16.setText("Custo Anual para Média:");
+
+        jLabel17.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel17.setText("Atualizando...");
+
+        jLabel18.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel18.setText("Atualizando...");
+
+        jLabel19.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel19.setText("Atualizando...");
+
+        jLabel20.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel20.setText("Demanda Ponta (Mediana):");
+
+        jLabel21.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel21.setText("Atualizando...");
+
+        jLabel22.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel22.setText("Atualizando...");
+
+        jLabel23.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel23.setText("Demanda Fora de Ponta (Mediana):");
+
+        jLabel24.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel24.setText("Custo Anual para Mediana:");
+
+        jLabel25.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel25.setText("Atualizando...");
+
+        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jLabel8)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel11))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jLabel9)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel12))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jLabel10)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel13)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jLabel16)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel19))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jLabel15)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel18))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jLabel14)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel17)))
+                .add(47, 47, 47)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jLabel24)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel25))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jLabel23)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel22))
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(jLabel20)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel21)))
+                .add(20, 20, 20))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel8)
+                            .add(jLabel11))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel9)
+                            .add(jLabel12))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel10)
+                            .add(jLabel13)))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel20)
+                            .add(jLabel21))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel23)
+                            .add(jLabel22))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel24)
+                            .add(jLabel25)))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel14)
+                            .add(jLabel17))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel15)
+                            .add(jLabel18))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel16)
+                            .add(jLabel19))))
+                .add(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Horo-sazonal Verde", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 0, 14), new java.awt.Color(51, 153, 0))); // NOI18N
+
+        jLabel26.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel26.setText("Atualizando...");
+
+        jLabel27.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel27.setText("Demanda Ponta (Máxima):");
+
+        jLabel28.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel28.setText("Demanda Fora de Ponta (Máxima):");
+
+        jLabel29.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel29.setText("Atualizando...");
+
+        jLabel30.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel30.setText("Custo Anual para Máximo:");
+
+        jLabel31.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel31.setText("Atualizando...");
+
+        jLabel32.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel32.setText("Demanda Ponta (Média):");
+
+        jLabel33.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel33.setText("Atualizando...");
+
+        jLabel34.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel34.setText("Demanda Fora de Ponta (Média):");
+
+        jLabel35.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel35.setText("Atualizando...");
+
+        jLabel36.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel36.setText("Custo Anual para Média:");
+
+        jLabel37.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel37.setText("Atualizando...");
+
+        jLabel38.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel38.setText("Demanda Ponta (Mediana):");
+
+        jLabel39.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel39.setText("Atualizando...");
+
+        jLabel40.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel40.setText("Atualizando...");
+
+        jLabel41.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel41.setText("Demanda Fora de Ponta (Mediana):");
+
+        jLabel42.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel42.setText("Custo Anual para Mediana:");
+
+        jLabel43.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel43.setText("Atualizando...");
+
+        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jLabel27)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel26))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jLabel28)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel29))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jLabel30)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel31)))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 47, Short.MAX_VALUE)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jLabel36)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel37))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jLabel34)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel35))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jLabel32)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel33)))
+                .add(47, 47, 47)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jLabel42)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel43))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jLabel41)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel40))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jLabel38)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel39)))
+                .add(20, 20, 20))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel27)
+                            .add(jLabel26))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel28)
+                            .add(jLabel29))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel30)
+                            .add(jLabel31)))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel38)
+                            .add(jLabel39))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel41)
+                            .add(jLabel40))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel42)
+                            .add(jLabel43)))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel32)
+                            .add(jLabel33))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel34)
+                            .add(jLabel35))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel36)
+                            .add(jLabel37))))
+                .add(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Novo Contrato Proposto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PT Sans Caption", 1, 14))); // NOI18N
+
+        jLabel49.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel49.setText("Enquadramento Tarifário:");
+
+        jLabel50.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel50.setText("Demanda Ponta:");
+
+        jLabel51.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel51.setText("Demanda Fora de Ponta:");
+
+        enquadramentoAtual2.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        enquadramentoAtual2.setText("Atualizando...");
+
+        currentPeakDemand2.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        currentPeakDemand2.setText("Atualizando...");
+
+        currentOffPeakDemand2.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        currentOffPeakDemand2.setText("Atualizando...");
+
+        jLabel52.setFont(new java.awt.Font("PT Sans Caption", 1, 12)); // NOI18N
+        jLabel52.setText("Custo Anual:");
+
+        jLabel53.setFont(new java.awt.Font("PT Sans Caption", 0, 12)); // NOI18N
+        jLabel53.setText("Atualizando...");
+
+        org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel5Layout.createSequentialGroup()
+                        .add(jLabel51)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(currentOffPeakDemand2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jLabel52)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel53))
+                    .add(jPanel5Layout.createSequentialGroup()
+                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel5Layout.createSequentialGroup()
+                                .add(jLabel49)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(enquadramentoAtual2))
+                            .add(jPanel5Layout.createSequentialGroup()
+                                .add(jLabel50)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(currentPeakDemand2)))
+                        .add(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel5Layout.createSequentialGroup()
+                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel49)
+                    .add(enquadramentoAtual2))
+                .add(12, 12, 12)
+                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel50)
+                    .add(currentPeakDemand2))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel53)
+                        .add(jLabel52))
+                    .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                        .add(jLabel51)
+                        .add(currentOffPeakDemand2))))
+        );
+
         org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jSeparator1)
-            .add(jPanel4Layout.createSequentialGroup()
-                .add(0, 847, Short.MAX_VALUE)
-                .add(backToMainMenu))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
+                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jPanel4Layout.createSequentialGroup()
+                        .add(0, 0, Short.MAX_VALUE)
+                        .add(backToMainMenu))
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel4Layout.createSequentialGroup()
+                        .add(0, 0, 0)
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jSeparator1)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jPanel4Layout.createSequentialGroup()
+                                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(jPanel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .add(jPanel4Layout.createSequentialGroup()
+                                .add(jLabel1)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(comboYears, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 135, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(18, 18, 18)
+                                .add(jLabel2)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(extraDemand, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(jButton1))
+                            .add(jScrollPane1))))
+                .add(0, 0, 0))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(636, Short.MAX_VALUE)
-                .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel1)
+                    .add(comboYears, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel2)
+                    .add(extraDemand, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jButton1))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 212, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 97, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(12, 12, 12)
+                .add(jPanel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 97, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jSeparator1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(backToMainMenu))
         );
 
@@ -90,9 +760,35 @@ public class ContractStudy extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .add(jPanel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 60, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        if (comboYears.getSelectedItem().toString().equals("Selecione...")) {
+            JOptionPane.showMessageDialog(null,
+                    "Por favor selecione o ano que deseja gerar o relatório!",
+                    "Selecione um Ano",
+                    JOptionPane.ERROR_MESSAGE,
+                    new ImageIcon("src/icons/exclamation.png"));
+        } else {
+            if (isValidNumber(extraDemand.getText()) == false) {
+                JOptionPane.showMessageDialog(null,
+                        "Valor inválido para demanda extra!",
+                        "Demanda Extra",
+                        JOptionPane.ERROR_MESSAGE,
+                        new ImageIcon("src/icons/exclamation.png"));
+            } else {
+                if (extraDemand.getText().isEmpty()) {
+                    futureExtraDemand = 0.0;
+                }
+                fillTable(Integer.parseInt(comboYears.getSelectedItem().toString()));
+                generateContractStudy();
+            }
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void backToMainMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backToMainMenuActionPerformed
         int i;
@@ -117,7 +813,70 @@ public class ContractStudy extends javax.swing.JPanel {
     }//GEN-LAST:event_backToMainMenuActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backToMainMenu;
+    private javax.swing.JComboBox comboYears;
+    private javax.swing.JLabel currentCost;
+    private javax.swing.JLabel currentOffPeakDemand;
+    private javax.swing.JLabel currentOffPeakDemand2;
+    private javax.swing.JLabel currentPeakDemand;
+    private javax.swing.JLabel currentPeakDemand2;
+    private javax.swing.JLabel enquadramentoAtual;
+    private javax.swing.JLabel enquadramentoAtual2;
+    private javax.swing.JTextField extraDemand;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel39;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable tabela;
     // End of variables declaration//GEN-END:variables
 }
