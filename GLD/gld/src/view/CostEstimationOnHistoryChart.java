@@ -20,7 +20,7 @@ public class CostEstimationOnHistoryChart extends javax.swing.JPanel {
         setSize(x, y);
     }
 
-    public void startGraph(int interval, int offset) {
+    public void startGraph(int interval, int offset) throws Exception {
         ChartPanel panel = null;        
 //        panel = costEstimationOnHistoryCtrl.createCostEstimationOnHistoryGraphPanel(interval, offset);
         panel.setSize(this.getWidth(), this.getHeight());

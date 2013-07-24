@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import model.Cost;
 import model.Mensuration;
 import org.jfree.data.time.TimeSeries;
 
@@ -68,7 +69,7 @@ public class UpdaterCostThread implements Runnable {
                         updateCountValue(costActual);
                         kwValue();
                         updateSourceAvaible(m);
-                        kwValue.setText(String.format("%.3f",ctrl.kWValue()));
+                        
                     
                 }
             }
@@ -81,7 +82,7 @@ public class UpdaterCostThread implements Runnable {
         countValue.repaint();
     }     
     private double calculateCost(Mensuration m) {
-        return m.getPotency() * ctrl.energyValue();
+        return m.getPotency() * ctrl.energyValue(m);
     }
     
     private void updateLabel(Mensuration actual, Mensuration last){
@@ -102,7 +103,7 @@ public class UpdaterCostThread implements Runnable {
     }
 
     private void kwValue() {
-        ctrl.kWValue();
+        kwValue.setText(String.format("%.3f",ctrl.kWValue()));
         kwValue.revalidate();
         kwValue.repaint();
     }
