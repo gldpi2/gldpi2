@@ -15,9 +15,7 @@ public class ConsumptionMonth {
     private double offPeakDemand;
     private double peakExtra;
     private double offPeakExtra;
-    private boolean dryOrHumid;
-    private double peakAverageDemand;
-    private double offPeakAverageDemand;
+    private int dryOrHumid;
 
     public ConsumptionMonth() {
     }
@@ -94,32 +92,16 @@ public class ConsumptionMonth {
         this.offPeakExtra = offPeakExtra;
     }
 
-    public boolean isDryOrHumid() {
+    public int getDryOrHumid() {
         return dryOrHumid;
     }
 
-    public void setDryOrHumid(boolean dryOrHumid) {
+    public void setDryOrHumid(int dryOrHumid) {
         this.dryOrHumid = dryOrHumid;
-    }
-
-    public double getPeakAverageDemand() {
-        return peakAverageDemand;
-    }
-
-    public void setPeakAverageDemand(double peakAverageDemand) {
-        this.peakAverageDemand = peakAverageDemand;
-    }
-
-    public double getOffPeakAverageDemand() {
-        return offPeakAverageDemand;
-    }
-
-    public void setOffPeakAverageDemand(double offPeakAverageDemand) {
-        this.offPeakAverageDemand = offPeakAverageDemand;
     }
 
     @Override
     public String toString() {
-        return "ConsumptionMonth{" + "id=" + id + ", year=" + year + ", month=" + month + ", peakConsumption=" + peakConsumption + ", offPeakConsumption=" + offPeakConsumption + ", peakDemand=" + peakDemand + ", offPeakDemand=" + offPeakDemand + ", peakExtra=" + peakExtra + ", offPeakExtra=" + offPeakExtra + ", dryOrHumid=" + dryOrHumid + ", peakAverageDemand=" + peakAverageDemand + ", offPeakAverageDemand=" + offPeakAverageDemand + '}';
+        return "ConsumptionMonth{" + "id=" + id + ", year=" + year + ", month=" + month + ", peakConsumption=" + peakConsumption + ", offPeakConsumption=" + offPeakConsumption + ", peakDemand=" + peakDemand + ", offPeakDemand=" + offPeakDemand + ", peakExtra=" + peakExtra + ", offPeakExtra=" + offPeakExtra + ", dryOrHumid=" + dryOrHumid + '}';
     }
 }
